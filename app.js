@@ -16,7 +16,7 @@ var app = express();
 	app.set("view options", {
 	    layout: false
 	});
-	app.use("/public", express.static(__dirname + "/public"));
+	app.use("/static", express.static(__dirname + "/static"));
 	app.set('views', __dirname + '/views');
 	app.engine('html', require('ejs').renderFile);
 	app.set('port', process.env.PORT || 4455);
