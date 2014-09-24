@@ -10,7 +10,7 @@ var passport = require('passport');
 var auth = require('./authentication.js');
 
 // connect to the database
-mongoose.connect('mongodb://localhost/passport-example');
+mongoose.connect('mongodb://localhost/database');
 
 var app = express();
 	app.set("view options", {
@@ -19,7 +19,7 @@ var app = express();
 	app.use("/public", express.static(__dirname + "/public"));
 	app.set('views', __dirname + '/views');
 	app.engine('html', require('ejs').renderFile);
-	app.set('port', process.env.PORT || 3000);
+	app.set('port', process.env.PORT || 4455);
 	app.use(express.session({
 	    secret: 'my_precious'
 	}));

@@ -10,6 +10,10 @@
     "passport-twitter": "^1.0.2",
     "passport-google": "^0.3.0",
     "mongodb": "^1.4.12",
-    "mongoose": "^3.8.16",
+    "mongoose": "^3.8.16"
+  },
+  "repository": {
+	  "type": "git",
+	  "url": "git://github.com/earl93/Qube.git"
   }
 }
