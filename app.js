@@ -45,7 +45,7 @@ app.get('/account', ensureAuthenticated, function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('account.html', {
+            res.render('dashboard/dashboard.html', {
                 user: user
             });
         };
