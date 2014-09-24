@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Editor</title>
+  
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="jquery.splitter-0.14.0.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="jquery.splitter.css">
+  <style type="text/css" media="screen">
+    body {
+        overflow: hidden;
+        min-width:800px;
+        margin:0px;
+    }
+    
+    #editor { 
+        margin: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+      
+    #preview {
+        background-color: grey;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        position: absolute;
+    }
+  </style>
+    <script>
+
+        
+        
+jQuery(function($) {
+   $('#widget').split({orientation:'vertical', limit:100});
+});
+
+    </script>
+    </head>
+<body>
+<div id="widget" style="width:100%; height:800px">
+  <div id="foo">
+     <pre id="editor"></pre>
+   </div> <!-- end of #foo -->
+   <div id="bar"><iframe id="preview"></iframe></div>
+</div> <!-- end of #widget -->
+    
+<script src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var intro = ['<html>',
+                '<style>',
+                '  body {',
+                '  padding-top: 80px;',
+                '  text-align: center;',
+                '  font-family: monaco, monospace;',
+                '}',
+                'h1 {',
+                  '  font-size: 30px',
+                '}',
+                'h2 {',
+                '  font-size: 20px;',
+                '}',
+                'span {',
+                '  background: #fd0;',
+                '}',
+                '</style>',
+                '<h1>Testing <span>Editor yay </span></h1><br>',
+                '<h2>(university of waterlooppp)</h2>',
+                '</html>'].join('\n');
+                  
+                  
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/tomorrow_night_eighties");
+    editor.getSession().setMode("ace/mode/html");
+    editor.setValue(intro);
+    
+    var iframe = document.getElementById('preview'),
+    iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+    iframedoc.body.setAttribute('tabindex', 0);
+    
+    iframedoc.body.innerHTML = editor.getValue();
+    
+    editor.getSession().on('change', function(e) {
+        iframedoc.body.innerHTML = editor.getValue();
+    });
+    
+
+</script>
+
+</body>
+</html>
