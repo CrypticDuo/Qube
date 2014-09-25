@@ -1,8 +1,8 @@
- function(){
+ (function(){
     jQuery(function($) {
        $('#widget').split({orientation:'vertical', limit:100});
     });
-    
+
     var intro = ['<html>',
                 '<style>',
                 '  body {',
@@ -39,4 +39,4 @@
     editor.getSession().on('change', function(e) {
         iframedoc.body.innerHTML = editor.getValue();
     });
-}();
+})();
