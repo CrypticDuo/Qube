@@ -32,7 +32,7 @@
     htmlEditor.setTheme("ace/theme/tomorrow_night_eighties");
     cssEditor.setTheme("ace/theme/github");
     htmlEditor.getSession().setMode("ace/mode/html");
-    css.getSession().setMode("ace/mode/css");
+    cssEditor.getSession().setMode("ace/mode/css");
     htmlEditor.setValue(initHTML);
     cssEditor.setValue(initCSS);
     
