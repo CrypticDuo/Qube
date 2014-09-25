@@ -42,7 +42,11 @@
     iframedoc.body.innerHTML = getPrevContent();
     
     htmlEditor.getSession().on('change', function(e) {
-        iframedoc.body.innerHTML = editor.getValue();
+        iframedoc.body.innerHTML = getPrevContent();
     });
+
+	cssEditor.getSession().on('change', function(e) {
+		iframedoc.body.innerHTML = getPrevContent();
+	});
 
 })();
