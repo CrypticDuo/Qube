@@ -4,6 +4,12 @@
 		<title>Qube</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../static/css/paul.css">
+
+		<!--login popup-->
+		<script type="text/javascript" src="../static/framework/login-popup/js/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="../static/framework/login-popup/js/jquery.leanModal.min.js"></script>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+		<link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
 	</head>
 	<body>
 		<div class="container-fluid top-container">
@@ -12,7 +18,7 @@
 			<div style="float:right;">
 				<a href="#" style="display:inline-block; margin-right:20px; color:#fff; cursor:pointer;">About Us</a>
 				<a href="#" style="display:inline-block; margin-right:20px; color:#fff; cursor:pointer;">Help</a>
-				<a href="/auth/facebook" style="display:inline-block; font-size:15px; color:#fff; cursor:pointer; background-color:#007a87; padding:4px 15px; border-radius: 3px;">Login here</a>
+				<a id="modal_trigger" href="#modal" class="btn" style="display:inline-block; font-size:15px; color:#fff; cursor:pointer; background-color:#007a87; padding:4px 15px; border-radius: 3px;">Login here</a>
 			</div>
 		</div>
 			<div class="container intro-container">
@@ -33,7 +39,65 @@
 
 
 
+		<div id="modal" class="popupContainer" style="display:none;">
+			<header class="popupHeader">
+				<span class="header_title">Login</span>
+				<span class="modal_close"><i class="fa fa-times"></i></span>
+			</header>
+			
+			<section class="popupBody">
+				<!-- Social Login -->
+				<div class="social_login">
+					<a href="/auth/facebook" class="social_box fb">
+						<span class="icon"><i class="fa fa-facebook"></i></span>
+						<span class="icon_title fb_title" style="color:#fff;">Login with Facebook</span>
+						
+					</a>
+
+					<a href="/auth/twitter" class="social_box twitter">
+						<span class="icon"><i class="fa fa-twitter"></i></span>
+						<span class="icon_title" style="color:#fff;">Login with Twitter</span>
+					</a>
+
+					<a href="/auth/google" class="social_box google">
+						<span class="icon"><i class="fa fa-google-plus"></i></span>
+						<span class="icon_title">Login with Google</span>
+					</a>
+				</div>
+					
+			</section>
+		</div>
 		<!--<a href="/auth/facebook"> Login via Facebook </a>-->
 	</body>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	$("#modal_trigger").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });
+
+	$(function(){
+		// Calling Login Form
+		$("#login_form").click(function(){
+			$(".social_login").hide();
+			$(".user_login").show();
+			return false;
+		});
+
+		// Calling Register Form
+		$("#register_form").click(function(){
+			$(".social_login").hide();
+			$(".user_register").show();
+			$(".header_title").text('Register');
+			return false;
+		});
+
+		// Going back to Social Forms
+		$(".back_btn").click(function(){
+			$(".user_login").hide();
+			$(".user_register").hide();
+			$(".social_login").show();
+			$(".header_title").text('Login');
+			return false;
+		});
+
+	})
+</script>
 </html>

@@ -6,7 +6,7 @@ body{
 .qube-header{
 	background:transparent;
 	position:relative;
-	z-index:1000;
+	z-index:3;
 	top:20px;
 	color:#fff;
 	padding:7px 30px;
