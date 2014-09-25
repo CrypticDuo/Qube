@@ -33,8 +33,8 @@
     cssEditor.setTheme("ace/theme/github");
     htmlEditor.getSession().setMode("ace/mode/html");
     cssEditor.getSession().setMode("ace/mode/css");
-    htmlEditor.setValue(initHTML);
-    cssEditor.setValue(initCSS);
+    htmlEditor.setValue(initHTML,1);
+    cssEditor.setValue(initCSS,1);
     
     var iframe = document.getElementById('preview'),
     iframedoc = iframe.contentDocument || iframe.contentWindow.document;
