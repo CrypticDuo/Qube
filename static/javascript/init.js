@@ -1,11 +1,13 @@
  (function(){
     jQuery(function($) {
-       $('#widget').split({orientation:'vertical', limit:100});
+       $('#dashboard').split({orientation:'vertical', position: '30%',limit:10});
+       $('#navLeft').split({orientation:'horizontal', limit:10});
     });
 
-    var intro = ['<html>',
-                '<style>',
-                '  body {',
+    var initHTML = ['<h1>Testing <span> Qube </span></h1><br>',
+                '<h2>(university of waterlooppp)</h2>'].join('\n');
+
+    var initCSS = ['body {',
                 '  padding-top: 80px;',
                 '  text-align: center;',
                 '  font-family: monaco, monospace;',
@@ -18,25 +20,29 @@
                 '}',
                 'span {',
                 '  background: #fd0;',
-                '}',
-                '</style>',
-                '<h1>Testing <span>Editor yay </span></h1><br>',
-                '<h2>(university of waterlooppp)</h2>',
-                '</html>'].join('\n');
+                '}'].join('\n');
                   
-                  
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/tomorrow_night_eighties");
-    editor.getSession().setMode("ace/mode/html");
-    editor.setValue(intro);
+    function getPrevContent(){
+        return '<html>' + '<style>' + cssEditor.getValue() + '</style>' + htmlEditor.getValue() + '</html>';
+    }              
+
+    var htmlEditor = ace.edit("htmlEditor");
+    var cssEditor = ace.edit("cssEditor");
+
+    htmlEditor.setTheme("ace/theme/tomorrow_night_eighties");
+    cssEditor.setTheme("ace/theme/github");
+    htmlEditor.getSession().setMode("ace/mode/html");
+    css.getSession().setMode("ace/mode/css");
+    htmlEditor.setValue(initHTML);
+    cssEditor.setValue(initCSS);
     
     var iframe = document.getElementById('preview'),
     iframedoc = iframe.contentDocument || iframe.contentWindow.document;
     iframedoc.body.setAttribute('tabindex', 0);
+    iframedoc.body.innerHTML = getPrevContent();
     
-    iframedoc.body.innerHTML = editor.getValue();
-    
-    editor.getSession().on('change', function(e) {
+    htmlEditor.getSession().on('change', function(e) {
         iframedoc.body.innerHTML = editor.getValue();
     });
+
 })();
