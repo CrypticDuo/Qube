@@ -1,0 +1,78 @@
+body{
+	margin:0;
+	padding:0;
+}
+
+.qube-header{
+	background:transparent;
+	position:relative;
+	z-index:1000;
+	top:20px;
+	color:#fff;
+	padding:7px 30px;
+	margin:0 auto;
+}
+
+.top-container{
+	position:relative;
+	width:100%;
+	height:600px;
+	background-color:#333;
+	color:#fff;
+	right:0;
+	left:0;
+	top:0;
+	background: url(../p2.jpg);
+	background-size:100%;
+	overflow: hidden;
+}
+.top-container a{
+	text-decoration: none;
+}
+.intro-container{
+	position:relative;
+	height:100%;
+	top:-52px;
+	/*height:575px;
+	top:25px;*/
+}
+
+.intro-area{
+	text-align:center;
+	height:100%;
+	margin:0 auto;
+	padding:0 25px;
+	display:table;
+	table-layout: fixed;
+}
+.intro-content{
+	position:relative;
+	height:100%;
+	content:100%;
+    min-height: 1px;
+    position:relative;
+    display:table-cell;
+    vertical-align:middle;
+    float:none;
+}
+.qube-stats-container{
+	text-align:center;
+	height:100%;
+	margin:0 auto;
+	padding:0 25px;
+	display:table;
+	table-layout: fixed;
+	background-color:#234;
+}
+.qube-stats{
+	width:100%;
+	position:relative;
+	height:65px;
+	content:100%;
+    min-height: 1px;
+    position:relative;
+    display:table-cell;
+    vertical-align:middle;
+    float:none;
+    padding:20px 0px;
+}
