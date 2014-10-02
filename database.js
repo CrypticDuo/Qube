@@ -3,7 +3,7 @@ var database = {
 		User.find(
 			{
 				oauthID: userID,
-				playlist.$.name: name
+				"playlist.$.name": name
 			}, function(err, result){
 			if(err){
 				// wrong with finding
@@ -11,8 +11,10 @@ var database = {
 			}
 			// if user with the specified query doesn't exist
 			if(!result.length){
-				result.update({
-					oauthID: userId,
+				result.update(
+					{
+						oauthID: userId,
+					},
 					{
 						"$push":
 						{
@@ -21,8 +23,7 @@ var database = {
 								videos: []
 							}
 						}
-					}
-				},function(err,result){
+					},function(err,result){
 					if(err){
 						//updating fails
 						console.log(err);
