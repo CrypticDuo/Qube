@@ -4,13 +4,13 @@ var database = {
 	createPlaylist : function(userID, name){
 		User.findById(userID).find(
 			{
-				oauthID: userID,
 				"playlist.$.name": name
 			}, function(err, result){
 			if(err){
 				// wrong with finding
 				console.log(err);
 			}
+			console.log(result);
 			// if user with the specified query doesn't exist
 			if(!result.length){
 				User.update(
