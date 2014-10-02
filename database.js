@@ -2,8 +2,9 @@ var User = require('./user.js');
 var ObjectId = require('mongodb').ObjectID;
 var database = {
 	createPlaylist : function(userID, name){
-		User.findById(userID).find(
+		User.find(
 			{
+				oauthID: userID,
 				"playlist.$.name": name
 			}, function(err, result){
 			if(err){
@@ -32,7 +33,7 @@ var database = {
 					}
 					else{
                         console.log("adding new playlist ...");
-						done(null, result);
+						//done(null, result);
 					}
 				});
 			}
