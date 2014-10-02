@@ -1,3 +1,5 @@
+var User = require('./user.js');
+
 var database = {
 	createPlaylist : function(userID, name){
 		User.find(
