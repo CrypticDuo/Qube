@@ -30,6 +30,10 @@ var database = {
 						//updating fails
 						console.log(err);
 					}
+					else{
+                        console.log("adding new playlist ...");
+						done(null, result);
+					}
 				});
 			}
 		});
