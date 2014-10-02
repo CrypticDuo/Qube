@@ -25,7 +25,8 @@ module.exports = passport.use(new FacebookStrategy({
                 var user = new User({
                     oauthID: profile.id,
                     name: profile.displayName,
-                    created: Date.now()
+                    created: Date.now(),
+                    playlist: []
                 });
                 user.save(function(err) {
                     if (err) {
@@ -39,6 +40,8 @@ module.exports = passport.use(new FacebookStrategy({
         });
     }
 ));
+
+
 /*passport.use(new TwitterStrategy({
         consumerKey: config.twitter.consumerKey,
         consumerSecret: config.twitter.consumerSecret,

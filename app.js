@@ -8,6 +8,7 @@ var User = require('./user.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var auth = require('./authentication.js');
+var db = require('./database.js');
 
 // connect to the database
 mongoose.connect('mongodb://localhost/database');
@@ -51,6 +52,10 @@ app.get('/account', ensureAuthenticated, function(req, res) {
         };
     });
 });
+
+app.get('/addPlaylist', function(req, res){
+    db.createPlaylist(req.session.passport.user, req.playlistName);
+})
 
 app.get('/', function(req, res) {
     res.render('index.html', {
