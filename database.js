@@ -1,8 +1,8 @@
 var User = require('./user.js');
-
+var ObjectId = require('mongodb').ObjectID;
 var database = {
 	createPlaylist : function(userID, name){
-		User.find(
+		User.findById(userID).find(
 			{
 				_id: ObjectId(userID),
 				"playlist.$.name": name
