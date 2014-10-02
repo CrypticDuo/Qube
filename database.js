@@ -1,7 +1,7 @@
 var User = require('./user.js');
 var ObjectId = require('mongodb').ObjectID;
 var database = {
-	createPlaylist : function(userID, pname){
+	createPlaylist : function(userID, pname, callback){
 		User.find({
 				oauthID: userID,
 				playlist: {
@@ -12,7 +12,7 @@ var database = {
 			}, function(err, result){
 			if(err){
 				console.log("ERROR : " + err);
-				return {status:"Fail", msg:"User not found"};
+				callback ({status:"Fail", msg:"User not found"});return;
 			}
 			console.log("RESULT : " + result);
 			if(!result.length){
@@ -31,13 +31,13 @@ var database = {
 					},function(err,result){
 					if(err){
 						console.log(err);
-						return {status:"Fail", msg:"Could not add playlist"};
+						callback({status:"Fail", msg:"Could not add playlist"});return;
 					}
 				});
-				return {status:"Success"};
+				callback({status:"Success"});return;
 			}
 			else{
-				return {status:"Fail", msg:"Playlist already exists"};
+				callback({status:"Fail", msg:"Playlist already exists"});return;
 			}
 		});
 	}
