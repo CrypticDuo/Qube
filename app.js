@@ -54,7 +54,7 @@ app.get('/account', ensureAuthenticated, function(req, res) {
 });
 
 app.get('/addPlaylist', function(req, res){
-    db.createPlaylist(req.session.passport.user, req.playlistName);
+    db.createPlaylist(req.session.passport.user, req.query.playlistName);
 })
 
 app.get('/', function(req, res) {
