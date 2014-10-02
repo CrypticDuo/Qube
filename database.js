@@ -1,8 +1,8 @@
 var User = require('./user.js');
-
+var ObjectId = require('mongodb').ObjectID;
 var database = {
 	createPlaylist : function(userID, name){
-		User.find(
+		User.findById(userID).find(
 			{
 				oauthID: userID,
 				"playlist.$.name": name
@@ -29,6 +29,10 @@ var database = {
 					if(err){
 						//updating fails
 						console.log(err);
+					}
+					else{
+                        console.log("adding new playlist ...");
+						done(null, result);
 					}
 				});
 			}
