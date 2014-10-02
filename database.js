@@ -1,11 +1,15 @@
 var User = require('./user.js');
 var ObjectId = require('mongodb').ObjectID;
 var database = {
-	createPlaylist : function(userID, name){
+	createPlaylist : function(userID, pname){
 		User.find(
 			{
 				oauthID: userID,
-				"playlist.$.name": name
+				playlist: {
+					"$elemMatch":{
+						name:pname
+					}
+				}
 			}, function(err, result){
 			if(err){
 				// wrong with finding
@@ -22,7 +26,7 @@ var database = {
 						"$push":
 						{
 							playlist: {
-								name: name,
+								name: pname,
 								videos: []
 							}
 						}
