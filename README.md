@@ -1,3 +1,3 @@
 Qube
 =====
-Website Templating Application
+Youtube Playlist Application
