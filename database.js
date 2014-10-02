@@ -11,7 +11,7 @@ var database = {
 			}
 			// if user with the specified query doesn't exist
 			if(!result.length){
-				result.update(
+				User.update(
 					{
 						oauthID: userId,
 					},
