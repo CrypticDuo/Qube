@@ -4,7 +4,7 @@ var database = {
 	createPlaylist : function(userID, name){
 		User.find(
 			{
-				oauthID: userID,
+				_id: ObjectId(userID),
 				"playlist.$.name": name
 			}, function(err, result){
 			if(err){
@@ -15,7 +15,7 @@ var database = {
 			if(!result.length){
 				User.update(
 					{
-						oauthID: userId,
+						_id: ObjectId(userID),
 					},
 					{
 						"$push":
