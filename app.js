@@ -54,7 +54,7 @@ app.get('/account', ensureAuthenticated, function(req, res) {
 });
 
 app.post('/addPlaylist', function(req, res){
-    db.createPlaylist(req.user.oauthID, req.query.playlistName);
+    res.json(db.createPlaylist(req.user.oauthID, req.query.playlistName));
 });
 
 app.get('/', function(req, res) {

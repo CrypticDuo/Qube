@@ -11,11 +11,10 @@ var database = {
 				}
 			}, function(err, result){
 			if(err){
-				// wrong with finding
 				console.log("ERROR : " + err);
+				return {status:"Fail", msg:"User not found"};
 			}
 			console.log("RESULT : " + result);
-			// if user with the specified query doesn't exist
 			if(!result.length){
 				User.update(
 					{
@@ -31,13 +30,14 @@ var database = {
 						}
 					},function(err,result){
 					if(err){
-						//updating fails
 						console.log(err);
-					}
-					else{
-                        console.log("***** ADDED A PLAYLIST *****");
+						return {status:"Fail", msg:"Could not add playlist"};
 					}
 				});
+				return {status:"Success"};
+			}
+			else{
+				return {status:"Fail", msg:"Playlist already exists"};
 			}
 		});
 	}
