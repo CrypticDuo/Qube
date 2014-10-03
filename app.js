@@ -89,7 +89,7 @@ app.get('/listAllPlaylist', ensureAuthenticated, function(req, res){
     });
 });
 app.get('/listAllVideos', ensureAuthenticated, function(req, res){
-    db.listAllPlaylists(req.user.oauthID, req.query.playlistName, function(result){
+    db.listAllVideos(req.user.oauthID, req.query.playlistName, function(result){
         res.json(result);
     });
 });
