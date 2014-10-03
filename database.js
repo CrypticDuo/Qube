@@ -2,7 +2,8 @@ var User = require('./user.js');
 var ObjectId = require('mongodb').ObjectID;
 var database = {
     createPlaylist: function(userID, pname, callback) {
-        User.find({
+        console.log(pname);
+		User.find({
             oauthID: userID,
             playlist: {
                 "$elemMatch": {
@@ -19,7 +20,7 @@ var database = {
                 return;
             }
             console.log("RESULT : " + user);
-            if (!user) {
+            if (!user.length) {
                 User.update({
                     oauthID: userID,
                 }, {
@@ -46,7 +47,8 @@ var database = {
                 });
                 return;
             } else {
-                callback({
+                console.log("imback");
+				callback({
                     status: "Fail",
                     msg: "Playlist already exists"
                 });
