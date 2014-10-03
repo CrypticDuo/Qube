@@ -33,19 +33,20 @@ var database = {
                 }, function(err, user) {
                     if (err) {
                         console.log(err);
-                    } else {
-                        console.log("adding new playlist ...");
                         callback({
                             status: "Fail",
                             msg: "Could not add playlist"
                         });
                         return;
+                    } else {
+                        console.log("adding new playlist ...");
+                        callback({
+		                    status: "Success"
+		                });
+		                return;
                     }
                 });
-                callback({
-                    status: "Success"
-                });
-                return;
+                
             } else {
                 console.log("imback");
 				callback({
