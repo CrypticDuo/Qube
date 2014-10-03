@@ -6,7 +6,6 @@ var database = {
 		User.find({
             oauthID: userID,
             "playlist.name": pname
-            }
         }, function(err, user) {
             if (err) {
                 console.log("ERROR : " + err);
@@ -57,6 +56,34 @@ var database = {
     listAllPlaylist: function(userID, callback) {
         User.find({
             oauthID: userID
+        }, function(err, user) {
+            if (err) {
+                console.log("ERROR : " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+                return;
+            }
+            if(!err && user != null){
+                callback({
+                    status: "Success",
+                    data: user.playlist
+                });
+                return;
+            }
+        });
+    },
+    listAllVideo: function(userID, pname, callback) {
+        User.find({
+            oauthID: userID 
+        },
+        {
+            playlist: {
+                "$elemMatch": {
+                    name : "name123"
+                }
+            }
         }, function(err, user) {
             if (err) {
                 console.log("ERROR : " + err);
@@ -149,7 +176,7 @@ var database = {
                 }
         });
     },
-    removeVideoToPlaylist: function(userID, pname, vid, callback) {
+    removeVideoFromPlaylist: function(userID, pname, vid, callback) {
         User.update({
                 oauthID: userID,
                 "playlist.name": pname
