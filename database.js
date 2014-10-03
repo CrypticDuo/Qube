@@ -76,7 +76,7 @@ var database = {
             }, function(err, user) {
                 if (err) {
                     console.log(err);
-                })
+                }
         });
 };
 
