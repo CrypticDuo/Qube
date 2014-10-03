@@ -70,9 +70,10 @@ var database = {
                 return;
             }
             callback({
-                status: "Success"
+                status: "Success",
+                data: user
             });
-            return user;
+            return;
         });
     },
     addVideoToPlaylist: function(userID, pname, vid, callback) {
