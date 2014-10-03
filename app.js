@@ -9,23 +9,25 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var auth = require('./authentication.js');
 var db = require('./database.js');
+var bodyParser = require('body-parser');
 
 // connect to the database
 mongoose.connect('mongodb://localhost/database');
 
 var app = express();
-	app.set("view options", {
-	    layout: false
-	});
-	app.use("/static", express.static(__dirname + "/static"));
-	app.set('views', __dirname + '/views');
-	app.engine('html', require('ejs').renderFile);
-	app.set('port', process.env.PORT || 4455);
-	app.use(express.session({
-	    secret: 'my_precious'
-	}));
-	app.use(passport.initialize());
-	app.use(passport.session());
+app.set("view options", {
+    layout: false
+});
+app.use(bodyParser.json());
+app.use("/static", express.static(__dirname + "/static"));
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
+app.set('port', process.env.PORT || 4455);
+app.use(express.session({
+    secret: 'my_precious'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // serialize and deserialize
 passport.serializeUser(function(user, done) {
@@ -54,7 +56,8 @@ app.get('/account', ensureAuthenticated, function(req, res) {
 });
 
 app.post('/addPlaylist', function(req, res){
-    db.createPlaylist(req.user.oauthID, req.query.playlistName, function(result){
+    console.log(req.body);
+    db.createPlaylist(req.user.oauthID, req.body.user.playlistName, function(result){
 		res.json(result);
 	});
 });

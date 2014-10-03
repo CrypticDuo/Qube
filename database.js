@@ -15,7 +15,7 @@ var database = {
 				callback ({status:"Fail", msg:"User not found"});return;
 			}
 			console.log("RESULT : " + result);
-			if(!result.length){
+			if(!result.length()){
 				User.update(
 					{
 						oauthID: userID,
