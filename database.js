@@ -68,7 +68,7 @@ var database = {
             if(!err && user != null){
                 callback({
                     status: "Success",
-                    data: user.playlist
+                    data: user[0].playlist
                 });
                 return;
             }
@@ -96,7 +96,7 @@ var database = {
             if(!err && user != null){
                 callback({
                     status: "Success",
-                    data: user.playlist[0].videos
+                    data: user.playlist.videos
                 });
                 return;
             }
@@ -155,9 +155,12 @@ var database = {
         User.update({
                 oauthID: userID,
                 "playlist.name": pname
-            }, {
+            }, 
+            {
                 "$pull": {
-                    "playlist": pname
+                    "playlist": {
+                        name:pname
+                    }
                 }
             }, function(err, user) {
                 if (err) {
