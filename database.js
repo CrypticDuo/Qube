@@ -96,7 +96,7 @@ var database = {
             if(!err && user != null){
                 callback({
                     status: "Success",
-                    data: user.playlist.videos
+                    data: user[0].playlist[0].videos
                 });
                 return;
             }
