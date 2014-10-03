@@ -77,7 +77,8 @@ var database = {
                 if (err) {
                     console.log(err);
                 }
-        });
+    	});
+    }
 };
 
 module.exports = database;
