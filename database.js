@@ -5,10 +5,7 @@ var database = {
         console.log(pname);
 		User.find({
             oauthID: userID,
-            playlist: {
-                "$elemMatch": {
-                    name: pname
-                }
+            "playlist.name": pname
             }
         }, function(err, user) {
             if (err) {
@@ -69,19 +66,95 @@ var database = {
                 });
                 return;
             }
-            callback({
-                status: "Success",
-                data: user
-            });
-            return;
+            if(!err && user != null){
+                callback({
+                    status: "Success",
+                    data: user.playlist
+                });
+                return;
+            }
         });
     },
     addVideoToPlaylist: function(userID, pname, vid, callback) {
+        User.find({
+            oauthID: userID,
+            "playlist.videos": vid
+        }, function(err, user) {
+            if (err) {
+                console.log("ERROR : " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+                return;
+            }
+            console.log("RESULT : " + user);
+            if (!user.length) {
+                User.update({
+                        oauthID: userID,
+                        "playlist.name": pname
+                    }, {
+                        "$push": {
+                            "playlist.$.videos": vid
+                        }
+                    }, function(err, user) {
+                        if (err) {
+                            console.log("ERROR : " + err);
+                            callback({
+                                status: "Fail",
+                                msg: "User not found"
+                            });
+                            return;
+                        }
+                        if(!err && user != null){
+                            callback({
+                                status: "Success"
+                            });
+                            return;
+                        }
+            	});
+                
+            } else {
+                console.log("imback");
+                callback({
+                    status: "Fail",
+                    msg: "Video already exists"
+                });
+                return;
+            }
+        });
+    },
+    removePlaylist: function(userID, pname, callback) {
         User.update({
                 oauthID: userID,
                 "playlist.name": pname
             }, {
-                "$push": {
+                "$pull": {
+                    "playlist": pname
+                }
+            }, function(err, user) {
+                if (err) {
+                    console.log("ERROR : " + err);
+                    callback({
+                        status: "Fail",
+                        msg: "User not found"
+                    });
+                    return;
+                }
+                if(!err && user != null){
+                    callback({
+                        status: "Success"
+                    });
+                    return;
+                }
+        });
+    },
+    removeVideoToPlaylist: function(userID, pname, vid, callback) {
+        User.update({
+                oauthID: userID,
+                "playlist.name": pname
+            }, {
+                "$pull": {
                     "playlist.$.videos": vid
                 }
             }, function(err, user) {
@@ -93,11 +166,13 @@ var database = {
                     });
                     return;
                 }
-                callback({
-                    status: "Success"
-                });
-                return;
-    	});
+                if(!err && user != null){
+                    callback({
+                        status: "Success"
+                    });
+                    return;
+                }
+        });
     }
 };
 
