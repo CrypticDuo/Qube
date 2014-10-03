@@ -18,7 +18,7 @@ var app = express();
 app.set("view options", {
     layout: false
 });
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded());
 app.use("/static", express.static(__dirname + "/static"));
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -28,6 +28,7 @@ app.use(express.session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.urlencoded({extended:true}));
 
 // serialize and deserialize
 passport.serializeUser(function(user, done) {
@@ -56,8 +57,7 @@ app.get('/account', ensureAuthenticated, function(req, res) {
 });
 
 app.post('/addPlaylist', function(req, res){
-    console.log(req.body);
-    db.createPlaylist(req.user.oauthID, req.body.user.playlistName, function(result){
+    db.createPlaylist(req.user.oauthID, req.body.playlistName, function(result){
 		res.json(result);
 	});
 });
