@@ -12,7 +12,7 @@ module.exports = passport.use(new FacebookStrategy({
         callbackURL: config.facebook.callbackURL
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log(profile);
+        console.log(profile.displayName + " has logged in.");
         User.findOne({
             oauthID: profile.id
         }, function(err, user) {
