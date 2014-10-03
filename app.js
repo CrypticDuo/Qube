@@ -68,7 +68,16 @@ app.post('/addVideoToPlaylist', ensureAuthenticated, function(req, res){
         res.json(result);
     });
 });
-
+app.post('/removePlaylist', ensureAuthenticated, function(req, res){
+    db.removePlaylist(req.user.oauthID, req.body.playlistName, function(result){
+        res.json(result);
+    });
+});
+app.post('/removeVideoFromPlaylist', ensureAuthenticated, function(req, res){
+    db.removeVideoFromPlaylist(req.user.oauthID, req.body.playlistName, req.body.videoID, function(result){
+        res.json(result);
+    });
+});
 app.get('/', function(req, res) {
     res.render('index.html', {
         user: req.user
