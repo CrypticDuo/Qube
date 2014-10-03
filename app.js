@@ -40,7 +40,9 @@ passport.deserializeUser(function(id, done) {
     })
 });
 
-// RENDERING
+
+
+// RENDERING *****
 app.get('/account', ensureAuthenticated, function(req, res) {
     User.findById(req.session.passport.user, function(err, user) {
         if (err) {
@@ -50,32 +52,6 @@ app.get('/account', ensureAuthenticated, function(req, res) {
                 user: user
             });
         };
-    });
-});
-
-app.post('/addPlaylist', ensureAuthenticated, function(req, res){
-    db.createPlaylist(req.user.oauthID, req.body.playlistName, function(result){
-		res.json(result);
-	});
-});
-app.get('/listAllPlaylist', ensureAuthenticated, function(req, res){
-    db.listAllPlaylist(req.user.oauthID, function(result){
-        res.json(result);
-    });
-});
-app.post('/addVideoToPlaylist', ensureAuthenticated, function(req, res){
-    db.addVideoToPlaylist(req.user.oauthID, req.body.playlistName, req.body.videoID, function(result){
-        res.json(result);
-    });
-});
-app.post('/removePlaylist', ensureAuthenticated, function(req, res){
-    db.removePlaylist(req.user.oauthID, req.body.playlistName, function(result){
-        res.json(result);
-    });
-});
-app.post('/removeVideoFromPlaylist', ensureAuthenticated, function(req, res){
-    db.removeVideoFromPlaylist(req.user.oauthID, req.body.playlistName, req.body.videoID, function(result){
-        res.json(result);
     });
 });
 app.get('/', function(req, res) {
@@ -93,13 +69,48 @@ app.get('/auth/facebook/callback',
     }),
     function(req, res) {
         res.redirect('/account');
-	}
+    }
 );
 app.get('/logout', function(req, res) {
     req.logout();
     console.log("logging out...");
     res.redirect('/');
 });
+
+
+
+
+
+
+// API *****
+app.get('/listAllPlaylist', ensureAuthenticated, function(req, res){
+    db.listAllPlaylist(req.user.oauthID, function(result){
+        res.json(result);
+    });
+});
+app.post('/addPlaylist', ensureAuthenticated, function(req, res){
+    db.createPlaylist(req.user.oauthID, req.body.playlistName, function(result){
+		res.json(result);
+	});
+});
+app.post('/addVideoToPlaylist', ensureAuthenticated, function(req, res){
+    db.addVideoToPlaylist(req.user.oauthID, req.body.playlistName, req.body.videoID, function(result){
+        res.json(result);
+    });
+});
+app.post('/removePlaylist', ensureAuthenticated, function(req, res){
+    db.removePlaylist(req.user.oauthID, req.body.playlistName, function(result){
+        res.json(result);
+    });
+});
+app.post('/removeVideoFromPlaylist', ensureAuthenticated, function(req, res){
+    db.removeVideoFromPlaylist(req.user.oauthID, req.body.playlistName, req.body.videoID, function(result){
+        res.json(result);
+    });
+});
+
+
+
 
 
 app.listen(app.get('port'));
