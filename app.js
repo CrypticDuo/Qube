@@ -61,6 +61,18 @@ app.post('/addPlaylist', function(req, res){
 		res.json(result);
 	});
 });
+app.get('/listAllPlaylist', function(req, res){
+    db.listAllPlaylist(req.user.oauthID, function(result){
+        res.json(result);
+    });
+});
+app.post('/addVideoToPlaylist', function(req, res){
+    console.log(req.body);
+    db.addVideoToPlaylist(req.user.oauthID, req.body.user.playlistName, req.body.user.videoID, function(result){
+        res.json(result);
+    });
+});
+
 app.get('/', function(req, res) {
     res.render('index.html', {
         user: req.user

@@ -54,18 +54,25 @@ var database = {
             }
         });
     },
-    listAllPlaylist: function(userID) {
+    listAllPlaylist: function(userID, callback) {
         User.find({
             oauthID: userID
         }, function(err, user) {
             if (err) {
-                console.log(err);
+                console.log("ERROR : " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+                return;
             }
-
+            callback({
+                status: "Success"
+            });
             return user;
         });
     },
-    addVideoToPlaylist: function(userID, pname, vid) {
+    addVideoToPlaylist: function(userID, pname, vid, callback) {
         User.update({
                 oauthID: userID,
                 "playlist.name": pname
@@ -75,8 +82,17 @@ var database = {
                 }
             }, function(err, user) {
                 if (err) {
-                    console.log(err);
+                    console.log("ERROR : " + err);
+                    callback({
+                        status: "Fail",
+                        msg: "User not found"
+                    });
+                    return;
                 }
+                callback({
+                    status: "Success"
+                });
+                return;
     	});
     }
 };
