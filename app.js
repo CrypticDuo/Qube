@@ -84,7 +84,12 @@ app.get('/logout', function(req, res) {
 
 // API *****
 app.get('/listAllPlaylist', ensureAuthenticated, function(req, res){
-    db.listAllPlaylist(req.user.oauthID, function(result){
+    db.listAllPlaylists(req.user.oauthID, function(result){
+        res.json(result);
+    });
+});
+app.get('/listAllVideos', ensureAuthenticated, function(req, res){
+    db.listAllPlaylists(req.user.oauthID, req.query.playlistName, function(result){
         res.json(result);
     });
 });
@@ -108,7 +113,6 @@ app.post('/removeVideoFromPlaylist', ensureAuthenticated, function(req, res){
         res.json(result);
     });
 });
-
 
 
 

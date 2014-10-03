@@ -53,7 +53,7 @@ var database = {
             }
         });
     },
-    listAllPlaylist: function(userID, callback) {
+    listAllPlaylists: function(userID, callback) {
         User.find({
             oauthID: userID
         }, function(err, user) {
@@ -74,14 +74,14 @@ var database = {
             }
         });
     },
-    listAllVideo: function(userID, pname, callback) {
+    listAllVideos: function(userID, pname, callback) {
         User.find({
             oauthID: userID 
         },
         {
             playlist: {
                 "$elemMatch": {
-                    name : "name123"
+                    name : pname
                 }
             }
         }, function(err, user) {
