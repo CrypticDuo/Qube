@@ -7,7 +7,10 @@ app.controller('QubeCont', function($scope, QubeService) {
   }
 
   init();
-
+  
+  $scope.addPlaylist=function(){
+      QubeService.addPlaylist($scope, $scope.addPlaylistInput);
+  }
 });
 
 app.service("QubeService", function( $http, $q ) {
@@ -26,6 +29,20 @@ app.service("QubeService", function( $http, $q ) {
       alert("SOMETHING WRONG");
     });
   };
+
+  function addPlaylist(scope, pname) {
+    $http.post(hostURL + "/addPlaylist", {
+      params:{playlistName : pname}
+    })
+    .success( function (res) {
+      listAllPlaylist(scope);
+      console.log("Successfully added a playlist.");
+    })
+    .error( function(err) {
+      alert("WRONG");
+    });
+  };
+
 
   //Returns the public API
   return({
