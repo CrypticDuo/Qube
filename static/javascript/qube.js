@@ -3,7 +3,7 @@ var app = angular.module( "QubeApp", [] );
 app.controller('QubeCont', function($scope, QubeService) {
   
   function init(){
-    $scope.playlists = QubeService.listAllPlaylist();
+    QubeService.listAllPlaylist($scope);
   }
 
   init();
@@ -14,16 +14,16 @@ app.service("QubeService", function( $http, $q ) {
 
   var hostURL = "http://" + window.location.host;
 
-  function listAllPlaylist() {
+  function listAllPlaylist(scope) {
     $http.get(hostURL + "/listAllPlaylist", {
       params: {}
     })
     .success( function (res) {
-      console.log(res);
-      return res;
+      console.log(res.data);
+      scope.playlists = res.data;
     })
     .error( function (err) {
-      return err;
+      alert("SOMETHING WRONG");
     });
   };
 
