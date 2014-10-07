@@ -1,9 +1,9 @@
 angular.module('QubeApp', [])
   .controller('QubeCont', ['$scope', function($scope, $http) {
     init();
-
+    
     function init(){
-      $scope.hostURL = window.location.protocol + "//" + window.location.host;
+      $scope.hostURL = window.location.protocol + "://" + window.location.host;
       $scope.playlists = $scope.getPlaylists();
     }
     
@@ -13,6 +13,7 @@ angular.module('QubeApp', [])
       })
       .success( function (res) {
         console.log(res);
+        return res;
       })
       .error( function () {
         alert("input link is broken");
