@@ -12,7 +12,7 @@ app.controller('QubeCont', function($scope, QubeService) {
 
 app.service("QubeService", function( $http, $q ) {
 
-  var hostURL = window.location.protocol + "://" + window.location.host;
+  var hostURL = "http://" + window.location.host;
 
   function listAllPlaylist() {
     $http.get(hostURL + "/listAllPlaylist", {
