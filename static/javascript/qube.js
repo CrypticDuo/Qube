@@ -1,9 +1,25 @@
-angular.module('todoApp', [])
-  .controller('TodoController', ['$scope', function($scope) {
-    $scope.todos = [
-      {text:'learn angular', done:true},
-      {text:'build an angular app', done:false}];
- 
+angular.module('QubeApp', [])
+  .controller('QubeCont', ['$scope', function($scope, $http) {
+    init();
+
+    function init(){
+      $scope.hostURL = window.location.protocol + "//" + window.location.host;
+      $scope.playlists = $scope.getPlaylists();
+    }
+    
+    $scope.getPlaylists = function(){
+      $http.get($scope.hostURL + "/listAllPlaylist", {
+        params: {}
+      })
+      .success( function (res) {
+        console.log(res);
+      })
+      .error( function () {
+        alert("input link is broken");
+      });
+    };
+
+
     $scope.addTodo = function() {
       $scope.todos.push({text:$scope.todoText, done:false});
       $scope.todoText = '';
