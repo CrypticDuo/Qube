@@ -1,23 +1,36 @@
-angular.module('QubeApp', [])
-  .controller('QubeCont', ['$scope', function($scope, $http) {
-    
-    $scope.getPlaylists = function(){
-      $http.get($scope.hostURL + "/listAllPlaylist", {
-        params: {}
-      })
-      .success( function (res) {
-        console.log(res);
-        return res;
-      })
-      .error( function () {
-        alert("input link is broken");
-      });
-    };
-    
-    function init(){
-      $scope.hostURL = window.location.protocol + "://" + window.location.host;
-      $scope.playlists = $scope.getPlaylists();
-    }
+var app = angular.module( "QubeApp", [] );
 
-    init();
-  }]);
+app.controller('QubeCont', function($scope, QubeService) {
+  
+  function init(){
+    $scope.playlists = QubeService.listAllPlaylist();
+  }
+
+  init();
+
+});
+
+app.service("QubeService", function( $http, $q ) {
+
+  var hostURL = window.location.protocol + "://" + window.location.host;
+
+  function listAllPlaylist() {
+    $http.get(hostURL + "/listAllPlaylist", {
+      params: {}
+    })
+    .success( function (res) {
+      console.log(res);
+      return res;
+    })
+    .error( function (err) {
+      return err;
+    });
+  };
+
+  //Returns the public API
+  return({
+    listAllPlaylist : listAllPlaylist
+  });
+
+
+});
