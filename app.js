@@ -94,7 +94,7 @@ app.get('/listAllVideos', ensureAuthenticated, function(req, res){
     });
 });
 app.post('/addPlaylist', ensureAuthenticated, function(req, res){
-    db.createPlaylist(req.user.oauthID, req.body.playlistName, function(result){
+	db.createPlaylist(req.user.oauthID, req.body.playlistName, function(result){
 		res.json(result);
 	});
 });

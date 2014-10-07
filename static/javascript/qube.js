@@ -31,8 +31,11 @@ app.service("QubeService", function( $http, $q ) {
   };
 
   function addPlaylist(scope, pname) {
-    $http.post(hostURL + "/addPlaylist", {
-      params:{playlistName : pname}
+    $http({
+	  method: "post",
+	  url: hostURL + "/addPlaylist", 
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+	  data: "playlistName="+pname
     })
     .success( function (res) {
       listAllPlaylist(scope);
