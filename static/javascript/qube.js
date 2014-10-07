@@ -46,7 +46,8 @@ app.service("QubeService", function( $http, $q ) {
 
   //Returns the public API
   return({
-    listAllPlaylist : listAllPlaylist
+    listAllPlaylist : listAllPlaylist,
+    addPlaylist : addPlaylist
   });
 
 
