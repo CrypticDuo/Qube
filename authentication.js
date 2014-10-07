@@ -24,6 +24,7 @@ module.exports = passport.use(new FacebookStrategy({
             } else {
                 var user = new User({
                     oauthID: profile.id,
+                    facebookID: profile._json.id,
                     name: profile.displayName,
                     created: Date.now(),
                     playlist: []
