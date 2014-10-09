@@ -42,7 +42,7 @@ var database = {
 		                return;
                     }
                 });
-                
+
             } else {
                 console.log("imback");
 				callback({
@@ -76,7 +76,7 @@ var database = {
     },
     listAllVideos: function(userID, pname, callback) {
         User.find({
-            oauthID: userID 
+            oauthID: userID
         },
         {
             playlist: {
@@ -140,7 +140,7 @@ var database = {
                             return;
                         }
             	});
-                
+
             } else {
                 console.log("imback");
                 callback({
@@ -155,7 +155,7 @@ var database = {
         User.update({
                 oauthID: userID,
                 "playlist.name": pname
-            }, 
+            },
             {
                 "$pull": {
                     "playlist": {
