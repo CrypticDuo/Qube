@@ -1,13 +1,13 @@
 var app = angular.module( "QubeApp", [] );
 
 app.controller('QubeCont', function($scope, QubeService) {
-  
+
   function init(){
     QubeService.listAllPlaylist($scope);
   }
 
   init();
-  
+
   $scope.addPlaylist=function(){
       QubeService.addPlaylist($scope, $scope.addPlaylistInput);
   }
@@ -32,10 +32,10 @@ app.service("QubeService", function( $http, $q ) {
 
   function addPlaylist(scope, pname) {
     $http({
-	  method: "post",
-	  url: hostURL + "/addPlaylist", 
+	    method: "post",
+	    url: hostURL + "/addPlaylist",
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-	  data: "playlistName="+pname
+	    data: "playlistName="+pname
     })
     .success( function (res) {
       listAllPlaylist(scope);
