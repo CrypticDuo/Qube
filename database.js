@@ -2,7 +2,13 @@ var User = require('./user.js');
 var ObjectId = require('mongodb').ObjectID;
 var database = {
     createPlaylist: function(userID, pname, callback) {
-        console.log(pname);
+    if(!pname){
+        callback({
+            status: "Fail",
+            msg: "Playlist name cannot be empty"
+        });
+        return;
+    }
 		User.find({
             oauthID: userID,
             "playlist.name": pname

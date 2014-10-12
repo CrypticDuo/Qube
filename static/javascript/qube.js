@@ -1,57 +1,67 @@
-var app = angular.module( "QubeApp", [] );
+var app = angular.module("QubeApp", []);
 
 app.controller('QubeCont', function($scope, QubeService) {
 
-  function init(){
-    QubeService.listAllPlaylist($scope);
-  }
+    function init() {
+        QubeService.listAllPlaylist($scope);
+    }
 
-  init();
+    init();
 
-  $scope.addPlaylist=function(){
-      QubeService.addPlaylist($scope, $scope.addPlaylistInput);
-  }
+    $scope.addPlaylist = function() {
+        QubeService.addPlaylist($scope, $scope.addPlaylistInput);
+    }
 });
 
-app.service("QubeService", function( $http, $q ) {
+app.service("QubeService", function($http, $q) {
 
-  var hostURL = "http://" + window.location.host;
+    var hostURL = "http://" + window.location.host;
 
-  function listAllPlaylist(scope) {
-    $http.get(hostURL + "/listAllPlaylist", {
-      params: {}
-    })
-    .success( function (res) {
-      console.log(res.data);
-      scope.playlists = res.data;
-    })
-    .error( function (err) {
-      alert("SOMETHING WRONG");
+    function listAllPlaylist(scope) {
+        $http.get(hostURL + "/listAllPlaylist", {
+                params: {}
+            })
+            .success(function(res) {
+                if (res.status === "fail") {
+                    console.log(res.msg);
+                } else {
+                    console.log(res.data);
+                    scope.playlists = res.data;
+                }
+            })
+            .error(function(err) {
+                alert("SOMETHING WRONG");
+            });
+    };
+
+    function addPlaylist(scope, pname) {
+        $http({
+                method: "post",
+                url: hostURL + "/addPlaylist",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: "playlistName=" + pname
+            })
+            .success(function(res) {
+                if (res.status === "fail") {
+                    console.log(res.msg);
+                } else {
+                    listAllPlaylist(scope);
+                    console.log("Successfully added a playlist.");
+                }
+            })
+            .error(function(err) {
+                alert("WRONG");
+            });
+    };
+
+
+    //Returns the public API
+    return ({
+        listAllPlaylist: listAllPlaylist,
+        addPlaylist: addPlaylist
     });
-  };
-
-  function addPlaylist(scope, pname) {
-    $http({
-	    method: "post",
-	    url: hostURL + "/addPlaylist",
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-	    data: "playlistName="+pname
-    })
-    .success( function (res) {
-      listAllPlaylist(scope);
-      console.log("Successfully added a playlist.");
-    })
-    .error( function(err) {
-      alert("WRONG");
-    });
-  };
-
-
-  //Returns the public API
-  return({
-    listAllPlaylist : listAllPlaylist,
-    addPlaylist : addPlaylist
-  });
 
 
 });
