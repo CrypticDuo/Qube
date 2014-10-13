@@ -17,12 +17,13 @@
 
 
 		<div ng-show="layout == 'playlist'" class ="playlist">
+			<input type="text" ng-model="searchString" placeholder="Search Playlist">
+			<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
 			<ul class="unstyled">
-				<li ng-repeat="playlist in playlists">
+				<li ng-repeat="playlist in playlists | searchFor:searchString">
 					<span>{{playlist.name}}</span>
 				</li>
 			</ul>
-			<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
 		</div>
 
 		<div ng-show="layout == 'youtube'" class ="youtube">
