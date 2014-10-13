@@ -13,6 +13,7 @@
 		<div class="topBar">
 			<a class="category" ng-class="{active: layout == 'playlist'}" ng-click="layout = 'playlist'">playlist</a>
 			<a class="category" ng-class="{active: layout == 'youtube'}" ng-click="layout = 'youtube'">youtube</a>
+			<a class="category">{{currentPlaylist.name}}</a>
 			<a class="category logout" href="./logout">logout</a>
 		</div>
 
@@ -20,8 +21,9 @@
 		<div ng-show="layout == 'playlist'" class ="playlist">
 			<input type="text" ng-model="searchString" placeholder="Search Playlist">
 			<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
-			<ul class="unstyled">
-				<li ng-repeat="playlist in playlists | searchFor:searchString">
+			<ul class="userPlaylist">
+				<li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}"
+						ng-click="changePlaylist(playlist)" >
 					<span>{{playlist.name}}</span>
 				</li>
 			</ul>

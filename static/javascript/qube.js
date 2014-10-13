@@ -5,6 +5,7 @@ app.controller('QubeCont', function($scope, QubeService) {
     function init() {
         QubeService.listAllPlaylist($scope);
         $scope.layout = 'playlist';
+        $scope.currentPlaylist = {};
     }
 
     init();
@@ -12,6 +13,10 @@ app.controller('QubeCont', function($scope, QubeService) {
     $scope.addPlaylist = function() {
         QubeService.addPlaylist($scope, $scope.addPlaylistInput);
         $scope.addPlaylistInput = '';
+    }
+
+    $scope.changePlaylist = function (playlist){
+        $scope.currentPlaylist = playlist;
     }
 });
 
