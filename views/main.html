@@ -9,13 +9,26 @@
 
 <div id="QubePlaylist">
 	<div ng-controller="QubeCont">
-	  <span>{{playlists.length}} in total</span>
-	  <ul class="unstyled">
-	    <li ng-repeat="playlist in playlists">
-	      <span>{{playlist.name}}</span>
-	    </li>
-	  </ul>
-	  <input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()"></button>
+
+		<div class="topBar">
+			<a class="category" ng-class="{active: layout == 'playlist'}" ng-click="layout = 'playlist'">playlist</a>
+			<a class="category" ng-class="{active: layout == 'youtube'}" ng-click="layout = 'youtube'">youtube</a>
+		</div>
+
+
+		<div ng-show="layout == 'playlist'" class ="playlist">
+			<ul class="unstyled">
+				<li ng-repeat="playlist in playlists">
+					<span>{{playlist.name}}</span>
+				</li>
+			</ul>
+			<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
+		</div>
+
+		<div ng-show="layout == 'youtube'" class ="youtube">
+			youtube search panel
+		</div>
+
 	</div>
 </div>
 

@@ -4,6 +4,7 @@ app.controller('QubeCont', function($scope, QubeService) {
 
     function init() {
         QubeService.listAllPlaylist($scope);
+        $scope.layout = 'playlist';
     }
 
     init();
