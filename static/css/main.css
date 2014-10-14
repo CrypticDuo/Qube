@@ -25,11 +25,15 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 #QubePlaylist .videolist {
     background-color: white;
     box-shadow: 0 1px 2px rgba(0,0,0,.1); -moz-box-sizing: border-box; box-sizing: border-box;
+    min-height: calc(100vh - 70px);
+    padding: 10px;
 }
 
 #QubePlaylist .view {
     background-color: white;
     box-shadow: 0 1px 2px rgba(0,0,0,.1); -moz-box-sizing: border-box; box-sizing: border-box;
+    min-height: calc(100vh - 70px);
+    padding: 10px;
 }
 
 #QubePlaylist .playlist .userPlaylist .active {
@@ -44,19 +48,18 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 #QubePlaylist .displayView {
     width: 1094px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 10px;
 }
 
 #QubePlaylist .left {
     width: 740px;
     display: inline-block;
-    padding-top: 10px;
 }
 
 #QubePlaylist .right {
     width: 345px;
-    padding-top: 10px;
     padding-left: 10px;
     display: inline-block;
     position: absolute;
+    min-height: calc(100vh - 70px);
 }
