@@ -3,17 +3,16 @@
   "description": "test",
   "version": "0.0.1",
   "dependencies": {
-    "body-parser": "^1.9.0",
+    "express": "~4.5.1",
     "ejs": "*",
-    "express": "3.x",
-    "mongodb": "^1.4.12",
     "mongoose": "^3.8.16",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
     "passport-google": "^0.3.0",
-    "mongodb": "^1.4.12",
-    "mongoose": "^3.8.16",
-    "body-parser": "^1.9.0"
+    "passport-twitter": "^1.0.2",
+    "express-session": "^1.8.2",
+    "body-parser": "^1.9.0",
+    "method-override": "^2.2.0"
   },
   "repository": {
     "type": "git",

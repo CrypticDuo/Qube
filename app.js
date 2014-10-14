@@ -1,15 +1,18 @@
 // dependencies
 var fs = require('fs');
-var express = require('express');
 var path = require('path');
+var express = require('express');
 var app = express();
-var config = require('./oauth.js');
-var User = require('./user.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var methodOverride = require('method-override');
+
 var auth = require('./authentication.js');
 var db = require('./database.js');
-var bodyParser = require('body-parser');
+var config = require('./oauth.js');
+var User = require('./user.js');
 
 // connect to the database
 mongoose.connect('mongodb://localhost/database');
@@ -23,10 +26,17 @@ app.use("/static", express.static(__dirname + "/static"));
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.set('port', process.env.PORT || 4455);
-app.use(express.session({secret: 'my_precious'}));
+
+// get all data/stuff of the body (POST) parameters
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(methodOverride('X-HTTP-Method-Override'));
+
+app.use(session({secret: 'my_precious'}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(bodyParser.urlencoded({extended:true}));
 
 // serialize and deserialize
 passport.serializeUser(function(user, done) {
@@ -39,7 +49,6 @@ passport.deserializeUser(function(id, done) {
         else done(err, null);
     })
 });
-
 
 
 // RENDERING *****
@@ -77,45 +86,59 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+//SET UP ROUTER FOR REST API
+var router = express.Router();
 
+// middleware to use for all requests
+router.use(function(req, res, next) {
+    // do logging
+    console.log('Something is happening.');
+    next();
+});
 
-
-
-
-// API *****
-app.get('/listAllPlaylist', ensureAuthenticated, function(req, res){
-    db.listAllPlaylists(req.user.oauthID, function(result){
-        res.json(result);
+router.route('/playlists')
+    //get all playlist
+    .get(ensureAuthenticated, function(req, res){
+        db.listAllPlaylists(req.user.oauthID, function(result){
+            res.json(result);
+        });
     });
-});
-app.get('/listAllVideos', ensureAuthenticated, function(req, res){
-    db.listAllVideos(req.user.oauthID, req.query.playlistName, function(result){
-        res.json(result);
-    });
-});
-app.post('/addPlaylist', ensureAuthenticated, function(req, res){
-	db.createPlaylist(req.user.oauthID, req.body.playlistName, function(result){
-		res.json(result);
-	});
-});
-app.post('/addVideoToPlaylist', ensureAuthenticated, function(req, res){
-    db.addVideoToPlaylist(req.user.oauthID, req.body.playlistName, req.body.videoID, function(result){
-        res.json(result);
-    });
-});
-app.post('/removePlaylist', ensureAuthenticated, function(req, res){
-    db.removePlaylist(req.user.oauthID, req.body.playlistName, function(result){
-        res.json(result);
-    });
-});
-app.post('/removeVideoFromPlaylist', ensureAuthenticated, function(req, res){
-    db.removeVideoFromPlaylist(req.user.oauthID, req.body.playlistName, req.body.videoID, function(result){
-        res.json(result);
-    });
-});
 
+router.route('/playlists/:playlist_name')
+    //get all videos in playlist
+    .get(ensureAuthenticated, function(req, res){
+        db.listAllVideos(req.user.oauthID, req.params.playlist_name, function(result){
+            res.json(result);
+        });
+    })
+    //add new playlist
+    .post(ensureAuthenticated, function(req, res){
+        db.createPlaylist(req.user.oauthID, req.params.playlist_name, function(result){
+            res.json(result);
+        });
+    })
+    //delete playlist
+    .delete(ensureAuthenticated, function(req, res){
+        db.removePlaylist(req.user.oauthID, req.params.playlist_name, function(result){
+            res.json(result);
+        });
+    });
 
+router.route('/playlists/:playlist_name/videos/:videoID')
+    //add new video
+    .post(ensureAuthenticated, function(req, res){
+        db.addVideoToPlaylist(req.user.oauthID, req.params.playlist_name, req.params.videoID, function(result){
+            res.json(result);
+        });
+    })
+    //delete video
+    .delete(ensureAuthenticated, function(req, res){
+        db.removeVideoFromPlaylist(req.user.oauthID, req.params.playlist_name, req.params.videoID, function(result){
+            res.json(result);
+        });
+    });
 
+app.use('/api', router);
 
 app.listen(app.get('port'));
 console.log("Listening on port localhost:" + app.get('port'));
