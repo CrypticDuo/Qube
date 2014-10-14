@@ -40,7 +40,12 @@
 		</div>
 
 		<div class ="videolist">
-
+			<ul class="userVideolist">
+				<li ng-repeat="video in videos" ng-class="{active: video == currentPlaying}"
+						ng-click="queueVideo(video)" >
+					<span>{{video}}</span>
+				</li>
+			</ul>
 		</div>
 
 	</div>
