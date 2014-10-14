@@ -17,40 +17,44 @@
 			<a class="category logout" href="./logout">logout</a>
 		</div>
 
-		<p> Current Playlist : {{currentPlaylist.name}} </p> <br>
+		<div class="displayView">
+			<div class="left">
+				<div ng-show="layout == 'playlist'" class ="view playlist">
+					<input type="text" ng-model="searchString" placeholder="Search Playlist">
+					<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
+					<ul class="userPlaylist">
+						<li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}"
+								ng-click="changePlaylist(playlist)" >
+							<span>{{playlist.name}}</span>
+						</li>
+					</ul>
+				</div>
 
-		<div ng-show="layout == 'playlist'" class ="view playlist">
-			<input type="text" ng-model="searchString" placeholder="Search Playlist">
-			<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
-			<ul class="userPlaylist">
-				<li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}"
-						ng-click="changePlaylist(playlist)" >
-					<span>{{playlist.name}}</span>
-				</li>
-			</ul>
-		</div>
+				<div ng-show="layout == 'youtube'" class ="view youtube">
+					youtube search panel
+					<input ng-model="addVideoInput"></input><button ng-click="addVideo()">add</button>
+				</div>
 
-		<div ng-show="layout == 'youtube'" class ="view youtube">
-			youtube search panel
-			<input ng-model="addVideoInput"></input><button ng-click="addVideo()">add</button>
-		</div>
+				<div ng-show="layout == 'video'" class ="view video">
+					Video View mode!
+				</div>
+			</div><!-- END OF .left -->
 
-		<div ng-show="layout == 'video'" class ="view video">
-			Video View mode!
-		</div>
-
-		<div class ="videolist">
-			<hr>
-			<ul class="userVideolist">
-				<li ng-repeat="video in videos" ng-class="{active: video == currentPlaying}"
-						ng-click="queueVideo(video)" >
-					<span>{{video}}</span>
-				</li>
-			</ul>
-		</div>
-
-	</div>
-</div>
+			<div class ="right">
+				<div class ="videolist">
+					<p> Playlist : {{currentPlaylist.name}} </p>
+					<hr>
+					<ul class="userVideolist">
+						<li ng-repeat="video in videos" ng-class="{active: video == currentPlaying}"
+								ng-click="queueVideo(video)" >
+							<span>{{video}}</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div> <!-- END OF .displayView -->
+	</div><!-- END OF ng-controller="QubeCont" -->
+</div><!-- END OF #QubePlaylist -->
 
 </body>
 </html>

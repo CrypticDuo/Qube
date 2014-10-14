@@ -1,10 +1,16 @@
 /* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1;height: 100%;background-color: #F1F1F1;}ol,ul{list-style:none;}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
 
 /* Qube Main CSS */
+
+#QubePlaylist {
+    min-width: 1114px;
+}
+
 #QubePlaylist .topBar {
-    background-color: papayawhip;
+    background-color: white;
     padding: 15px;
+    border: 1px solid #e8e8e8;
 }
 
 #QubePlaylist .topBar .category {
@@ -16,6 +22,16 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     font-weight:bold;
 }
 
+#QubePlaylist .videolist {
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1); -moz-box-sizing: border-box; box-sizing: border-box;
+}
+
+#QubePlaylist .view {
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1); -moz-box-sizing: border-box; box-sizing: border-box;
+}
+
 #QubePlaylist .playlist .userPlaylist .active {
     font-weight: bold;
 }
@@ -23,4 +39,24 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 #QubePlaylist .playlist .userPlaylist li {
     margin-bottom: 7px;
     cursor: pointer;
+}
+
+#QubePlaylist .displayView {
+    width: 1094px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+#QubePlaylist .left {
+    width: 740px;
+    display: inline-block;
+    padding-top: 10px;
+}
+
+#QubePlaylist .right {
+    width: 345px;
+    padding-top: 10px;
+    padding-left: 10px;
+    display: inline-block;
+    position: absolute;
 }
