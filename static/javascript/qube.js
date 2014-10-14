@@ -17,10 +17,12 @@ app.controller('QubeCont', function($scope, QubeService) {
 
     $scope.changePlaylist = function (playlist){
         $scope.currentPlaylist = playlist;
+        QubeService.listAllVideos($scope, playlist.name);
     }
 
     $scope.addVideo = function() {
         QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, $scope.addVideoInput);
+        $scope.addVideoInput = '';
     }
 });
 
@@ -58,7 +60,7 @@ app.service("QubeService", function($http, $q) {
             });
     };
     function listAllVideos(scope, pname) {
-        $http.get(hostURL + "/api/playlists"+pname)
+        $http.get(hostURL + "/api/playlists/"+pname)
             .success(function(res) {
                 if (res.status === "fail") {
                     console.log(res.msg);
@@ -73,7 +75,7 @@ app.service("QubeService", function($http, $q) {
     }
 
     function addVideoToPlaylist(scope, pname, v_id) {
-        $http.post("/api/playlists/"+pname+"/videos/:videoID"+v_id)
+        $http.post("/api/playlists/"+pname+"/videos/"+v_id)
             .success(function(res) {
                 if (res.status === "fail") {
                     console.log(res.msg);
@@ -91,7 +93,9 @@ app.service("QubeService", function($http, $q) {
     //Returns the public API
     return ({
         listAllPlaylist: listAllPlaylist,
-        addPlaylist: addPlaylist
+        addPlaylist: addPlaylist,
+        listAllVideos: listAllVideos,
+        addVideoToPlaylist: addVideoToPlaylist
     });
 
 
