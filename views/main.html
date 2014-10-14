@@ -13,12 +13,13 @@
 		<div class="topBar">
 			<a class="category" ng-class="{active: layout == 'playlist'}" ng-click="layout = 'playlist'">playlist</a>
 			<a class="category" ng-class="{active: layout == 'youtube'}" ng-click="layout = 'youtube'">youtube</a>
-			<a class="category">{{currentPlaylist.name}}</a>
+			<a class="category" ng-class="{active: layout == 'video'}" ng-click="layout = 'video'">video</a>
 			<a class="category logout" href="./logout">logout</a>
 		</div>
 
+		<p> Current Playlist : {{currentPlaylist.name}} </p> <br>
 
-		<div ng-show="layout == 'playlist'" class ="playlist">
+		<div ng-show="layout == 'playlist'" class ="view playlist">
 			<input type="text" ng-model="searchString" placeholder="Search Playlist">
 			<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
 			<ul class="userPlaylist">
@@ -29,8 +30,17 @@
 			</ul>
 		</div>
 
-		<div ng-show="layout == 'youtube'" class ="youtube">
+		<div ng-show="layout == 'youtube'" class ="view youtube">
 			youtube search panel
+			<input ng-model="ytId"></input><button ng-click="addPlaylist()">add</button>
+		</div>
+
+		<div ng-show="layout == 'video'" class ="view video">
+			Video View mode!
+		</div>
+
+		<div class ="videolist">
+
 		</div>
 
 	</div>
