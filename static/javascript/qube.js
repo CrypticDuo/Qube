@@ -18,6 +18,10 @@ app.controller('QubeCont', function($scope, QubeService) {
     $scope.changePlaylist = function (playlist){
         $scope.currentPlaylist = playlist;
     }
+
+    $scope.addVideo = function() {
+        QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, $scope.addVideoInput);
+    }
 });
 
 app.service("QubeService", function($http, $q) {
@@ -35,7 +39,7 @@ app.service("QubeService", function($http, $q) {
                 }
             })
             .error(function(err) {
-                alert("SOMETHING WRONG");
+                alert("Error: Cannot list all playlists.");
             });
     };
 
@@ -46,11 +50,40 @@ app.service("QubeService", function($http, $q) {
                     console.log(res.msg);
                 } else {
                     listAllPlaylist(scope);
-                    console.log("Successfully added a playlist.");
+                    console.log("Success: added a playlist.");
                 }
             })
             .error(function(err) {
-                alert("WRONG");
+                alert("Error: Cannot add playlist.");
+            });
+    };
+    function listAllVideos(scope, pname) {
+        $http.get(hostURL + "/api/playlists"+pname)
+            .success(function(res) {
+                if (res.status === "fail") {
+                    console.log(res.msg);
+                } else {
+                    console.log(res.data);
+                    scope.videos = res.data;
+                }
+            })
+            .error(function(err) {
+                alert("Error: Cannot list all videos.");
+            });
+    }
+
+    function addVideoToPlaylist(scope, pname, v_id) {
+        $http.post("/api/playlists/"+pname+"/videos/:videoID"+v_id)
+            .success(function(res) {
+                if (res.status === "fail") {
+                    console.log(res.msg);
+                } else {
+                    listAllVideos(scope, pname);
+                    console.log("Success: Added a video.");
+                }
+            })
+            .error(function(err) {
+                alert("Error: Cannot add video.");
             });
     };
 

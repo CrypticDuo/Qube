@@ -96,6 +96,15 @@ router.use(function(req, res, next) {
     next();
 });
 
+/*
+    GET     /playlists 
+    GET     /playlists/:playlist_name
+    POST    /playlists/:playlist_name
+    DELETE  /playlists/:playlist_name
+    POST    /playlists/:playlist_name/videos/:videoID  
+    DELETE  /playlists/:playlist_name/videos/:videoID
+*/
+
 router.route('/playlists')
     //get all playlist
     .get(ensureAuthenticated, function(req, res){
