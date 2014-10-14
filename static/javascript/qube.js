@@ -25,9 +25,7 @@ app.service("QubeService", function($http, $q) {
     var hostURL = "http://" + window.location.host;
 
     function listAllPlaylist(scope) {
-        $http.get(hostURL + "/listAllPlaylist", {
-                params: {}
-            })
+        $http.get(hostURL + "/api/playlists")
             .success(function(res) {
                 if (res.status === "fail") {
                     console.log(res.msg);
@@ -42,14 +40,7 @@ app.service("QubeService", function($http, $q) {
     };
 
     function addPlaylist(scope, pname) {
-        $http({
-                method: "post",
-                url: hostURL + "/addPlaylist",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: "playlistName=" + pname
-            })
+        $http.post("/api/playlists/"+pname)
             .success(function(res) {
                 if (res.status === "fail") {
                     console.log(res.msg);
