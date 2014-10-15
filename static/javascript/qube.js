@@ -21,9 +21,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.listAllVideos($scope, playlist.name);
     }
 
-    $scope.addVideo = function() {
-        QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, $scope.addVideoInput);
-        $scope.addVideoInput = '';
+    $scope.addVideo = function(val) {
+        QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, val);
     }
 
     $scope.searchYt = function(val) {
@@ -33,7 +32,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 type: 'video',
                 maxResults: '20',
                 part: 'id,snippet',
-                fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
+                fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/medium,items/snippet/channelTitle',
                 q: val
             }
         })
@@ -85,7 +84,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 id: data.items[i].id.videoId,
                 title: data.items[i].snippet.title,
                 description: data.items[i].snippet.description,
-                thumbnail: data.items[i].snippet.thumbnails.default.url,
+                thumbnail: data.items[i].snippet.thumbnails.medium.url,
                 author: data.items[i].snippet.channelTitle,
                 duration: formatted,
                 views: contentDetailsData.items[i].statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")

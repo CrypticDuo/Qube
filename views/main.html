@@ -31,24 +31,29 @@
 				</div>
 
 				<div ng-show="layout == 'youtube'" class ="view youtube">
-					<input ng-model="addVideoInput"></input><button ng-click="searchYt(addVideoInput)">add</button>
-					<div class="video" ng-repeat="video in ytSearchResult" ng-click="">
+					<div class="youtubeSearchBar">
+						<input ng-model="addVideoInput"></input>
+						<button ng-click="searchYt(addVideoInput)"><span></span></button>
+					</div>
+					<div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video.id)">
 					  <div class="video-image">
 					  	<img class="video-image" src="{{ video.thumbnail }}">
-					  	<p class="video-description">{{ video.duration }}</p>
+					  	<p class="video-duration">{{ video.duration }}</p>
 					  </div>
 					  <p class="video-title">{{ video.title }}</p>
-					  <p class="video-author">by {{ video.author }}</p>
-					  <p class="video-views"> {{ video.views }} views </p>
+						<ul>
+						  <li class="video-author">by {{ video.author }}</li>
+						  <li class="video-views"> {{ video.views }} views </li>
+						</ul>
+						<p class="video-description">{{ video.description }}</p>
 					</div>
 				</div>
 
 				<div ng-show="layout == 'video'" class ="view video">
 					Video View mode!
 				</div>
-			</div><!--
-
-			--><div class ="right">
+			</div><!--	-->
+			<div class ="right">
 				<div class ="videolist">
 					<p> Playlist : {{currentPlaylist.name}} </p>
 					<hr>
