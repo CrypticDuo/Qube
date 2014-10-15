@@ -1,11 +1,12 @@
 var app = angular.module("QubeApp", []);
 
-app.controller('QubeCont', function($scope, QubeService) {
+app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
         QubeService.listAllPlaylist($scope);
         $scope.layout = 'playlist';
         $scope.currentPlaylist = {};
+        $scope.ytSearchResult = [];
     }
 
     init();
@@ -24,6 +25,78 @@ app.controller('QubeCont', function($scope, QubeService) {
         QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, $scope.addVideoInput);
         $scope.addVideoInput = '';
     }
+
+    $scope.searchYt = function(val) {
+        $http.get('https://www.googleapis.com/youtube/v3/search', {
+            params: {
+                key: 'AIzaSyA6FBINiKBHIU6PqvPw1aq026deMzVlBjM',
+                type: 'video',
+                maxResults: '20',
+                part: 'id,snippet',
+                fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
+                q: val
+            }
+        })
+        .success(function(data) {
+            videoIDlist = "";
+            for (var i = 0; i < data.items.length; i++) {
+                videoIDlist = videoIDlist + data.items[i].id.videoId + ",";
+            }
+            $http.get('https://www.googleapis.com/youtube/v3/videos', {
+                params: {
+                    part: 'contentDetails, statistics',
+                    id: videoIDlist,
+                    key: 'AIzaSyA6FBINiKBHIU6PqvPw1aq026deMzVlBjM'
+                }
+            })
+            .success(function(contentDetailsData) {
+                $scope.appendContentDetail(data, contentDetailsData);
+            })
+            .error(function() {
+                alert("Something went wrong querying video details");
+            });
+        })
+        .error(function() {
+            alert("Something went wrong with querying youtube videos");
+        });
+    }
+
+    $scope.appendContentDetail = function (data, contentDetailsData){
+        $scope.ytSearchResult = [];
+        for (var i = 0; i < data.items.length; i++) {
+            var string = contentDetailsData.items[i].contentDetails.duration,
+                array = string.match(/(\d+)(?=[MHS])/ig) || [];
+
+            var formatted = array.map(function(item) {
+                if (item.length < 2) return '0' + item;
+                return item;
+            }).join(':');
+
+            if (string.indexOf('H') === -1 && string.indexOf('S') > -1 && string.indexOf('M') === -1)
+                formatted = "00:" + formatted;
+            else if (string.indexOf('M') > -1 && string.indexOf('S') === -1)
+                formatted = formatted + ":00";
+            else if (string.indexOf('H') > -1 && string.indexOf('M') === -1 && string.indexOf('S') === -1)
+                formatted = formatted + ":00:00";
+            else if (string.indexOf('H') > -1 && string.indexOf('M') === -1 && string.indexOf('S') > -1)
+                formatted = formatted.substring(0, formatted.indexOf(':')) + ":00" + formatted.substring(formatted.indexOf(':'));
+
+            $scope.ytSearchResult.push({
+                id: data.items[i].id.videoId,
+                title: data.items[i].snippet.title,
+                description: data.items[i].snippet.description,
+                thumbnail: data.items[i].snippet.thumbnails.default.url,
+                author: data.items[i].snippet.channelTitle,
+                duration: formatted,
+                views: contentDetailsData.items[i].statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            });
+        }
+    }
+});
+
+app.service("VideoService", function($http, $q){
+    //https://www.googleapis.com/youtube/v3/search
+
 });
 
 app.service("QubeService", function($http, $q) {

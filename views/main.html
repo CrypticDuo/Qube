@@ -31,8 +31,16 @@
 				</div>
 
 				<div ng-show="layout == 'youtube'" class ="view youtube">
-					youtube search panel
-					<input ng-model="addVideoInput"></input><button ng-click="addVideo()">add</button>
+					<input ng-model="addVideoInput"></input><button ng-click="searchYt(addVideoInput)">add</button>
+					<div class="video" ng-repeat="video in ytSearchResult" ng-click="">
+					  <div class="video-image">
+					  	<img class="video-image" src="{{ video.thumbnail }}">
+					  	<p class="video-description">{{ video.duration }}</p>
+					  </div>
+					  <p class="video-title">{{ video.title }}</p>
+					  <p class="video-author">by {{ video.author }}</p>
+					  <p class="video-views"> {{ video.views }} views </p>
+					</div>
 				</div>
 
 				<div ng-show="layout == 'video'" class ="view video">
