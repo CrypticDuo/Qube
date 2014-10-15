@@ -55,8 +55,9 @@
 			</div><!--	-->
 			<div class ="right">
 				<div class ="videolist">
-					<p> Playlist : {{currentPlaylist.name}} </p>
-					<hr>
+					<div class ="playlistHeader">
+						<span> {{currentPlaylist.name}} </span>
+					</div>
 					<ul class="userVideolist">
 						<li ng-repeat="video in videos" ng-class="{active: video == currentPlaying}"
 								ng-click="queueVideo(video)" >

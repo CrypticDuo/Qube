@@ -5,6 +5,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 #QubePlaylist {
     min-width: 1114px;
+    font-family: arial, sans-serif;
 }
 
 #QubePlaylist .topBar {
@@ -26,7 +27,6 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     background-color: white;
     box-shadow: 0 1px 2px rgba(0,0,0,.1); -moz-box-sizing: border-box; box-sizing: border-box;
     min-height: calc(100vh - 70px);
-    padding: 10px;
 }
 
 #QubePlaylist .view {
@@ -145,8 +145,9 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 }
 
 #QubePlaylist .view.youtube .youtubeSearchBar {
-    padding: 12px 15px;
-    border: 1px solid #f1f1f1;
+    padding: 10px 15px;
+    border-top: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;
 }
 
 #QubePlaylist .view.youtube .youtubeSearchBar input {
@@ -166,4 +167,12 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 #QubePlaylist .view.youtube .youtubeSearchBar button span {
     display: block; border: none; padding: 0; opacity: .6; text-indent: -10000px; background: no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflAjuWMm.webp) -242px -742px; background-size: 258px 1878px; width: 14px; height: 14px; box-shadow: none;
+}
+
+#QubePlaylist .right .videolist .playlistHeader {
+    padding: 16px 10px;
+    font-size: 20px;
+    border-top: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 12px;
 }
