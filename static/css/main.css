@@ -152,13 +152,18 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 #QubePlaylist .view.youtube .youtubeSearchBar input {
     border: 1px solid #cccdc8;
     font-size: 16px;
-    padding: 6px 10px;
-    width: 400px;
+    padding: 5px 10px;
+    width: calc(100% - 87px);
     float: left;
 }
 
 #QubePlaylist .view.youtube .youtubeSearchBar button {
     border: 1px solid #d3d3d3;
     background-color:#f8f8f8;
-    height: 32px;
+    height: 30px;
+    padding: 0 24px;
+}
+
+#QubePlaylist .view.youtube .youtubeSearchBar button span {
+    display: block; border: none; padding: 0; opacity: .6; text-indent: -10000px; background: no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflAjuWMm.webp) -242px -742px; background-size: 258px 1878px; width: 14px; height: 14px; box-shadow: none;
 }

@@ -32,7 +32,7 @@
 
 				<div ng-show="layout == 'youtube'" class ="view youtube">
 					<div class="youtubeSearchBar">
-						<input ng-model="addVideoInput"></input>
+						<input ng-model="addVideoInput" placeholder="Search for Youtube videos"></input>
 						<button ng-click="searchYt(addVideoInput)"><span></span></button>
 					</div>
 					<div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video.id)">
