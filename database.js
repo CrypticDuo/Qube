@@ -82,24 +82,23 @@ var database = {
     },
     listAllVideos: function(userID, pname, callback) {
         User.find({
-            oauthID: userID
-        },
-        {
+            oauthID: userID,
             playlist: {
                 "$elemMatch": {
                     name : pname
                 }
             }
         }, function(err, user) {
-            if (err) {
+            if (err || user.length == 0) {
                 console.log("ERROR : " + err);
                 callback({
                     status: "Fail",
-                    msg: "User not found"
+                    msg: "Error: Cannot list videos"
                 });
                 return;
             }
-            if(!err && user != null){
+            if(!err && user){
+                console.log(user);
                 callback({
                     status: "Success",
                     data: user[0].playlist[0].videos
@@ -111,7 +110,12 @@ var database = {
     addVideoToPlaylist: function(userID, pname, vid, callback) {
         User.find({
             oauthID: userID,
-            "playlist.videos": vid
+            playlist: {
+                "$elemMatch": {
+                    name: pname,
+                    videos: vid
+                }
+            }
         }, function(err, user) {
             if (err) {
                 console.log("ERROR : " + err);
