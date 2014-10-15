@@ -29,7 +29,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.searchYt = function(val) {
         $http.get('https://www.googleapis.com/youtube/v3/search', {
             params: {
-                key: 'AIzaSyA6FBINiKBHIU6PqvPw1aq026deMzVlBjM',
+                key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
                 type: 'video',
                 maxResults: '20',
                 part: 'id,snippet',
@@ -46,7 +46,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 params: {
                     part: 'contentDetails, statistics',
                     id: videoIDlist,
-                    key: 'AIzaSyA6FBINiKBHIU6PqvPw1aq026deMzVlBjM'
+                    key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
                 }
             })
             .success(function(contentDetailsData) {

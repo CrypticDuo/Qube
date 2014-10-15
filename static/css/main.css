@@ -63,3 +63,59 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     position: absolute;
     min-height: calc(100vh - 70px);
 }
+
+#QubePlaylist .view.youtube .video {
+    cursor: pointer;
+    min-height: 90px;
+    padding: 10px;
+    padding-left: 140px;
+    position: relative;
+}
+
+#QubePlaylist .view.youtube .video p {
+    padding-left: 10px;
+}
+
+#QubePlaylist .view.youtube .video:nth-child(2n) {
+    background: rgba(177, 177, 177, 0.11);
+}
+
+#QubePlaylist .view.youtube .video-image {
+    /* float: left; */
+    left: 10px;
+    position: absolute;
+    /* top: 10px; */
+    width: 120px;
+    height: 90px;
+}
+
+#QubePlaylist .view.youtube .video-title {
+    padding-top: 5px;
+}
+
+#QubePlaylist .view.youtube .video-author {
+    color: #919191;
+    font-size: 10px;
+    font-family: 'Gotham SSm A', 'Gotham SSm B';
+    padding: 5px 0;
+}
+
+#QubePlaylist .view.youtube .video-description {
+    color: white;
+    padding: 2px 3px !important;
+    font-size: 10px;
+    position: absolute;
+    right: -10px;
+    top: 74px;
+    background: rgba(0, 0, 0, 0.67);
+}
+
+#QubePlaylist .view.youtube .video-views {
+    color: #919191;
+    font-size: 10px; line-height: 1.5;
+    /* float: right; */
+}
+
+#QubePlaylist .view.youtube .video:hover {
+    color: #e16361;
+}
