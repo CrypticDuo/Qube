@@ -137,8 +137,26 @@ app.service("QubeService", function($http, $q) {
                 if (res.status === "fail") {
                     console.log(res.msg);
                 } else {
-                    console.log(res.data);
-                    scope.videos = res.data;
+                    if(res.data){
+                        //getting title, id, duration
+                        var videoIDlist = '';
+                        for (var i = 0; i < res.data.length; i++) {
+                            videoIDlist = videoIDlist + res.data[i] + ",";
+                        }
+                        $http.get('https://www.googleapis.com/youtube/v3/videos', {
+                            params: {
+                                part: 'contentDetails, statistics, snippet',
+                                id: videoIDlist,
+                                key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+                            }
+                        })
+                        .success(function(contentDetailsData) {
+                            scope.videos = contentDetailsData.items;
+                        })
+                        .error(function() {
+                            alert("Something went wrong querying video details.");
+                        });
+                    }
                 }
             })
             .error(function(err) {
