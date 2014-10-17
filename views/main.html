@@ -66,7 +66,7 @@
 							<span>{{playlist.name}}</span>
 						</li>
 					</ul>
-				</div>
+				</div><!-- END OF PLAYLIST LAYOUT -->
 
 				<div ng-show="layout == 'youtube'" class ="view youtube">
 					<div class="youtubeSearchBar">
@@ -85,13 +85,13 @@
 						</ul>
 						<p class="video-description">{{ video.description }}</p>
 					</div>
-				</div>
+				</div><!-- END OF YOUTUBE LAYOUT -->
 
 				<div ng-show="layout == 'video'" class ="view video">
 					Video View mode!
-				</div>
-			</div><!--
-		 --><div class ="right">
+				</div><!-- END OF VIDEO LAYOUT -->
+			</div><!-- END OF LEFT VIEW -->
+		 	<div class ="right">
 				<div class ="videolist">
 					<div class ="playlistHeader">
 						<span> {{currentPlaylist.name}} </span>
@@ -107,7 +107,7 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div><!-- END OF RIGHT VIEW -->
 		</div> <!-- END OF .displayView -->
 	</div><!-- END OF ng-controller="QubeCont" -->
 </div><!-- END OF #QubePlaylist -->
