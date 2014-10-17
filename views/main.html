@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+	<link rel="stylesheet" href="/static/framework/font-awesome-4.2.0/css/font-awesome.min.css">
 <script>
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
@@ -26,7 +27,7 @@
           }
         });
       }
-      
+
       function onPlayerReady(event) {
         event.target.playVideo();
       }
@@ -39,9 +40,9 @@
 	<div ng-controller="QubeCont">
 
 		<div class="topBar">
-			<a class="category" ng-class="{active: layout == 'playlist'}" ng-click="layout = 'playlist'">playlist</a>
-			<a class="category" ng-class="{active: layout == 'youtube'}" ng-click="layout = 'youtube'">youtube</a>
-			<a class="category" ng-class="{active: layout == 'video'}" ng-click="layout = 'video'">video</a>
+			<a class="category" ng-class="{active: layout == 'playlist'}" ng-click="layout = 'playlist'"><i class="fa fa-th-large"></i> playlist</a>
+			<a class="category" ng-class="{active: layout == 'youtube'}" ng-click="layout = 'youtube'"><i class="fa fa-youtube-play"></i> youtube</a>
+			<a class="category" ng-class="{active: layout == 'video'}" ng-click="layout = 'video'"><i class="fa fa-arrows-alt"></i> video</a>
 			<a class="category logout" href="./logout">logout</a>
 		</div>
 
