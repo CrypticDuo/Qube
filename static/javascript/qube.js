@@ -1,5 +1,26 @@
 var app = angular.module("QubeApp", []);
 
+function convertYoutubeDuration(before) {
+    var string = before,
+        array = string.match(/(\d+)(?=[MHS])/ig) || [];
+
+    var formatted = array.map(function(item) {
+        if (item.length < 2) return '0' + item;
+        return item;
+    }).join(':');
+
+    if (string.indexOf('H') === -1 && string.indexOf('S') > -1 && string.indexOf('M') === -1)
+        formatted = "00:" + formatted;
+    else if (string.indexOf('M') > -1 && string.indexOf('S') === -1)
+        formatted = formatted + ":00";
+    else if (string.indexOf('H') > -1 && string.indexOf('M') === -1 && string.indexOf('S') === -1)
+        formatted = formatted + ":00:00";
+    else if (string.indexOf('H') > -1 && string.indexOf('M') === -1 && string.indexOf('S') > -1)
+        formatted = formatted.substring(0, formatted.indexOf(':')) + ":00" + formatted.substring(formatted.indexOf(':'));
+
+    return formatted;
+}
+
 app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
@@ -16,7 +37,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.addPlaylistInput = '';
     }
 
-    $scope.changePlaylist = function (playlist){
+    $scope.changePlaylist = function(playlist) {
         $scope.currentPlaylist = playlist;
         QubeService.listAllVideos($scope, playlist.name);
     }
@@ -36,50 +57,34 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 q: val
             }
         })
-        .success(function(data) {
-            videoIDlist = "";
-            for (var i = 0; i < data.items.length; i++) {
-                videoIDlist = videoIDlist + data.items[i].id.videoId + ",";
-            }
-            $http.get('https://www.googleapis.com/youtube/v3/videos', {
-                params: {
-                    part: 'contentDetails, statistics',
-                    id: videoIDlist,
-                    key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+            .success(function(data) {
+                videoIDlist = "";
+                for (var i = 0; i < data.items.length; i++) {
+                    videoIDlist = videoIDlist + data.items[i].id.videoId + ",";
                 }
-            })
-            .success(function(contentDetailsData) {
-                $scope.appendContentDetail(data, contentDetailsData);
+                $http.get('https://www.googleapis.com/youtube/v3/videos', {
+                    params: {
+                        part: 'contentDetails, statistics',
+                        id: videoIDlist,
+                        key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+                    }
+                })
+                    .success(function(contentDetailsData) {
+                        $scope.appendContentDetail(data, contentDetailsData);
+                    })
+                    .error(function() {
+                        alert("Something went wrong querying video details");
+                    });
             })
             .error(function() {
-                alert("Something went wrong querying video details");
+                alert("Something went wrong with querying youtube videos");
             });
-        })
-        .error(function() {
-            alert("Something went wrong with querying youtube videos");
-        });
     }
 
-    $scope.appendContentDetail = function (data, contentDetailsData){
+    $scope.appendContentDetail = function(data, contentDetailsData) {
         $scope.ytSearchResult = [];
         for (var i = 0; i < data.items.length; i++) {
-            var string = contentDetailsData.items[i].contentDetails.duration,
-                array = string.match(/(\d+)(?=[MHS])/ig) || [];
-
-            var formatted = array.map(function(item) {
-                if (item.length < 2) return '0' + item;
-                return item;
-            }).join(':');
-
-            if (string.indexOf('H') === -1 && string.indexOf('S') > -1 && string.indexOf('M') === -1)
-                formatted = "00:" + formatted;
-            else if (string.indexOf('M') > -1 && string.indexOf('S') === -1)
-                formatted = formatted + ":00";
-            else if (string.indexOf('H') > -1 && string.indexOf('M') === -1 && string.indexOf('S') === -1)
-                formatted = formatted + ":00:00";
-            else if (string.indexOf('H') > -1 && string.indexOf('M') === -1 && string.indexOf('S') > -1)
-                formatted = formatted.substring(0, formatted.indexOf(':')) + ":00" + formatted.substring(formatted.indexOf(':'));
-
+            var formatted = convertYoutubeDuration(contentDetailsData.items[i].contentDetails.duration);
             $scope.ytSearchResult.push({
                 id: data.items[i].id.videoId,
                 title: data.items[i].snippet.title,
@@ -91,9 +96,13 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             });
         }
     }
+
+    $scope.playVideo = function(video) {
+        player.loadVideoById(video.id);
+    }
 });
 
-app.service("VideoService", function($http, $q){
+app.service("VideoService", function($http, $q) {
     //https://www.googleapis.com/youtube/v3/search
 
 });
@@ -118,7 +127,7 @@ app.service("QubeService", function($http, $q) {
     };
 
     function addPlaylist(scope, pname) {
-        $http.post("/api/playlists/"+pname)
+        $http.post("/api/playlists/" + pname)
             .success(function(res) {
                 if (res.status === "fail") {
                     console.log(res.msg);
@@ -131,13 +140,14 @@ app.service("QubeService", function($http, $q) {
                 alert("Error: Cannot add playlist.");
             });
     };
+
     function listAllVideos(scope, pname) {
-        $http.get(hostURL + "/api/playlists/"+pname)
+        $http.get(hostURL + "/api/playlists/" + pname)
             .success(function(res) {
                 if (res.status === "fail") {
                     console.log(res.msg);
                 } else {
-                    if(res.data){
+                    if (res.data) {
                         //getting title, id, duration
                         var videoIDlist = '';
                         for (var i = 0; i < res.data.length; i++) {
@@ -150,12 +160,16 @@ app.service("QubeService", function($http, $q) {
                                 key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
                             }
                         })
-                        .success(function(contentDetailsData) {
-                            scope.videos = contentDetailsData.items;
-                        })
-                        .error(function() {
-                            alert("Something went wrong querying video details.");
-                        });
+                            .success(function(contentDetailsData) {
+                                scope.videos = contentDetailsData.items;
+
+                                for(var i=0; i<scope.videos.length; i++){
+                                    scope.videos[i].contentDetails.duration = convertYoutubeDuration(scope.videos[i].contentDetails.duration);
+                                }
+                            })
+                            .error(function() {
+                                alert("Something went wrong querying video details.");
+                            });
                     }
                 }
             })
@@ -165,7 +179,7 @@ app.service("QubeService", function($http, $q) {
     }
 
     function addVideoToPlaylist(scope, pname, v_id) {
-        $http.post("/api/playlists/"+pname+"/videos/"+v_id)
+        $http.post("/api/playlists/" + pname + "/videos/" + v_id)
             .success(function(res) {
                 if (res.status === "fail") {
                     console.log(res.msg);
@@ -187,36 +201,34 @@ app.service("QubeService", function($http, $q) {
         listAllVideos: listAllVideos,
         addVideoToPlaylist: addVideoToPlaylist
     });
-
-
 });
 
-app.filter('searchFor', function(){
+app.filter('searchFor', function() {
 
-	// All filters must return a function. The first parameter
-	// is the data that is to be filtered, and the second is an
-	// argument that may be passed with a colon (searchFor:searchString)
+    // All filters must return a function. The first parameter
+    // is the data that is to be filtered, and the second is an
+    // argument that may be passed with a colon (searchFor:searchString)
 
-	return function(arr, searchString){
+    return function(arr, searchString) {
 
-		if(!searchString){
-			return arr;
-		}
+        if (!searchString) {
+            return arr;
+        }
 
-		var result = [];
+        var result = [];
 
-		searchString = searchString.toLowerCase();
+        searchString = searchString.toLowerCase();
 
-		// Using the forEach helper method to loop through the array
-		angular.forEach(arr, function(item){
+        // Using the forEach helper method to loop through the array
+        angular.forEach(arr, function(item) {
 
-			if(item.name.toLowerCase().indexOf(searchString) !== -1){
-				result.push(item);
-			}
+            if (item.name.toLowerCase().indexOf(searchString) !== -1) {
+                result.push(item);
+            }
 
-		});
+        });
 
-		return result;
-	};
+        return result;
+    };
 
 });
