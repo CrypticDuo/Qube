@@ -218,6 +218,8 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     display: inline-block;
     font-size:10px;
     color:#999;
+    width:10%;
+    text-align:right;
 }
 
 #QubePlaylist .right .videolist .userVideolist a:hover{

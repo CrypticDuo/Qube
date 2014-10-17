@@ -1,5 +1,6 @@
 <!doctype html>
 <html ng-app="QubeApp">
+
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.min.js"></script>
 	<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
@@ -9,38 +10,61 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/view.css">
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="/static/framework/font-awesome-4.2.0/css/font-awesome.min.css">
-<script>
-      var tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
+    <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
 
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-      var player;
-      function onYouTubeIframeAPIReady() {
+    var player;
+
+    function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-          height: '190',
-          width: $('.videolist').width(),
-          videoId: '_hsrsmwHv0A',
-          playerVars:{'showinfo' : 0, 'autohide' : 0, 'controls' : 1, 'modestbranding' : 1},
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
+            height: '190',
+            width: $('.videolist').width(),
+            videoId: '_hsrsmwHv0A',
+            playerVars: {
+                'showinfo': 0,
+                'autohide': 0,
+                'controls': 1,
+                'modestbranding': 1,
+                'theme': 'light'
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
         });
-      }
+    }
 
-      function onPlayerReady(event) {
+    function onPlayerReady(event) {
         event.target.playVideo();
-      }
+    }
 
-      function onPlayerStateChange(event) {
-      }
+    function onPlayerStateChange(event) {}
+
+    $(document).ready(function() {
+        var text = "";
+        $('.userVideolist').on('mouseenter', 'span', function() {
+            text = $(this).text();
+            console.log("enter");
+            $(this).text("");
+            $(this).append('<i style="color:#e52d4f;" class="fa fa-times"></i>');
+            $(this).css("border-left","2px solid #e52d4f");
+        });
+        $('.userVideolist').on('mouseleave', 'span', function() {
+            console.log("exit");
+            $(this).children().remove();
+            $(this).text(text);
+            $(this).css('border-left','0');
+            text = "";
+        });
+    });
     </script>
 </head>
 <div id="QubePlaylist">
-	<div ng-controller="QubeCont">
-
+    <div ng-controller="QubeCont">
 		<div id='cssmenu' class="topBar">
 			<ul>
 			   <li class="navi" ng-class="{active: layout == 'playlist'}" ng-click="layout = 'playlist'"><a class="category"><i class="fa fa-th-large"></i> Home</a></li>
@@ -113,4 +137,5 @@
 </div><!-- END OF #QubePlaylist -->
 
 </body>
+
 </html>
