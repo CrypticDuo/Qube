@@ -2,6 +2,7 @@
 <html ng-app="QubeApp">
 
 <head>
+	<script src="/static/framework/pace/pace.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.min.js"></script>
 	<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
 	<script src="/static/javascript/qube.js"></script>
@@ -108,12 +109,12 @@
 						<input ng-model="addVideoInput" placeholder="Search for Youtube videos"></input>
 						<button ng-click="searchYt(addVideoInput)"><span></span></button>
 					</div>
-					<div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video.id)">
+					<div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video)">
 					  <div class="video-image">
 					  	<img class="video-image" src="{{ video.thumbnail }}">
-					  	<p class="video-duration">{{ video.duration }}</p>
+					  	<p class="video-duration">{{ video.contentDetails.duration }}</p>
 					  </div>
-					  <p class="video-title">{{ video.title }}</p>
+					  <p class="video-title">{{ video.snippet.title }}</p>
 						<ul>
 						  <li class="video-author">by {{ video.author }}</li>
 						  <li class="video-views"> {{ video.views }} views </li>
