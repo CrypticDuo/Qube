@@ -48,6 +48,18 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, val);
     }
 
+
+    var occurrenceTimer;
+    $scope.queryYoutube = function(){
+				if (occurrenceTimer) {
+					window.clearTimeout(occurrenceTimer);
+				}
+				occurrenceTimer = window.setTimeout(function() {
+					occurrenceTimer = null;
+			    $scope.searchYt($scope.addVideoInput);
+				}, 500);
+    }
+
     $scope.searchYt = function(val) {
         $http.get('https://www.googleapis.com/youtube/v3/search', {
             params: {
