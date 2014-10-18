@@ -89,19 +89,27 @@
 		<div class="displayView">
 			<div class="left">
 				<div ng-show="layout == 'playlist'" class ="view playlist">
-					<input type="text" ng-model="searchString" placeholder="Search Playlist">
-					<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
+					<div class="playlistSearch">
+						<input type="text" ng-model="searchString" placeholder="Search Playlist">
+						<button><span></span></button>
+					</div>
 					<ul class="userPlaylist">
 						<li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}"
 								ng-click="changePlaylist(playlist)" >
-							<span>{{playlist.name}}</span>
+							<img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+							<div class="playlistDetail">
+								<div class="title">{{playlist.name}}</div>
+								<div class="duration">{{playlist.data.length}} songs - 31:02</div>
+							</div>
 						</li>
 					</ul>
+
+					<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
 				</div><!-- END OF PLAYLIST LAYOUT -->
 
 				<div ng-show="layout == 'youtube'" class ="view youtube">
 					<div class="youtubeSearchBar">
-						<input ng-model="addVideoInput" placeholder="Search for Youtube videos"></input>
+						<input ng-model="addVideoInput" ng-change="queryYoutube()" placeholder="Search for Youtube videos"></input>
 						<button ng-click="searchYt(addVideoInput)"><span></span></button>
 					</div>
 					<div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video)">

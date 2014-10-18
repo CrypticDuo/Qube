@@ -3,6 +3,10 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 /* Qube Main CSS */
 
+input, button{
+  outline : none;
+}
+
 #QubePlaylist {
     min-width: 1114px;
     font-family: arial, sans-serif;
@@ -46,6 +50,56 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 #QubePlaylist .playlist .userPlaylist li {
     margin-bottom: 7px;
     cursor: pointer;
+    display: inline-block;
+    width: 220px; margin: 0 10px;
+    -webkit-box-shadow: 0 0px 3px rgba(0,0,0,0.3); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 0px 3px rgba(0,0,0,0.3);
+    /* border-radius: 3px; */ padding-bottom: 1px;
+}
+
+#QubePlaylist .view.playlist img.playlistThumbnail {
+    width: 220px;
+    /* border-radius: 3px 3px 0 0; */
+}
+
+#QubePlaylist .view.playlist .userPlaylist {
+    padding: 0 10px;
+    margin-top: 28px;
+}
+
+#QubePlaylist .view.playlist .playlistDetail {
+    padding: 10px;
+}
+
+#QubePlaylist .view.playlist .playlistDetail .duration {
+    font-weight: normal;
+    font-size: 14px;
+    color: #999;
+}
+
+#QubePlaylist .view.playlist .playlistDetail .title {
+    font-size: 18px;
+    margin-bottom: 8px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#QubePlaylist .view.playlist .playlistSearch {
+    padding: 10px 15px; border-top: 1px solid #f1f1f1; border-bottom: 1px solid #f1f1f1;
+}
+
+#QubePlaylist .view.playlist .playlistSearch input {
+    border: 1px solid #cccdc8; font-size: 16px; padding: 5px 10px;
+    width: 624px;
+}
+
+#QubePlaylist .view.playlist .playlistSearch button span {
+    display: block; border: none; padding: 0; opacity: .6; text-indent: -10000px; background: no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflAjuWMm.webp) -242px -742px; background-size: 258px 1878px; width: 14px; height: 14px; box-shadow: none;
+}
+
+#QubePlaylist .view.playlist .playlistSearch button {
+    border: 1px solid #d3d3d3; background-color: #f8f8f8; height: 30px; padding: 0 24px;
+    float: right;
 }
 
 #QubePlaylist .displayView {
@@ -158,8 +212,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     border: 1px solid #cccdc8;
     font-size: 16px;
     padding: 5px 10px;
-    width: calc(100% - 87px);
-    float: left;
+    width: 624px;
 }
 
 #QubePlaylist .view.youtube .youtubeSearchBar button {
@@ -167,6 +220,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     background-color:#f8f8f8;
     height: 30px;
     padding: 0 24px;
+    float: right;
 }
 
 #QubePlaylist .view.youtube .youtubeSearchBar button span {
@@ -174,7 +228,12 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 }
 
 #QubePlaylist .right .videolist .playlistHeader {
-    padding: 16px 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#QubePlaylist .right .videolist .playlistHeader {
+    padding: 15px 10px;
     font-size: 20px;
     border-top: 1px solid #f1f1f1;
     border-bottom: 1px solid #f1f1f1;
