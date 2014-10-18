@@ -24,10 +24,11 @@ function convertYoutubeDuration(before) {
 app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
-        QubeService.listAllPlaylist($scope);
         $scope.layout = 'playlist';
         $scope.currentPlaylist = {};
         $scope.ytSearchResult = [];
+        $scope.playlists = [];
+        QubeService.listAllPlaylist($scope);
     }
 
     init();
@@ -43,6 +44,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.addVideo = function(val) {
+        $scope.videos.push(val);
         QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, val);
     }
 
@@ -87,11 +89,15 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             var formatted = convertYoutubeDuration(contentDetailsData.items[i].contentDetails.duration);
             $scope.ytSearchResult.push({
                 id: data.items[i].id.videoId,
-                title: data.items[i].snippet.title,
+                snippet: {
+                  title : data.items[i].snippet.title
+                },
                 description: data.items[i].snippet.description,
                 thumbnail: data.items[i].snippet.thumbnails.medium.url,
                 author: data.items[i].snippet.channelTitle,
-                duration: formatted,
+                contentDetails: {
+                  duration: formatted
+                },
                 views: contentDetailsData.items[i].statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             });
         }
@@ -111,6 +117,36 @@ app.service("QubeService", function($http, $q) {
 
     var hostURL = "http://" + window.location.host;
 
+    function getVideoDetails(target, data){
+        var evt = data.shift();
+        //puts the data contentDetails inside target
+        if(!evt){
+          return;
+        }
+        var videoIDlist = '';
+        for (var i = 0; i < evt.videos.length; i++) {
+            videoIDlist = videoIDlist + evt.videos[i] + ",";
+        }
+        $http.get('https://www.googleapis.com/youtube/v3/videos', {
+            params: {
+                part: 'contentDetails, statistics, snippet',
+                id: videoIDlist,
+                key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+            }
+        })
+            .success(function(contentDetailsData) {
+                target.push({name : evt.name, data : contentDetailsData.items});
+                for(var i=0; i<target[target.length-1].data.length; i++){
+                    target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
+                }
+                getVideoDetails(target,data);
+            })
+            .error(function() {
+                alert("Something went wrong querying video details!");
+            });
+
+    }
+
     function listAllPlaylist(scope) {
         $http.get(hostURL + "/api/playlists")
             .success(function(res) {
@@ -118,7 +154,8 @@ app.service("QubeService", function($http, $q) {
                     console.log(res.msg);
                 } else {
                     console.log(res.data);
-                    scope.playlists = res.data;
+                    // scope.playlists = res.data;
+                    getVideoDetails(scope.playlists, res.data);
                 }
             })
             .error(function(err) {
@@ -142,40 +179,11 @@ app.service("QubeService", function($http, $q) {
     };
 
     function listAllVideos(scope, pname) {
-        $http.get(hostURL + "/api/playlists/" + pname)
-            .success(function(res) {
-                if (res.status === "fail") {
-                    console.log(res.msg);
-                } else {
-                    if (res.data) {
-                        //getting title, id, duration
-                        var videoIDlist = '';
-                        for (var i = 0; i < res.data.length; i++) {
-                            videoIDlist = videoIDlist + res.data[i] + ",";
-                        }
-                        $http.get('https://www.googleapis.com/youtube/v3/videos', {
-                            params: {
-                                part: 'contentDetails, statistics, snippet',
-                                id: videoIDlist,
-                                key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
-                            }
-                        })
-                            .success(function(contentDetailsData) {
-                                scope.videos = contentDetailsData.items;
-
-                                for(var i=0; i<scope.videos.length; i++){
-                                    scope.videos[i].contentDetails.duration = convertYoutubeDuration(scope.videos[i].contentDetails.duration);
-                                }
-                            })
-                            .error(function() {
-                                alert("Something went wrong querying video details.");
-                            });
-                    }
-                }
-            })
-            .error(function(err) {
-                alert("Error: Cannot list all videos.");
-            });
+        for(var a=0; a<scope.playlists.length; a++){
+            if (scope.playlists[a].name === pname){
+                scope.videos = scope.playlists[a].data;
+            }
+        }
     }
 
     function addVideoToPlaylist(scope, pname, v_id) {
@@ -184,7 +192,6 @@ app.service("QubeService", function($http, $q) {
                 if (res.status === "fail") {
                     console.log(res.msg);
                 } else {
-                    listAllVideos(scope, pname);
                     console.log("Success: Added a video.");
                 }
             })
