@@ -79,67 +79,62 @@
 			</ul>
 		</div><!-- END OF TOPBAR -->
 
-        <div class="displayView">
-            <div class="left">
-                <div ng-show="layout == 'playlist'" class="view playlist">
-                    <input type="text" ng-model="searchString" placeholder="Search Playlist">
-                    <input ng-model="addPlaylistInput"></input>
-                    <button ng-click="addPlaylist()">add</button>
-                    <ul class="userPlaylist">
-                        <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)">
-                            <span>{{playlist.name}}</span>
-                        </li>
-                    </ul>
-                </div>
+		<div class="displayView">
+			<div class="left">
+				<div ng-show="layout == 'playlist'" class ="view playlist">
+					<input type="text" ng-model="searchString" placeholder="Search Playlist">
+					<input ng-model="addPlaylistInput"></input><button ng-click="addPlaylist()">add</button>
+					<ul class="userPlaylist">
+						<li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}"
+								ng-click="changePlaylist(playlist)" >
+							<span>{{playlist.name}}</span>
+						</li>
+					</ul>
+				</div><!-- END OF PLAYLIST LAYOUT -->
 
-                <div ng-show="layout == 'youtube'" class="view youtube">
-                    <div class="youtubeSearchBar">
-                        <input ng-model="addVideoInput" placeholder="Search for Youtube videos"></input>
-                        <button ng-click="searchYt(addVideoInput)">
-                            <span></span>
-                        </button>
-                    </div>
-                    <div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video.id)">
-                        <div class="video-image">
-                            <img class="video-image" src="{{ video.thumbnail }}">
-                            <p class="video-duration">{{ video.duration }}</p>
-                        </div>
-                        <p class="video-title">{{ video.title }}</p>
-                        <ul>
-                            <li class="video-author">by {{ video.author }}</li>
-                            <li class="video-views">{{ video.views }} views</li>
-                        </ul>
-                        <p class="video-description">{{ video.description }}</p>
-                    </div>
-                </div>
-                <div ng-show="layout == 'video'" class="view video">
-                    Video View mode!
-                </div>
-            </div>
-            <!--	
-		 -->
-            <div class="right">
-                <div class="videolist">
-                    <div class="playlistHeader">
-                        <span>{{currentPlaylist.name}}</span>
-                    </div>
-                    <div class="player" style="position:relative; height:inherit; width:inherit;">
-                        <div id="player"></div>
-                    </div>
-                    <ul class="userVideolist">
-                        <li ng-repeat="video in videos" ng-class="{active: video == currentPlaying}">
-                            <a ng-click="playVideo(video)">{{video.snippet.title}}</a>
-                            <span>{{video.contentDetails.duration}}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- END OF .displayView -->
-    </div>
-    <!-- END OF ng-controller="QubeCont" -->
-</div>
-<!-- END OF #QubePlaylist -->
+				<div ng-show="layout == 'youtube'" class ="view youtube">
+					<div class="youtubeSearchBar">
+						<input ng-model="addVideoInput" placeholder="Search for Youtube videos"></input>
+						<button ng-click="searchYt(addVideoInput)"><span></span></button>
+					</div>
+					<div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video.id)">
+					  <div class="video-image">
+					  	<img class="video-image" src="{{ video.thumbnail }}">
+					  	<p class="video-duration">{{ video.duration }}</p>
+					  </div>
+					  <p class="video-title">{{ video.title }}</p>
+						<ul>
+						  <li class="video-author">by {{ video.author }}</li>
+						  <li class="video-views"> {{ video.views }} views </li>
+						</ul>
+						<p class="video-description">{{ video.description }}</p>
+					</div>
+				</div><!-- END OF YOUTUBE LAYOUT -->
+
+				<div ng-show="layout == 'video'" class ="view video">
+					Video View mode!
+				</div><!-- END OF VIDEO LAYOUT -->
+			</div><!-- END OF LEFT VIEW -->
+		 	<div class ="right">
+				<div class ="videolist">
+					<div class ="playlistHeader">
+						<span> {{currentPlaylist.name}} </span>
+					</div>
+					<div class="player" style="position:relative; height:inherit; width:inherit;">
+						<div id="player"></div>
+					</div>
+					<ul class="userVideolist">
+						<li ng-repeat="video in videos" ng-class="{active: video == currentPlaying}"
+								ng-click="playVideo(video)" >
+							<a>{{video.snippet.title}}</a>
+							<span>{{video.contentDetails.duration}}</span>
+						</li>
+					</ul>
+				</div>
+			</div><!-- END OF RIGHT VIEW -->
+		</div> <!-- END OF .displayView -->
+	</div><!-- END OF ng-controller="QubeCont" -->
+</div><!-- END OF #QubePlaylist -->
 
 </body>
 
