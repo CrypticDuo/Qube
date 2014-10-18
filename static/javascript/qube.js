@@ -115,8 +115,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
-    $scope.playVideo = function(video) {
-        player.loadVideoById(video.id);
+    $scope.playVideo = function(videoId) {
+        player.loadVideoById(videoId);
+        $scope.currentPlaying = videoId;
     }
 });
 
