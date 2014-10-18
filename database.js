@@ -82,7 +82,8 @@ var database = {
     },
     listAllVideos: function(userID, pname, callback) {
         User.find({
-            oauthID: userID,
+            oauthID: userID
+        },{
             playlist: {
                 "$elemMatch": {
                     name : pname
