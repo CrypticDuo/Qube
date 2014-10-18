@@ -48,12 +48,7 @@
     		var $el = $('.userVideolist li.active');
     		var scope = angular.element($el).scope();
     		scope.$apply(function(){
-				if($el.next().length > 0){
-					scope.playVideo($el.next().attr('id'));
-				}
-				else{
-					scope.playVideo($('.userVideolist li').first().attr('id'));
-				}
+    			scope.nextVideo();
     		});
     	}
     }
@@ -134,7 +129,14 @@
 					</div>
 					<div class="player" style="position:relative; height:inherit; width:inherit;">
 						<div id="player"></div>
+						<ul id="controllers">
+							<li class="fa fa-backward" ng-click="prevVideo()"></li>
+							<li class="fa fa-play" ng-click="playVideo()"></li>
+							<li class="fa fa-pause" ng-click="pauseVideo()"></li>
+							<li class="fa fa-forward" ng-click="nextVideo()"></li>
+						</ul>
 					</div>
+
 					<ul class="userVideolist">
 						<li ng-repeat="video in videos" ng-class="{active: video.id == currentPlaying}"
 								ng-click="playVideo(video.id)" id="{{ video.id }}">

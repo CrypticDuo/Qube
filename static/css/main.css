@@ -196,9 +196,14 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     border-bottom: 1px solid #f1f1f1;
 }
 
+#QubePlaylist .right .videolist .userVideolist li.active{
+    color:#009ae1;
+}
+
 #QubePlaylist .right .videolist .userVideolist li:hover{
     cursor:pointer;
 }
+
 #QubePlaylist .right .videolist .userVideolist a{
     position:relative;
     top:2px;
@@ -229,4 +234,16 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 #QubePlaylist .right .videolist .player {
     padding-bottom: 10px; border-bottom: 1px solid #f1f1f1;
+}
+
+#QubePlaylist .right .videolist .player #controllers li{
+    display:inline-block;
+    position:relative;
+    padding:5px 10px;
+    color:#555;
+    cursor:pointer;
+}
+
+#QubePlaylist .right .videolist .player #controllers li:hover{
+    color:#009ae1;
 }

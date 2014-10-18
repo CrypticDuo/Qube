@@ -104,8 +104,49 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.playVideo = function(videoId) {
-        player.loadVideoById(videoId);
+        console.log("play video");
+        console.log(videoId);
+        console.log($scope.currentPlaying);
+        if(!videoId){
+            videoId = $('.userVideolist li.active').attr('id');
+        }
+        if($scope.currentPlaying == videoId) {
+            player.playVideo();
+        }
+        else {
+            player.loadVideoById(videoId);
+        }
         $scope.currentPlaying = videoId;
+    }
+
+    $scope.prevVideo = function() {
+        var $el = $('.userVideolist li.active');
+        if($el.prev().length > 0){
+            player.loadVideoById($el.prev().attr('id'));
+            $scope.currentPlaying = $el.prev().attr('id');
+        }
+        else{
+            player.loadVideoById($('.userVideolist li').last().attr('id'));
+            $scope.currentPlaying = $('.userVideolist li').last().attr('id');
+        }
+    }
+
+    $scope.pauseVideo = function() {
+        var videoId = $('.userVideolist li.active').attr('id');
+        player.pauseVideo();
+    }
+
+    $scope.nextVideo = function() {
+        console.log("next video");
+        var $el = $('.userVideolist li.active');
+        if($el.next().length > 0){
+            player.loadVideoById($el.next().attr('id'));
+            $scope.currentPlaying = $el.next().attr('id');
+        }
+        else{
+            player.loadVideoById($('.userVideolist li').first().attr('id'));
+            $scope.currentPlaying = $('.userVideolist li').first().attr('id');
+        }
     }
 });
 
