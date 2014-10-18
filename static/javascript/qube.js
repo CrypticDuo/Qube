@@ -97,8 +97,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
-    $scope.playVideo = function(video) {
-        player.loadVideoById(video.id);
+    $scope.playVideo = function(videoId) {
+        player.loadVideoById(videoId);
+        $scope.currentPlaying = videoId;
     }
 });
 
@@ -162,7 +163,6 @@ app.service("QubeService", function($http, $q) {
                         })
                             .success(function(contentDetailsData) {
                                 scope.videos = contentDetailsData.items;
-
                                 for(var i=0; i<scope.videos.length; i++){
                                     scope.videos[i].contentDetails.duration = convertYoutubeDuration(scope.videos[i].contentDetails.duration);
                                 }

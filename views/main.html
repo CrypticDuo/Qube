@@ -27,7 +27,7 @@
             playerVars: {
                 'showinfo': 0,
                 'autohide': 0,
-                'controls': 1,
+                'controls': 0,
                 'modestbranding': 1,
                 'theme': 'light'
             },
@@ -37,24 +37,35 @@
             }
         });
     }
-
+    
     function onPlayerReady(event) {
         event.target.playVideo();
     }
 
-    function onPlayerStateChange(event) {}
+    function onPlayerStateChange(event) {
+    	if(event.data == YT.PlayerState.ENDED){
+    		var $el = $('.userVideolist li.active');
+    		var scope = angular.element($el).scope();
+    		scope.$apply(function(){
+				if($el.next().length > 0){
+					scope.playVideo($el.next().attr('id'));
+				}
+				else{
+					scope.playVideo($('.userVideolist li').first().attr('id'));
+				}
+    		});
+    	}
+    }
 
     $(document).ready(function() {
         var text = "";
         $('.userVideolist').on('mouseenter', 'span', function() {
             text = $(this).text();
-            console.log("enter");
             $(this).text("");
             $(this).append('<i style="color:#e52d4f;" class="fa fa-times"></i>');
             $(this).css("border-left","2px solid #e52d4f");
         });
         $('.userVideolist').on('mouseleave', 'span', function() {
-            console.log("exit");
             $(this).children().remove();
             $(this).text(text);
             $(this).css('border-left','0');
@@ -124,8 +135,8 @@
 						<div id="player"></div>
 					</div>
 					<ul class="userVideolist">
-						<li ng-repeat="video in videos" ng-class="{active: video == currentPlaying}"
-								ng-click="playVideo(video)" >
+						<li ng-repeat="video in videos" ng-class="{active: video.id == currentPlaying}"
+								ng-click="playVideo(video.id)" id="{{ video.id }}">
 							<a>{{video.snippet.title}}</a>
 							<span>{{video.contentDetails.duration}}</span>
 						</li>
