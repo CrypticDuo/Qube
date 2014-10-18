@@ -44,7 +44,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.addVideo = function(val) {
-        $scope.videos.push(val);
         QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, val);
     }
 
@@ -204,11 +203,12 @@ app.service("QubeService", function($http, $q) {
     function listAllPlaylist(scope) {
         $http.get(hostURL + "/api/playlists")
             .success(function(res) {
-                if (res.status === "fail") {
+                if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
                     console.log(res.data);
                     // scope.playlists = res.data;
+                    scope.playlists = [];
                     getVideoDetails(scope.playlists, res.data);
                 }
             })
@@ -220,10 +220,10 @@ app.service("QubeService", function($http, $q) {
     function addPlaylist(scope, pname) {
         $http.post("/api/playlists/" + pname)
             .success(function(res) {
-                if (res.status === "fail") {
+                if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    listAllPlaylist(scope);
+                    scope.playlists.push({name : pname, data : []});
                     console.log("Success: added a playlist.");
                 }
             })
@@ -240,12 +240,13 @@ app.service("QubeService", function($http, $q) {
         }
     }
 
-    function addVideoToPlaylist(scope, pname, v_id) {
-        $http.post("/api/playlists/" + pname + "/videos/" + v_id)
+    function addVideoToPlaylist(scope, pname, video) {
+        $http.post("/api/playlists/" + pname + "/videos/" + video.id)
             .success(function(res) {
-                if (res.status === "fail") {
+                if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
+                    scope.videos.push(video);
                     console.log("Success: Added a video.");
                 }
             })
