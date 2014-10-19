@@ -58,10 +58,11 @@ input, button{
     margin-bottom: 20px;
 }
 
-#QubePlaylist .view.playlist img.playlistThumbnail {
+#QubePlaylist .view.playlist .playlistThumbnail {
     width: 220px;
     height: 125px;
-    background-color: rgb(65, 65, 65);
+    background-color: rgb(210, 210, 210);
+    text-align: center;
 }
 
 #QubePlaylist .view.playlist .userPlaylist {
@@ -84,6 +85,12 @@ input, button{
     margin-bottom: 8px;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+#QubePlaylist .view.playlist #addPlaylist .playlistThumbnail i {
+    color: rgb(240, 240, 240);
+    font-size: 45px;
+    margin-top: 40px;
 }
 
 #QubePlaylist .view.playlist .playlistSearch {
