@@ -21,6 +21,37 @@ function convertYoutubeDuration(before) {
     return formatted;
 }
 
+function addDuration(x,y){
+    var a = x.split(":");
+    var b = y.split(":");
+
+    a.length == 2 && a.unshift("00");
+    b.length == 2 && b.unshift("00");
+
+    a[2] = Number(a[2]) + Number(b[2]);
+    a[1] = Number(a[1]) + Number(b[1]);
+    a[0] = Number(a[0]) + Number(b[0]);
+
+    if (a[2] >= 60){
+      a[2] = a[2] % 60;
+      a[1]++;
+    }
+
+    if (a[1] >= 60){
+      a[1] = a[1] % 60;
+      a[0]++;
+    }
+
+    for(var i = 0; i <=2 ; i++)
+      a[i] = (a[i] >= 10) ? a[i]+"" : "0"+a[i];
+
+    if (a[0] === "00")
+      a.shift();
+
+    a = a.join(":");
+    return a;
+}
+
 app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
@@ -188,9 +219,10 @@ app.service("QubeService", function($http, $q) {
             }
         })
             .success(function(contentDetailsData) {
-                target.push({name : evt.name, data : contentDetailsData.items});
+                target.push({name : evt.name, data : contentDetailsData.items, duration : "00:00"});
                 for(var i=0; i<target[target.length-1].data.length; i++){
                     target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
+                    target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
                 }
                 getVideoDetails(target,data);
             })
@@ -247,6 +279,7 @@ app.service("QubeService", function($http, $q) {
                     console.log(res.msg);
                 } else {
                     scope.videos.push(video);
+                    scope.currentPlaylist.duration = addDuration(scope.currentPlaylist.duration, video.contentDetails.duration);
                     console.log("Success: Added a video.");
                 }
             })
