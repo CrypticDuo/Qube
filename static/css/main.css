@@ -7,6 +7,11 @@ input, button{
   outline : none;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 #QubePlaylist {
     min-width: 1114px;
     font-family: arial, sans-serif;
@@ -51,16 +56,18 @@ input, button{
     margin-bottom: 7px;
     cursor: pointer;
     display: inline-block;
-    width: 220px; margin: 0 10px;
+    margin: 0 6px;
     -webkit-box-shadow: 0 0px 3px rgba(0,0,0,0.3); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     box-shadow: 0 0px 3px rgba(0,0,0,0.3);
     /* border-radius: 3px; */ padding-bottom: 1px;
     margin-bottom: 20px;
+    width: 228px;
+
 }
 
 #QubePlaylist .view.playlist .playlistThumbnail {
-    width: 220px;
-    height: 125px;
+    width: 228px;
+    height: 130px;
     background-color: rgb(210, 210, 210);
     text-align: center;
 }
@@ -314,4 +321,14 @@ input, button{
 
 #QubePlaylist .right .videolist .player #controllers li:hover{
     color:#009ae1;
+}
+
+
+#QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input{
+   border: 1px solid #cccdc8; font-size: 16px; padding: 5px 10px;
+   width: 204px;
+}
+
+#QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody button {
+    border: 1px solid #d3d3d3; background-color: #f8f8f8; height: 30px; padding: 0 24px; float: right;
 }

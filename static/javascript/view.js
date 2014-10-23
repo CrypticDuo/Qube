@@ -1,5 +1,4 @@
 (function($) {
-
   $.fn.menumaker = function(options) {
 
       var cssmenu = $(this), settings = $.extend({
@@ -64,6 +63,8 @@
 $(document).ready(function(){
 
 $(document).ready(function() {
+  $("#addPlaylist").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });
+
   $("#cssmenu").menumaker({
     title: "Menu",
     format: "multitoggle"
