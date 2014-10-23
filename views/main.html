@@ -2,14 +2,18 @@
 <html ng-app="QubeApp">
 
 <head>
-	<script src="/static/framework/pace/pace.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.min.js"></script>
 	<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+	<script src="/static/framework/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
+	<script src="/static/framework/pace/pace.min.js"></script>
 	<script src="/static/javascript/qube.js"></script>
 	<script src="/static/javascript/view.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/view.css">
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="/static/framework/font-awesome-4.2.0/css/font-awesome.min.css">
     <script>
     var tag = document.createElement('script');
@@ -24,9 +28,10 @@
         player = new YT.Player('player', {
             height: '190',
             width: $('.videolist').width(),
-            videoId: '_hsrsmwHv0A',
+            videoId: '',
             playerVars: {
                 'showinfo': 0,
+                'autoplay': 1,
                 'autohide': 0,
                 'controls': 0,
                 'modestbranding': 1,
@@ -146,17 +151,20 @@
 					</div>
 					<div class="player" style="position:relative; height:inherit; width:inherit;">
 						<div id="player"></div>
-						<ul id="controllers">
-							<li class="fa fa-backward" ng-click="prevVideo()"></li>
-							<li class="fa fa-play" ng-click="playVideo()"></li>
-							<li class="fa fa-pause" ng-click="pauseVideo()"></li>
-							<li class="fa fa-forward" ng-click="nextVideo()"></li>
-						</ul>
+
+							<div class="volume" ng-controller="volumeController">
+								<i class="fa fa-volume-up"></i>
+								<progressbar max="max" value="volume" class="volumeBar"><span style="color:black; white-space:nowrap;"></span></progressbar>
+							</div>
+							<ul class="controllers" style="width:200px; position:relative; display:inline-block; font-size:15px;">
+								<li class="fa fa-backward" ng-click="prevVideo()"></li>
+								<li class="fa fa-play" ng-click="togglePlayVideo()"></li>
+								<li class="fa fa-forward" ng-click="nextVideo()"></li>
+							</ul>
 					</div>
 
 					<ul class="userVideolist">
-						<li ng-repeat="video in videos" ng-class="{active: video.id == currentPlaying}"
-								ng-click="playVideo(video.id)" id="{{ video.id }}">
+						<li ng-repeat="video in videos" ng-class="{active: video.id == currentPlaying}" ng-click="togglePlayVideo(video.id)" id="{{ video.id }}">
 							<a>{{video.snippet.title}}</a>
 							<span>{{video.contentDetails.duration}}</span>
 						</li>

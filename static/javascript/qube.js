@@ -1,5 +1,4 @@
-var app = angular.module("QubeApp", []);
-
+var app = angular.module("QubeApp", ['ui.bootstrap']);
 function convertYoutubeDuration(before) {
     var string = before,
         array = string.match(/(\d+)(?=[MHS])/ig) || [];
@@ -41,6 +40,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.changePlaylist = function(playlist) {
         $scope.currentPlaylist = playlist;
         QubeService.listAllVideos($scope, playlist.name);
+        $scope.currentPlaying = null;
+        $scope.togglePlayVideo();
     }
 
     $scope.addVideo = function(val) {
@@ -49,39 +50,39 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
 
     var occurrenceTimer;
-    $scope.queryYoutube = function(){
-				if (occurrenceTimer) {
-					window.clearTimeout(occurrenceTimer);
-				}
-				occurrenceTimer = window.setTimeout(function() {
-					occurrenceTimer = null;
-			    $scope.searchYt($scope.addVideoInput);
-				}, 500);
+    $scope.queryYoutube = function() {
+        if (occurrenceTimer) {
+            window.clearTimeout(occurrenceTimer);
+        }
+        occurrenceTimer = window.setTimeout(function() {
+            occurrenceTimer = null;
+            $scope.searchYt($scope.addVideoInput);
+        }, 500);
     }
 
     $scope.searchYt = function(val) {
         $http.get('https://www.googleapis.com/youtube/v3/search', {
-            params: {
-                key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
-                type: 'video',
-                maxResults: '20',
-                part: 'id,snippet',
-                fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/medium,items/snippet/channelTitle',
-                q: val
-            }
-        })
+                params: {
+                    key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
+                    type: 'video',
+                    maxResults: '20',
+                    part: 'id,snippet',
+                    fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/medium,items/snippet/channelTitle',
+                    q: val
+                }
+            })
             .success(function(data) {
                 videoIDlist = "";
                 for (var i = 0; i < data.items.length; i++) {
                     videoIDlist = videoIDlist + data.items[i].id.videoId + ",";
                 }
                 $http.get('https://www.googleapis.com/youtube/v3/videos', {
-                    params: {
-                        part: 'contentDetails, statistics',
-                        id: videoIDlist,
-                        key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
-                    }
-                })
+                        params: {
+                            part: 'contentDetails, statistics',
+                            id: videoIDlist,
+                            key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+                        }
+                    })
                     .success(function(contentDetailsData) {
                         $scope.appendContentDetail(data, contentDetailsData);
                     })
@@ -101,60 +102,60 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             $scope.ytSearchResult.push({
                 id: data.items[i].id.videoId,
                 snippet: {
-                  title : data.items[i].snippet.title
+                    title: data.items[i].snippet.title
                 },
                 description: data.items[i].snippet.description,
                 thumbnail: data.items[i].snippet.thumbnails.medium.url,
                 author: data.items[i].snippet.channelTitle,
                 contentDetails: {
-                  duration: formatted
+                    duration: formatted
                 },
                 views: contentDetailsData.items[i].statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             });
         }
     }
 
-    $scope.playVideo = function(videoId) {
-        console.log("play video");
-        console.log(videoId);
-        console.log($scope.currentPlaying);
-        if(!videoId){
-            videoId = $('.userVideolist li.active').attr('id');
+    $scope.togglePlayVideo = function(videoId) {
+        if (videoId) {
+                player.loadVideoById(videoId);
+                $scope.currentPlaying = videoId;
+        } else {
+            if ($scope.currentPlaying !== $('.userVideolist li.active').attr('id')) {
+                videoId = $scope.videos[0].id;
+                player.loadVideoById(videoId);
+                $scope.currentPlaying = videoId;
+            } else if (player.getPlayerState() === 1) {
+                player.pauseVideo();
+                $el = $('ul.controllers li.fa-play');
+                $el.toggleClass('fa fa-play');
+                $el.toggleClass('fa fa-pause');
+            } else if (player.getPlayerState() === 2) {
+                player.playVideo();
+                $el = $('ul.controllers li.fa-pause');
+                $el.toggleClass('fa fa-play');
+                $el.toggleClass('fa fa-pause');
+            }
+
         }
-        if($scope.currentPlaying == videoId) {
-            player.playVideo();
-        }
-        else {
-            player.loadVideoById(videoId);
-        }
-        $scope.currentPlaying = videoId;
     }
 
     $scope.prevVideo = function() {
         var $el = $('.userVideolist li.active');
-        if($el.prev().length > 0){
+        if ($el.prev().length > 0) {
             player.loadVideoById($el.prev().attr('id'));
             $scope.currentPlaying = $el.prev().attr('id');
-        }
-        else{
+        } else {
             player.loadVideoById($('.userVideolist li').last().attr('id'));
             $scope.currentPlaying = $('.userVideolist li').last().attr('id');
         }
     }
 
-    $scope.pauseVideo = function() {
-        var videoId = $('.userVideolist li.active').attr('id');
-        player.pauseVideo();
-    }
-
     $scope.nextVideo = function() {
-        console.log("next video");
         var $el = $('.userVideolist li.active');
-        if($el.next().length > 0){
+        if ($el.next().length > 0) {
             player.loadVideoById($el.next().attr('id'));
             $scope.currentPlaying = $el.next().attr('id');
-        }
-        else{
+        } else {
             player.loadVideoById($('.userVideolist li').first().attr('id'));
             $scope.currentPlaying = $('.userVideolist li').first().attr('id');
         }
@@ -170,29 +171,32 @@ app.service("QubeService", function($http, $q) {
 
     var hostURL = "http://" + window.location.host;
 
-    function getVideoDetails(target, data){
+    function getVideoDetails(target, data) {
         var evt = data.shift();
         //puts the data contentDetails inside target
-        if(!evt){
-          return;
+        if (!evt) {
+            return;
         }
         var videoIDlist = '';
         for (var i = 0; i < evt.videos.length; i++) {
             videoIDlist = videoIDlist + evt.videos[i] + ",";
         }
         $http.get('https://www.googleapis.com/youtube/v3/videos', {
-            params: {
-                part: 'contentDetails, statistics, snippet',
-                id: videoIDlist,
-                key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
-            }
-        })
-            .success(function(contentDetailsData) {
-                target.push({name : evt.name, data : contentDetailsData.items});
-                for(var i=0; i<target[target.length-1].data.length; i++){
-                    target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
+                params: {
+                    part: 'contentDetails, statistics, snippet',
+                    id: videoIDlist,
+                    key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
                 }
-                getVideoDetails(target,data);
+            })
+            .success(function(contentDetailsData) {
+                target.push({
+                    name: evt.name,
+                    data: contentDetailsData.items
+                });
+                for (var i = 0; i < target[target.length - 1].data.length; i++) {
+                    target[target.length - 1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length - 1].data[i].contentDetails.duration);
+                }
+                getVideoDetails(target, data);
             })
             .error(function() {
                 alert("Something went wrong querying video details!");
@@ -223,7 +227,10 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    scope.playlists.push({name : pname, data : []});
+                    scope.playlists.push({
+                        name: pname,
+                        data: []
+                    });
                     console.log("Success: added a playlist.");
                 }
             })
@@ -233,8 +240,8 @@ app.service("QubeService", function($http, $q) {
     };
 
     function listAllVideos(scope, pname) {
-        for(var a=0; a<scope.playlists.length; a++){
-            if (scope.playlists[a].name === pname){
+        for (var a = 0; a < scope.playlists.length; a++) {
+            if (scope.playlists[a].name === pname) {
                 scope.videos = scope.playlists[a].data;
             }
         }
@@ -263,6 +270,12 @@ app.service("QubeService", function($http, $q) {
         listAllVideos: listAllVideos,
         addVideoToPlaylist: addVideoToPlaylist
     });
+});
+
+app.controller('volumeController', function($scope) {
+    $scope.max = 100;
+    $scope.type = 'info';
+    $scope.volume = 100;
 });
 
 app.filter('searchFor', function() {
