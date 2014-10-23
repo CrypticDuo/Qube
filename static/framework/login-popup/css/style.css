@@ -1,7 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic);
 
-body {font-family: 'Source Sans Pro', sans-serif; font-size: 14px; color: #666;}
-
 #lean_overlay {
     position: fixed;
     z-index:100;
@@ -44,7 +42,7 @@ a.btn_red {color: #FFF;}
 .popupBody {padding:20px;}
 
 .social_login .social_box {display:block; clear:both; padding:10px; margin-bottom: 10px; background: #F4F4F2; overflow: hidden; text-align:center;}
-.social_login .icon {display:block; width:10px; padding:5px 10px; margin-right: 0px; float:left; color:#FFF; font-size:20px;margin-top:1px; text-align: center;} 
+.social_login .icon {display:block; width:10px; padding:5px 10px; margin-right: 0px; float:left; color:#FFF; font-size:20px;margin-top:1px; text-align: center;}
 /*.social_login .google .icon {color:#DD4B39;}*/
 .social_login .icon_title {display:block; padding:7px 0; font-weight: bold; font-size: 16px; color:#fff; text-align:center;}
 a.social_box:hover{text-decoration: none;}
