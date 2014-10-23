@@ -1,104 +1,123 @@
 /* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
-html,body,div,span,button,input,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1;height: 100%;background-color: #F1F1F1;}ol,ul{list-style:none;}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
 
+html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block
+}
+body {
+    line-height: 1;
+    height: 100%;
+    background-color: #F1F1F1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: none
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
 /* Qube Main CSS */
 
-input, button{
-  outline : none;
+input, button {
+    outline: none;
 }
-
 a {
     text-decoration: none;
     color: inherit;
 }
-
 #QubePlaylist {
     min-width: 1114px;
     font-family: arial, sans-serif;
 }
-
 #QubePlaylist .topBar {
     background-color: white;
     border: 1px solid #e8e8e8;
     z-index: 10;
 }
-
 #QubePlaylist .topBar .category {
     margin-right: 15px;
     cursor: pointer;
 }
-
 #QubePlaylist .topBar .category.active {
-    font-weight:bold;
+    font-weight: bold;
 }
-
 #QubePlaylist .topBar .category.logout {
     float: right;
 }
-
 #QubePlaylist .videolist {
     background-color: white;
-    box-shadow: 0 1px 2px rgba(0,0,0,.1); -moz-box-sizing: border-box; box-sizing: border-box;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     min-height: calc(100vh - 70px);
 }
-
 #QubePlaylist .view {
     background-color: white;
-    box-shadow: 0 1px 2px rgba(0,0,0,.1); -moz-box-sizing: border-box; box-sizing: border-box;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     min-height: calc(100vh - 70px);
 }
-
 #QubePlaylist .playlist .userPlaylist .active {
     font-weight: bold;
 }
-
 #QubePlaylist .playlist .userPlaylist li {
     margin-bottom: 7px;
     cursor: pointer;
     display: inline-block;
     margin: 0 6px;
-    -webkit-box-shadow: 0 0px 3px rgba(0,0,0,0.3); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-    box-shadow: 0 0px 3px rgba(0,0,0,0.3);
-    /* border-radius: 3px; */ padding-bottom: 1px;
+    -webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.3);
+    /* border-radius: 3px; */
+
+    padding-bottom: 1px;
     margin-bottom: 20px;
     width: 228px;
-
 }
-
 #QubePlaylist .view.playlist .playlistThumbnail {
     width: 228px;
     height: 130px;
     background-color: rgb(210, 210, 210);
     text-align: center;
 }
-
 #QubePlaylist .view.playlist .userPlaylist {
     padding: 0 10px 15px 10px;
     margin-top: 20px;
 }
-
 #QubePlaylist .view.playlist .playlistDetail {
     padding: 10px;
 }
-
 #QubePlaylist .view.playlist .playlistDetail .duration {
     font-weight: normal;
     font-size: 14px;
     color: #999;
 }
-
 #QubePlaylist .view.playlist .playlistDetail .title {
     font-size: 18px;
     margin-bottom: 8px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
-
 #QubePlaylist .view.playlist #addPlaylist .playlistThumbnail i {
     color: rgb(240, 240, 240);
     font-size: 45px;
     margin-top: 40px;
 }
+
 
 #QubePlaylist .view.playlist #playlistRemove {
     margin-top: -133px;
@@ -116,34 +135,44 @@ a {
 }
 
 #QubePlaylist .view.playlist .playlistSearch {
-    padding: 10px 15px; border-top: 1px solid #f1f1f1; border-bottom: 1px solid #f1f1f1;
+    padding: 10px 15px;
+    border-top: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;
 }
-
 #QubePlaylist .view.playlist .playlistSearch input {
-    border: 1px solid #cccdc8; font-size: 16px; padding: 5px 10px;
+    border: 1px solid #cccdc8;
+    font-size: 16px;
+    padding: 5px 10px;
     width: 624px;
 }
-
 #QubePlaylist .view.playlist .playlistSearch button span {
-    display: block; border: none; padding: 0; opacity: .6; text-indent: -10000px; background: no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflAjuWMm.webp) -242px -742px; background-size: 258px 1878px; width: 14px; height: 14px; box-shadow: none;
+    display: block;
+    border: none;
+    padding: 0;
+    opacity: .6;
+    text-indent: -10000px;
+    background: no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflAjuWMm.webp) -242px -742px;
+    background-size: 258px 1878px;
+    width: 14px;
+    height: 14px;
+    box-shadow: none;
 }
-
 #QubePlaylist .view.playlist .playlistSearch button {
-    border: 1px solid #d3d3d3; background-color: #f8f8f8; height: 30px; padding: 0 24px;
+    border: 1px solid #d3d3d3;
+    background-color: #f8f8f8;
+    height: 30px;
+    padding: 0 24px;
     float: right;
 }
-
 #QubePlaylist .displayView {
     width: 1094px;
     margin: 0 auto;
     padding: 10px;
 }
-
 #QubePlaylist .left {
     width: 740px;
     display: inline-block;
 }
-
 #QubePlaylist .right {
     width: 345px;
     padding-left: 10px;
@@ -151,7 +180,6 @@ a {
     position: absolute;
     min-height: calc(100vh - 70px);
 }
-
 #QubePlaylist .view.youtube .video {
     cursor: pointer;
     min-height: 112px;
@@ -162,38 +190,33 @@ a {
     margin-left: 15px;
     margin-right: 15px;
 }
-
 #QubePlaylist .view.youtube .video p {
     padding-left: 10px;
 }
-
 #QubePlaylist .view.youtube .video-image {
     left: 0px;
     position: absolute;
     /* top: 10px; */
+
     width: 200px;
     height: 112px;
 }
-
 #QubePlaylist .view.youtube .video-title {
     padding-top: 5px;
     font-weight: bold;
     font-size: 16px;
     color: #167ac6;
 }
-
 #QubePlaylist .view.youtube .video-author {
     color: #555;
     font-size: 13px;
     font-family: arial;
     padding: 7px 0;
 }
-
 #QubePlaylist .view.youtube .video-description {
     font-size: 13px;
     color: #555;
 }
-
 #QubePlaylist .view.youtube .video-duration {
     color: white;
     padding: 2px 3px !important;
@@ -203,147 +226,158 @@ a {
     top: 94px;
     background: rgba(0, 0, 0, 0.67);
 }
-
 #QubePlaylist .view.youtube .video-views {
     color: #555;
-    font-size: 10px; line-height: 1.5;
+    font-size: 10px;
+    line-height: 1.5;
     font-size: 13px;
     /* float: right; */
 }
-
 #QubePlaylist .view.youtube .video:hover {
     /* color: #e16361; */
 }
-
 #QubePlaylist .view.youtube ul {
     padding-left: 10px;
 }
-
-#QubePlaylist .view.youtube .video li{
-  display:inline-block;
+#QubePlaylist .view.youtube .video li {
+    display: inline-block;
 }
-
 #QubePlaylist .view.youtube .video li:first-child:before {
-  display: none;
+    display: none;
 }
-
 #QubePlaylist .view.youtube .video li:before {
-  content: '\002022';
-  color: #999;
-  margin: 0 5px;
+    content: '\002022';
+    color: #999;
+    margin: 0 5px;
 }
-
 #QubePlaylist .view.youtube .youtubeSearchBar {
     padding: 10px 15px;
     border-top: 1px solid #f1f1f1;
     border-bottom: 1px solid #f1f1f1;
 }
-
 #QubePlaylist .view.youtube .youtubeSearchBar input {
     border: 1px solid #cccdc8;
     font-size: 16px;
     padding: 5px 10px;
     width: 624px;
 }
-
 #QubePlaylist .view.youtube .youtubeSearchBar button {
     border: 1px solid #d3d3d3;
-    background-color:#f8f8f8;
+    background-color: #f8f8f8;
     height: 30px;
     padding: 0 24px;
     float: right;
 }
-
 #QubePlaylist .view.youtube .youtubeSearchBar button span {
-    display: block; border: none; padding: 0; opacity: .6; text-indent: -10000px; background: no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflAjuWMm.webp) -242px -742px; background-size: 258px 1878px; width: 14px; height: 14px; box-shadow: none;
+    display: block;
+    border: none;
+    padding: 0;
+    opacity: .6;
+    text-indent: -10000px;
+    background: no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-2x-vflAjuWMm.webp) -242px -742px;
+    background-size: 258px 1878px;
+    width: 14px;
+    height: 14px;
+    box-shadow: none;
 }
-
 #QubePlaylist .right .videolist .playlistHeader {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-
 #QubePlaylist .right .videolist .playlistHeader {
     padding: 15px 10px;
     font-size: 20px;
     border-top: 1px solid #f1f1f1;
     border-bottom: 1px solid #f1f1f1;
     margin-bottom: 12px;
-    color:#555;
-    font-family:arial;
+    color: #555;
+    font-family: arial;
 }
-
-#QubePlaylist .right .videolist .userVideolist{
+#QubePlaylist .right .videolist .userVideolist {
     padding: 0 10px;
     margin-bottom: 15px;
 }
-
-#QubePlaylist .right .videolist .userVideolist:hover{
-    color:#167ac6;
+#QubePlaylist .right .videolist .userVideolist:hover {
+    color: #167ac6;
 }
-
-#QubePlaylist .right .videolist .userVideolist li{
+#QubePlaylist .right .videolist .userVideolist li {
     border-bottom: 1px solid #f1f1f1;
 }
-
-#QubePlaylist .right .videolist .userVideolist li.active{
-    color:#009ae1;
+#QubePlaylist .right .videolist .userVideolist li.active {
+    color: #009ae1;
 }
-
-#QubePlaylist .right .videolist .userVideolist li:hover{
-    cursor:pointer;
+#QubePlaylist .right .videolist .userVideolist li:hover {
+    cursor: pointer;
 }
-
-#QubePlaylist .right .videolist .userVideolist a{
-    position:relative;
-    top:2px;
+#QubePlaylist .right .videolist .userVideolist a {
+    position: relative;
+    top: 2px;
     padding: 7px 0;
     width: 85%;
     display: inline-block;
     overflow: hidden;
-    font-size:12px;
+    font-size: 12px;
     white-space: nowrap;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
-#QubePlaylist .right .videolist .userVideolist span{
-    position:relative;
-    top:3px;
+#QubePlaylist .right .videolist .userVideolist span {
+    position: relative;
+    top: 3px;
     padding: 7px 0;
-    float:right;
+    float: right;
     display: inline-block;
-    font-size:10px;
-    color:#999;
-    width:10%;
-    text-align:right;
+    font-size: 10px;
+    color: #999;
+    width: 10%;
+    text-align: right;
 }
-
-#QubePlaylist .right .videolist .userVideolist a:hover{
+#QubePlaylist .right .videolist .userVideolist a:hover {
     text-decoration: underline;
 }
-
 #QubePlaylist .right .videolist .player {
-    padding-bottom: 10px; border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f1f1;
 }
-
-#QubePlaylist .right .videolist .player #controllers li{
-    display:inline-block;
-    position:relative;
-    padding:5px 10px;
-    color:#555;
-    cursor:pointer;
+#QubePlaylist .right .videolist .player .controllers li {
+    display: inline-block;
+    position: relative;
+    padding: 5px 10px;
+    color: #555;
+    cursor: pointer;
+    width: 15px;
 }
-
-#QubePlaylist .right .videolist .player #controllers li:hover{
-    color:#009ae1;
+#QubePlaylist .right .videolist .player .controllers li:hover {
+    color: #009ae1;
 }
-
-
-#QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input{
-   border: 1px solid #cccdc8; font-size: 16px; padding: 5px 10px;
-   width: 204px;
+#QubePlaylist .right .videolist .player .volume {
+    display: inline-block;
 }
-
+#QubePlaylist .right .videolist .player .volume i {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 15px;
+}
+#QubePlaylist .right .videolist .player .volume .volumeBar {
+    position: relative;
+    margin: 0;
+    top: 0px;
+    width: 100%;
+    height: 10px;
+    display: inline-block;
+    width: 60px;
+    cursor: pointer;
+}
+#QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input {
+    border: 1px solid #cccdc8;
+    font-size: 16px;
+    padding: 5px 10px;
+    width: 204px;
+}
 #QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody button {
-    border: 1px solid #d3d3d3; background-color: #f8f8f8; height: 30px; padding: 0 24px; float: right;
+    border: 1px solid #d3d3d3;
+    background-color: #f8f8f8;
+    height: 30px;
+    padding: 0 24px;
+    float: right;
 }
