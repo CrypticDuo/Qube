@@ -100,6 +100,7 @@
 								ng-click="changePlaylist(playlist)" >
 							<div class="playlistThumbnail">
 								<img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+								<div id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="fa fa-times"></i></div>
 							</div>
 							<div class="playlistDetail">
 								<div class="title">{{playlist.name}}</div>

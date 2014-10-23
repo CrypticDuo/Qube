@@ -69,6 +69,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.addPlaylistInput = '';
     }
 
+    $scope.removePlaylist = function(playlist){
+        QubeService.removePlaylist($scope, playlist.name);
+        //todo : remove playlist from $scope.playlists
+    }
+
     $scope.changePlaylist = function(playlist) {
         $scope.currentPlaylist = playlist;
         QubeService.listAllVideos($scope, playlist.name);
@@ -264,6 +269,26 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function removePlaylist(scope, pname) {
+        $http.delete("/api/playlists/" + pname)
+            .success(function(res) {
+                if (res.status.toLowerCase() === "fail") {
+                    console.log(res.msg);
+                } else {
+                    for(var i = 0; i < scope.playlists.length; i++){
+                        if (scope.playlists[i].name === pname){
+                            scope.playlists.splice(i, 1);
+                            break;
+                        }
+                    }
+                    console.log("Success: removed a playlist.");
+                }
+            })
+            .error(function(err) {
+                alert("Error: Cannot add playlist.");
+            });
+    };
+
     function listAllVideos(scope, pname) {
         for(var a=0; a<scope.playlists.length; a++){
             if (scope.playlists[a].name === pname){
@@ -293,6 +318,7 @@ app.service("QubeService", function($http, $q) {
     return ({
         listAllPlaylist: listAllPlaylist,
         addPlaylist: addPlaylist,
+        removePlaylist: removePlaylist,
         listAllVideos: listAllVideos,
         addVideoToPlaylist: addVideoToPlaylist
     });

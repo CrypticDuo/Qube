@@ -1,5 +1,10 @@
 html, body, .h100{
   height:100%;
+  font-family:arial;
+}
+
+a{
+  text-decoration:none;
 }
 
 .overlay{
