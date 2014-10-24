@@ -146,7 +146,7 @@ a:hover{
     border: 1px solid #cccdc8;
     font-size: 16px;
     padding: 5px 10px;
-    width: 624px;
+    width: 646px;
 }
 #QubePlaylist .view.playlist .playlistSearch button span {
     display: block;
@@ -185,7 +185,7 @@ a:hover{
 }
 #QubePlaylist .view.youtube .video {
     cursor: pointer;
-    min-height: 112px;
+    min-height: 125px;
     padding: 10px 0;
     padding-left: 200px;
     position: relative;
@@ -262,7 +262,7 @@ a:hover{
     border: 1px solid #cccdc8;
     font-size: 16px;
     padding: 5px 10px;
-    width: 624px;
+    width: 646px;
 }
 #QubePlaylist .view.youtube .youtubeSearchBar button {
     border: 1px solid #d3d3d3;
@@ -393,7 +393,7 @@ a:hover{
     border: 1px solid #cccdc8;
     font-size: 16px;
     padding: 5px 10px;
-    width: 204px;
+    width: 226px;
 }
 #QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody button {
     border: 1px solid #d3d3d3;

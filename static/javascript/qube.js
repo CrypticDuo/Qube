@@ -69,8 +69,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.removePlaylist = function(playlist){
+        //prevent outer div's event
+        var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
         QubeService.removePlaylist($scope, playlist.name);
-        //todo : remove playlist from $scope.playlists
     }
 
     $scope.changePlaylist = function(playlist) {
@@ -269,7 +272,8 @@ app.service("QubeService", function($http, $q) {
                 } else {
                     scope.playlists.push({
                         name: pname,
-                        data: []
+                        data: [],
+                        duration: "00:00"
                     });
                     console.log("Success: added a playlist.");
                 }
@@ -290,6 +294,10 @@ app.service("QubeService", function($http, $q) {
                             scope.playlists.splice(i, 1);
                             break;
                         }
+                    }
+                    if (scope.currentPlaylist.name === pname){
+                        scope.videos = [];
+                        scope.currentPlaylist = {};
                     }
                     console.log("Success: removed a playlist.");
                 }
