@@ -38,6 +38,9 @@ a {
     text-decoration: none;
     color: inherit;
 }
+a:hover{
+    color: inherit;
+}
 #QubePlaylist {
     min-width: 1114px;
     font-family: arial, sans-serif;
@@ -342,7 +345,7 @@ a {
 #QubePlaylist .right .videolist .player .controllers li {
     display: inline-block;
     position: relative;
-    padding: 5px 10px;
+    padding: 5px 5px;
     color: #555;
     cursor: pointer;
     width: 15px;
@@ -351,7 +354,7 @@ a {
     color: #009ae1;
 }
 #QubePlaylist .right .videolist .player .volume {
-    display: inline-block;
+    float:left;
 }
 #QubePlaylist .right .videolist .player .volume i {
     display: inline-block;
@@ -365,8 +368,26 @@ a {
     width: 100%;
     height: 10px;
     display: inline-block;
-    width: 60px;
+    width: 70px;
     cursor: pointer;
+    background:0;
+    background-color:transparent;
+}
+#QubePlaylist .right .videolist .player .volume div.volumeLevel {
+    background-color:#428bca;
+    width:100%;
+    display:block;
+    position:relative;
+    height:100%;
+}
+#QubePlaylist .right .videolist .player .volume span {
+    width: 13px;
+    margin-left: -5px;
+    background-color: #fff;
+    border-radius: 50%;
+    height: 13px;
+    top: -.1em;
+    outline:0;
 }
 #QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input {
     border: 1px solid #cccdc8;
@@ -380,4 +401,8 @@ a {
     height: 30px;
     padding: 0 24px;
     float: right;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background:0;
 }

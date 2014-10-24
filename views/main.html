@@ -3,14 +3,14 @@
 
 <head>
 	<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+	<script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-	<script src="/static/framework/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
 	<script src="/static/framework/pace/pace.min.js"></script>
 	<script type="text/javascript" src="../static/framework/login-popup/js/jquery.leanModal.min.js"></script>
 	<script src="/static/javascript/qube.js"></script>
 	<script src="/static/javascript/view.js"></script>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/view.css">
 	<link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
@@ -32,11 +32,9 @@
             videoId: '',
             playerVars: {
                 'showinfo': 0,
-                'autoplay': 1,
                 'autohide': 0,
                 'controls': 0,
-                'modestbranding': 1,
-                'theme': 'light'
+                'modestbranding': 1
             },
             events: {
                 'onReady': onPlayerReady,
@@ -59,6 +57,13 @@
     	}
     }
 
+    function onVolumeChange(el, volume) {
+		var scope = angular.element(el).scope();
+		scope.$apply(function(){
+			scope.changeVolume(volume);
+    	});
+    }
+      
     $(document).ready(function() {
         var text = "";
         $('.userVideolist').on('mouseenter', 'span', function() {
@@ -73,6 +78,32 @@
             $(this).css('border-left','0');
             text = "";
         });
+		   
+		$(".volumeBar").slider();
+		var $el = $(".volumeBar span");
+		$el.css('left', 'calc(100% - 5px)');
+
+		$el.on('mousedown', function(){
+			var outerWidth = parseInt($('.volumeBar').css('width'));
+			var prev = outerWidth;
+			$(document).on('mousemove',function(){
+				if(prev !== parseInt(parseInt($el.css('left'))/outerWidth * 100)){
+					prev = parseInt(parseInt($el.css('left'))/outerWidth *100);
+					onVolumeChange($el, prev);
+					$(".volumeBar div.volumeLevel").css('width', parseInt($el.css('left')));
+				}
+			});
+		});
+		$(document).on('mouseup',function(){
+			var outerWidth = parseInt($('.volumeBar').css('width'));
+			var prev = outerWidth;
+			if(prev !== parseInt(parseInt($el.css('left'))/outerWidth * 100)){
+				prev = parseInt(parseInt($el.css('left'))/outerWidth *100);
+				onVolumeChange($el, prev);
+				$(".volumeBar div.volumeLevel").css('width', parseInt($el.css('left')));
+			}
+		});
+
     });
     </script>
 </head>
@@ -153,16 +184,17 @@
 					</div>
 					<div class="player" style="position:relative; height:inherit; width:inherit;">
 						<div id="player"></div>
-
-							<div class="volume" ng-controller="volumeController">
+							<div class="volume">
 								<i class="fa fa-volume-up"></i>
-								<progressbar max="max" value="volume" class="volumeBar"><span style="color:black; white-space:nowrap;"></span></progressbar>
+								<div class="volumeBar"><div class="volumeLevel"></div></div>
 							</div>
-							<ul class="controllers" style="width:200px; position:relative; display:inline-block; font-size:15px;">
+							<div style="position:relative; margin:0 auto; width:100px;">
+							<ul class="controllers" style="font-size:15px;">
 								<li class="fa fa-backward" ng-click="prevVideo()"></li>
 								<li class="fa fa-play" ng-click="togglePlayVideo()"></li>
 								<li class="fa fa-forward" ng-click="nextVideo()"></li>
 							</ul>
+						</div>
 					</div>
 
 					<ul class="userVideolist">

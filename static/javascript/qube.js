@@ -1,4 +1,4 @@
-var app = angular.module("QubeApp", ['ui.bootstrap']);
+var app = angular.module("QubeApp", []);
 function convertYoutubeDuration(before) {
     var string = before,
         array = string.match(/(\d+)(?=[MHS])/ig) || [];
@@ -74,10 +74,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.changePlaylist = function(playlist) {
-        $scope.currentPlaylist = playlist;
-        QubeService.listAllVideos($scope, playlist.name);
-        $scope.currentPlaying = null;
-        $scope.togglePlayVideo();
+        if($scope.currentPlaylist.name !== playlist.name){
+            $scope.currentPlaylist = playlist;
+            QubeService.listAllVideos($scope, playlist.name);
+            $scope.currentPlaying = null;
+            $scope.togglePlayVideo();
+        }
     }
 
     $scope.addVideo = function(val) {
@@ -195,6 +197,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             player.loadVideoById($('.userVideolist li').first().attr('id'));
             $scope.currentPlaying = $('.userVideolist li').first().attr('id');
         }
+    }
+
+    $scope.changeVolume = function(volume) {
+        player.setVolume(volume);
     }
 });
 
@@ -326,12 +332,6 @@ app.service("QubeService", function($http, $q) {
         listAllVideos: listAllVideos,
         addVideoToPlaylist: addVideoToPlaylist
     });
-});
-
-app.controller('volumeController', function($scope) {
-    $scope.max = 100;
-    $scope.type = 'info';
-    $scope.volume = 100;
 });
 
 app.filter('searchFor', function() {
