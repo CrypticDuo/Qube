@@ -285,6 +285,10 @@ app.service("QubeService", function($http, $q) {
                             break;
                         }
                     }
+                    if (scope.currentPlaylist.name === pname){
+                        scope.videos = [];
+                        scope.currentPlaylist = {};
+                    }
                     console.log("Success: removed a playlist.");
                 }
             })
