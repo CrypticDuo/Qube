@@ -55,6 +55,7 @@
     			scope.nextVideo();
     		});
     	}
+    	console.log(player.getDuration());
     }
 
     function onVolumeChange(el, volume) {
@@ -83,6 +84,17 @@
 		var $el = $(".volumeBar span");
 		$el.css('left', 'calc(100% - 5px)');
 
+		$(".progressBar").slider();
+		var $p_el = $(".progressBar span");
+		$p_el.css('left', '99.2%');
+
+		$p_el.on('mousedown', function(){
+			$(document).on('mousemove',function(){
+				if(parseInt($p_el.css('left')) > 341){
+					$p_el.css('left', '99.2%');
+				}
+			});
+		});
 		$el.on('mousedown', function(){
 			var outerWidth = parseInt($('.volumeBar').css('width'));
 			var prev = outerWidth;
@@ -91,6 +103,14 @@
 					prev = parseInt(parseInt($el.css('left'))/outerWidth *100);
 					onVolumeChange($el, prev);
 					$(".volumeBar div.volumeLevel").css('width', parseInt($el.css('left')));
+					if(prev < 50){
+						$(".volume i").removeClass('fa-volume-up');
+						$(".volume i").addClass('fa-volume-down');
+					}
+					else if(prev > 50){
+						$(".volume i").addClass('fa-volume-up');
+						$(".volume i").removeClass('fa-volume-down');
+					}
 				}
 			});
 		});
@@ -103,7 +123,6 @@
 				$(".volumeBar div.volumeLevel").css('width', parseInt($el.css('left')));
 			}
 		});
-
     });
     </script>
 </head>
@@ -184,8 +203,9 @@
 					</div>
 					<div class="player" style="position:relative; height:inherit; width:inherit;">
 						<div id="player"></div>
+							<div class="progressBar"><div class="progressLevel"></div></div>
 							<div class="volume">
-								<i class="fa fa-volume-up"></i>
+								<i class="fa fa-volume-up" style="width:10px;"></i>
 								<div class="volumeBar"><div class="volumeLevel"></div></div>
 							</div>
 							<div style="position:relative; margin:0 auto; width:100px;">
