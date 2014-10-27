@@ -365,7 +365,6 @@ a:hover{
     position: relative;
     margin: 0;
     top: 0px;
-    width: 100%;
     height: 10px;
     display: inline-block;
     width: 70px;
@@ -373,14 +372,32 @@ a:hover{
     background:0;
     background-color:transparent;
 }
-#QubePlaylist .right .videolist .player .volume div.volumeLevel {
+#QubePlaylist .right .videolist .player .progressBar {
+    position: relative;
+    margin: 0;
+    top: -8px;
+    height: 8px;
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    background:0;
+    background-color:transparent;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-radius: 0px;
+    border:0;
+}
+
+#QubePlaylist .right .videolist .player .volume .volumeBar div.volumeLevel, #QubePlaylist .right .videolist .player .progressBar div.progressLevel {
     background-color:#428bca;
     width:100%;
     display:block;
     position:relative;
     height:100%;
 }
-#QubePlaylist .right .videolist .player .volume span {
+#QubePlaylist .right .videolist .player .volume .volumeBar span {
     width: 13px;
     margin-left: -5px;
     background-color: #fff;
@@ -388,6 +405,21 @@ a:hover{
     height: 13px;
     top: -.1em;
     outline:0;
+}
+#QubePlaylist .right .videolist .player .progressBar span{
+    width: 3px;
+    margin: 0;
+    margin-right:3px;
+    background-color: #fff;
+    border:0;
+    top:0em;
+    height:8px;
+    outline:0;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-radius: 0px;
 }
 #QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input {
     border: 1px solid #cccdc8;
