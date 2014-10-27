@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="QubeApp">
+
+<head>
+  <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+  <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+  <script src="/static/framework/pace/pace.min.js"></script>
+  <script type="text/javascript" src="../static/framework/login-popup/js/jquery.leanModal.min.js"></script>
+  <script src="/static/javascript/qube.js"></script>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/final.css">
+  <link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/static/framework/font-awesome-4.2.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div id="QubePlaylist">
+    <div ng-controller="QubeCont">
+      <div class="sideMenu">
+        <ul>
+           <li><a class="category"><i class="fa fa-th-large"></i></a></li>
+           <li ng-class="{active: layout == 'main'}" ng-click="layout = 'main'"><a class="category"><i class="fa fa-youtube-play"></i></a></li>
+           <li ng-class="{active: layout == 'global'}" ng-click="layout = 'global'"><a class="category"><i class="fa fa-arrows-alt"></i></a></li>
+        </ul>
+      </div><!-- END OF sideMenu -->
+      <div class="mainView">
+
+      </div><!-- END OF mainView -->
+      <div class="playView">
+        
+      </div><!-- END OF playView -->
+    </div><!-- END OF NG-CONTROLLER -->
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0
+}
+
+#QubePlaylist .sideMenu ul {
+    width: 60px;
+    position: absolute;
+    height: 100%;
+    list-style-type: none;
+    background-color:black;
+}
+
+#QubePlaylist .sideMenu ul li {
+    text-align:center;
+    font-size:30px;
+    height:45px;
+    padding-top:10px;
+    color:white;
+    border-bottom:1px solid red;
+
+}
+
+#QubePlaylist .mainView {
+    width: calc(100% - 410px);
+    height: 100%;
+    background-color: papayawhip;
+    position: absolute;
+    left: 60px;
+}
+
+#QubePlaylist .playView {
+    width: 350px;
+    height: 100%;
+    background-color: orange;
+    position: absolute;
+    right:0px;
+}
