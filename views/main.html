@@ -24,7 +24,8 @@
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     var player;
-
+    var durationCounter = 0;
+    
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
             height: '190',
@@ -55,7 +56,6 @@
     			scope.nextVideo();
     		});
     	}
-    	console.log(player.getDuration());
     }
 
     function onVolumeChange(el, volume) {
@@ -66,6 +66,10 @@
     }
       
     $(document).ready(function() {
+    	setInterval(function() {
+    		console.log(player.getDuration());
+    	},1000);
+
         var text = "";
         $('.userVideolist').on('mouseenter', 'span', function() {
             text = $(this).text();
@@ -103,13 +107,18 @@
 					prev = parseInt(parseInt($el.css('left'))/outerWidth *100);
 					onVolumeChange($el, prev);
 					$(".volumeBar div.volumeLevel").css('width', parseInt($el.css('left')));
-					if(prev < 50){
+					if (prev == 0){
+						$(".volume i").removeClass('fa-volume-up');
+						$(".volume i").removeClass('fa-volume-down');
+						$(".volume i").addClass('fa-volume-off');
+					} else if(prev < 50){
 						$(".volume i").removeClass('fa-volume-up');
 						$(".volume i").addClass('fa-volume-down');
-					}
-					else if(prev > 50){
+						$(".volume i").removeClass('fa-volume-off');
+					} else if(prev > 50){
 						$(".volume i").addClass('fa-volume-up');
 						$(".volume i").removeClass('fa-volume-down');
+						$(".volume i").removeClass('fa-volume-off');
 					}
 				}
 			});
