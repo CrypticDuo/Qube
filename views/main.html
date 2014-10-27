@@ -64,7 +64,7 @@
 			scope.changeVolume(volume);
     	});
     }
-      
+
     $(document).ready(function() {
     	setInterval(function() {
     		console.log(player.getDuration());
@@ -83,7 +83,7 @@
             $(this).css('border-left','0');
             text = "";
         });
-		   
+
 		$(".volumeBar").slider();
 		var $el = $(".volumeBar span");
 		$el.css('left', 'calc(100% - 5px)');
@@ -156,7 +156,6 @@
 				<div ng-show="layout == 'playlist'" class ="view playlist">
 					<div class="playlistSearch">
 						<input type="text" ng-model="searchString" placeholder="Search Playlist">
-						<button><span></span></button>
 					</div>
 					<ul class="userPlaylist">
 						<li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}"
@@ -185,7 +184,6 @@
 				<div ng-show="layout == 'youtube'" class ="view youtube">
 					<div class="youtubeSearchBar">
 						<input ng-model="addVideoInput" ng-change="queryYoutube()" placeholder="Search for Youtube videos"></input>
-						<button ng-click="searchYt(addVideoInput)"><span></span></button>
 					</div>
 					<div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video)">
 					  <div class="video-image">

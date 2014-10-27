@@ -63,6 +63,17 @@ app.get('/account', ensureAuthenticated, function(req, res) {
         };
     });
 });
+app.get('/dev', ensureAuthenticated, function(req, res) {
+    User.findById(req.session.passport.user, function(err, user) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('qube.html', {
+                user: user
+            });
+        };
+    });
+});
 app.get('/', function(req, res) {
     res.render('index.html', {
         user: req.user
@@ -97,11 +108,11 @@ router.use(function(req, res, next) {
 });
 
 /*
-    GET     /playlists 
+    GET     /playlists
     GET     /playlists/:playlist_name
     POST    /playlists/:playlist_name
     DELETE  /playlists/:playlist_name
-    POST    /playlists/:playlist_name/videos/:videoID  
+    POST    /playlists/:playlist_name/videos/:videoID
     DELETE  /playlists/:playlist_name/videos/:videoID
 */
 
