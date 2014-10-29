@@ -7,6 +7,59 @@ html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5
     padding: 0
 }
 
+body {
+    font-family: 'Open Sans',sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    background: #000;
+    color: #eee;
+}
+
+ul{
+    list-style:none;
+}
+
+#QubePlaylist .view.main .playlistColumn {
+    width: 30%;
+    background-color: rgba(138, 43, 226, 0.3);
+    display: inline-block;
+    float: left;
+}
+
+#QubePlaylist .view.main .searchResultColumn {
+    display: inline-block;
+    width: 70%;
+}
+
+#QubePlaylist .view.main .video-image {
+    display: inline-block;
+    position: absolute;
+}
+
+#QubePlaylist .view.main .video-title {
+    overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#QubePlaylist .video-duration {
+    text-align: right;
+    float: right;
+}
+
+#QubePlaylist .view.main .video-image img{
+    width:47px;
+    height:35px;
+}
+
+#QubePlaylist .view.main .video-detail {
+    margin: 8px 0 0 66px;
+    height: 20px;
+}
+
+#QubePlaylist .view.main .video {
+    padding: 8px;
+}
+
 #QubePlaylist .sideMenu ul {
     width: 60px;
     position: absolute;
@@ -26,17 +79,23 @@ html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5
 }
 
 #QubePlaylist .mainView {
+    min-width: 800px;
     width: calc(100% - 410px);
     height: 100%;
-    background-color: papayawhip;
-    position: absolute;
-    left: 60px;
+    margin-left: 60px;
+    float: left;
 }
 
 #QubePlaylist .playView {
     width: 350px;
-    height: 100%;
+    height: 100px;
     background-color: orange;
-    position: absolute;
-    right:0px;
+    display: inline-block;
+}
+
+#QubePlaylist .view.main .topHeader {
+    background-color: rgb(28, 31, 37);
+    color: rgb(238, 238, 238);
+    font-family: 'Open Sans', sans-serif;
+    height: 40px;
 }

@@ -26,10 +26,45 @@
         </ul>
       </div><!-- END OF sideMenu -->
       <div class="mainView">
-
+        <div ng-show="layout == 'main'" class ="view main">
+          <div class="topHeader">
+            Current Playing : BLAH BLjabljaisd
+          </div>
+          <div class="playlistColumn">
+            <div class="playlistSearch">
+              <input type="text" ng-model="searchString" placeholder="Search Playlist">
+            </div>
+            <ul class="userPlaylist">
+              <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}"
+                  ng-click="changePlaylist(playlist)" >
+                <div class="playlistThumbnail">
+                  <div id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="fa fa-times"></i></div>
+                </div>
+                <div class="playlistDetail">
+                  <div class="title">{{playlist.name}}</div>
+                  <div class="duration">{{playlist.data.length}} songs - {{playlist.duration}}</div>
+                </div>
+              </li>
+            </ul>
+          </div><!-- END OF PLAYLIST COLUMN -->
+          <div class="searchResultColumn">
+            <div class="youtubeSearchBar">
+              <input ng-model="addVideoInput" ng-change="queryYoutube()" placeholder="Search for Youtube videos"></input>
+            </div>
+            <div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video)">
+              <div class="video-image">
+                <img class="video-image" src="{{ video.thumbnail }}">
+              </div>
+              <div class="video-detail">
+                <div class="overflowEllipsis"><span class="video-title">{{ video.snippet.title }}</span></div>
+                <span class="video-duration"> {{ video.contentDetails.duration }} </span>
+              </div>
+            </div>
+          </div>
+        </div><!-- END OF MAIN LAYOUT -->
       </div><!-- END OF mainView -->
       <div class="playView">
-        
+
       </div><!-- END OF playView -->
     </div><!-- END OF NG-CONTROLLER -->
   </div>
