@@ -7,13 +7,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
     <script src="/static/framework/pace/pace.min.js"></script>
     <script type="text/javascript" src="../static/framework/login-popup/js/jquery.leanModal.min.js"></script>
+    <script src="../static/framework/looper/looper.min.js"></script>
     <script src="/static/javascript/qube.js"></script>
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/final.css">
     <link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/static/framework/font-awesome-4.2.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../static/framework/looper/looper.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/final.css">
     <script>
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -154,8 +156,24 @@
             <!-- END OF sideMenu -->
             <div class="mainView">
                 <div ng-show="layout == 'main'" class="view main">
-                    <div class="topHeader">
-                        Current Playing : BLAH BLjabljaisd
+                    <div>
+                      <div data-looper="go" class="topHeader looper slide up">
+                          <div class="looper-inner looper-icon noselect">
+                            <i class="fa fa-music"></i>
+                          </div>
+                          <div class="looper-inner looper-content">
+                              <div class="item">
+                                  <span>
+                                      <span>Currently Playing:</span>Flower Park Flower Shin
+                                  </span>
+                              </div>
+                              <div class="item">
+                                  <span>
+                                      <span>Playing Next:</span>Shinning Parking Power
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
                     </div>
                     <div class="playlistColumn">
                         <div class="playlistSearch">
@@ -198,22 +216,20 @@
             <div class="playView">
                 <div class="videolist">
                     <div class="playlistHeader">
-                        <!-- 
-            <span> {{currentPlaylist.name}} </span> -->
-                        <span>Park Shinning</span>
+                        <span>{{currentPlaylist.name}}</span>
                     </div>
                     <div class="player" style="position:relative; height:inherit; width:inherit;">
                         <div id="player"></div>
                         <div class="progressBar">
                             <div class="progressLevel"></div>
                         </div>
-                        <div class="volume">
+                        <div class="volume noselect">
                             <i class="fa fa-volume-up" style="width:10px;"></i>
                             <div class="volumeBar">
                                 <div class="volumeLevel"></div>
                             </div>
                         </div>
-                        <div style="position:relative; margin:0 auto; width:85px;">
+                        <div class="controllers-container noselect">
                             <ul class="controllers" style="font-size:15px;">
                                 <li class="fa fa-backward" ng-click="prevVideo()"></li>
                                 <li class="fa fa-play" ng-click="togglePlayVideo()"></li>

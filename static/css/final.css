@@ -6,12 +6,6 @@ html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5
     margin: 0;
     padding: 0;
 }
-
-body {
-    font-family: 'Open San', sans-serif;
-    font-weight: 300;
-    font-size: 14px;
-}
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -23,7 +17,7 @@ body {
 
 body {
     font-family: 'Open Sans',sans-serif;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 14px;
     background: #000;
     color: #eee;
@@ -79,7 +73,7 @@ ul{
     position: absolute;
     height: 100%;
     list-style-type: none;
-    background-color:black;
+    background-color: #1C1F25;
 }
 
 #QubePlaylist .sideMenu ul li {
@@ -88,23 +82,56 @@ ul{
     height:45px;
     padding-top:10px;
     color:white;
-    border-bottom:1px solid red;
-
+    border-bottom:1px solid #282C35;
+    cursor:pointer;
 }
 
+#QubePlaylist .sideMenu ul li:hover {
+    background-color:#A670FF;
+}
+
+#QubePlaylist .sideMenu ul li i{
+    color:#E5E5E5;
+}
 #QubePlaylist .mainView {
     min-width: 800px;
-    width: calc(100% - 410px);
+    width: calc(100% - 397px);
     height: 100%;
     margin-left: 60px;
     float: left;
 }
 
 #QubePlaylist .view.main .topHeader {
-    background-color: rgb(28, 31, 37);
-    color: rgb(238, 238, 238);
-    font-family: 'Open Sans', sans-serif;
-    height: 40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 20px 10px;
+    font-size: 20px;
+    color: #E5E5E5;
+    background-color:#1C1F25;
+    height:27px;
+}
+#QubePlaylist .view.main .topHeader .looper-inner {
+    display:inline-block;
+}
+#QubePlaylist .view.main .topHeader .looper-inner.looper-icon {
+    width:20px;
+    margin-left:20px;
+}
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content {
+    display:inline-block;
+    width:90%;
+    margin-left:10px;
+}
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span{
+    position: relative;
+}
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > span{
+    font-size: 16px;
+    color: #4E5D70;
+    position:relative;
+    display:inline-block;
+    width:130px;
+    margin-right:10px;
 }
 
 #QubePlaylist .playView {
@@ -123,6 +150,7 @@ ul{
     font-size: 20px;
     color: #E5E5E5;
     background-color:#1C1F25;
+    height:27px;
 }
 #QubePlaylist .videolist .userVideolist {
     margin-bottom: 15px;
@@ -166,7 +194,12 @@ ul{
     padding-bottom: 10px;
     border-bottom: 1px solid #0A0A0A;
 }
-#QubePlaylist .videolist .player .controllers li {
+#QubePlaylist .videolist .player .controllers-container {
+    position:relative;
+    margin:0 auto;
+    width:85px;
+}
+#QubePlaylist .videolist .player .controllers-container .controllers li {
     display: inline-block;
     position: relative;
     padding: 5px 5px;
@@ -174,7 +207,7 @@ ul{
     cursor: pointer;
     width: 15px;
 }
-#QubePlaylist .videolist .player .controllers li:hover {
+#QubePlaylist .videolist .player .controllers-container .controllers li:hover {
     color: #009ae1;
 }
 #QubePlaylist .videolist .player .volume {
