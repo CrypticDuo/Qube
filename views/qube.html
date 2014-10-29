@@ -139,6 +139,15 @@
                 $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
             }
         });
+
+        $(window).bind("load resize", function(){
+            $('.searchResultColumn').height($(this).height()- ($('.topHeader').outerHeight() + $('.youtubeSearchBar').outerHeight()));
+            $('.userVideolist').height($(window).height()- ($('.playlistHeader').outerHeight() + $('.player').outerHeight()));
+            console.log($(this).height());
+            console.log($('.playlistHeader').height());
+            console.log($('.player').height());
+            $('.userPlaylist').height($(this).height()- ($('.topHeader').outerHeight() + $('.youtubeSearchBar').outerHeight() + $('.yourPlaylists').outerHeight() + $('.playlistSearch').outerHeight() + $('.addPlaylist').outerHeight()));
+        });
     });
     </script>
 </head>

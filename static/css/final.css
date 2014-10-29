@@ -47,17 +47,18 @@ a {
     display: inline-block;
     width: 70%;
     background-color: #111317;
+    overflow:auto;
 }
 
 #QubePlaylist .view.main .video-image {
-    position: absolute;
+    float: left;
 }
 
 #QubePlaylist .view.main .video-title {
     overflow: hidden; text-overflow: ellipsis;
-    position: absolute;
     white-space: nowrap;
     width: 390px;
+    float: left;
 }
 
 #QubePlaylist .video-duration {
@@ -165,7 +166,6 @@ a {
     height:27px;
 }
 #QubePlaylist .videolist .userVideolist {
-    margin-bottom: 15px;
     background-color:#1C1F25;
     list-style-type: none;
     color:#E5E5E5;
