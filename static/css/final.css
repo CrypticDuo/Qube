@@ -36,6 +36,12 @@ a {
     float:right;
 }
 
+#QubePlaylist {
+    min-width: 1200px;
+    width: 100%;
+    position: absolute;
+}
+
 #QubePlaylist .view.main .playlistColumn {
     width: 30%;
     background-color: #1c1f25;
