@@ -33,9 +33,18 @@ ul{
     list-style:none;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.float-right{
+    float:right;
+}
+
 #QubePlaylist .view.main .playlistColumn {
     width: 30%;
-    background-color: rgba(138, 43, 226, 0.3);
+    background-color: #1c1f25;
     display: inline-block;
     float: left;
 }
@@ -129,7 +138,6 @@ ul{
 }
 #QubePlaylist .videolist .userVideolist {
     margin-bottom: 15px;
-    height: 100px;
     background-color:#1C1F25;
     list-style-type: none;
     color:#E5E5E5;
@@ -269,6 +277,62 @@ ul{
     height: 30px;
     padding: 0 24px;
     float: right;
+}
+
+#QubePlaylist .view.main .youtubeSearchBar {
+    background-color: #323742;
+    padding: 7px;
+}
+
+#QubePlaylist .view.main .youtubeSearchBar input {
+    height: 41px;
+    background: #111317;
+    -webkit-box-shadow: inset 0 0 0 1px #444a59;
+    -moz-box-shadow: inset 0 0 0 1px #444a59;
+    box-shadow: inset 0 0 0 1px #444a59;
+    font-size: 20px;
+    padding-left: 15px;
+    width: calc(100% - 15px);
+    outline: none;
+    color: #eee;
+}
+
+#QubePlaylist .view.main .playlistColumn .playlistSearch input {
+    height: 30px; background: #111317; -webkit-box-shadow: inset 0 0 0 1px #444a59; -moz-box-shadow: inset 0 0 0 1px #444a59; box-shadow: inset 0 0 0 1px #444a59;
+    font-size: 13px; padding-left: 15px; width: calc(100% - 15px); outline: none; color: #eee;
+}
+
+#QubePlaylist .view.main .playlistSearch {
+    padding: 7px;
+    background-color: #323742;
+}
+
+#QubePlaylist .mainView .view.main .playlistDetail .title, #playlistRemove, #QubePlaylist .mainView .view.main .playlistDetail .duration {
+    display: inline-block;
+    padding-left: 10px;
+}
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li {
+    padding: 15px 10px;
+    border-bottom: 1px solid #282C35;
+    font-weight: 300;
+    font-size: 13px;
+    color: #eee;
+    padding-left: 15px;
+}
+
+#QubePlaylist .view.main .yourPlaylists {
+    padding: 10px 15px;
+    color: #555d70; white-space: nowrap; font-size: 25px;
+    font-weight: 300;
+}
+
+#QubePlaylist .view.main .addPlaylist {
+    background-color: #323742;
+    padding: 15px;
+    text-align: center;
+    color: #eee;
+    text-decoration: none;
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {

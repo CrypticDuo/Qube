@@ -64,6 +64,9 @@
     }
 
     $(document).ready(function() {
+
+        $("#addPlaylist").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });
+
         var text = "";
         $('.userVideolist').on('mouseenter', 'span', function() {
             text = $(this).text();
@@ -157,28 +160,34 @@
                     <div class="topHeader">
                         Current Playing : BLAH BLjabljaisd
                     </div>
+                    <div class="youtubeSearchBar">
+                        <input ng-model="addVideoInput" ng-change="queryYoutube()" placeholder="Search for Youtube videos"></input>
+                    </div>
                     <div class="playlistColumn">
+                        <div class="yourPlaylists">
+                            Your Playlists
+                        </div>
                         <div class="playlistSearch">
                             <input type="text" ng-model="searchString" placeholder="Search Playlist">
                         </div>
                         <ul class="userPlaylist">
                             <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)">
-                                <div class="playlistThumbnail">
-                                    <div id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="fa fa-times"></i>
-                                    </div>
-                                </div>
                                 <div class="playlistDetail">
                                     <div class="title">{{playlist.name}}</div>
-                                    <div class="duration">{{playlist.data.length}} songs - {{playlist.duration}}</div>
+                                    <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="fa fa-times"></i></div>
+                                    <div class="float-right duration">{{playlist.duration}}</div>
                                 </div>
                             </li>
                         </ul>
+                        <div class="addPlaylist">
+                          <a id="addPlaylist" href="#addPlaylistModal">
+                            <i class="fa fa-plus"></i>
+                            Add a playlist!
+                          </a>
+                        </div>
                     </div>
                     <!-- END OF PLAYLIST COLUMN -->
                     <div class="searchResultColumn">
-                        <div class="youtubeSearchBar">
-                            <input ng-model="addVideoInput" ng-change="queryYoutube()" placeholder="Search for Youtube videos"></input>
-                        </div>
                         <div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video)">
                             <div class="video-image">
                                 <img class="video-image" src="{{ video.thumbnail }}">
@@ -198,7 +207,7 @@
             <div class="playView">
                 <div class="videolist">
                     <div class="playlistHeader">
-                        <!-- 
+                        <!--
             <span> {{currentPlaylist.name}} </span> -->
                         <span>Park Shinning</span>
                     </div>
@@ -231,6 +240,22 @@
                 </div>
             </div>
             <!-- END OF playView -->
+
+
+
+            <div id="addPlaylistModal" class="popupContainer" style="display:none;">
+              <header class="popupHeader">
+                <span class="header_title">New Playlist</span>
+                <span class="modal_close"><i class="fa fa-times"></i></span>
+              </header>
+
+              <section class="popupBody">
+                <div class="addPlaylistModalBody">
+                  <input ng-model="addPlaylistInput"></input>
+                  <button ng-click="addPlaylist()" class="modal_close"><i class="fa fa-floppy-o"></i></button>
+                </div>
+              </section>
+            </div>
         </div>
         <!-- END OF NG-CONTROLLER -->
     </div>

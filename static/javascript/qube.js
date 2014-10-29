@@ -54,7 +54,7 @@ function addDuration(x,y){
 app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
-        $scope.layout = 'playlist';
+        $scope.layout = 'main';
         $scope.currentPlaylist = {};
         $scope.ytSearchResult = [];
         $scope.playlists = [];
