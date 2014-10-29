@@ -14,6 +14,128 @@
   <link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/static/framework/font-awesome-4.2.0/css/font-awesome.min.css">
+    <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    var durationCounter = 0;
+    
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '190',
+            width: $('.videolist').width(),
+            videoId: '',
+            playerVars: {
+                'showinfo': 0,
+                'autohide': 0,
+                'controls': 0,
+                'modestbranding': 1
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+
+    function onPlayerStateChange(event) {
+      if(event.data == YT.PlayerState.ENDED){
+        var $volumeElement = $('.userVideolist li.active');
+        var scope = angular.element($volumeElement).scope();
+        scope.$apply(function(){
+          scope.nextVideo();
+        });
+      }
+    }
+
+    function onVolumeChange(el, volume) {
+    var scope = angular.element(el).scope();
+    scope.$apply(function(){
+      scope.changeVolume(volume);
+      });
+    }
+
+    $(document).ready(function() {
+        var text = "";
+        $('.userVideolist').on('mouseenter', 'span', function() {
+            text = $(this).text();
+            $(this).text("");
+            $(this).append('<i style="color:#e52d4f;" class="fa fa-times"></i>');
+            $(this).css("border-left","2px solid #e52d4f");
+        });
+        $('.userVideolist').on('mouseleave', 'span', function() {
+            $(this).children().remove();
+            $(this).text(text);
+            $(this).css('border-left','0');
+            text = "";
+        });
+
+    $(".volumeBar").slider();
+    var $volume = $(".volumeBar");
+    var $volumeElement = $(".volumeBar span");
+    $volumeElement.css('left', 'calc(100% - 5px)');
+
+    $(".progressBar").slider();
+    var $progress = $(".progressBar");
+    var $progressElement = $(".progressBar span");
+    $progressElement.css('left', '99.2%');
+    $(".volume i").on('click', function(){
+        $(this).toggleClass('fa-volume-up');
+        $(this).toggleClass('fa-volume-off');
+    });
+
+    $progress.on('mousedown', function(){
+      console.log("in");
+      $(document).on('mousemove',function(){
+        console.log(parseInt($progressElement.css('left')));
+        if(parseInt($progressElement.css('left')) > 341){
+          $progressElement.css('left', '99.2%');
+        }
+      });
+    });
+    $volume.on('mousedown', function(){
+      var outerWidth = parseInt($('.volumeBar').css('width'));
+      var prev = outerWidth;
+      $(document).on('mousemove',function(){
+        if(prev !== parseInt(parseInt($volumeElement.css('left'))/outerWidth * 100)){
+          prev = parseInt(parseInt($volumeElement.css('left'))/outerWidth *100);
+          onVolumeChange($volumeElement, prev);
+          $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
+          if (prev == 0){
+            $(".volume i").removeClass('fa-volume-up');
+            $(".volume i").removeClass('fa-volume-down');
+            $(".volume i").addClass('fa-volume-off');
+          } else if(prev < 50){
+            $(".volume i").removeClass('fa-volume-up');
+            $(".volume i").addClass('fa-volume-down');
+            $(".volume i").removeClass('fa-volume-off');
+          } else if(prev > 50){
+            $(".volume i").addClass('fa-volume-up');
+            $(".volume i").removeClass('fa-volume-down');
+            $(".volume i").removeClass('fa-volume-off');
+          }
+        }
+      });
+    });
+    $(document).on('mouseup',function(){
+      var outerWidth = parseInt($('.volumeBar').css('width'));
+      var prev = outerWidth;
+      if(prev !== parseInt(parseInt($volumeElement.css('left'))/outerWidth * 100)){
+        prev = parseInt(parseInt($volumeElement.css('left'))/outerWidth *100);
+        onVolumeChange($volumeElement, prev);
+        $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
+      }
+    });
+  });
+    </script>
 </head>
 <body>
   <div id="QubePlaylist">
@@ -26,10 +148,48 @@
         </ul>
       </div><!-- END OF sideMenu -->
       <div class="mainView">
-
       </div><!-- END OF mainView -->
       <div class="playView">
-        
+        <div class ="videolist">
+          <div class ="playlistHeader"><!-- 
+            <span> {{currentPlaylist.name}} </span> -->
+            <span>Park Shinning</span>
+          </div>
+          <div class="player" style="position:relative; height:inherit; width:inherit;">
+            <div id="player"></div>
+              <div class="progressBar"><div class="progressLevel"></div></div>
+              <div class="volume">
+                <i class="fa fa-volume-up" style="width:10px;"></i>
+                <div class="volumeBar"><div class="volumeLevel"></div></div>
+              </div>
+              <div style="position:relative; margin:0 auto; width:85px;">
+              <ul class="controllers" style="font-size:15px;">
+                <li class="fa fa-backward" ng-click="prevVideo()"></li>
+                <li class="fa fa-play" ng-click="togglePlayVideo()"></li>
+                <li class="fa fa-forward" ng-click="nextVideo()"></li>
+              </ul>
+            </div>
+          </div>
+
+<!--           <ul class="userVideolist">
+            <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlaying}" ng-click="togglePlayVideo(video.id)" id="{{ video.id }}">
+              <a>{{video.snippet.title}}</a>
+              <span>{{video.contentDetails.duration}}</span>
+            </li>
+          </ul> -->
+          <ul class="userVideolist">
+            <!-- ngRepeat: video in videos --><li id="_hsrsmwHv0A" class="ng-scope active">
+              <a class="ng-binding">박효신 (Park Hyo Shin) - 야생화 (Wild Flower) (스페셜영상)</a>
+              <span class="ng-binding">05:40</span>
+            </li><!-- end ngRepeat: video in videos --><li id="YVJ96FFO8SY" class="ng-scope">
+              <a class="ng-binding">Park Hyo Shin 박효신 131112 [MV]  It's You</a>
+              <span class="ng-binding">03:45</span>
+            </li><!-- end ngRepeat: video in videos --><li id="vnFyo1eEYqw" class="ng-scope">
+              <a class="ng-binding">Park Hyo Shin(박효신) - 사랑이 고프다 (I Promise You)</a>
+              <span class="ng-binding">05:12</span>
+            </li><!-- end ngRepeat: video in videos -->
+          </ul>
+        </div>
       </div><!-- END OF playView -->
     </div><!-- END OF NG-CONTROLLER -->
   </div>
