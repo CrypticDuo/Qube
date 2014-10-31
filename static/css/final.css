@@ -25,6 +25,7 @@ body {
 
 ul{
     list-style:none;
+    overflow: auto;
 }
 
 a {
@@ -90,18 +91,18 @@ a {
 }
 
 #QubePlaylist .sideMenu ul {
-    width: 60px;
+    width: 50px;
     position: absolute;
     height: 100%;
     list-style-type: none;
-    background-color: #1C1F25;
+    background-color: #15171A;
 }
 
 #QubePlaylist .sideMenu ul li {
     text-align:center;
-    font-size:30px;
-    height:45px;
-    padding-top:10px;
+    font-size: 20px;
+    height: 35px;
+    padding-top: 8px;
     color:white;
     border-bottom:1px solid #282C35;
     cursor:pointer;
@@ -117,7 +118,7 @@ a {
 #QubePlaylist .mainView {
     width: calc(100% - 397px);
     height: 100%;
-    margin-left: 60px;
+    margin-left: 52px;
     float: left;
 }
 
@@ -155,7 +156,7 @@ a {
 }
 
 #QubePlaylist .playView {
-    width: 335px;
+    width: 343px;
     height: 100%;
     background-color: #1C1F25;
     border-left:2px solid #0A0A0A;

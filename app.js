@@ -57,7 +57,7 @@ app.get('/account', ensureAuthenticated, function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('main.html', {
+            res.render('qube.html', {
                 user: user
             });
         };
@@ -68,7 +68,7 @@ app.get('/dev', ensureAuthenticated, function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('qube.html', {
+            res.render('main.html', {
                 user: user
             });
         };
