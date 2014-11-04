@@ -197,7 +197,7 @@
                         <div class="playlistSearch">
                             <input type="text" ng-model="searchString" placeholder="Search Playlist">
                         </div>
-                        <ul class="userPlaylist">
+                        <ul class="userPlaylist scrollbar">
                             <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)">
                                 <div class="playlistDetail">
                                     <div class="title">{{playlist.name}}</div>
@@ -214,7 +214,7 @@
                         </div>
                     </div>
                     <!-- END OF PLAYLIST COLUMN -->
-                    <div class="searchResultColumn">
+                    <div class="searchResultColumn scrollbar">
                         <div class="video" ng-repeat="video in ytSearchResult" ng-click="addVideo(video)">
                             <div class="video-image">
                                 <img class="video-image" src="{{ video.thumbnail }}">
@@ -256,7 +256,7 @@
                         </div>
                     </div>
 
-                    <ul class="userVideolist">
+                    <ul class="userVideolist scrollbar">
                         <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlaying}" ng-click="togglePlayVideo(video.id)" id="{{ video.id }}">
                             <a>{{video.snippet.title}}</a>
                             <span>{{video.contentDetails.duration}}</span>
