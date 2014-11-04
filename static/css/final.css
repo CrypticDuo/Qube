@@ -114,7 +114,7 @@ a {
 }
 
 #QubePlaylist .sideMenu ul {
-    width: 50px;
+    width: 45px;
     position: absolute;
     height: 100%;
     list-style-type: none;
@@ -141,7 +141,8 @@ a {
 #QubePlaylist .mainView {
     width: calc(100% - 397px);
     height: 100%;
-    margin-left: 52px;
+    margin-left: 45px;
+    border-left: 1px solid #0A0A0A;
     float: left;
 }
 
@@ -179,10 +180,10 @@ a {
 }
 
 #QubePlaylist .playView {
-    width: 343px;
+    width: 350px;
     height: 100%;
     background-color: #1C1F25;
-    border-left:2px solid #0A0A0A;
+    border-left: 1px solid #0A0A0A;
     display: inline-block;
 }
 
