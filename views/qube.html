@@ -9,6 +9,7 @@
     <script type="text/javascript" src="../static/framework/login-popup/js/jquery.leanModal.min.js"></script>
     <script src="../static/framework/looper/looper.min.js"></script>
     <script src="/static/javascript/qube.js"></script>
+    <script src="/static/javascript/frontend.js"></script>
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
@@ -16,140 +17,6 @@
     <link rel="stylesheet" href="/static/framework/font-awesome-4.2.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="../static/framework/looper/looper.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/final.css">
-    <script>
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    var player;
-    var durationCounter = 0;
-
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            height: '195',
-            width: $('.videolist').width(),
-            videoId: '',
-            playerVars: {
-                'showinfo': 0,
-                'autohide': 0,
-                'controls': 0,
-                'modestbranding': 1
-            },
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
-
-    function onPlayerReady(event) {
-        event.target.playVideo();
-    }
-
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.ENDED) {
-            var $volumeElement = $('.userVideolist li.active');
-            var scope = angular.element($volumeElement).scope();
-            scope.$apply(function() {
-                scope.nextVideo();
-            });
-        }
-    }
-
-    function onVolumeChange(el, volume) {
-        var scope = angular.element(el).scope();
-        scope.$apply(function() {
-            scope.changeVolume(volume);
-        });
-    }
-
-    $(document).ready(function() {
-
-        $("#addPlaylist").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });
-
-        var text = "";
-        $('.userVideolist').on('mouseenter', 'span', function() {
-            text = $(this).text();
-            $(this).text("");
-            $(this).append('<i style="color:#e52d4f;" class="fa fa-times"></i>');
-            $(this).css("border-left", "2px solid #e52d4f");
-        });
-        $('.userVideolist').on('mouseleave', 'span', function() {
-            $(this).children().remove();
-            $(this).text(text);
-            $(this).css('border-left', '0');
-            text = "";
-        });
-
-        $(".volumeBar").slider();
-        var $volume = $(".volumeBar");
-        var $volumeElement = $(".volumeBar span");
-        $volumeElement.css('left', 'calc(100% - 5px)');
-
-        $(".progressBar").slider();
-        var $progress = $(".progressBar");
-        var $progressElement = $(".progressBar span");
-        $progressElement.css('left', '99.2%');
-        $(".volume i").on('click', function() {
-            $(this).toggleClass('fa-volume-up');
-            $(this).toggleClass('fa-volume-off');
-        });
-
-        $progress.on('mousedown', function() {
-            console.log("in");
-            $(document).on('mousemove', function() {
-                console.log(parseInt($progressElement.css('left')));
-                if (parseInt($progressElement.css('left')) > 341) {
-                    $progressElement.css('left', '99.2%');
-                }
-            });
-        });
-        $volume.on('mousedown', function() {
-            var outerWidth = parseInt($('.volumeBar').css('width'));
-            var prev = outerWidth;
-            $(document).on('mousemove', function() {
-                if (prev !== parseInt(parseInt($volumeElement.css('left')) / outerWidth * 100)) {
-                    prev = parseInt(parseInt($volumeElement.css('left')) / outerWidth * 100);
-                    onVolumeChange($volumeElement, prev);
-                    $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
-                    if (prev == 0) {
-                        $(".volume i").removeClass('fa-volume-up');
-                        $(".volume i").removeClass('fa-volume-down');
-                        $(".volume i").addClass('fa-volume-off');
-                    } else if (prev < 50) {
-                        $(".volume i").removeClass('fa-volume-up');
-                        $(".volume i").addClass('fa-volume-down');
-                        $(".volume i").removeClass('fa-volume-off');
-                    } else if (prev > 50) {
-                        $(".volume i").addClass('fa-volume-up');
-                        $(".volume i").removeClass('fa-volume-down');
-                        $(".volume i").removeClass('fa-volume-off');
-                    }
-                }
-            });
-        });
-        $(document).on('mouseup', function() {
-            var outerWidth = parseInt($('.volumeBar').css('width'));
-            var prev = outerWidth;
-            if (prev !== parseInt(parseInt($volumeElement.css('left')) / outerWidth * 100)) {
-                prev = parseInt(parseInt($volumeElement.css('left')) / outerWidth * 100);
-                onVolumeChange($volumeElement, prev);
-                $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
-            }
-        });
-
-        $(window).bind("load resize", function(){
-            $('.searchResultColumn').height($(this).height()- ($('.topHeader').outerHeight() + $('.youtubeSearchBar').outerHeight()));
-            $('.userVideolist').height($(window).height()- ($('.playlistHeader').outerHeight() + $('.player').outerHeight()));
-            console.log($(this).height());
-            console.log($('.playlistHeader').height());
-            console.log($('.player').height());
-            $('.userPlaylist').height($(this).height()- ($('.topHeader').outerHeight() + $('.youtubeSearchBar').outerHeight() + $('.yourPlaylists').outerHeight() + $('.playlistSearch').outerHeight() + $('.addPlaylist').outerHeight()));
-        });
-    });
-    </script>
 </head>
 
 <body>
@@ -247,10 +114,13 @@
                                 <div class="volumeLevel"></div>
                             </div>
                         </div>
+                        <div class="time-container">
+                          <span class="time">00:00</span>
+                        </div>
                         <div class="controllers-container noselect">
                             <ul class="controllers" style="font-size:15px;">
                                 <li class="fa fa-backward" ng-click="prevVideo()"></li>
-                                <li class="fa fa-play" ng-click="togglePlayVideo()"></li>
+                                <li class="fa fa-pause" ng-click="togglePlayVideo()"></li>
                                 <li class="fa fa-forward" ng-click="nextVideo()"></li>
                             </ul>
                         </div>

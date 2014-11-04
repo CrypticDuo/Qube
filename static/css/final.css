@@ -281,6 +281,9 @@ a {
     position:relative;
     height:100%;
 }
+#QubePlaylist .videolist .player .progressBar div.progressLevel {
+    width:0;
+}
 #QubePlaylist .videolist .player .volume .volumeBar span {
     width: 11px;
     margin-left: -5px;
@@ -305,6 +308,20 @@ a {
     border-bottom-right-radius: 0px;
     border-radius: 0px;
 }
+
+#QubePlaylist .videolist .player .time-container{
+    float: right;
+    display: inline-block;
+    top: 1px;
+    position: relative;
+    margin-left: 5px;
+    right: 10px;
+}
+#QubePlaylist .videolist .player .time-container span.time{
+    font-size: 11.5px;
+    color: #eee;
+}
+
 #QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input {
     border: 1px solid #cccdc8;
     font-size: 16px;
