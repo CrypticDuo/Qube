@@ -52,32 +52,28 @@ passport.deserializeUser(function(id, done) {
 
 
 // RENDERING *****
-app.get('/account', ensureAuthenticated, function(req, res) {
-    User.findById(req.session.passport.user, function(err, user) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('qube.html', {
-                user: user
-            });
-        };
-    });
-});
 app.get('/dev', ensureAuthenticated, function(req, res) {
     User.findById(req.session.passport.user, function(err, user) {
         if (err) {
             console.log(err);
         } else {
-            res.render('main.html', {
-                user: user
-            });
+            res.render('main.html');
         };
     });
 });
 app.get('/', function(req, res) {
-    res.render('index.html', {
-        user: req.user
-    });
+    if(req.isAuthenticated()){ // if logged in
+        User.findById(req.session.passport.user, function(err, user) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('qube.html');
+            };
+        });
+    }
+    else{
+          res.render('index.html');
+    }
 });
 app.get('/auth/facebook',
     passport.authenticate('facebook'),
@@ -88,7 +84,7 @@ app.get('/auth/facebook/callback',
         failureRedirect: '/'
     }),
     function(req, res) {
-        res.redirect('/account');
+        res.redirect('/');
     }
 );
 app.get('/logout', function(req, res) {
