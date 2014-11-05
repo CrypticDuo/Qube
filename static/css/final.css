@@ -157,6 +157,7 @@ a {
 }
 #QubePlaylist .view.main .topHeader .looper-inner {
     display:inline-block;
+    top:4px;
 }
 #QubePlaylist .view.main .topHeader .looper-inner.looper-icon {
     width:20px;
@@ -170,7 +171,7 @@ a {
 #QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span{
     position: relative;
 }
-#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > span{
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > span.status{
     font-size: 16px;
     color: #4E5D70;
     position:relative;

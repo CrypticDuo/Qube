@@ -5,6 +5,7 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var player;
+var playingFlag=false;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
@@ -48,10 +49,31 @@ function onPlayerStateChange(event) {
         $el = $('ul.controllers li.fa-play');
         $el.toggleClass('fa fa-pause');
         $el.toggleClass('fa fa-play');
+        $('.currentPlaying').text($('.userVideolist li.active a').text());
+        if($('.userVideolist li.active').next().length > 0){
+            $('.nextPlaying').text($('.userVideolist li.active').next().children('a').text());
+        }
+        else{
+            $('.nextPlaying').text($('.userVideolist li').first().children('a').text());
+        }
+        if($('.looper .item.active span.status').hasClass('nextStatus')){
+            $('.looper').looper('next');
+        }
         if(!timerStartFlag){
             var timer=null;
             startTimer();
             timerStartFlag=true;
+        }
+        if(!playingFlag){
+            $('.currentPlaying').text($('.userVideolist li.active a').text());
+            if($('.userVideolist li.active').next().length > 0){
+                $('.nextPlaying').text($('.userVideolist li.active').next().children('a').text());
+            }
+            else{
+                $('.nextPlaying').text($('.userVideolist li').first().children('a').text());
+            }
+            playingFlag=true;
+            $('.looper').looper('loop');
         }
     }
 }
@@ -110,6 +132,9 @@ function pauseTimer(){
 
 $(document).ready(function() {
 
+    $('.looper').looper({});
+    $('.looper').looper('next');
+    $('.looper').looper('pause');
     var t = setInterval(function(){
         if(!isPaused){
             duration=parseInt((player.getCurrentTime())/(maxTime)*1000)/10;
