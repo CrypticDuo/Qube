@@ -178,8 +178,16 @@ a {
     display:inline-block;
     width:130px;
     margin-right:10px;
+    top: -6px;
 }
-
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > :nth-child(2){
+    text-overflow: ellipsis;
+    width:600px;
+    overflow: hidden;
+    white-space: nowrap;
+    display:inline-block;
+    padding-bottom:2px;
+}
 #QubePlaylist .playView {
     width: 350px;
     height: 100%;
