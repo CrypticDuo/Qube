@@ -49,33 +49,31 @@ function onPlayerStateChange(event) {
         $el = $('ul.controllers li.fa-play');
         $el.toggleClass('fa fa-pause');
         $el.toggleClass('fa fa-play');
-        $('.currentPlaying').text($('.userVideolist li.active a').text());
-        if($('.userVideolist li.active').next().length > 0){
-            $('.nextPlaying').text($('.userVideolist li.active').next().children('a').text());
-        }
-        else{
-            $('.nextPlaying').text($('.userVideolist li').first().children('a').text());
-        }
-        if($('.looper .item.active span.status').hasClass('nextStatus')){
+
+        onTopHeaderChange();
+
+        /*if($('.looper .item.active span.status').hasClass('nextStatus')){
             $('.looper').looper('next');
-        }
+        }*/
+
         if(!timerStartFlag){
             var timer=null;
             startTimer();
             timerStartFlag=true;
         }
         if(!playingFlag){
-            $('.currentPlaying').text($('.userVideolist li.active a').text());
-            if($('.userVideolist li.active').next().length > 0){
-                $('.nextPlaying').text($('.userVideolist li.active').next().children('a').text());
-            }
-            else{
-                $('.nextPlaying').text($('.userVideolist li').first().children('a').text());
-            }
             playingFlag=true;
             $('.looper').looper('loop');
         }
     }
+}
+
+function onTopHeaderChange() {
+    var el = $('.topHeader');
+    var scope = angular.element(el).scope();
+    scope.$apply(function() {
+        scope.changeTopHeader();
+    });
 }
 
 function onVolumeChange(el, volume) {
