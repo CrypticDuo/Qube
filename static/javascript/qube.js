@@ -81,7 +81,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             $scope.currentPlaylist = playlist;
             QubeService.listAllVideos($scope, playlist.name);
             $scope.currentPlaying = null;
-            $scope.togglePlayVideo(null, 'QubeChangePlaylist');
+            $scope.togglePlayVideo('QubeChangePlaylist');
         }
     }
 
@@ -156,17 +156,17 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
-    $scope.togglePlayVideo = function(video, option) {
+    $scope.togglePlayVideo = function(videoId) {
         // from $scope.changePlaylist
-        if (option) {
-            if(option === 'QubeChangePlaylist'){
+        if (videoId) {
+            if(videoId === 'QubeChangePlaylist'){
                 videoId = $scope.videos[0].id;
                 player.loadVideoById(videoId);
-                $scope.currentPlaying = $scope.videos[0];
+                $scope.currentPlaying = videoId;
             }
             else{
-                player.loadVideoById(video.id);
-                $scope.currentPlaying = video;
+                player.loadVideoById(videoId);
+                $scope.currentPlaying = videoId;
             }
         }
         // from clicking play/pause button
@@ -192,7 +192,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.nextVideo = function() {
-        console.log($scope.currentPlaying);
         var $el = $('.userVideolist li.active');
         if ($el.next().length > 0) {
             player.loadVideoById($el.next().attr('id'));
