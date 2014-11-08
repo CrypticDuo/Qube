@@ -157,6 +157,7 @@ a {
 }
 #QubePlaylist .view.main .topHeader .looper-inner {
     display:inline-block;
+    top:4px;
 }
 #QubePlaylist .view.main .topHeader .looper-inner.looper-icon {
     width:20px;
@@ -170,15 +171,23 @@ a {
 #QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span{
     position: relative;
 }
-#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > span{
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > span.status{
     font-size: 16px;
     color: #4E5D70;
     position:relative;
     display:inline-block;
     width:130px;
     margin-right:10px;
+    top: -6px;
 }
-
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > :nth-child(2){
+    text-overflow: ellipsis;
+    width:600px;
+    overflow: hidden;
+    white-space: nowrap;
+    display:inline-block;
+    padding-bottom:2px;
+}
 #QubePlaylist .playView {
     width: 350px;
     height: 100%;
