@@ -17,5 +17,8 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/earl93/Qube.git"
-  }
+  },
+    "scripts": {
+        "start": "node app.js"
+    }
 }
