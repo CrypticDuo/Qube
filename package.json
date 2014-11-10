@@ -1,6 +1,6 @@
 {
-  "name": "login",
-  "description": "test",
+  "name": "Qube",
+  "description": "Qube youtube playlist",
   "version": "0.0.1",
   "dependencies": {
     "express": "~4.5.1",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/earl93/Qube.git"
+    "url": "git://github.com/insoochoo/Qube.git"
   },
     "scripts": {
         "start": "node app.js"
