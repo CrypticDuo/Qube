@@ -43,12 +43,12 @@
                           <div class="looper-inner looper-content">
                               <div class="item">
                                   <span>
-                                      <span class="status currentStatus">Currently Playing:</span><span class="currentPlaying">No Playlist Selected</span>
+                                      <span class="status currentStatus">Currently Playing:</span><span class="currentPlaying">{{ current }}</span>
                                   </span>
                               </div>
                               <div class="item">
                                   <span>
-                                      <span class="status nextStatus">Playing Next:</span><span class="nextPlaying"></span>
+                                      <span class="status nextStatus">Playing Next:</span><span class="nextPlaying">{{ next }}</span>
                                   </span>
                               </div>
                           </div>
@@ -127,7 +127,7 @@
                     </div>
 
                     <ul class="userVideolist scrollbar">
-                        <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlaying}" ng-click="togglePlayVideo(video.id)" id="{{ video.id }}">
+                        <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" id="{{ video.id }}">
                             <a>{{video.snippet.title}}</a>
                             <span>{{video.contentDetails.duration}}</span>
                         </li>

@@ -55,9 +55,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
         $scope.layout = 'main';
+        $scope.currentPlayingVideo = null;
         $scope.currentPlaylist = {};
         $scope.ytSearchResult = [];
         $scope.playlists = [];
+        $scope.current = 'No Playlist Selected';
+        $scope.next = '';
         QubeService.listAllPlaylist($scope);
     }
 
@@ -80,7 +83,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if($scope.currentPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
             QubeService.listAllVideos($scope, playlist.name);
-            $scope.currentPlaying = null;
             $scope.togglePlayVideo('QubeChangePlaylist');
         }
     }
@@ -156,17 +158,17 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
-    $scope.togglePlayVideo = function(videoId) {
+    $scope.togglePlayVideo = function(video) {
         // from $scope.changePlaylist
-        if (videoId) {
-            if(videoId === 'QubeChangePlaylist'){
-                videoId = $scope.videos[0].id;
-                player.loadVideoById(videoId);
-                $scope.currentPlaying = videoId;
+        if (video) {
+            if(video === 'QubeChangePlaylist'){
+                video = $scope.videos[0];
+                player.loadVideoById(video.id);
+                $scope.currentPlayingVideo = video;
             }
-            else{
-                player.loadVideoById(videoId);
-                $scope.currentPlaying = videoId;
+            else if(video.id){
+                player.loadVideoById(video.id);
+                $scope.currentPlayingVideo = video;
             }
         }
         // from clicking play/pause button
@@ -181,29 +183,56 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.prevVideo = function() {
-        var $el = $('.userVideolist li.active');
-        if ($el.prev().length > 0) {
-            player.loadVideoById($el.prev().attr('id'));
-            $scope.currentPlaying = $el.prev().attr('id');
-        } else {
-            player.loadVideoById($('.userVideolist li').last().attr('id'));
-            $scope.currentPlaying = $('.userVideolist li').last().attr('id');
+        var index = 0;
+        for(var i = 0; i < $scope.videos.length; i++){
+            if($scope.currentPlayingVideo.id === $scope.videos[i].id){
+                if(i === 0){
+                    index=$scope.videos.length-1;
+                        player.loadVideoById($scope.videos[index].id);
+                }
+                else{
+                    index=i-1;
+                    player.loadVideoById($scope.videos[index].id);
+                }
+                $scope.currentPlayingVideo = $scope.videos[index];
+                return;
+            }
         }
     }
 
     $scope.nextVideo = function() {
-        var $el = $('.userVideolist li.active');
-        if ($el.next().length > 0) {
-            player.loadVideoById($el.next().attr('id'));
-            $scope.currentPlaying = $el.next().attr('id');
-        } else {
-            player.loadVideoById($('.userVideolist li').first().attr('id'));
-            $scope.currentPlaying = $('.userVideolist li').first().attr('id');
+        var index = 0;
+        for(var i = 0; i < $scope.videos.length; i++){
+            if($scope.currentPlayingVideo.id === $scope.videos[i].id){
+                if(i === $scope.videos.length-1){
+                    player.loadVideoById($scope.videos[index].id);
+                }
+                else{
+                    index = i+1;
+                    player.loadVideoById($scope.videos[index].id);
+                }
+                $scope.currentPlayingVideo = $scope.videos[index];
+                return;
+            }
         }
     }
 
     $scope.changeVolume = function(volume) {
         player.setVolume(volume);
+    }
+
+    $scope.changeTopHeader = function() {
+        var index = 0;
+        $scope.current = $scope.currentPlayingVideo.snippet.title;
+        for(var i = 0; i < $scope.videos.length; i++){
+            if($scope.currentPlayingVideo.id === $scope.videos[i].id){
+                if(i !== $scope.videos.length-1){
+                    index = i+1;
+                }
+                $scope.next = $scope.videos[index].snippet.title;
+                return;
+            }
+        }
     }
 });
 
