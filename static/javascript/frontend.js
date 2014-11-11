@@ -92,10 +92,10 @@ function onVolumeChange(el, volume) {
 function onSearchChange(el, query){
     var scope = angular.element(el).scope();
     scope.$apply(function() {
-        scope.onSearch(query);
-        $('.youtubeSearchBar > input').autocomplete({
-            source: scope.autoComplete,
-            minLength: 2
+        scope.onSearch(query, function(data){
+            $('.youtubeSearchBar > input').autocomplete({
+                source: data
+            });
         });
     });
 }
