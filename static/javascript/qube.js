@@ -66,6 +66,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     init();
 
+    $scope.onSearch = function(query) {
+        QubeService.searchAutoComplete($scope, query);
+    }
+
     $scope.addPlaylist = function() {
         QubeService.addPlaylist($scope, $scope.addPlaylistInput);
         $scope.addPlaylistInput = '';
@@ -276,6 +280,18 @@ app.service("QubeService", function($http, $q) {
 
     }
 
+    function searchAutoComplete(scope, query){
+        $.ajax({
+            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&hjson=t&cp=1&q="+query+"&format=5&alt=json&callback=?",  
+            dataType: 'jsonp',
+        }).success(function(data) { 
+               scope.autoComplete = $.map( data[1], function(item) {
+                    return item[0];
+                });
+            });
+        
+    }
+
     function listAllPlaylist(scope) {
         $http.get(hostURL + "/api/playlists")
             .success(function(res) {
@@ -363,6 +379,7 @@ app.service("QubeService", function($http, $q) {
 
     //Returns the public API
     return ({
+        searchAutoComplete: searchAutoComplete,
         listAllPlaylist: listAllPlaylist,
         addPlaylist: addPlaylist,
         removePlaylist: removePlaylist,

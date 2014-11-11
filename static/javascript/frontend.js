@@ -89,6 +89,17 @@ function onVolumeChange(el, volume) {
     });
 }
 
+function onSearchChange(el, query){
+    var scope = angular.element(el).scope();
+    scope.$apply(function() {
+        scope.onSearch(query);
+        $('.youtubeSearchBar > input').autocomplete({
+            source: scope.autoComplete,
+            minLength: 2
+        });
+    });
+}
+
 function convertSecondsToTime(s) {
     var tHours = parseInt(s/3600);
     var tMinutes = parseInt((s%3600)/60);
@@ -134,6 +145,9 @@ function pauseTimer(){
 
 $(document).ready(function() {
 
+    $('.youtubeSearchBar > input').on('input', function() { 
+        onSearchChange($(this),$(this).val());
+    });
     $('.looper').looper({});
     $('.looper').looper('next');
     $('.looper').looper('pause');
