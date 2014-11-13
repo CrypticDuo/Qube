@@ -64,8 +64,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.listAllPlaylist($scope);
     }
 
-    init();
-
     $scope.onSearch = function(query, callback) {
         QubeService.searchAutoComplete($scope, query, function(data){
             callback(data);
@@ -97,16 +95,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, val);
     }
 
-
-    var occurrenceTimer;
-    $scope.queryYoutube = function() {
-        if (occurrenceTimer) {
-            window.clearTimeout(occurrenceTimer);
-        }
-        occurrenceTimer = window.setTimeout(function() {
-            occurrenceTimer = null;
+    $scope.queryYoutube = function(e) {
+        if(e.which === 13){
             $scope.searchYt($scope.addVideoInput);
-        }, 500);
+            $('.youtubeSearchBar > input').autocomplete("close");
+        }
     }
 
     $scope.searchYt = function(val) {
@@ -240,6 +233,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             }
         }
     }
+
+    init();
 });
 
 app.service("VideoService", function($http, $q) {
@@ -284,16 +279,16 @@ app.service("QubeService", function($http, $q) {
 
     function searchAutoComplete(scope, query, callback){
         $.ajax({
-            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query+"",  
+            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query+"",
             dataType: 'jsonp',
-        }).success(function(data) { 
+        }).success(function(data) {
 
            var map = $.map( data[1], function(item) {
                 return item[0];
             });
            callback(map);
         });
-        
+
     }
 
     function listAllPlaylist(scope) {
