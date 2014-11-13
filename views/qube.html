@@ -126,7 +126,7 @@
                         </div>
                     </div>
 
-                    <ul class="userVideolist scrollbar">
+                    <ul class="userVideolist scrollbar sortable">
                         <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" id="{{ video.id }}">
                             <a>{{video.snippet.title}}</a>
                             <span>{{video.contentDetails.duration}}</span>

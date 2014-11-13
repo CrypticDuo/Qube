@@ -159,20 +159,6 @@ $(document).ready(function() {
         closeButton: ".modal_close"
     });
 
-    var text = "";
-    $('.userVideolist').on('mouseenter', 'span', function() {
-        text = $(this).text();
-        $(this).text("");
-        $(this).append('<i style="color:#e52d4f;" class="fa fa-times"></i>');
-        $(this).css("border-left", "2px solid #e52d4f");
-    });
-    $('.userVideolist').on('mouseleave', 'span', function() {
-        $(this).children().remove();
-        $(this).text(text);
-        $(this).css('border-left', '0');
-        text = "";
-    });
-
 ////////////////////////////////////////////////////////////////////////////////
 // VOLUME BAR
 ////////////////////////////////////////////////////////////////////////////////
@@ -288,5 +274,17 @@ $(document).ready(function() {
         $('.userVideolist').height($(window).height() - ($('.playlistHeader').outerHeight() + $('.player').outerHeight()));
         $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.youtubeSearchBar').outerHeight() + $('.yourPlaylists').outerHeight() + $('.playlistSearch').outerHeight() + $('.addPlaylist').outerHeight()));
     });
-});
 ////////////////////////////////////////////////////////////////////////////////
+    
+    (function(){
+    var $el = $('ul.sortable');
+    $('ul.sortable').sortable({
+        stop: function(event, ui) {
+            var scope = angular.element($el).scope();
+            scope.$apply(function() {
+                scope.refreshVideoList($el.sortable('toArray'));
+            });
+
+        }
+    }).disableSelection();})();
+});
