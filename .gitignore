@@ -2,4 +2,3 @@ oauth.js
 node_modules/
 data/
 .DS_Store
-static/framework/*

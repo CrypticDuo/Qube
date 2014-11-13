@@ -288,11 +288,11 @@ app.service("QubeService", function($http, $q) {
             dataType: 'jsonp',
         }).success(function(data) { 
 
-               var map = $.map( data[1], function(item) {
-                    return item[0];
-                });
-               callback(map);
+           var map = $.map( data[1], function(item) {
+                return item[0];
             });
+           callback(map);
+        });
         
     }
 

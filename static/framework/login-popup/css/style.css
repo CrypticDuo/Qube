@@ -1,0 +1,81 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic);
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+.popupContainer{
+	position:absolute;
+	width:330px;
+	height: auto;
+	left:45%;
+	top:80px;
+	background: #FFF;
+}
+
+#modal_trigger {display:block;}
+
+.btn {padding:10px 20px; background: #F4F4F2;}
+.btn_red {background: #ED6347; color: #FFF;}
+
+.btn:hover {background: #E4E4E2;}
+.btn_red:hover {background: #C12B05;}
+
+a.btn {color:#666; text-align: center; text-decoration: none;}
+a.btn_red {color: #FFF;}
+
+.one_half {width:50%; display: block; float:left;}
+.one_half.last {width:45%; margin-left:5%;}
+
+/* Popup Styles*/
+.popupHeader {font-size:16px; text-transform: uppercase;}
+.popupHeader {background:#F4F4F2; position:relative; padding:10px 20px; border-bottom:1px solid #DDD; font-weight:bold;}
+.popupHeader .modal_close {position: absolute; right: 0; top:0; padding:10px 15px; background:#E4E4E2; cursor: pointer; color:#aaa; font-size:16px;}
+
+.popupBody {padding:20px;}
+
+.social_login .social_box {display:block; clear:both; padding:10px; margin-bottom: 10px; background: #F4F4F2; overflow: hidden; text-align:center;}
+.social_login .icon {display:block; width:10px; padding:5px 10px; margin-right: 0px; float:left; color:#FFF; font-size:20px;margin-top:1px; text-align: center;}
+/*.social_login .google .icon {color:#DD4B39;}*/
+.social_login .icon_title {display:block; padding:7px 0; font-weight: bold; font-size: 16px; color:#fff; text-align:center;}
+a.social_box:hover{text-decoration: none;}
+.social_login .social_box:hover {background: #E4E4E2;}
+/* Social Login Form */
+a.social_box.fb{
+    /*border-color: #3b5998;
+    border-bottom-color: #263a63;*/
+    background-color: #3b5998;
+}
+a.social_box.fb:hover{
+    /*border-color: #4568b2;
+    border-bottom-color: #2d4575;*/
+    background-color: #4568b2;
+}
+a.social_box.twitter{
+    /*border-color: #1c80a8;
+    border-bottom-color: #2091bd;*/
+    background-color: #1c80a8;
+}
+a.social_box.twitter:hover{
+    /*border-color: #4568b2;
+    border-bottom-color: #2d4575;*/
+    background-color: #2091bd;
+}
+a.social_box.google{
+    background-color: #DD4B39;
+}
+a.social_box.google:hover{
+    background-color: #ef6666;
+}
+
+.centeredText {text-align: center; margin: 20px 0; clear: both; overflow: hidden; text-transform: uppercase;}
+
+.action_btns {clear:both; overflow: hidden;}
+.action_btns a {display: block;}
