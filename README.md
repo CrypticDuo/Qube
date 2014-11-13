@@ -8,7 +8,6 @@ Status : under-construction
 ### Developers:
 
 Paul Kim : [bumjung94](https://github.com/bumjung94)
-
 Insoo Choo : [insoochoo](https://github.com/insoochoo)
 
 ### Dependencies:
@@ -23,14 +22,16 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
 
 ### Features:
 
+   * OAuth login (facebook, twitter, gmail)
    * Search for youtube videos
    * Create / Remove playlists
    * Add / remove videos to playlists
-   * Play videos in playlists [loop]
+   * Auto complete youtube search
+   * Automatically load more for youtube search result
+   * Drag & Drop to re-order videos
 
-To do:
-----------
+### To do:
+
    * remove songs
-   * reorder songs/ playlists by mouse drag
    * expand view [video view]
    * Telegram API integration
