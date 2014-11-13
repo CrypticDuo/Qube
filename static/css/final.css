@@ -59,7 +59,27 @@ a {
 	background-color: #555;
 }
 
-
+.ui-autocomplete {
+    background: #1C1F25;
+    border: 0;
+    overflow:hidden;
+    color:#eee;
+}
+.ui-autocomplete > .ui-menu-item:hover {
+    background: #A670FF;
+    color:#eee;
+    border-color: #1C1F25;
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    border: 1px solid #1C1F25;
+    background: #1C1F25;
+    color: #eee;
+}
 #QubePlaylist {
     min-width: 1200px;
     width: 100%;

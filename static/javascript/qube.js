@@ -85,10 +85,19 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.removePlaylist($scope, playlist.name);
     }
 
+
+    $scope.listAllVideos = function(scope, pname) {
+        for (var a = 0; a < scope.playlists.length; a++) {
+            if (scope.playlists[a].name === pname) {
+                scope.videos = scope.playlists[a].data;
+            }
+        }
+    };
+
     $scope.changePlaylist = function(playlist) {
         if($scope.currentPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
-            QubeService.listAllVideos($scope, playlist.name);
+            $scope.listAllVideos($scope, playlist.name);
             $scope.togglePlayVideo('QubeChangePlaylist');
         }
     }
@@ -240,6 +249,20 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             }
         }
     }
+
+    $scope.refreshVideoList = function(list) {
+        var newlist=[];
+        for(var i = 0; i < list.length; i++){
+            for(var j = 0; j < $scope.videos.length; j++){
+                if(list[i] === $scope.videos[j].id){
+                    newlist.push($scope.videos[j]);
+                }
+            }
+        }
+        $scope.videos = newlist;
+        //QubeService.updatePlaylist($scope.videos);
+        return;
+    }
 });
 
 app.service("VideoService", function($http, $q) {
@@ -282,20 +305,6 @@ app.service("QubeService", function($http, $q) {
 
     }
 
-    function searchAutoComplete(scope, query, callback){
-        $.ajax({
-            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query+"",  
-            dataType: 'jsonp',
-        }).success(function(data) { 
-
-           var map = $.map( data[1], function(item) {
-                return item[0];
-            });
-           callback(map);
-        });
-        
-    }
-
     function listAllPlaylist(scope) {
         $http.get(hostURL + "/api/playlists")
             .success(function(res) {
@@ -328,7 +337,19 @@ app.service("QubeService", function($http, $q) {
                 }
             })
             .error(function(err) {
-                alert("Error: Cannot add playlist.");
+                alert("Error: Failed to add playlist.");
+            });
+    };
+
+    function updatePlaylist(scope, query){
+        $http.put("/api/playlists/") //TODO: figure out how to send arrays
+            .success(function(res){
+                if (res.status.toLowerCase() === "fail") {
+                    console.log(res.msg);
+                }
+            })
+            .error(function(err){
+                alert("Error: Failed to update playlist.")
             });
     };
 
@@ -352,17 +373,9 @@ app.service("QubeService", function($http, $q) {
                 }
             })
             .error(function(err) {
-                alert("Error: Cannot add playlist.");
+                alert("Error: Failed to remove playlist.");
             });
     };
-
-    function listAllVideos(scope, pname) {
-        for (var a = 0; a < scope.playlists.length; a++) {
-            if (scope.playlists[a].name === pname) {
-                scope.videos = scope.playlists[a].data;
-            }
-        }
-    }
 
     function addVideoToPlaylist(scope, pname, video) {
         $http.post("/api/playlists/" + pname + "/videos/" + video.id)
@@ -376,19 +389,32 @@ app.service("QubeService", function($http, $q) {
                 }
             })
             .error(function(err) {
-                alert("Error: Cannot add video.");
+                alert("Error: Failed to add video.");
             });
     };
 
+    function searchAutoComplete(scope, query, callback){
+        $.ajax({
+            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query,  
+            dataType: 'jsonp',
+        }).success(function(data) { 
+
+           var map = $.map( data[1], function(item) {
+                return item[0];
+            });
+           callback(map);
+        });
+    }
 
     //Returns the public API
     return ({
-        searchAutoComplete: searchAutoComplete,
         listAllPlaylist: listAllPlaylist,
         addPlaylist: addPlaylist,
+        updatePlaylist: updatePlaylist,
         removePlaylist: removePlaylist,
-        listAllVideos: listAllVideos,
-        addVideoToPlaylist: addVideoToPlaylist
+        addVideoToPlaylist: addVideoToPlaylist,
+        searchAutoComplete: searchAutoComplete,
+
     });
 });
 
