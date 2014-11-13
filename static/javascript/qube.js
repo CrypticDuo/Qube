@@ -61,7 +61,18 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.playlists = [];
         $scope.current = 'No Playlist Selected';
         $scope.next = '';
+        $scope.pageToken = '';
+        $scope.lastSearch = '';
         QubeService.listAllPlaylist($scope);
+        addInfiniteScroll();
+    }
+
+    function addInfiniteScroll(){
+        $('.searchResultColumn').bind('scroll', function() {
+            if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+                $scope.searchYt($scope.lastSearch, $scope.pageToken);
+            }
+        });
     }
 
     $scope.onSearch = function(query, callback) {
@@ -97,24 +108,31 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.queryYoutube = function(e) {
         if(e.which === 13){
-            $scope.searchYt($scope.addVideoInput);
+            if($scope.addVideoInput !== $scope.lastSearch){
+                $scope.pageToken = "";
+                $scope.lastSearch = $scope.addVideoInput;
+            }
+            $scope.ytSearchResult = [];
             $('.youtubeSearchBar > input').autocomplete("close");
+            $scope.searchYt($scope.addVideoInput);
         }
     }
 
-    $scope.searchYt = function(val) {
+    $scope.searchYt = function(val, pageToken) {
         $http.get('https://www.googleapis.com/youtube/v3/search', {
                 params: {
                     key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
                     type: 'video',
                     maxResults: '20',
                     part: 'id,snippet',
-                    fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/medium,items/snippet/channelTitle',
+                    pageToken: pageToken,
+                    fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/medium,items/snippet/channelTitle',
                     q: val
                 }
             })
             .success(function(data) {
                 videoIDlist = "";
+                $scope.pageToken = data.nextPageToken;
                 for (var i = 0; i < data.items.length; i++) {
                     videoIDlist = videoIDlist + data.items[i].id.videoId + ",";
                 }
@@ -138,7 +156,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.appendContentDetail = function(data, contentDetailsData) {
-        $scope.ytSearchResult = [];
         for (var i = 0; i < data.items.length; i++) {
             var formatted = convertYoutubeDuration(contentDetailsData.items[i].contentDetails.duration);
             $scope.ytSearchResult.push({
