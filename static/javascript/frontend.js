@@ -27,6 +27,7 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
     //event.target.playVideo();
+    player.setVolume(100);
 }
 
 function onPlayerStateChange(event) {
@@ -145,7 +146,7 @@ function pauseTimer(){
 
 $(document).ready(function() {
 
-    $('.youtubeSearchBar > input').on('input', function() { 
+    $('.youtubeSearchBar > input').on('input', function() {
         onSearchChange($(this),$(this).val());
     });
     $('.looper').looper({});

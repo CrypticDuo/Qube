@@ -61,10 +61,19 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.playlists = [];
         $scope.current = 'No Playlist Selected';
         $scope.next = '';
+        $scope.pageToken = '';
+        $scope.lastSearch = '';
         QubeService.listAllPlaylist($scope);
+        addInfiniteScroll();
     }
 
-    init();
+    function addInfiniteScroll(){
+        $('.searchResultColumn').bind('scroll', function() {
+            if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+                $scope.searchYt($scope.lastSearch, $scope.pageToken);
+            }
+        });
+    }
 
     $scope.onSearch = function(query, callback) {
         QubeService.searchAutoComplete($scope, query, function(data){
@@ -106,31 +115,33 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, val);
     }
 
-
-    var occurrenceTimer;
-    $scope.queryYoutube = function() {
-        if (occurrenceTimer) {
-            window.clearTimeout(occurrenceTimer);
-        }
-        occurrenceTimer = window.setTimeout(function() {
-            occurrenceTimer = null;
+    $scope.queryYoutube = function(e) {
+        if(e.which === 13){
+            if($scope.addVideoInput !== $scope.lastSearch){
+                $scope.pageToken = "";
+                $scope.lastSearch = $scope.addVideoInput;
+            }
+            $scope.ytSearchResult = [];
+            $('.youtubeSearchBar > input').autocomplete("close");
             $scope.searchYt($scope.addVideoInput);
-        }, 500);
+        }
     }
 
-    $scope.searchYt = function(val) {
+    $scope.searchYt = function(val, pageToken) {
         $http.get('https://www.googleapis.com/youtube/v3/search', {
                 params: {
                     key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
                     type: 'video',
                     maxResults: '20',
                     part: 'id,snippet',
-                    fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/medium,items/snippet/channelTitle',
+                    pageToken: pageToken,
+                    fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/medium,items/snippet/channelTitle',
                     q: val
                 }
             })
             .success(function(data) {
                 videoIDlist = "";
+                $scope.pageToken = data.nextPageToken;
                 for (var i = 0; i < data.items.length; i++) {
                     videoIDlist = videoIDlist + data.items[i].id.videoId + ",";
                 }
@@ -154,7 +165,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.appendContentDetail = function(data, contentDetailsData) {
-        $scope.ytSearchResult = [];
         for (var i = 0; i < data.items.length; i++) {
             var formatted = convertYoutubeDuration(contentDetailsData.items[i].contentDetails.duration);
             $scope.ytSearchResult.push({
@@ -263,6 +273,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         //QubeService.updatePlaylist($scope.videos);
         return;
     }
+    init();
 });
 
 app.service("VideoService", function($http, $q) {
@@ -302,6 +313,20 @@ app.service("QubeService", function($http, $q) {
             .error(function() {
                 alert("Something went wrong querying video details!");
             });
+
+    }
+
+    function searchAutoComplete(scope, query, callback){
+        $.ajax({
+            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query+"",
+            dataType: 'jsonp',
+        }).success(function(data) {
+
+           var map = $.map( data[1], function(item) {
+                return item[0];
+            });
+           callback(map);
+        });
 
     }
 

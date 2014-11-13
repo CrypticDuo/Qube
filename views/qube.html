@@ -55,7 +55,7 @@
                       </div>
                     </div>
                     <div class="youtubeSearchBar">
-                        <input ng-model="addVideoInput" ng-change="queryYoutube()" placeholder="Search for Youtube videos"></input>
+                        <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input>
                     </div>
                     <div class="playlistColumn">
                         <div class="yourPlaylists">
