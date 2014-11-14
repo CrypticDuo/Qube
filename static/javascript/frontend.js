@@ -9,7 +9,7 @@ var playingFlag=false;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '195',
+        height: '240',
         width: $('.videolist').width(),
         videoId: '',
         playerVars: {
@@ -275,7 +275,7 @@ $(document).ready(function() {
         $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.youtubeSearchBar').outerHeight() + $('.yourPlaylists').outerHeight() + $('.playlistSearch').outerHeight() + $('.addPlaylist').outerHeight()));
     });
 ////////////////////////////////////////////////////////////////////////////////
-    
+
     (function(){
     var $el = $('ul.sortable');
     $('ul.sortable').sortable({

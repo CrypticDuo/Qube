@@ -107,7 +107,7 @@ a {
 #QubePlaylist .view.main .video-title {
     overflow: hidden; text-overflow: ellipsis;
     white-space: nowrap;
-    width: 390px;
+    width: 380px;
     float: left;
 }
 
@@ -159,7 +159,7 @@ a {
     color:#E5E5E5;
 }
 #QubePlaylist .mainView {
-    width: calc(100% - 397px);
+    width: calc(100% - 477px);
     height: 100%;
     margin-left: 45px;
     border-left: 1px solid #0A0A0A;
@@ -198,7 +198,7 @@ a {
     display:inline-block;
     width:130px;
     margin-right:10px;
-    top: -6px;
+    top: 0px;
 }
 #QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > :nth-child(2){
     text-overflow: ellipsis;
@@ -209,7 +209,7 @@ a {
     padding-bottom:2px;
 }
 #QubePlaylist .playView {
-    width: 350px;
+    width: 430px;
     height: 100%;
     background-color: #1C1F25;
     border-left: 1px solid #0A0A0A;
@@ -233,7 +233,7 @@ a {
 }
 #QubePlaylist .videolist .userVideolist li {
     border-bottom: 1px solid #282C35;
-    padding: 15px 10px;
+    padding: 12px 10px;
 }
 #QubePlaylist .videolist .userVideolist li.active {
     background-color: #A670FF;
@@ -391,7 +391,7 @@ a {
 
 #QubePlaylist .view.main .youtubeSearchBar {
     background-color: #323742;
-    padding: 7px;
+    padding: 5px;
 }
 
 #QubePlaylist .view.main .youtubeSearchBar input {
@@ -423,7 +423,7 @@ a {
 }
 
 #QubePlaylist .view.main .playlistColumn .userPlaylist li {
-    padding: 15px 10px;
+    padding: 12px 10px;
     border-bottom: 1px solid #282C35;
     font-weight: 300;
     font-size: 13px;
