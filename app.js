@@ -108,6 +108,7 @@ router.use(function(req, res, next) {
     GET     /playlists/:playlist_name
     POST    /playlists/:playlist_name
     DELETE  /playlists/:playlist_name
+    PUT     /playlists/:playlist_name/list/:list
     POST    /playlists/:playlist_name/videos/:videoID
     DELETE  /playlists/:playlist_name/videos/:videoID
 */
@@ -136,6 +137,18 @@ router.route('/playlists/:playlist_name')
     //delete playlist
     .delete(ensureAuthenticated, function(req, res){
         db.removePlaylist(req.user.oauthID, req.params.playlist_name, function(result){
+            res.json(result);
+        });
+    });
+
+router.route('/playlists/:playlist_name/list/:list')
+    //update playlist
+    .put(ensureAuthenticated, function(req, res){
+        var temp = req.params.list;
+        var list = temp.slice(1, temp.length-1)
+                .split(',')
+                .map(function(str){ return JSON.parse(str) });
+        db.updatePlaylist(req.user.oauthID, req.params.playlist_name, list, function(result){
             res.json(result);
         });
     });

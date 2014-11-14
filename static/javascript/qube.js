@@ -270,7 +270,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             }
         }
         $scope.videos = newlist;
-        //QubeService.updatePlaylist($scope.videos);
+        QubeService.updatePlaylist($scope, $scope.currentPlaylist.name, list);
         return;
     }
     init();
@@ -366,11 +366,14 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function updatePlaylist(scope, query){
-        $http.put("/api/playlists/") //TODO: figure out how to send arrays
+    function updatePlaylist(scope, pname, list){
+        var test = JSON.stringify(list);
+        $http.put("/api/playlists/" + pname + "/list/"+test)
             .success(function(res){
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
+                } else {
+                    console.log("Success: updated playlist.");
                 }
             })
             .error(function(err){

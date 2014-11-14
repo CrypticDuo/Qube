@@ -89,8 +89,8 @@ var database = {
                     name : pname
                 }
             }
-        }, function(err, user) {
-            if (err || user.length == 0) {
+        }, function(err, playlist) {
+            if (err || playlist.length == 0) {
                 console.log("ERROR : " + err);
                 callback({
                     status: "Fail",
@@ -98,11 +98,11 @@ var database = {
                 });
                 return;
             }
-            if(!err && user){
-                console.log(user);
+            if(!err && playlist){
+                console.log(playlist);
                 callback({
                     status: "Success",
-                    data: user[0].playlist[0].videos
+                    data: playlist[0].videos
                 });
                 return;
             }
@@ -213,6 +213,32 @@ var database = {
                     });
                     return;
                 }
+        });
+    },
+    
+    updatePlaylist: function(userID, pname, list, callback){
+        User.update({
+            oauthID: userID,
+            "playlist.name": pname
+        }, {
+            "$set": {
+                "playlist.$.videos" : list
+            }
+        }, function(err, user){
+            if(err) {
+                console.log("ERROR : " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+                return;
+            }
+            if(!err && user != null){
+                callback({
+                    status: "Success"
+                });
+                return;
+            }
         });
     }
 };
