@@ -201,7 +201,7 @@ a {
 }
 #QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > :nth-child(2){
     text-overflow: ellipsis;
-    width: 560px;
+    width: 495px;
     overflow: hidden;
     white-space: nowrap;
     display:inline-block;
