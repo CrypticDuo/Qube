@@ -460,19 +460,6 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function searchAutoComplete(scope, query, callback){
-        $.ajax({
-            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query,
-            dataType: 'jsonp',
-        }).success(function(data) {
-
-           var map = $.map( data[1], function(item) {
-                return item[0];
-            });
-           callback(map);
-        });
-    }
-
     //Returns the public API
     return ({
         listAllPlaylist: listAllPlaylist,
