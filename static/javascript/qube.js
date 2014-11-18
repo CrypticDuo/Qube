@@ -86,6 +86,14 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.addPlaylistInput = '';
     }
 
+    $scope.changePlaylist = function(playlist) {
+        if($scope.currentPlaylist.name !== playlist.name){
+            $scope.currentPlaylist = playlist;
+            $scope.listAllVideos($scope, playlist.name);
+            $scope.togglePlayVideo('QubeChangePlaylist');
+        }
+    }
+
     $scope.removePlaylist = function(playlist){
         //prevent outer div's event
         var e = window.event;
@@ -93,7 +101,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if (e.stopPropagation) e.stopPropagation();
         QubeService.removePlaylist($scope, playlist.name);
     }
-
 
     $scope.listAllVideos = function(scope, pname) {
         for (var a = 0; a < scope.playlists.length; a++) {
@@ -113,6 +120,14 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.addVideo = function(val, playlist) {
         QubeService.addVideoToPlaylist($scope, playlist, val);
+    }
+
+    $scope.removeVideo = function(e, videoId){
+        //prevent outer div's event
+        e = e ? e : window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+        QubeService.removeVideoFromPlaylist($scope, $scope.currentPlaylist.name, videoId);
     }
 
     $scope.queryYoutube = function(e) {
@@ -336,8 +351,6 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    console.log(res.data);
-                    // scope.playlists = res.data;
                     scope.playlists = [];
                     getVideoDetails(scope.playlists, res.data);
                 }
@@ -427,6 +440,26 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function removeVideoFromPlaylist(scope, pname, videoId){
+        $http.delete("/api/playlists/" + pname + "/videos/" + videoId)
+            .success(function(res){
+                if (res.status.toLowerCase() === "fail") {
+                    console.log(res.msg);
+                } else {
+                    for(var i = 0; i < scope.videos.length; i++){
+                        if(videoId === scope.videos[i].id){
+                            scope.videos.splice(i, 1);
+                            break;
+                        }
+                    }
+                    console.log("Success: Removed a video.");
+                }
+            })
+            .error(function(err) {
+                alert("Error: Failed to add video.");
+            });
+    };
+
     function searchAutoComplete(scope, query, callback){
         $.ajax({
             url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query,
@@ -447,6 +480,7 @@ app.service("QubeService", function($http, $q) {
         updatePlaylist: updatePlaylist,
         removePlaylist: removePlaylist,
         addVideoToPlaylist: addVideoToPlaylist,
+        removeVideoFromPlaylist: removeVideoFromPlaylist,
         searchAutoComplete: searchAutoComplete,
 
     });

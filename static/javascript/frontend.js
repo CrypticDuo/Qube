@@ -253,7 +253,6 @@ $(document).ready(function() {
                 $(".progressBar div.progressLevel").css('width', parseInt($progressElement.css('left')));
 
                 var newTime = parseInt(parseInt($progressElement.css('left')) / outerWidth * getMaxVideoTime()*100)/100;
-                console.log(newTime);
                 player.seekTo(newTime);
                 player.playVideo();
             }
@@ -287,4 +286,21 @@ $(document).ready(function() {
 
         }
     }).disableSelection();})();
+
+    (function(){
+        var html = '';
+        $('.userVideolist').on('mouseenter', 'li', function(){
+            html = $(this).children('span').html();
+            $(this).children('span').html('<i class="fa fa-times" style=""></i>').bind('click', function(e){
+                var self = this;
+                var scope = angular.element($('.userVideolist')).scope();
+                scope.$apply(function() {
+                    scope.removeVideo(e, $(self).parent().attr('id'));
+                });
+            });
+        });
+        $('.userVideolist').on('mouseleave', 'li', function(){
+            $(this).children('span').html(html);
+        });
+    })();
 });

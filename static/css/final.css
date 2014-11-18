@@ -260,6 +260,9 @@ a {
     font-size: 10px;
     text-align: right;
 }
+#QubePlaylist .videolist .userVideolist i:hover {
+    color: red;
+}
 #QubePlaylist .videolist .player {
     padding-bottom: 10px;
     border-bottom: 1px solid #0A0A0A;
