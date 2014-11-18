@@ -111,8 +111,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
-    $scope.addVideo = function(val) {
-        QubeService.addVideoToPlaylist($scope, $scope.currentPlaylist.name, val);
+    $scope.addVideo = function(val, playlist) {
+        QubeService.addVideoToPlaylist($scope, playlist, val);
     }
 
     $scope.queryYoutube = function(e) {
@@ -411,8 +411,14 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    scope.videos.push(video);
-                    scope.currentPlaylist.duration = addDuration(scope.currentPlaylist.duration, video.contentDetails.duration);
+                    if(scope.currentPlaylist.name === pname)
+                        scope.videos.push(video);
+                    for(var i = 0; i<scope.playlists.length; i++){
+                        if(scope.playlists[i].name === pname){
+                            scope.playlists[i].data.push(video);
+                            scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
+                        }
+                    }
                     console.log("Success: Added a video.");
                 }
             })
@@ -423,9 +429,9 @@ app.service("QubeService", function($http, $q) {
 
     function searchAutoComplete(scope, query, callback){
         $.ajax({
-            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query,  
+            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query,
             dataType: 'jsonp',
-        }).success(function(data) { 
+        }).success(function(data) {
 
            var map = $.map( data[1], function(item) {
                 return item[0];

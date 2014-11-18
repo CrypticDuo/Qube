@@ -447,3 +447,20 @@ a {
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     background:0;
 }
+
+.ytVidHover, .video:hover > .video-detail > .video-duration  {
+    display: none;
+}
+
+.video:hover > .video-detail > .ytVidHover {
+    display: inline;
+    float: right;
+}
+
+.ytVidHover.addVideo {
+    width: 20px;
+    height: 20px;
+    background-color: rgba(128, 128, 128, 0.27);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
