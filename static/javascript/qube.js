@@ -343,8 +343,6 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    console.log(res.data);
-                    // scope.playlists = res.data;
                     scope.playlists = [];
                     getVideoDetails(scope.playlists, res.data);
                 }
