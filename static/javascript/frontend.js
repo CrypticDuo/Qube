@@ -10,7 +10,7 @@ var playingFlag=false;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '240',
-        width: $('.videolist').width(),
+        width: $('.playView').width()-6,
         videoId: '',
         playerVars: {
             'showinfo': 0,
@@ -290,8 +290,8 @@ $(document).ready(function() {
     (function(){
         var html = '';
         $('.userVideolist').on('mouseenter', 'li', function(){
-            html = $(this).children('span').html();
-            $(this).children('span').html('<i class="fa fa-times" style=""></i>').bind('click', function(e){
+            html = $(this).children('span.duration').html();
+            $(this).children('span.duration').html('<i class="icon-close"></i>').bind('click', function(e){
                 var self = this;
                 var scope = angular.element($('.userVideolist')).scope();
                 scope.$apply(function() {
@@ -300,7 +300,7 @@ $(document).ready(function() {
             });
         });
         $('.userVideolist').on('mouseleave', 'li', function(){
-            $(this).children('span').html(html);
+            $(this).children('span.duration').html(html);
         });
     })();
 });

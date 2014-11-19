@@ -10,12 +10,11 @@
     <script src="../static/framework/looper/looper.min.js"></script>
     <script src="/static/javascript/qube.js"></script>
     <script src="/static/javascript/frontend.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>
 
+    <link rel="stylesheet" href="/static/fonts/Simple-Line-Icons-Webfont/simple-line-icons.css"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/static/framework/font-awesome-4.2.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="../static/framework/looper/looper.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/final.css">
 </head>
@@ -25,11 +24,11 @@
         <div ng-controller="QubeCont">
             <div class="sideMenu">
                 <ul>
-                    <li><a class="category"><i class="fa fa-th-large"></i></a>
+                    <li style="background-color:#1ab667;"><a class="category"><i style="font-size:20px; color:white;" class="icon-earphones"></i></a>
                     </li>
-                    <li ng-class="{active: layout == 'main'}" ng-click="layout = 'main'"><a class="category"><i class="fa fa-youtube-play"></i></a>
+                    <li ng-class="{active: layout == 'main'}" ng-click="layout = 'main'"><a class="category"><i style="color:#4cb6cb" class="icon-social-youtube icon"></i></a>
                     </li>
-                    <li ng-class="{active: layout == 'global'}" ng-click="layout = 'global'"><a class="category"><i class="fa fa-arrows-alt"></i></a>
+                    <li ng-class="{active: layout == 'global'}" ng-click="layout = 'global'"><a class="category"><i style="color:#747bb9" class="icon-music-tone-alt"></i></a>
                     </li>
                 </ul>
             </div>
@@ -40,36 +39,15 @@
             <!-- END OF topHeader -->
             <div class="playView">
                 <div class="videolist">
-                    <div class="playlistHeader">
-                        <span>{{currentPlaylist.name}}</span>
-                    </div>
                     <div class="player" style="position:relative; height:inherit; width:inherit;">
                         <div id="player"></div>
-                        <div class="progressBar">
-                            <div class="progressLevel"></div>
-                        </div>
-                        <div class="volume noselect">
-                            <i class="fa fa-volume-up" style="width:10px;"></i>
-                            <div class="volumeBar">
-                                <div class="volumeLevel"></div>
-                            </div>
-                        </div>
-                        <div class="time-container">
-                          <span class="time">00:00</span>
-                        </div>
-                        <div class="controllers-container noselect">
-                            <ul class="controllers" style="font-size:15px;">
-                                <li class="fa fa-backward" ng-click="prevVideo()"></li>
-                                <li class="fa fa-pause" ng-click="togglePlayVideo()"></li>
-                                <li class="fa fa-forward" ng-click="nextVideo()"></li>
-                            </ul>
-                        </div>
                     </div>
 
                     <ul class="userVideolist scrollbar sortable">
                         <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" id="{{ video.id }}">
-                            <a>{{video.snippet.title}}</a>
-                            <span>{{video.contentDetails.duration}}</span>
+                            <a><i class="icon-control-play"></i></a>
+                            <span class="title">{{video.snippet.title}}</span>
+                            <span class="duration">{{video.contentDetails.duration}}</span>
                         </li>
                     </ul>
                 </div>
@@ -90,7 +68,7 @@
                                     <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                     <div class="title">{{playlist.name}}</div>
                                     <div class="duration">{{playlist.duration}}</div>
-                                    <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="fa fa-times"></i></div>
+                                    <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i></div>
                                 </div>
                             </li>
                         </ul>
@@ -128,7 +106,7 @@
             <div id="addPlaylistModal" class="popupContainer" style="display:none;">
               <header class="popupHeader">
                 <span class="header_title">New Playlist</span>
-                <span class="modal_close"><i class="fa fa-times"></i></span>
+                <span class="modal_close"><i class="icon-close"></i></span>
               </header>
 
               <section class="popupBody">
