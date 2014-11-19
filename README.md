@@ -39,3 +39,16 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
    * landing page
    * final color scheme
    * Telegram API integration
+
+### Color Scheme:
+<span style="color: #108D4E">#108D4E</span>
+<span style="color: #1AB667">#1AB667</span>
+<span style="color: #15A25A">#15A25A</span>
+<span style="color: #43BA7E">#43BA7E</span>
+<span style="color: #3B464D">#3B464D</span>
+<span style="color: #2C3942">#2C3942</span>
+<span style="color: #232C32">#232C32</span>
+<span style="color: #191f23">#191f23</span>
+<span style="color: #9badb9">#9badb9</span>
+<span style="color: #627b8c">#627b8c</span>
+<span style="color: #597080">#597080</span>
