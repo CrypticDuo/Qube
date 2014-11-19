@@ -33,27 +33,49 @@
                 </ul>
             </div>
             <!-- END OF sideMenu -->
+            <div class="topHeader">
+              <!-- TOP BAR GOES HERE -->
+            </div>
+            <!-- END OF topHeader -->
+            <div class="playView">
+                <div class="videolist">
+                    <div class="playlistHeader">
+                        <span>{{currentPlaylist.name}}</span>
+                    </div>
+                    <div class="player" style="position:relative; height:inherit; width:inherit;">
+                        <div id="player"></div>
+                        <div class="progressBar">
+                            <div class="progressLevel"></div>
+                        </div>
+                        <div class="volume noselect">
+                            <i class="fa fa-volume-up" style="width:10px;"></i>
+                            <div class="volumeBar">
+                                <div class="volumeLevel"></div>
+                            </div>
+                        </div>
+                        <div class="time-container">
+                          <span class="time">00:00</span>
+                        </div>
+                        <div class="controllers-container noselect">
+                            <ul class="controllers" style="font-size:15px;">
+                                <li class="fa fa-backward" ng-click="prevVideo()"></li>
+                                <li class="fa fa-pause" ng-click="togglePlayVideo()"></li>
+                                <li class="fa fa-forward" ng-click="nextVideo()"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <ul class="userVideolist scrollbar sortable">
+                        <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" id="{{ video.id }}">
+                            <a>{{video.snippet.title}}</a>
+                            <span>{{video.contentDetails.duration}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END OF playView -->
             <div class="mainView">
                 <div ng-show="layout == 'main'" class="view main">
-                    <div>
-                      <div class="topHeader looper slide up">
-                          <div class="looper-inner looper-icon noselect">
-                            <i class="fa fa-music"></i>
-                          </div>
-                          <div class="looper-inner looper-content">
-                              <div class="item">
-                                  <span>
-                                      <span class="status currentStatus">Currently Playing:</span><span class="currentPlaying">{{ current }}</span>
-                                  </span>
-                              </div>
-                              <div class="item">
-                                  <span>
-                                      <span class="status nextStatus">Playing Next:</span><span class="nextPlaying">{{ next }}</span>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                    </div>
                     <div class="youtubeSearchBar">
                         <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input>
                     </div>
@@ -102,44 +124,6 @@
                 <!-- END OF MAIN LAYOUT -->
             </div>
             <!-- END OF mainView -->
-            <div class="playView">
-                <div class="videolist">
-                    <div class="playlistHeader">
-                        <span>{{currentPlaylist.name}}</span>
-                    </div>
-                    <div class="player" style="position:relative; height:inherit; width:inherit;">
-                        <div id="player"></div>
-                        <div class="progressBar">
-                            <div class="progressLevel"></div>
-                        </div>
-                        <div class="volume noselect">
-                            <i class="fa fa-volume-up" style="width:10px;"></i>
-                            <div class="volumeBar">
-                                <div class="volumeLevel"></div>
-                            </div>
-                        </div>
-                        <div class="time-container">
-                          <span class="time">00:00</span>
-                        </div>
-                        <div class="controllers-container noselect">
-                            <ul class="controllers" style="font-size:15px;">
-                                <li class="fa fa-backward" ng-click="prevVideo()"></li>
-                                <li class="fa fa-pause" ng-click="togglePlayVideo()"></li>
-                                <li class="fa fa-forward" ng-click="nextVideo()"></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <ul class="userVideolist scrollbar sortable">
-                        <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" id="{{ video.id }}">
-                            <a>{{video.snippet.title}}</a>
-                            <span>{{video.contentDetails.duration}}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- END OF playView -->
-
 
 
             <div id="addPlaylistModal" class="popupContainer" style="display:none;">

@@ -8,6 +8,7 @@ Status : under-construction
 ### Developers:
 
 Paul Kim : [bumjung94](https://github.com/bumjung94)
+
 Insoo Choo : [insoochoo](https://github.com/insoochoo)
 
 ### Dependencies:
@@ -32,6 +33,9 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
 
 ### To do:
 
-   * remove songs
+   * preview videos & modal styling
    * expand view [video view]
+   * alerting status (adding/removing videos, playlists, and errors)
+   * landing page
+   * final color scheme
    * Telegram API integration

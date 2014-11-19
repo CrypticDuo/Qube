@@ -161,19 +161,18 @@ a {
 #QubePlaylist .mainView {
     width: calc(100% - 477px);
     height: 100%;
-    margin-left: 45px;
     border-left: 1px solid #0A0A0A;
-    float: left;
+    display: inline-block;
 }
 
-#QubePlaylist .view.main .topHeader {
+#QubePlaylist .topHeader {
     text-overflow: ellipsis;
     overflow: hidden;
-    padding: 20px 10px;
+    padding: 10px 10px;
     font-size: 20px;
     color: #E5E5E5;
-    background-color:#1C1F25;
-    height:27px;
+    background-color: papayawhip;
+    height:22px;
 }
 #QubePlaylist .view.main .topHeader .looper-inner {
     display:inline-block;
@@ -201,7 +200,7 @@ a {
 }
 #QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > :nth-child(2){
     text-overflow: ellipsis;
-    width: 495px;
+    width: calc(100% - 140px);
     overflow: hidden;
     white-space: nowrap;
     display:inline-block;
@@ -212,7 +211,8 @@ a {
     height: 100%;
     background-color: #1C1F25;
     border-left: 1px solid #0A0A0A;
-    display: inline-block;
+    margin-left: 45px;
+    float: left;
 }
 
 #QubePlaylist .videolist .playlistHeader {
