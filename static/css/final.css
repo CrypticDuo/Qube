@@ -86,7 +86,7 @@ a {
 }
 
 #QubePlaylist .view.main .playlistColumn {
-    width: 30%;
+    width: 55%;
     background-color: #232C32;
     display: inline-block;
     float: left;
@@ -94,7 +94,7 @@ a {
 
 #QubePlaylist .view.main .searchResultColumn {
     display: inline-block;
-    width: 70%;
+    width: 45%;
     background-color: #111317;
     overflow:auto;
 }
@@ -418,9 +418,11 @@ a {
     background-color: #323742;
 }
 
-#QubePlaylist .mainView .view.main .playlistDetail .title, #playlistRemove, #QubePlaylist .mainView .view.main .playlistDetail .duration {
-    display: inline-block;
-    padding-left: 10px;
+#QubePlaylist .mainView .view.main .playlistDetail .title, #QubePlaylist .mainView .view.main .playlistDetail .duration {
+    display: block;
+    padding: 1px;
+    padding-left: 80px;
+    font-size: 14px;
 }
 
 #QubePlaylist .mainView .view.main .playlistDetail .duration{
@@ -463,4 +465,14 @@ a {
     background-color: rgba(128, 128, 128, 0.27);
     color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
+}
+
+.playlistThumbnail {
+    height: 38px;
+    float: left;
+}
+
+#playlistRemove {
+    position: relative;
+    top: -28px;
 }

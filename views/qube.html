@@ -89,8 +89,8 @@
                                 <div class="playlistDetail">
                                     <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                     <div class="title">{{playlist.name}}</div>
+                                    <div class="duration">{{playlist.duration}}</div>
                                     <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="fa fa-times"></i></div>
-                                    <div class="float-right duration">{{playlist.duration}}</div>
                                 </div>
                             </li>
                         </ul>
