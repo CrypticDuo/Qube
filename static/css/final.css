@@ -16,9 +16,8 @@ html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5
 }
 
 body {
-    font-family: 'Open Sans',sans-serif;
-    font-weight: 300;
-    font-size: 14px;
+    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
     background: #000;
     color: #eee;
 }
@@ -88,7 +87,7 @@ a {
 
 #QubePlaylist .view.main .playlistColumn {
     width: 30%;
-    background-color: #1c1f25;
+    background-color: #232C32;
     display: inline-block;
     float: left;
 }
@@ -424,19 +423,17 @@ a {
     padding-left: 10px;
 }
 
-#QubePlaylist .view.main .playlistColumn .userPlaylist li {
-    padding: 12px 10px;
-    border-bottom: 1px solid #282C35;
-    font-weight: 300;
-    font-size: 13px;
-    color: #eee;
-    padding-left: 15px;
+#QubePlaylist .mainView .view.main .playlistDetail .duration{
+	color:#627b8c;
 }
 
-#QubePlaylist .view.main .yourPlaylists {
-    padding: 10px 15px;
-    color: #555d70; white-space: nowrap; font-size: 25px;
+#QubePlaylist .view.main .playlistColumn .userPlaylist li {
+    padding: 12px 10px;
+    border-bottom: 1px solid #191f23;
     font-weight: 300;
+    font-size: 13px;
+    color: #9badb9;
+    padding-left: 15px;
 }
 
 #QubePlaylist .view.main .addPlaylist {

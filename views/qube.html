@@ -10,6 +10,7 @@
     <script src="../static/framework/looper/looper.min.js"></script>
     <script src="/static/javascript/qube.js"></script>
     <script src="/static/javascript/frontend.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
@@ -80,15 +81,13 @@
                         <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input>
                     </div>
                     <div class="playlistColumn">
-                        <div class="yourPlaylists">
-                            Your Playlists
-                        </div>
                         <div class="playlistSearch">
                             <input type="text" ng-model="searchString" placeholder="Search Playlist">
                         </div>
                         <ul class="userPlaylist scrollbar">
                             <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)">
                                 <div class="playlistDetail">
+                                    <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                     <div class="title">{{playlist.name}}</div>
                                     <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="fa fa-times"></i></div>
                                     <div class="float-right duration">{{playlist.duration}}</div>
