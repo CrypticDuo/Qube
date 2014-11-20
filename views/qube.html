@@ -94,11 +94,10 @@
                                     <div class="overflowEllipsis">
                                         <span class="video-title">{{ video.snippet.title }}</span>
                                     </div>
-                                    <button class="ytVidHover addVideo" ng-click="addVideo(video, currentPlaylistOption)"><i class="icon-plus"></i></button>
-                                    <!-- <select class="ytVidHover" ng-model="currentPlaylistOption">
-                                        <option ng-repeat="playlist in playlists" value="{{playlist.name}}" ng-selected="playlist.name==currentPlaylist.name">{{playlist.name}}</option>
-                                    </select> -->
-                                    <select class="ytVidHover" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
+                                    <div class="ytVidHover">
+                                        <select class="" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
+                                        <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)"><i class="icon-plus"></i></button>
+                                    </div>
                                     <span class="video-duration">{{ video.contentDetails.duration }}</span>
                                 </div>
                             </div>
