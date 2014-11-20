@@ -67,19 +67,23 @@ a {
     background-color: #555;
 }
 .ui-autocomplete {
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:14;
+    font-weight:400;
     background: #1C1F25;
-    border: 0;
+    border: 0!important;
     overflow: hidden;
     color: #eee;
 }
 .ui-autocomplete > .ui-menu-item:hover {
-    background: #A670FF;
+    background: rgba(16, 141, 78, 0.56);
     color: #eee;
-    border-color: #1C1F25;
+    border:1px rgba(16, 141, 78, 0.56) solid;
 }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-    background: #1C1F25;
+    background: rgba(16, 141, 78, 0.56);
     color: #eee;
+    border:1px rgba(16, 141, 78, 0.56) solid;
 }
 #QubePlaylist {
     min-width: 1200px;
@@ -201,6 +205,18 @@ a {
     color: #E5E5E5;
     overflow: auto;
 }
+
+#QubePlaylist .videolist .userVideolist > div{
+    width: 640px!important;
+    background-transparent
+}
+
+#QubePlaylist .videolist .userVideolist > div > i{
+    font-size: 50px;
+    color:#fff;
+    z-index:4;
+}
+
 #QubePlaylist .videolist .userVideolist li {
     border-bottom: 1px solid #191f23;
     padding: 12px 10px;
@@ -246,8 +262,7 @@ a {
 }
 #QubePlaylist .videolist .player {
     position:relative;
-    border-top: 6px solid #0d1215;
-    border-bottom: 1px solid #0d1215;
+    border-top: 5px solid #0d1215;
     z-index:1;
 }
 #QubePlaylist .videolist .player.fullscreen {
@@ -364,7 +379,8 @@ a {
 #QubePlaylist .bottomContainer div.volume-icon i,
 #QubePlaylist .bottomContainer div.full-screen-icon i,
 #QubePlaylist .bottomContainer div.volume div,
-#QubePlaylist .videolist .overlay div {
+#QubePlaylist .videolist .overlay div,
+#QubePlaylist .videolist .userVideolist div {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -382,7 +398,7 @@ a {
     position: relative;
     height: 60px;
     display: inline-block;
-    width: 60%;
+    width: 65%;
     background: 0;
     background-color: #15a25a;
     border-top-left-radius: 0px;
@@ -477,6 +493,17 @@ a {
     border: 0;
     outline: 0;
 }
+
+#QubePlaylist #addPlaylistModal .popupHeader {
+    border-color: #d9e4e6;
+    border-radius: 2px 2px 0 0;
+    background-color: #e8eff0;
+    color: #788188;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    width:auto;
+}
+
 #QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input {
     border: 1px solid #cccdc8;
     font-size: 16px;
@@ -608,14 +635,18 @@ a {
     outline: none;
     margin-top: 70px;
 }
+
 .listControl span {
     display: block;
 }
 .align-right {
     text-align: right;
 }
-.lcPlaylist input {
-    width: calc(100% - 53px);
+.align-left {
+    text-align: left;
+}
+.lcPlaylist .arrow {
+    margin-top: 70px
 }
 #addPlaylist {
     padding: 7px;
