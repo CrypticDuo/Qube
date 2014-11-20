@@ -1,3 +1,4 @@
+
 html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     border: 0;
     font-size: 100%;
@@ -14,81 +15,68 @@ html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5
     -ms-user-select: none;
     user-select: none;
 }
-
 body {
-    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     background: #000;
     color: #eee;
     line-height: 1.40;
     -webkit-font-smoothing: antialiased;
-    font-weight:400;
+    font-weight: 400;
 }
-
-ul{
-    list-style:none;
+ul {
+    list-style: none;
     overflow: auto;
 }
-
 a {
     text-decoration: none;
     color: inherit;
 }
-
-.float-right{
-    float:right;
+.float-right {
+    float: right;
 }
-
 .font-bold {
     font-weight: 700;
 }
-
-.scrollbar
-{
+.scrollbar {
     overflow-y: auto;
 }
 .i-lg {
-    font-size:18.75px;
+    font-size: 18.75px;
 }
-
 .i-2x {
-    font-size:32px;
+    font-size: 32px;
 }
-
-.scrollbar::-webkit-scrollbar-track
-{
-    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+.fade-out{
+    -webkit-transition: opacity 1.5s ease-in-out;
+    -moz-transition: opacity 1.5s ease-in-out;
+    -ms-transition: opacity 1.5s ease-in-out;
+    -o-transition: opacity 1.5s ease-in-out;
+     opacity: 0;
+}
+.scrollbar::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
     background-color: #333;
 }
-
-.scrollbar::-webkit-scrollbar
-{
+.scrollbar::-webkit-scrollbar {
     width: 6px;
     background-color: #F5F5F5;
 }
-
-.scrollbar::-webkit-scrollbar-thumb
-{
+.scrollbar::-webkit-scrollbar-thumb {
     background-color: #555;
 }
-
 .ui-autocomplete {
     background: #1C1F25;
     border: 0;
-    overflow:hidden;
-    color:#eee;
+    overflow: hidden;
+    color: #eee;
 }
 .ui-autocomplete > .ui-menu-item:hover {
     background: #A670FF;
-    color:#eee;
+    color: #eee;
     border-color: #1C1F25;
 }
-.ui-state-hover,
-.ui-widget-content .ui-state-hover,
-.ui-widget-header .ui-state-hover,
-.ui-state-focus,
-.ui-widget-content .ui-state-focus,
-.ui-widget-header .ui-state-focus {
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
     background: #1C1F25;
     color: #eee;
 }
@@ -97,81 +85,65 @@ a {
     width: 100%;
     position: absolute;
 }
-
 #QubePlaylist .view.main .playlistColumn {
     background-color: #232C32;
 }
-
 #QubePlaylist .view.main .searchResultColumn {
     background-color: #232C32;
-    overflow:auto;
+    overflow: auto;
 }
-
 #QubePlaylist .view.main .video-image {
     float: left;
 }
-
 #QubePlaylist .view.main .video-title {
-    overflow: hidden; text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
     width: calc(100% - 15px);
     display: block;
 }
-
 #QubePlaylist .video-duration {
     text-align: right;
     color: #627b8c;
 }
-
-#QubePlaylist .view.main .video-image img{
+#QubePlaylist .view.main .video-image img {
     height: 38px;
     position: relative;
 }
-
 #QubePlaylist .view.main .video-detail {
     margin-left: 80px;
     font-weight: 300;
 }
-
 #QubePlaylist .view.main .video {
     padding: 18px 8px;
     border-bottom: 1px solid #191f23;
 }
-
-#QubePlaylist .sideMenu ul {
-    width: 70px;
-    position: absolute;
-    height: 100%;
-    list-style-type: none;
-    background-color: #232C32;
+#QubePlaylist .sideMenu ul {} #QubePlaylist .sideMenu ul li.active {
+    font-size: 20px;
 }
-
-#QubePlaylist .sideMenu ul li {
-    display: block;
-    padding: 0;
-    line-height: 60px;
-    text-align: center;
-    font-size:16px;
-}
-
-#QubePlaylist .sideMenu ul li.active{
-    font-size:20px;
-}
-
-#QubePlaylist .sideMenu ul li a{
-    height:20px;
-}
-
-#QubePlaylist .mainView {
+#QubePlaylist .sideMenu ul li a {} #QubePlaylist .mainView {
     width: 55%;
     height: 100%;
     border-left: 1px solid #0A0A0A;
     display: inline-block;
 }
-
 #QubePlaylist .topHeader {
     background-color: #3b464d;
     height: 60px;
+}
+#QubePlaylist .topHeader > div.logo {
+    background-color: #1ab667;
+    display: block;
+    padding: 0;
+    line-height: 60px;
+    text-align: center;
+    font-size: 16px;
+    width: 70px;
+    position: absolute;
+    background-color: #1ab667;
+}
+#QubePlaylist .topHeader > div.logo > a {
+    height: 20px;
 }
 #QubePlaylist .topHeader > span {
     width: 50%;
@@ -186,67 +158,62 @@ a {
     margin: 0 auto;
 }
 #QubePlaylist .view.main .topHeader .looper-inner {
-    display:inline-block;
-    top:4px;
+    display: inline-block;
+    top: 4px;
 }
 #QubePlaylist .view.main .topHeader .looper-inner.looper-icon {
-    width:20px;
-    margin-left:20px;
+    width: 20px;
+    margin-left: 20px;
 }
 #QubePlaylist .view.main .topHeader .looper-inner.looper-content {
-    display:inline-block;
-    width:90%;
-    margin-left:10px;
+    display: inline-block;
+    width: 90%;
+    margin-left: 10px;
 }
-#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span{
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span {
     position: relative;
 }
-#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > span.status{
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > span.status {
     font-size: 16px;
     color: #4E5D70;
-    position:relative;
-    width:130px;
-    margin-right:10px;
+    position: relative;
+    width: 130px;
+    margin-right: 10px;
     top: -5px;
 }
-#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span > :nth-child(2){
+#QubePlaylist .view.main .topHeader .looper-inner.looper-content .item > span >:nth-child(2) {
     text-overflow: ellipsis;
     width: calc(100% - 140px);
     overflow: hidden;
     white-space: nowrap;
-    display:inline-block;
-    padding-bottom:2px;
+    display: inline-block;
+    padding-bottom: 2px;
 }
 #QubePlaylist .playView {
-    width: calc(45% - 72px);
+    width: calc(50% - 72px);
     height: 100%;
     background-color: #0d1215;
-    border-left: 1px solid #0A0A0A;
-    margin-left: 70px;
-    float:left;
+    border-left: 1px solid #0d1215;
+    float: left;
 }
-
 #QubePlaylist .videolist .userVideolist {
     background-color: transparent;
     list-style-type: none;
-    color:#E5E5E5;
+    color: #E5E5E5;
     overflow: auto;
 }
 #QubePlaylist .videolist .userVideolist li {
     border-bottom: 1px solid #191f23;
     padding: 12px 10px;
-    color:#627b8c;
+    color: #627b8c;
 }
-#QubePlaylist .videolist .userVideolist li.active,
-#QubePlaylist .videolist .userVideolist li.active a,
-#QubePlaylist .videolist .userVideolist li.active span.title,
-#QubePlaylist .videolist .userVideolist li.active span.duration {
+#QubePlaylist .videolist .userVideolist li.active, #QubePlaylist .videolist .userVideolist li.active a, #QubePlaylist .videolist .userVideolist li.active span.title, #QubePlaylist .videolist .userVideolist li.active span.duration {
     background-color: #181f24;
-    color:#fff;
+    color: #fff;
 }
 #QubePlaylist .videolist .userVideolist li:hover {
     cursor: pointer;
-    color:#fff;
+    color: #fff;
 }
 #QubePlaylist .videolist .userVideolist span.title {
     position: relative;
@@ -258,7 +225,7 @@ a {
     white-space: nowrap;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
-    color:#7d94a4;
+    color: #7d94a4;
 }
 #QubePlaylist .videolist .userVideolist span.duration {
     position: relative;
@@ -270,7 +237,7 @@ a {
 }
 #QubePlaylist .videolist .userVideolist a {
     margin-right: 10px;
-    color:#627b8c;
+    color: #627b8c;
 }
 #QubePlaylist .videolist .userVideolist a:hover {
     color: #fff;
@@ -279,19 +246,108 @@ a {
     color: red;
 }
 #QubePlaylist .videolist .player {
-    border-bottom: 1px solid #0A0A0A;
+    border-top: 6px solid #0d1215;
+    border-bottom: 1px solid #0d1215;
 }
-
+#QubePlaylist .videolist .overlay{
+    position: absolute;
+    top: -6px;
+    height: 100%;
+    background-color: #181F24;
+    width: 100%;
+    z-index:2;
+}
+#QubePlaylist .videolist .overlay > div{
+    height: 310px!important;
+}
+#QubePlaylist .videolist .overlay > div > i{
+    font-size: 50px;
+    color:#fff;
+    z-index:3;
+}
+#QubePlaylist .videolist .player .musicVisualizer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background-color: transparent;
+    text-align: right;
+    z-index:1;
+}
+#QubePlaylist .videolist .player .musicVisualizer span {
+    position: absolute;
+    bottom: 0;
+    width: 15%;
+    text-indent: -9999px;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span {
+    width: 25px;
+    height: 30px;
+    position: relative;
+    margin-right: 30px;
+    margin-top: 15px;
+    display: inline-block;
+    background-color: transparent;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar1 {
+    background-color: #2ad980;
+    left: 0%;
+    height: 60%;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar1.animate {
+    -webkit-animation: movingbar3 1.2s infinite alternate both;
+    -moz-animation: movingbar3 1.2s infinite alternate both;
+    animation: movingbar3 1.2s infinite alternate both;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar2 {
+    background-color: #20c974;
+    left: 20%;
+    height: 45%;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar2.animate {
+    -webkit-animation: movingbar5 1.2s infinite alternate both;
+    -moz-animation: movingbar5 1.2s infinite alternate both;
+    animation: movingbar5 1.2s infinite alternate both;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar3 {
+    background-color: #1ab667;
+    left: 40%;
+    height: 90%;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar3.animate {
+    -webkit-animation: movingbar1 1s infinite alternate both;
+    -moz-animation: movingbar1 1s infinite alternate both;
+    animation: movingbar1 1s infinite alternate both;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar4 {
+    background-color: #15a25a;
+    left: 60%;
+    height: 60%;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar4.animate {
+    -webkit-animation: movingbar4 1.1s infinite alternate both;
+    -moz-animation: movingbar4 1.1s infinite alternate both;
+    animation: movingbar4 1.1s infinite alternate both;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar5 {
+    background-color: #108d4e;
+    left: 80%;
+    height: 40%;
+}
+#QubePlaylist .videolist .player .musicVisualizer > span > span.bar5.animate {
+    -webkit-animation: movingbar2 1.5s infinite alternate both;
+    -moz-animation: movingbar2 1.5s infinite alternate both;
+    animation: movingbar2 1.5s infinite alternate both;
+}
 #QubePlaylist .bottomContainer {
     position: fixed;
     width: 100%;
     height: 60px;
     background-color: #108d4e;
     bottom: 0;
-    padding:0 15px;
-    left:70px;
+    padding: 0 15px;
 }
-
 #QubePlaylist .bottomContainer div {
     position: relative;
     margin: 0 auto;
@@ -300,8 +356,8 @@ a {
 #QubePlaylist .bottomContainer .controllers-container li,
 #QubePlaylist .bottomContainer div.time span,
 #QubePlaylist .bottomContainer div.volume-icon i,
-#QubePlaylist .bottomContainer div.volume div {
-    
+#QubePlaylist .bottomContainer div.volume div,
+#QubePlaylist .videolist .overlay div {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -309,13 +365,12 @@ a {
     height: 60px;
 }
 #QubePlaylist .bottomContainer .controllers-container .controllers li {
-    color:#d6f9e7;
+    color: #d6f9e7;
     cursor: pointer;
 }
 #QubePlaylist .bottomContainer .controllers-container .controllers li:hover {
     color: #fff;
 }
-
 #QubePlaylist .bottomContainer .progressBar {
     position: relative;
     height: 60px;
@@ -330,9 +385,8 @@ a {
     border-radius: 0px;
     border: 0;
     margin: 0 15px;
-    font:inherit;
+    font: inherit;
 }
-
 #QubePlaylist .bottomContainer div.progressBar > div {
     text-align: center;
     background-color: transparent;
@@ -340,93 +394,82 @@ a {
     width: 100%;
     line-height: 60px;
 }
-
-#QubePlaylist .bottomContainer div.progressBar > div > span{
+#QubePlaylist .bottomContainer div.progressBar > div > span {
     color: #fff;
-    font-size:14px;
+    font-size: 14px;
 }
-
-#QubePlaylist .bottomContainer .progressBar > span{
+#QubePlaylist .bottomContainer .progressBar > span {
     width: 0px;
     margin: 0;
-    margin-right:3px;
+    margin-right: 3px;
     background-color: #E5E5E5;
-    border:0;
-    top:0em;
-    height:100%;
-    outline:0;
+    border: 0;
+    top: 0em;
+    height: 100%;
+    outline: 0;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     border-radius: 0px;
 }
-
 #QubePlaylist .bottomContainer .progressBar > div.progressLevel {
-    width:0;
-    height:60px;
+    width: 0;
+    height: 60px;
     background-color: #1AB667 !important;
 }
-
 #QubePlaylist .bottomContainer div.progressBar > div > span {
-    text-align:center;
-    width:100%;
+    text-align: center;
+    width: 100%;
 }
-
 #QubePlaylist .bottomContainer div.time {
     position: relative;
     margin: 0 auto;
     display: inline-block;
-    cursor:default;
+    cursor: default;
 }
-#QubePlaylist .bottomContainer div.time span{
-    font-size:12px;
-    color:#7decb4;
+#QubePlaylist .bottomContainer div.time span {
+    font-size: 12px;
+    color: #7decb4;
 }
-
 #QubePlaylist .bottomContainer .volume .volumeBar div.volumeLevel, #QubePlaylist .bottomContainer .progressBar div.progressLevel {
     background-color: #2ad980;
-    display:block;
-    position:relative;
+    display: block;
+    position: relative;
     float: left;
 }
-
 #QubePlaylist .bottomContainer .volume-icon > i:hover {
     color: #fff;
 }
-#QubePlaylist .bottomContainer .volume .volumeBar-container{
-    width:100%;
+#QubePlaylist .bottomContainer .volume .volumeBar-container {
+    width: 100%;
 }
 #QubePlaylist .bottomContainer .volume .volumeBar {
     position: relative;
     margin: 0;
     cursor: pointer;
     background: 0;
-    height:6px;
+    height: 6px;
     background-color: #15a25a;
-    width:60px;
+    width: 60px;
 }
 #QubePlaylist .bottomContainer .volume .volumeBar div.volumeLevel {
-    width:100%;
-    height:6px;
+    width: 100%;
+    height: 6px;
 }
-#QubePlaylist .bottomContainer .volume .volumeBar.ui-widget-content{
-    border:0;
+#QubePlaylist .bottomContainer .volume .volumeBar.ui-widget-content {
+    border: 0;
 }
-
-
 #QubePlaylist .bottomContainer .volume .volumeBar span {
     width: 0px;
-    margin-left:0!important;
+    margin-left: 0!important;
     background-color: #E5E5E5;
     border-radius: 50%;
     height: 0;
     top: -0.1em;
-    border:0;
+    border: 0;
     outline: 0;
 }
-
-
 #QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input {
     border: 1px solid #cccdc8;
     font-size: 16px;
@@ -440,12 +483,10 @@ a {
     padding: 0 24px;
     float: right;
 }
-
 #QubePlaylist .view.main .youtubeSearchBar {
     background-color: #323742;
     padding: 5px;
 }
-
 #QubePlaylist .view.main .youtubeSearchBar input {
     height: 41px;
     background: #111317;
@@ -458,28 +499,31 @@ a {
     outline: none;
     color: #eee;
 }
-
 #QubePlaylist .view.main .playlistColumn .playlistSearch input {
-    height: 30px; background: #111317; -webkit-box-shadow: inset 0 0 0 1px #444a59; -moz-box-shadow: inset 0 0 0 1px #444a59; box-shadow: inset 0 0 0 1px #444a59;
-    font-size: 13px; padding-left: 15px; width: calc(100% - 15px); outline: none; color: #eee;
+    height: 30px;
+    background: #111317;
+    -webkit-box-shadow: inset 0 0 0 1px #444a59;
+    -moz-box-shadow: inset 0 0 0 1px #444a59;
+    box-shadow: inset 0 0 0 1px #444a59;
+    font-size: 13px;
+    padding-left: 15px;
+    width: calc(100% - 15px);
+    outline: none;
+    color: #eee;
 }
-
 #QubePlaylist .view.main .playlistSearch {
     padding: 2px;
     background-color: #323742;
 }
-
 #QubePlaylist .mainView .view.main .playlistDetail .title, #QubePlaylist .mainView .view.main .playlistDetail .duration {
     display: block;
     padding: 1px;
     padding-left: 80px;
     font-size: 14px;
 }
-
-#QubePlaylist .mainView .view.main .playlistDetail .duration{
-    color:#627b8c;
+#QubePlaylist .mainView .view.main .playlistDetail .duration {
+    color: #627b8c;
 }
-
 #QubePlaylist .view.main .playlistColumn .userPlaylist li {
     padding: 12px 10px;
     border-bottom: 1px solid #191f23;
@@ -487,20 +531,23 @@ a {
     color: #9badb9;
     padding-left: 15px;
 }
-
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    background:0;
+#QubePlaylist .view.main .playlistColumn .userPlaylist li:hover {
+    background-color:#181F24;
+    cursor:pointer;
 }
-
+#QubePlaylist .view.main .playlistColumn .userPlaylist li > div.playlistDetail:hover {
+    color:#fff;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: 0;
+}
 .ytVidHover {
     display: none;
 }
-
 .video:hover > .video-detail > .ytVidHover {
     display: inline;
     float: right;
 }
-
 .ytVidHover.addVideo {
     width: 20px;
     height: 20px;
@@ -508,62 +555,49 @@ a {
     color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
 }
-
 .playlistThumbnail {
     height: 38px;
     float: left;
 }
-
 #playlistRemove {
     position: relative;
     top: -28px;
 }
-
 .listDisplay {
     width: calc(100% - 350px);
     float: left;
 }
-
 .listControl {
     width: 350px;
     display: inline-block;
 }
-
 .listControl li {
     padding: 20px;
 }
-
-.img-full{
-    width:100%;
+.img-full {
+    width: 100%;
 }
-
 .lcHeader {
-    font-size:24px;
+    font-size: 24px;
 }
-
 .lcPlaylist {
-    background: linear-gradient(       rgba(0, 0, 0, 0.75),        rgba(0, 0, 0, 0.75)     ),   url("/static/images/control1.jpg") 100% 100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control1.jpg") 100% 100%;
     height: 160px;
 }
-
 .lcSearch {
-    background: linear-gradient(       rgba(0, 0, 0, 0.75),        rgba(0, 0, 0, 0.75)     ),   url("/static/images/control2.jpg") 100% 100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control2.jpg") 100% 100%;
     height: 160px;
     width: calc(100% - 40px);
 }
-
 .lcPlaylist .lcHeader {
     color: #fad733;
 }
-
 .lcSearch .lcHeader {
     color: #4cb6cb;
 }
-
-.listControl .lcDescription{
+.listControl .lcDescription {
     color: #627b8c;
 }
-
 .listControl input {
     background-color: transparent;
     border-bottom: 1px solid grey;
@@ -571,23 +605,128 @@ a {
     width: calc(100% - 20px);
     font-size: 16px;
     color: #eaf6f9;
-    outline:none;
+    outline: none;
     margin-top: 70px;
 }
-
 .listControl span {
     display: block;
 }
-
 .align-right {
-    text-align:right;
+    text-align: right;
 }
-
 .lcPlaylist input {
     width: calc(100% - 53px);
 }
-
 #addPlaylist {
     padding: 7px;
     font-size: 20px;
+}
+@-webkit-keyframes movingbar1{
+    0%{height:32%;}
+    25%{height:80%;}
+    50%{height:56%;}
+    75%{height:100%;}
+    100%{height:84%;}
+}
+@-moz-keyframes movingbar1{
+    0%{height:32%;}
+    25%{height:80%;}
+    50%{height:56%;}
+    75%{height:100%;}
+    100%{height:84%;}
+}
+@keyframes movingbar1{
+    0%{height:32%;}
+    25%{height:80%;}
+    50%{height:56%;}
+    75%{height:100%;}
+    100%{height:84%;}
+}
+
+@-webkit-keyframes movingbar2{
+    0%{height:20%;}
+    25%{height:58%;}
+    50%{height:90%;}
+    75%{height:74%;}
+    100%{height:53%;}
+}
+@-moz-keyframes movingbar2{
+    0%{height:20%;}
+    25%{height:58%;}
+    50%{height:90%;}
+    75%{height:74%;}
+    100%{height:53%;}
+}
+@keyframes movingbar2{
+    0%{height:20%;}
+    25%{height:58%;}
+    50%{height:90%;}
+    75%{height:74%;}
+    100%{height:53%;}
+}
+
+@-webkit-keyframes movingbar3{
+    0%{height:34%;}
+    25%{height:69%;}
+    50%{height:100%;}
+    75%{height:82%;}
+    100%{height:41%;}
+}
+@-moz-keyframes movingbar3{
+    0%{height:34%;}
+    25%{height:69%;}
+    50%{height:100%;}
+    75%{height:82%;}
+    100%{height:41%;}
+}
+@keyframes movingbar3{
+    0%{height:34%;}
+    25%{height:69%;}
+    50%{height:100%;}
+    75%{height:82%;}
+    100%{height:41%;}
+}
+
+@-webkit-keyframes movingbar4{
+    0%{height:80%;}
+    25%{height:49%;}
+    50%{height:59%;}
+    75%{height:82%;}
+    100%{height:65%;}
+}
+@-moz-keyframes movingbar4{
+    0%{height:80%;}
+    25%{height:49%;}
+    50%{height:59%;}
+    75%{height:82%;}
+    100%{height:65%;}
+}
+@keyframes movingbar4{
+    0%{height:80%;}
+    25%{height:49%;}
+    50%{height:59%;}
+    75%{height:82%;}
+    100%{height:65%;}
+}
+
+@-webkit-keyframes movingbar5{
+    0%{height:50%;}
+    25%{height:30%;}
+    50%{height:90%;}
+    75%{height:50%;}
+    100%{height:65%;}
+}
+@-moz-keyframes movingbar5{
+    0%{height:50%;}
+    25%{height:30%;}
+    50%{height:90%;}
+    75%{height:50%;}
+    100%{height:65%;}
+}
+@keyframes movingbar5{
+    0%{height:50%;}
+    25%{height:30%;}
+    50%{height:90%;}
+    75%{height:50%;}
+    100%{height:65%;}
 }

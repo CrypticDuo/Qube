@@ -9,7 +9,7 @@ var playingFlag=false;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '240',
+        height: '310',
         width: $('.playView').width()-6,
         videoId: '',
         playerVars: {
@@ -44,14 +44,25 @@ function onPlayerStateChange(event) {
             var $el = $('ul.controllers li i.icon-control-pause');
             $el.toggleClass('icon-control-pause');
             $el.toggleClass('icon-control-play');
+            $('.bar1.a3').toggleClass('animate');
+            $('.bar2.a5').toggleClass('animate');
+            $('.bar3.a1').toggleClass('animate');
+            $('.bar4.a4').toggleClass('animate');
+            $('.bar5.a2').toggleClass('animate');
         }
         pauseTimer();
         timerStartFlag=false;
     } else if (event.data === YT.PlayerState.PLAYING) {
+        if(!$('.videolist .player .overlay').hasClass('fade-out')) $('.videolist .player .overlay').addClass('fade-out');
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
             var $el = $('ul.controllers li i.icon-control-play');
             $el.toggleClass('icon-control-pause');
             $el.toggleClass('icon-control-play');
+            $('.bar1.a3').toggleClass('animate');
+            $('.bar2.a5').toggleClass('animate');
+            $('.bar3.a1').toggleClass('animate');
+            $('.bar4.a4').toggleClass('animate');
+            $('.bar5.a2').toggleClass('animate');
             onTopHeaderChange();
         }
         else{
@@ -144,7 +155,6 @@ function pauseTimer(){
 }
 
 $(document).ready(function() {
-
     $('.lcSearch > input').on('input', function() {
         onSearchChange($(this),$(this).val());
     });
@@ -163,7 +173,7 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     var $volume = $(".volumeBar");
     $volume.slider();
-    var $volumeElement = $(".volumeBar span");
+    var $volumeElement = $(".volumeBar >span");
     $volumeElement.css('left', '100%');
 
     var onVolumeClick = false;
@@ -188,12 +198,14 @@ $(document).ready(function() {
             console.log('turning volume off ' + volumeHistory);
             $volumeElement.css('left', 0);
             $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
+             onVolumeChange($volumeElement,0);
         }
         // volume is off
         else{
             console.log('turning volume on ' + volumeHistory);
             $volumeElement.css('left', volumeHistory);
             $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
+             onVolumeChange($volumeElement,volumeHistory);
             volumeHistory = null;
         }
     });
@@ -319,6 +331,18 @@ $(document).ready(function() {
         });
         $('.userVideolist').on('mouseleave', 'li', function(){
             $(this).children('span.duration').html(html);
+        });
+    })();
+
+    (function(){
+        $('#QubePlaylist .videolist .overlay > div').width($('.playView').width());
+    
+        $('#QubePlaylist .videolist').on('click', '.overlay', function(){
+            var self = this;
+            var scope = angular.element($(this)).scope();
+            scope.$apply(function() {
+                scope.togglePlayVideo();
+            });
         });
     })();
 });

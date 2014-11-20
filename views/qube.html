@@ -22,7 +22,7 @@
 <body>
     <div id="QubePlaylist">
         <div ng-controller="QubeCont">
-            <div class="sideMenu">
+<!--             <div class="sideMenu">
                 <ul>
                     <li style="background-color:#1ab667;"><a class="category"><i style="font-size:20px; color:white;" class="icon-earphones"></i></a>
                     </li>
@@ -31,17 +31,32 @@
                     <li ng-class="{active: layout == 'global'}" ng-click="layout = 'global'"><a class="category"><i style="color:#747bb9" class="icon-music-tone-alt"></i></a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
             <!-- END OF sideMenu -->
             <div class="topHeader">
+                <div class="logo"><a class="home"><i style="font-size:20px; color:white;" class="icon-earphones"></i></a>
+                </div>
                 <span>{{ currentPlaylist.name }}</span>
               <!-- TOP BAR GOES HERE -->
             </div>
             <!-- END OF topHeader -->
+
             <div class="playView">
                 <div class="videolist">
-                    <div class="player" style="position:relative; height:inherit; width:inherit;">
-                        <div id="player"></div>
+                    <div class="player noselect" style="position:relative; height:inherit; width:inherit;">
+                        <div id="player"></div> 
+                        <div class="overlay">
+                            <div><i class="icon-moustache"></i></div>
+                        </div>                 
+                        <div class="musicVisualizer">
+                            <span class="musicbar bg-success bg-empty inline m-r-lg m-t" style="width:25px;height:30px">
+                                <span class="bar1 a3"></span>
+                                <span class="bar2 a5"></span>
+                                <span class="bar3 a1"></span>
+                                <span class="bar4 a4"></span>
+                                <span class="bar5 a2"></span>
+                            </span>
+                        </div>
                     </div>
 
                     <ul class="userVideolist scrollbar sortable">
