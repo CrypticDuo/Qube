@@ -6,7 +6,7 @@
     <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
     <script src="/static/framework/pace/pace.min.js"></script>
-    <script type="text/javascript" src="../static/framework/login-popup/js/jquery.leanModal.min.js"></script>
+    <script type="text/javascript" src="/static/framework/login-popup/js/jquery.leanModal.min.js"></script>
     <script src="../static/framework/looper/looper.min.js"></script>
     <script src="/static/javascript/qube.js"></script>
     <script src="/static/javascript/frontend.js"></script>
@@ -14,8 +14,8 @@
 
     <link rel="stylesheet" href="/static/fonts/Simple-Line-Icons-Webfont/simple-line-icons.css"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-    <link type="text/css" rel="stylesheet" href="../static/framework/login-popup/css/style.css" />
-    <link type="text/css" rel="stylesheet" href="../static/framework/looper/looper.css" />
+    <link type="text/css" rel="stylesheet" href="/static/framework/login-popup/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="/static/framework/looper/looper.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/final.css">
 </head>
 
@@ -34,6 +34,7 @@
             </div>
             <!-- END OF sideMenu -->
             <div class="topHeader">
+                <span>{{ currentPlaylist.name }}</span>
               <!-- TOP BAR GOES HERE -->
             </div>
             <!-- END OF topHeader -->
@@ -45,7 +46,7 @@
 
                     <ul class="userVideolist scrollbar sortable">
                         <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" id="{{ video.id }}">
-                            <a><i class="icon-control-play"></i></a>
+                            <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>
                             <span class="duration">{{video.contentDetails.duration}}</span>
                         </li>
@@ -109,7 +110,39 @@
                 <!-- END OF MAIN LAYOUT -->
             </div>
             <!-- END OF mainView -->
-
+            <div class="bottomContainer">
+                <div class="controllers-container noselect">
+                    <ul class="controllers" style="font-size:15px;">
+                        <li ng-click="prevVideo()"><i class="icon-control-rewind i-lg"></i></li>
+                        <li ng-click="togglePlayVideo()"><i class="icon-control-play i-2x"></i></li>
+                        <li ng-click="nextVideo()"><i class="icon-control-forward i-lg"></i></li>
+                    </ul>
+                </div>
+                <div class="progressBar">
+                    <div style="z-index:9999"><span>{{ currentVideo }}</span></div>
+                    <div class="progressLevel"></div>
+                </div>
+                <div class="time">
+                    <span class="timeStart">
+                        00:00
+                    </span>
+                </div>
+                <div class="time">
+                    <span class="timeDuration">
+                        {{ currentPlayingVideoDuration }}
+                    </span>
+                </div>
+                <div class="volume-icon noselect">
+                    <i class="icon-volume-2"></i>
+                </div>
+                <div class="volume noselect">
+                    <div class="volumeBar-container">
+                        <div class="volumeBar">
+                            <div class="volumeLevel"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div id="addPlaylistModal" class="popupContainer" style="display:none;">
               <header class="popupHeader">

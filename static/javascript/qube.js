@@ -56,10 +56,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     function init() {
         $scope.layout = 'main';
         $scope.currentPlayingVideo = null;
+        $scope.currentPlayingVideoDuration = '00:00'
         $scope.currentPlaylist = {};
         $scope.ytSearchResult = [];
         $scope.playlists = [];
-        $scope.current = 'No Playlist Selected';
+        $scope.currentVideo = 'No Playlist Selected';
         $scope.next = '';
         $scope.pageToken = '';
         $scope.lastSearch = '';
@@ -90,7 +91,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.changePlaylist = function(playlist) {
         if($scope.currentPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
-            $scope.listAllVideos($scope, playlist.name);
+            $scope.listAllVideos(playlist.name);
             $scope.togglePlayVideo('QubeChangePlaylist');
         }
     }
@@ -103,21 +104,13 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.removePlaylist($scope, playlist.name);
     }
 
-    $scope.listAllVideos = function(scope, pname) {
-        for (var a = 0; a < scope.playlists.length; a++) {
-            if (scope.playlists[a].name === pname) {
-                scope.videos = scope.playlists[a].data;
+    $scope.listAllVideos = function(pname) {
+        for (var a = 0; a < $scope.playlists.length; a++) {
+            if ($scope.playlists[a].name === pname) {
+                $scope.videos = $scope.playlists[a].data;
             }
         }
     };
-
-    $scope.changePlaylist = function(playlist) {
-        if($scope.currentPlaylist.name !== playlist.name){
-            $scope.currentPlaylist = playlist;
-            $scope.listAllVideos($scope, playlist.name);
-            $scope.togglePlayVideo('QubeChangePlaylist');
-        }
-    }
 
     $scope.addVideo = function(val, playlist) {
         QubeService.addVideoToPlaylist($scope, playlist, val);
@@ -138,7 +131,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 $scope.lastSearch = $scope.addVideoInput;
             }
             $scope.ytSearchResult = [];
-            $('.youtubeSearchBar > input').autocomplete("close");
+            $('.lcSearch > input').autocomplete("close");
             $scope.searchYt($scope.addVideoInput);
         }
     }
@@ -211,6 +204,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 player.loadVideoById(video.id);
                 $scope.currentPlayingVideo = video;
             }
+            $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
         }
         // from clicking play/pause button
         else {
@@ -236,6 +230,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                     player.loadVideoById($scope.videos[index].id);
                 }
                 $scope.currentPlayingVideo = $scope.videos[index];
+                $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
                 return;
             }
         }
@@ -253,6 +248,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                     player.loadVideoById($scope.videos[index].id);
                 }
                 $scope.currentPlayingVideo = $scope.videos[index];
+                $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
                 return;
             }
         }
@@ -264,7 +260,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.changeTopHeader = function() {
         var index = 0;
-        $scope.current = $scope.currentPlayingVideo.snippet.title;
+        $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
         for(var i = 0; i < $scope.videos.length; i++){
             if($scope.currentPlayingVideo.id === $scope.videos[i].id){
                 if(i !== $scope.videos.length-1){
@@ -334,10 +330,9 @@ app.service("QubeService", function($http, $q) {
 
     function searchAutoComplete(scope, query, callback){
         $.ajax({
-            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query+"",
+            url: "http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&q="+query,
             dataType: 'jsonp',
         }).success(function(data) {
-
            var map = $.map( data[1], function(item) {
                 return item[0];
             });

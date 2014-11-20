@@ -35,24 +35,23 @@ function onPlayerStateChange(event) {
         timerStartFlag=false;
     }
     if (event.data == YT.PlayerState.ENDED) {
-        var $volumeElement = $('.userVideolist li.active');
-        var scope = angular.element($volumeElement).scope();
+        var scope = angular.element($('.userVideolist')).scope();
         scope.$apply(function() {
             scope.nextVideo();
         });
     } else if (event.data === YT.PlayerState.PAUSED) {
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
-            $el = $('ul.controllers li.fa-pause');
-            $el.toggleClass('fa fa-pause');
-            $el.toggleClass('fa fa-play');
+            var $el = $('ul.controllers li i.icon-control-pause');
+            $el.toggleClass('icon-control-pause');
+            $el.toggleClass('icon-control-play');
         }
         pauseTimer();
         timerStartFlag=false;
     } else if (event.data === YT.PlayerState.PLAYING) {
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
-            $el = $('ul.controllers li.fa-play');
-            $el.toggleClass('fa fa-pause');
-            $el.toggleClass('fa fa-play');
+            var $el = $('ul.controllers li i.icon-control-play');
+            $el.toggleClass('icon-control-pause');
+            $el.toggleClass('icon-control-play');
             onTopHeaderChange();
         }
         else{
@@ -94,7 +93,7 @@ function onSearchChange(el, query){
     var scope = angular.element(el).scope();
     scope.$apply(function() {
         scope.onSearch(query, function(data){
-            $('.youtubeSearchBar > input').autocomplete({
+            $('.lcSearch > input').autocomplete({
                 source: data
             });
         });
@@ -146,7 +145,7 @@ function pauseTimer(){
 
 $(document).ready(function() {
 
-    $('.youtubeSearchBar > input').on('input', function() {
+    $('.lcSearch > input').on('input', function() {
         onSearchChange($(this),$(this).val());
     });
     $('.looper').looper({});
@@ -165,13 +164,38 @@ $(document).ready(function() {
     var $volume = $(".volumeBar");
     $volume.slider();
     var $volumeElement = $(".volumeBar span");
-    $volumeElement.css('left', 'calc(100% - 5px)');
+    $volumeElement.css('left', '100%');
 
     var onVolumeClick = false;
 
-    $(".volume i").on('click', function() {
-        $(this).toggleClass('fa-volume-up');
-        $(this).toggleClass('fa-volume-off');
+    var volumeHistory = null;
+    var volumeClassHistory = null;
+    $(".volume-icon i").on('click', function() {
+        if(!volumeClassHistory) volumeClassHistory = $(".volume-icon i").attr('class');
+        if($(this).attr('class') !== 'icon-volume-off'){
+            $(this).addClass('icon-volume-off');
+            $(this).removeClass(volumeClassHistory);
+        }
+        else if($(this).attr('class') === 'icon-volume-off'){
+            $(this).removeClass('icon-volume-off');
+            $(this).addClass(volumeClassHistory);
+            volumeClassHistory = null;
+        }
+
+        // volume is on
+        if(!volumeHistory) volumeHistory = parseInt($volumeElement.css('left'));
+        if($(this).attr('class') === 'icon-volume-off'){
+            console.log('turning volume off ' + volumeHistory);
+            $volumeElement.css('left', 0);
+            $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
+        }
+        // volume is off
+        else{
+            console.log('turning volume on ' + volumeHistory);
+            $volumeElement.css('left', volumeHistory);
+            $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
+            volumeHistory = null;
+        }
     });
 
     $volume.on('mousedown', function() {
@@ -183,17 +207,17 @@ $(document).ready(function() {
                 onVolumeChange($volumeElement, temp);
                 $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
                 if (temp == 0) {
-                    $(".volume i").removeClass('fa-volume-up');
-                    $(".volume i").removeClass('fa-volume-down');
-                    $(".volume i").addClass('fa-volume-off');
+                    $(".volume-icon i").removeClass('icon-volume-2');
+                    $(".volume-icon i").removeClass('icon-volume-1');
+                    $(".volume-icon i").addClass('icon-volume-off');
                 } else if (temp < 50) {
-                    $(".volume i").removeClass('fa-volume-up');
-                    $(".volume i").addClass('fa-volume-down');
-                    $(".volume i").removeClass('fa-volume-off');
+                    $(".volume-icon i").removeClass('icon-volume-2');
+                    $(".volume-icon i").addClass('icon-volume-1');
+                    $(".volume-icon i").removeClass('icon-volume-off');
                 } else if (temp > 50) {
-                    $(".volume i").addClass('fa-volume-up');
-                    $(".volume i").removeClass('fa-volume-down');
-                    $(".volume i").removeClass('fa-volume-off');
+                    $(".volume-icon i").addClass('icon-volume-2');
+                    $(".volume-icon i").removeClass('icon-volume-1');
+                    $(".volume-icon i").removeClass('icon-volume-off');
                 }
             }
         });
@@ -217,19 +241,16 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     var t = setInterval(function(){
         if(!isPaused){
-            duration=parseInt((player.getCurrentTime())/(getMaxVideoTime())*1000)/10;
-            if(duration >= 99){
-                duration = 99.2;
-            }
-            $('.player > .time-container > span.time').text(convertSecondsToTime(player.getCurrentTime()+1));
-            $(".progressBar div.progressLevel").css('width', duration+'%');
-            $(".progressBar span").css('left', duration+'%');
+            duration=(player.getCurrentTime())/(getMaxVideoTime())*100;
+            $('.bottomContainer > div.time > span.timeStart').text(convertSecondsToTime(player.getCurrentTime()+1));
+            $(".progressBar > div.progressLevel").css('width', duration+'%');
+            $(".progressBar > span").css('left', duration+'%');
         }
     },250);
 
     var $progress = $(".progressBar");
     $progress.slider();
-    var $progressElement = $(".progressBar span");
+    var $progressElement = $(".progressBar > span");
 
     var onProgressClick = false;
 
@@ -237,20 +258,17 @@ $(document).ready(function() {
         onProgressClick = true;
         $('ul.controllers li:nth-child(2)').addClass('changing');
         player.pauseVideo();
-        var outerWidth = parseInt($volume.css('width'));
+        var outerWidth = parseInt($progress.css('width'));
         $(document).on('mousemove', function() {
-            if (parseInt($progressElement.css('left')) > 341) {
-                $progressElement.css('left', '99.2%');
-            }
-            $(".progressBar div.progressLevel").css('width', parseInt($progressElement.css('left')));
+            if(onProgressClick) $(".progressBar > div.progressLevel").css('width', parseInt($progressElement.css('left')));
         });
     });
     $(document).on('mouseup', function() {
         if(onProgressClick){
             onProgressClick = false;
             var outerWidth = parseInt($progress.css('width'));
-            if (outerWidth !== parseInt(parseInt($progressElement.css('left')) / outerWidth * 100)) {
-                $(".progressBar div.progressLevel").css('width', parseInt($progressElement.css('left')));
+            if (outerWidth !== parseInt($progressElement.css('left')) / outerWidth * 100) {
+                $(".progressBar > div.progressLevel").css('width', parseInt($progressElement.css('left')));
 
                 var newTime = parseInt(parseInt($progressElement.css('left')) / outerWidth * getMaxVideoTime()*100)/100;
                 player.seekTo(newTime);
@@ -269,9 +287,9 @@ $(document).ready(function() {
 // RESIZE DIVS
 ////////////////////////////////////////////////////////////////////////////////
     $(window).bind("load resize", function() {
-        $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.youtubeSearchBar').outerHeight()));
+        $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.lcSearch').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.playlistHeader').outerHeight() + $('.player').outerHeight()));
-        $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.youtubeSearchBar').outerHeight() + $('.yourPlaylists').outerHeight() + $('.playlistSearch').outerHeight() + $('.addPlaylist').outerHeight()));
+        $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.slSearch').outerHeight() + $('.yourPlaylists').outerHeight() + $('.playlistSearch').outerHeight() + $('.addPlaylist').outerHeight()));
     });
 ////////////////////////////////////////////////////////////////////////////////
 
