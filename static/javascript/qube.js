@@ -63,6 +63,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.next = '';
         $scope.pageToken = '';
         $scope.lastSearch = '';
+        $scope.listDisplay = 'youtube';
         QubeService.listAllPlaylist($scope);
         addInfiniteScroll();
     }

@@ -10,7 +10,7 @@
     <script src="../static/framework/looper/looper.min.js"></script>
     <script src="/static/javascript/qube.js"></script>
     <script src="/static/javascript/frontend.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="/static/fonts/Simple-Line-Icons-Webfont/simple-line-icons.css"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
@@ -55,48 +55,56 @@
             <!-- END OF playView -->
             <div class="mainView">
                 <div ng-show="layout == 'main'" class="view main">
-                    <div class="youtubeSearchBar">
-                        <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input>
-                    </div>
-                    <div class="playlistColumn">
-                        <div class="playlistSearch">
-                            <input type="text" ng-model="searchString" placeholder="Search Playlist">
+                    <div class="listDisplay">
+                        <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
+                            <ul class="userPlaylist scrollbar">
+                                <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)">
+                                    <div class="playlistDetail">
+                                        <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+                                        <div class="title">{{playlist.name}}</div>
+                                        <div class="duration">{{playlist.duration}}</div>
+                                        <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i></div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="userPlaylist scrollbar">
-                            <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)">
-                                <div class="playlistDetail">
-                                    <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
-                                    <div class="title">{{playlist.name}}</div>
-                                    <div class="duration">{{playlist.duration}}</div>
-                                    <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i></div>
+                        <!-- END OF PLAYLIST COLUMN -->
+                        <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
+                            <div class="video" ng-repeat="video in ytSearchResult">
+                                <div class="video-image">
+                                    <img class="video-image" src="{{ video.thumbnail }}">
                                 </div>
+                                <div class="video-detail">
+                                    <div class="overflowEllipsis">
+                                        <span class="video-title">{{ video.snippet.title }}</span>
+                                    </div>
+                                    <button class="ytVidHover addVideo" ng-click="addVideo(video, currentPlaylistOption)"><i class="icon-plus"></i></button>
+                                    <select class="ytVidHover" ng-model="currentPlaylistOption">
+                                        <option ng-repeat="playlist in playlists" value="{{playlist.name}}" ng-selected="playlist.name==currentPlaylist.name">{{playlist.name}}</option>
+                                    </select>
+                                    <span class="video-duration">{{ video.contentDetails.duration }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- END OF LIST DISPLAY -->
+                    <div class="listControl">
+                        <ul>
+                            <li class="lcSearch" ng-click="listDisplay = 'youtube'">
+                                <span class="font-bold lcHeader">Find</span>
+                                <span class="lcDescription">Search the youtube video you like</span>
+                                <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input>
                             </li>
+                            <li class="lcPlaylist align-right" ng-click="listDisplay = 'playlist'">
+                                <span class="font-bold lcHeader">Playlist</span>
+                                <span class="lcDescription">Control your playlists</span>
+                                <input type="text" ng-model="searchString" placeholder="Search Playlist">
+                                <a id="addPlaylist" href="#addPlaylistModal">
+                                    <i class="icon-plus"></i>
+                                </a>
+                            </li>
+                            <li class="lcAddPlaylist"></li>
                         </ul>
-                        <div class="addPlaylist">
-                          <a id="addPlaylist" href="#addPlaylistModal">
-                            <i class="fa fa-plus"></i>
-                            Add a playlist!
-                          </a>
-                        </div>
-                    </div>
-                    <!-- END OF PLAYLIST COLUMN -->
-                    <div class="searchResultColumn scrollbar">
-                        <div class="video" ng-repeat="video in ytSearchResult">
-                            <div class="video-image">
-                                <img class="video-image" src="{{ video.thumbnail }}">
-                            </div>
-                            <div class="video-detail">
-                                <div class="overflowEllipsis">
-                                    <span class="video-title">{{ video.snippet.title }}</span>
-                                </div>
-                                <button class="ytVidHover addVideo" ng-click="addVideo(video, currentPlaylistOption)"><i class="fa fa-plus"></i></button>
-                                <select class="ytVidHover" ng-model="currentPlaylistOption">
-                                    <option ng-repeat="playlist in playlists" value="{{playlist.name}}" ng-selected="playlist.name==currentPlaylist.name">{{playlist.name}}</option>
-                                </select>
-                                <span class="video-duration">{{ video.contentDetails.duration }}</span>
-                            </div>
-                        </div>
-                    </div>
+                    </div><!-- END OF LIST CONTROL -->
                 </div>
                 <!-- END OF MAIN LAYOUT -->
             </div>
