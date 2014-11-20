@@ -23,6 +23,7 @@ body {
     line-height: 1.40;
     -webkit-font-smoothing: antialiased;
     font-weight: 400;
+    overflow-x: hidden;
 }
 ul {
     list-style: none;
@@ -244,8 +245,14 @@ a {
     color: red;
 }
 #QubePlaylist .videolist .player {
+    position:relative;
     border-top: 6px solid #0d1215;
     border-bottom: 1px solid #0d1215;
+    z-index:1;
+}
+#QubePlaylist .videolist .player.fullscreen {
+    position:absolute;
+    border:0;
 }
 #QubePlaylist .videolist .overlay{
     position: absolute;
@@ -253,7 +260,7 @@ a {
     height: 100%;
     background-color: #181F24;
     width: 100%;
-    z-index:2;
+    z-index:3;
 }
 #QubePlaylist .videolist .overlay > div{
     height: 310px!important;
@@ -261,7 +268,7 @@ a {
 #QubePlaylist .videolist .overlay > div > i{
     font-size: 50px;
     color:#fff;
-    z-index:3;
+    z-index:4;
 }
 #QubePlaylist .videolist .player .musicVisualizer {
     position: absolute;
@@ -271,7 +278,7 @@ a {
     height: 50px;
     background-color: transparent;
     text-align: right;
-    z-index:1;
+    z-index:2;
 }
 #QubePlaylist .videolist .player .musicVisualizer span {
     position: absolute;
@@ -355,6 +362,7 @@ a {
 #QubePlaylist .bottomContainer .controllers-container li,
 #QubePlaylist .bottomContainer div.time span,
 #QubePlaylist .bottomContainer div.volume-icon i,
+#QubePlaylist .bottomContainer div.full-screen-icon i,
 #QubePlaylist .bottomContainer div.volume div,
 #QubePlaylist .videolist .overlay div {
     display: table-cell;

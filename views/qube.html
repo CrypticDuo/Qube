@@ -43,7 +43,7 @@
 
             <div class="playView">
                 <div class="videolist">
-                    <div class="player noselect" style="position:relative; height:inherit; width:inherit;">
+                    <div class="player noselect" style="height:inherit; width:inherit;">
                         <div id="player"></div>
                         <div class="overlay">
                             <div><i class="icon-moustache"></i></div>
@@ -126,8 +126,8 @@
                 <!-- END OF MAIN LAYOUT -->
             </div>
             <!-- END OF mainView -->
-            <div class="bottomContainer">
-                <div class="controllers-container noselect">
+            <div class="bottomContainer noselect">
+                <div class="controllers-container">
                     <ul class="controllers" style="font-size:15px;">
                         <li ng-click="prevVideo()"><i class="icon-control-rewind i-lg"></i></li>
                         <li ng-click="togglePlayVideo()"><i class="icon-control-play i-2x"></i></li>
@@ -135,7 +135,7 @@
                     </ul>
                 </div>
                 <div class="progressBar">
-                    <div style="z-index:9999"><span>{{ currentVideo }}</span></div>
+                    <div style="z-index:9999; cursor:default;"><span>{{ currentVideo }}</span></div>
                     <div class="progressLevel"></div>
                 </div>
                 <div class="time">
@@ -148,16 +148,21 @@
                         {{ currentPlayingVideoDuration }}
                     </span>
                 </div>
-                <div class="volume-icon noselect">
+                <div class="volume-icon">
                     <i class="icon-volume-2"></i>
                 </div>
-                <div class="volume noselect">
+                <div class="volume">
                     <div class="volumeBar-container">
                         <div class="volumeBar">
                             <div class="volumeLevel"></div>
                         </div>
                     </div>
                 </div>
+                <div class="full-screen-icon">
+                    <i class="icon-size-fullscreen"></i>
+                </div>
+
+
             </div>
 
             <div id="addPlaylistModal" class="popupContainer" style="display:none;">

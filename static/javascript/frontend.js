@@ -345,4 +345,31 @@ $(document).ready(function() {
             });
         });
     })();
+
+    (function(){
+        var width = $('.playView').width()-6;
+        var height = '310';
+        console.log(height);
+        $('.full-screen-icon > i').on('click',function(){
+            if($('.overlay').hasClass('fade-out')){
+                if(!$('#QubePlaylist .videolist .player').hasClass('fullscreen')){
+                    console.log("FULLSCREEN");
+                    $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-fullscreen');
+                    $('.bottomContainer .full-screen-icon > i').addClass('icon-size-actual');
+                    $('#QubePlaylist .videolist .player').addClass('fullscreen');
+                    player.setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-120);
+                }
+                else{
+                    console.log("LEAVEFULLSCREEN");
+                    $('.bottomContainer .full-screen-icon > i').addClass('icon-size-fullscreen');
+                    $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-actual');
+                    $('#QubePlaylist .videolist .player').removeClass('fullscreen');
+                    player.setSize(width, height);
+                }
+            } else {
+                // ensure change happened
+                width = $('.playView').width()-6;
+            }
+        });
+    })();
 });
