@@ -299,7 +299,7 @@ $(document).ready(function() {
 // RESIZE DIVS
 ////////////////////////////////////////////////////////////////////////////////
     $(window).bind("load resize", function() {
-        $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.lcSearch').outerHeight()));
+        $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.playlistHeader').outerHeight() + $('.player').outerHeight()));
         $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.slSearch').outerHeight() + $('.yourPlaylists').outerHeight() + $('.playlistSearch').outerHeight() + $('.addPlaylist').outerHeight()));
     });
@@ -336,7 +336,7 @@ $(document).ready(function() {
 
     (function(){
         $('#QubePlaylist .videolist .overlay > div').width($('.playView').width());
-    
+
         $('#QubePlaylist .videolist').on('click', '.overlay', function(){
             var self = this;
             var scope = angular.element($(this)).scope();

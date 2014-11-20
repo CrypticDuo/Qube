@@ -122,9 +122,8 @@ a {
     font-size: 20px;
 }
 #QubePlaylist .sideMenu ul li a {} #QubePlaylist .mainView {
-    width: 55%;
+    width: 50%;
     height: 100%;
-    border-left: 1px solid #0A0A0A;
     display: inline-block;
 }
 #QubePlaylist .topHeader {
@@ -190,10 +189,9 @@ a {
     padding-bottom: 2px;
 }
 #QubePlaylist .playView {
-    width: calc(50% - 72px);
+    width: 50%;
     height: 100%;
     background-color: #0d1215;
-    border-left: 1px solid #0d1215;
     float: left;
 }
 #QubePlaylist .videolist .userVideolist {
@@ -347,6 +345,7 @@ a {
     background-color: #108d4e;
     bottom: 0;
     padding: 0 15px;
+    z-index: 100;
 }
 #QubePlaylist .bottomContainer div {
     position: relative;
@@ -483,22 +482,7 @@ a {
     padding: 0 24px;
     float: right;
 }
-#QubePlaylist .view.main .youtubeSearchBar {
-    background-color: #323742;
-    padding: 5px;
-}
-#QubePlaylist .view.main .youtubeSearchBar input {
-    height: 41px;
-    background: #111317;
-    -webkit-box-shadow: inset 0 0 0 1px #444a59;
-    -moz-box-shadow: inset 0 0 0 1px #444a59;
-    box-shadow: inset 0 0 0 1px #444a59;
-    font-size: 20px;
-    padding-left: 15px;
-    width: calc(100% - 15px);
-    outline: none;
-    color: #eee;
-}
+
 #QubePlaylist .view.main .playlistColumn .playlistSearch input {
     height: 30px;
     background: #111317;
@@ -564,11 +548,11 @@ a {
     top: -28px;
 }
 .listDisplay {
-    width: calc(100% - 350px);
+    width: calc(100% - 320px);
     float: left;
 }
 .listControl {
-    width: 350px;
+    width: 320px;
     display: inline-block;
 }
 .listControl li {
@@ -583,11 +567,12 @@ a {
 .lcPlaylist {
     background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control1.jpg") 100% 100%;
     height: 160px;
+    padding: 20px;
 }
 .lcSearch {
     background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control2.jpg") 100% 100%;
     height: 160px;
-    width: calc(100% - 40px);
+    padding: 20px;
 }
 .lcPlaylist .lcHeader {
     color: #fad733;

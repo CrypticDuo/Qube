@@ -110,6 +110,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 $scope.videos = $scope.playlists[a].data;
             }
         }
+        $scope.currentPlaylistOption = pname;
     };
 
     $scope.addVideo = function(val, playlist) {
@@ -420,8 +421,6 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    if(scope.currentPlaylist.name === pname)
-                        scope.videos.push(video);
                     for(var i = 0; i<scope.playlists.length; i++){
                         if(scope.playlists[i].name === pname){
                             scope.playlists[i].data.push(video);

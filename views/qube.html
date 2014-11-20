@@ -44,10 +44,10 @@
             <div class="playView">
                 <div class="videolist">
                     <div class="player noselect" style="position:relative; height:inherit; width:inherit;">
-                        <div id="player"></div> 
+                        <div id="player"></div>
                         <div class="overlay">
                             <div><i class="icon-moustache"></i></div>
-                        </div>                 
+                        </div>
                         <div class="musicVisualizer">
                             <span class="musicbar bg-success bg-empty inline m-r-lg m-t" style="width:25px;height:30px">
                                 <span class="bar1 a3"></span>
@@ -95,31 +95,32 @@
                                         <span class="video-title">{{ video.snippet.title }}</span>
                                     </div>
                                     <button class="ytVidHover addVideo" ng-click="addVideo(video, currentPlaylistOption)"><i class="icon-plus"></i></button>
-                                    <select class="ytVidHover" ng-model="currentPlaylistOption">
+                                    <!-- <select class="ytVidHover" ng-model="currentPlaylistOption">
                                         <option ng-repeat="playlist in playlists" value="{{playlist.name}}" ng-selected="playlist.name==currentPlaylist.name">{{playlist.name}}</option>
-                                    </select>
+                                    </select> -->
+                                    <select class="ytVidHover" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
                                     <span class="video-duration">{{ video.contentDetails.duration }}</span>
                                 </div>
                             </div>
                         </div>
                     </div><!-- END OF LIST DISPLAY -->
                     <div class="listControl">
-                        <ul>
-                            <li class="lcSearch" ng-click="listDisplay = 'youtube'">
-                                <span class="font-bold lcHeader">Find</span>
-                                <span class="lcDescription">Search the youtube video you like</span>
-                                <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input>
-                            </li>
-                            <li class="lcPlaylist align-right" ng-click="listDisplay = 'playlist'">
-                                <span class="font-bold lcHeader">Playlist</span>
-                                <span class="lcDescription">Control your playlists</span>
-                                <input type="text" ng-model="searchString" placeholder="Search Playlist">
-                                <a id="addPlaylist" href="#addPlaylistModal">
-                                    <i class="icon-plus"></i>
-                                </a>
-                            </li>
-                            <li class="lcAddPlaylist"></li>
-                        </ul>
+                      <!-- <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input> -->
+                        <div class="lcSearch" ng-click="listDisplay = 'youtube'">
+                            <span class="font-bold lcHeader">Find</span>
+                            <span class="lcDescription">Search the youtube video you like</span>
+                            <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input>
+
+                        </div>
+                        <div class="lcPlaylist align-right" ng-click="listDisplay = 'playlist'">
+                            <span class="font-bold lcHeader">Playlist</span>
+                            <span class="lcDescription">Control your playlists</span>
+                            <input type="text" ng-model="searchString" placeholder="Search Playlist">
+                            <a id="addPlaylist" href="#addPlaylistModal">
+                                <i class="icon-plus"></i>
+                            </a>
+                        </div>
+                        <div class="lcAddPlaylist"></div>
                     </div><!-- END OF LIST CONTROL -->
                 </div>
                 <!-- END OF MAIN LAYOUT -->
