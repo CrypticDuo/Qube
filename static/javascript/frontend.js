@@ -165,12 +165,6 @@ $(document).ready(function() {
     $('.looper').looper('next');
     $('.looper').looper('pause');
 
-    $("#addPlaylist").leanModal({
-        top: 200,
-        overlay: 0.6,
-        closeButton: ".modal_close"
-    });
-
 ////////////////////////////////////////////////////////////////////////////////
 // VOLUME BAR
 ////////////////////////////////////////////////////////////////////////////////
