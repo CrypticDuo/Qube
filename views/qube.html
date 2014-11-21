@@ -103,7 +103,7 @@
                             </div>
                         </div>
                     </div><!-- END OF LIST DISPLAY -->
-                    <div class="listControl">
+                    <div class="listControl scrollbar">
                       <!-- <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input> -->
                         <div class="lcSearch" ng-click="listDisplay = 'youtube'">
                             <span class="font-bold lcHeader">Find</span>
@@ -170,20 +170,6 @@
                 </div>
 
 
-            </div>
-
-            <div id="addPlaylistModal" class="popupContainer" style="display:none;">
-              <header class="popupHeader">
-                <span class="header_title">New Playlist</span>
-                <span class="modal_close"><i class="icon-close"></i></span>
-              </header>
-
-              <section class="popupBody">
-                <div class="addPlaylistModalBody">
-                  <input ng-model="addPlaylistInput"></input>
-                  <button ng-click="addPlaylist()" class="modal_close"><i class="fa fa-floppy-o"></i></button>
-                </div>
-              </section>
             </div>
         </div>
         <!-- END OF NG-CONTROLLER -->

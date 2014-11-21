@@ -362,6 +362,7 @@ $(document).ready(function() {
 
         var height = '310';
         console.log(height);
+        console.log(width);
         $('.full-screen-icon > i').on('click',function(){
             if($('.overlay').hasClass('fade-out')){
                 if(!$('#QubePlaylist .videolist .player').hasClass('fullscreen')){
