@@ -302,6 +302,11 @@ $(document).ready(function() {
 // RESIZE DIVS
 ////////////////////////////////////////////////////////////////////////////////
     $(window).bind("load resize", function() {
+        if($('#QubePlaylist .videolist .player').hasClass('fullscreen')){
+            $('.bottomContainer .full-screen-icon > i').addClass('icon-size-fullscreen');
+            $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-actual');
+            $('#QubePlaylist .videolist .player').removeClass('fullscreen');
+        }
         player.setSize($('.playView').width()-7, '310');
         $('.listControl').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
@@ -354,6 +359,7 @@ $(document).ready(function() {
 
     (function(){
         var width = $('.playView').width()-7;
+
         var height = '310';
         console.log(height);
         $('.full-screen-icon > i').on('click',function(){
@@ -365,6 +371,7 @@ $(document).ready(function() {
                     player.setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-60);
                 }
                 else{
+                    width = $('.playView').width()-7;
                     $('.bottomContainer .full-screen-icon > i').addClass('icon-size-fullscreen');
                     $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-actual');
                     $('#QubePlaylist .videolist .player').removeClass('fullscreen');
