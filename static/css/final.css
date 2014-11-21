@@ -550,7 +550,7 @@ a {
     color: #9badb9;
     padding-left: 15px;
 }
-#QubePlaylist .view.main .playlistColumn .userPlaylist li:hover {
+#QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
     background-color:#181F24;
     cursor:pointer;
 }
