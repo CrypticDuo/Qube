@@ -90,7 +90,17 @@ app.get('/auth/facebook/callback',
     function(req, res) {
         res.redirect('/');
     });
-app.get('/auth/twitter',
+app.get('/auth/github',
+    passport.authenticate('github'),
+    function(req, res) {});
+app.get('/auth/github/callback',
+    passport.authenticate('github', {
+        failureRedirect: '/'
+    }),
+    function(req, res) {
+        res.redirect('/');
+    });
+/*app.get('/auth/twitter',
     passport.authenticate('twitter'),
     function(req, res) {});
 app.get('/auth/twitter/callback',
@@ -99,7 +109,7 @@ app.get('/auth/twitter/callback',
     }),
     function(req, res) {
         res.redirect('/');
-    });
+    });*/
 app.get('/auth/google',
     passport.authenticate('google'),
     function(req, res) {});
@@ -110,7 +120,7 @@ app.get('/auth/google/callback',
     function(req, res) {
         res.redirect('/');
     }
-    );
+);
 
 
 app.get('/logout', function(req, res) {

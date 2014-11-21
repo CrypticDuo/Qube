@@ -12,13 +12,14 @@
     "passport-twitter": "^1.0.2",
     "express-session": "^1.8.2",
     "body-parser": "^1.9.0",
-    "method-override": "^2.2.0"
+    "method-override": "^2.2.0",
+    "passport-github": "^0.1.5"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/insoochoo/Qube.git"
   },
-    "scripts": {
-        "start": "node app.js"
-    }
+  "scripts": {
+    "start": "node app.js"
+  }
 }
