@@ -568,6 +568,7 @@ a {
 }
 .listControl {
     width: 320px;
+    overflow: auto;
     display: inline-block;
 }
 .listControl li {
@@ -581,16 +582,24 @@ a {
 }
 .lcPlaylist {
     background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control1.jpg") 100% 100%;
-    height: 160px;
+    height: 130px;
     padding: 20px;
 }
 .lcSearch {
     background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control2.jpg") 100% 100%;
-    height: 160px;
+    height: 130px;
+    padding: 20px;
+}
+.lcPlaylistAdd {
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control3.jpg") 100% 100%;
+    height: 130px;
     padding: 20px;
 }
 .lcPlaylist .lcHeader {
     color: #fad733;
+}
+.lcPlaylistAdd .lcHeader {
+    color: #1ab667;
 }
 .lcSearch .lcHeader {
     color: #4cb6cb;
@@ -606,7 +615,7 @@ a {
     font-size: 16px;
     color: #eaf6f9;
     outline: none;
-    margin-top: 70px;
+    margin-top: 40px;
 }
 .listControl span {
     display: block;
@@ -614,7 +623,18 @@ a {
 .align-right {
     text-align: right;
 }
+.lcPlaylist:hover > input, .lcPlaylist:hover > a, .lcPlaylistAdd:hover > input, .lcPlaylistAdd:hover > a, .lcSearch:hover > input{
+    opacity:1;
+    transition: 0.2s;
+}
+.lcPlaylist > input, .lcPlaylist > a, .lcPlaylistAdd > input, .lcPlaylistAdd > a, .lcSearch > input{
+    opacity:0;
+    transition: 0.2s;
+}
 .lcPlaylist input {
+    width: calc(100% - 53px);
+}
+.lcPlaylistAdd input {
     width: calc(100% - 53px);
 }
 #addPlaylist {
