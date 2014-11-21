@@ -42,13 +42,13 @@ function onPlayerStateChange(event) {
     } else if (event.data === YT.PlayerState.PAUSED) {
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
             var $el = $('ul.controllers li i.icon-control-pause');
-            $el.toggleClass('icon-control-pause');
-            $el.toggleClass('icon-control-play');
-            $('.bar1.a3').toggleClass('animate');
-            $('.bar2.a5').toggleClass('animate');
-            $('.bar3.a1').toggleClass('animate');
-            $('.bar4.a4').toggleClass('animate');
-            $('.bar5.a2').toggleClass('animate');
+            $el.removeClass('icon-control-pause');
+            $el.addClass('icon-control-play');
+            $('.bar1.a3').removeClass('animate');
+            $('.bar2.a5').removeClass('animate');
+            $('.bar3.a1').removeClass('animate');
+            $('.bar4.a4').removeClass('animate');
+            $('.bar5.a2').removeClass('animate');
         }
         else{
             $('ul.controllers li:nth-child(2)').removeClass('changing');
@@ -59,13 +59,13 @@ function onPlayerStateChange(event) {
         if(!$('.videolist .player .overlay').hasClass('fade-out')) $('.videolist .player .overlay').addClass('fade-out');
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
             var $el = $('ul.controllers li i.icon-control-play');
-            $el.toggleClass('icon-control-pause');
-            $el.toggleClass('icon-control-play');
-            $('.bar1.a3').toggleClass('animate');
-            $('.bar2.a5').toggleClass('animate');
-            $('.bar3.a1').toggleClass('animate');
-            $('.bar4.a4').toggleClass('animate');
-            $('.bar5.a2').toggleClass('animate');
+            $el.addClass('icon-control-pause');
+            $el.removeClass('icon-control-play');
+            $('.bar1.a3').addClass('animate');
+            $('.bar2.a5').addClass('animate');
+            $('.bar3.a1').addClass('animate');
+            $('.bar4.a4').addClass('animate');
+            $('.bar5.a2').addClass('animate');
             onTopHeaderChange();
         }
         else{
@@ -306,6 +306,7 @@ $(document).ready(function() {
         $('.listControl').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
+        $('.userVideolist > div').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
         $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.yourPlaylists').outerHeight()));
     });
 ////////////////////////////////////////////////////////////////////////////////
@@ -361,7 +362,7 @@ $(document).ready(function() {
                     $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-fullscreen');
                     $('.bottomContainer .full-screen-icon > i').addClass('icon-size-actual');
                     $('#QubePlaylist .videolist .player').addClass('fullscreen');
-                    player.setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-120);
+                    player.setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-60);
                 }
                 else{
                     $('.bottomContainer .full-screen-icon > i').addClass('icon-size-fullscreen');

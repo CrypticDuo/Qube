@@ -37,7 +37,6 @@
                 <div class="logo"><a class="home"><i style="font-size:20px; color:white;" class="icon-earphones"></i></a>
                 </div>
                 <span>{{ currentPlaylist.name }}</span>
-              <!-- TOP BAR GOES HERE -->
             </div>
             <!-- END OF topHeader -->
 
@@ -60,6 +59,7 @@
                     </div>
 
                     <ul class="userVideolist scrollbar sortable">
+                        <!-- <div><i class="icon-moustache"></i></div> -->
                         <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" id="{{ video.id }}">
                             <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>
@@ -115,9 +115,6 @@
                             <span class="font-bold lcHeader">My Playlists</span>
                             <span class="lcDescription">Control your playlists</span>
                             <input type="text" ng-model="searchString" placeholder="Search playlist">
-                            <a id="addPlaylist" href="#addPlaylistModal">
-                                <i class="icon-plus"></i>
-                            </a>
                         </div>
                         <div class="lcPlaylistAdd" ng-click="listDisplay = 'playlist'">
                             <span class="font-bold lcHeader">Add Playlist</span>
