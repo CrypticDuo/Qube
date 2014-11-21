@@ -5,6 +5,7 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var player;
+var playerPreview;
 var playingFlag=false;
 
 function onYouTubeIframeAPIReady() {
@@ -23,13 +24,30 @@ function onYouTubeIframeAPIReady() {
             'onStateChange': onPlayerStateChange
         }
     });
+
+    playerPreview = new YT.Player('playerPreview', {
+        height: '310',
+        width: $('.playView').width()-7,
+        videoId: '',
+        playerVars: {
+            'showinfo': 0,
+            'autohide': 0,
+            'controls': 1,
+            'modestbranding': 1
+        },
+        events: {
+            'onReady': onPlayerReadyPreview
+        }
+    });
 }
 
 function onPlayerReady(event) {
     //event.target.playVideo();
     player.setVolume(100);
 }
-
+function onPlayerReadyPreview(event) {
+    playerPreview.setVolume(100);
+}
 function onPlayerStateChange(event) {
     if(player.getCurrentTime() === 0){
         timerStartFlag=false;
@@ -114,6 +132,11 @@ function onSearchChange(el, query){
     });
 }
 
+function onPreviewClick(self){
+    $('#videoPreview').click();
+    playerPreview.loadVideoById($(self).attr('id'));
+}
+
 function convertSecondsToTime(s) {
     var tHours = parseInt(s/3600);
     var tMinutes = parseInt((s%3600)/60);
@@ -164,6 +187,12 @@ $(document).ready(function() {
     $('.looper').looper({});
     $('.looper').looper('next');
     $('.looper').looper('pause');
+
+    $("#videoPreview").leanModal({
+        top: 50,
+        overlay: 0.6,
+        closeButton: ".modal_close i"
+    });
 
 ////////////////////////////////////////////////////////////////////////////////
 // VOLUME BAR
@@ -357,7 +386,7 @@ $(document).ready(function() {
         var height = '310';
         console.log(height);
         console.log(width);
-        $('.full-screen-icon > i').on('click',function(){
+        $('.full-screen-icon > i').on('click', function(){
             if($('.overlay').hasClass('fade-out')){
                 if(!$('#QubePlaylist .videolist .player').hasClass('fullscreen')){
                     $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-fullscreen');
@@ -376,6 +405,12 @@ $(document).ready(function() {
                 // ensure change happened
                 width = $('.playView').width()-7;
             }
+        });
+    })();
+
+    (function(){
+        $('.modal_close i').on('click', function(){
+            playerPreview.stopVideo();
         });
     })();
 });

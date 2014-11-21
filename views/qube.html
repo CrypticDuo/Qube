@@ -10,9 +10,9 @@
     <script src="../static/framework/looper/looper.min.js"></script>
     <script src="/static/javascript/qube.js"></script>
     <script src="/static/javascript/frontend.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="/static/fonts/Simple-Line-Icons-Webfont/simple-line-icons.css"/>
+    <link rel="stylesheet" href="/static/fonts/Simple-Line-Icons-Webfont/simple-line-icons.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link type="text/css" rel="stylesheet" href="/static/framework/login-popup/css/style.css" />
     <link type="text/css" rel="stylesheet" href="/static/framework/looper/looper.css" />
@@ -22,7 +22,7 @@
 <body>
     <div id="QubePlaylist">
         <div ng-controller="QubeCont">
-<!--             <div class="sideMenu">
+            <!--             <div class="sideMenu">
                 <ul>
                     <li style="background-color:#1ab667;"><a class="category"><i style="font-size:20px; color:white;" class="icon-earphones"></i></a>
                     </li>
@@ -45,7 +45,8 @@
                     <div class="player noselect" style="height:inherit; width:inherit;">
                         <div id="player"></div>
                         <div class="overlay">
-                            <div><i class="icon-moustache"></i></div>
+                            <div><i class="icon-moustache"></i>
+                            </div>
                         </div>
                         <div class="musicVisualizer">
                             <span class="musicbar bg-success bg-empty inline m-r-lg m-t" style="width:25px;height:30px">
@@ -79,101 +80,127 @@
                                         <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                         <div class="title">{{playlist.name}}</div>
                                         <div class="duration">{{playlist.duration}}</div>
-                                        <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i></div>
-                                    </div>
+                                        <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i>
+                                        </div>
                                 </li>
                             </ul>
-                        </div>
-                        <!-- END OF PLAYLIST COLUMN -->
-                        <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
-                            <div class="video" ng-repeat="video in ytSearchResult">
-                                <div class="video-image">
-                                    <img class="video-image" src="{{ video.thumbnail }}">
-                                </div>
-                                <div class="video-detail">
-                                    <div class="overflowEllipsis">
-                                        <span class="video-title">{{ video.snippet.title }}</span>
+                            </div>
+                            <!-- END OF PLAYLIST COLUMN -->
+                            <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
+                                <div class="video" ng-repeat="video in ytSearchResult">
+                                    <div class="video-image">
+                                        <img class="video-image" src="{{ video.thumbnail }}">
                                     </div>
-                                    <div class="ytVidHover">
-                                        <select class="" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
-                                        <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)"><i class="icon-plus"></i></button>
+                                    <div class="video-detail">
+                                        <div class="overflowEllipsis">
+                                            <span class="video-title">{{ video.snippet.title }}</span>
+                                        </div>
+                                        <div class="ytVidHover">
+                                            <select class="" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
+                                            <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)">
+                                            <i class="icon-plus"></i>
+                                            </button>
+                                            <span id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)"><i class="icon-social-youtube"></i></span>
+                                        </div>
+                                        <span class="video-duration">{{ video.contentDetails.duration }}</span>
                                     </div>
-                                    <span class="video-duration">{{ video.contentDetails.duration }}</span>
                                 </div>
                             </div>
                         </div>
-                    </div><!-- END OF LIST DISPLAY -->
-                    <div class="listControl scrollbar">
-                      <!-- <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input> -->
-                        <div class="lcSearch" ng-click="listDisplay = 'youtube'">
-                            <span class="font-bold lcHeader">Find</span>
-                            <span class="lcDescription">Search the youtube video you like</span>
-                            <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
 
+                        <a id="videoPreview" href="#addPlaylistModal"></a>
+
+                        <!-- END OF LIST DISPLAY -->
+                        <div class="listControl scrollbar">
+                            <!-- <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input> -->
+                            <div class="lcSearch" ng-click="listDisplay = 'youtube'">
+                                <span class="font-bold lcHeader">Find</span>
+                                <span class="lcDescription">Search the youtube video you like</span>
+                                <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
+
+                            </div>
+                            <div class="lcPlaylist align-right" ng-click="listDisplay = 'playlist'">
+                                <span class="font-bold lcHeader">My Playlists</span>
+                                <span class="lcDescription">Control your playlists</span>
+                                <input type="text" ng-model="searchString" placeholder="Search playlist">
+                            </div>
+                            <div class="lcPlaylistAdd" ng-click="listDisplay = 'playlist'">
+                                <span class="font-bold lcHeader">Add Playlist</span>
+                                <span class="lcDescription">Add a new playlist</span>
+                                <input type="text" ng-model="addPlaylistInput" placeholder="Playlist name">
+                                <a id="addPlaylist" ng-click="addPlaylist()">
+                                    <i class="icon-plus"></i>
+                                </a>
+                            </div>
+                            <div class="lcContact align-right">
+                                <span class="font-bold lcHeader">Contact Us</span>
+                                <span class="lcDescription">Find out more about us</span>
+                            </div>
                         </div>
-                        <div class="lcPlaylist align-right" ng-click="listDisplay = 'playlist'">
-                            <span class="font-bold lcHeader">My Playlists</span>
-                            <span class="lcDescription">Control your playlists</span>
-                            <input type="text" ng-model="searchString" placeholder="Search playlist">
+                        <!-- END OF LIST CONTROL -->
+                    </div>
+                    <!-- END OF MAIN LAYOUT -->
+                </div>
+                <!-- END OF mainView -->
+                <div class="bottomContainer noselect">
+                    <div class="controllers-container">
+                        <ul class="controllers" style="font-size:15px;">
+                            <li ng-click="prevVideo()"><i class="icon-control-rewind i-lg"></i>
+                            </li>
+                            <li ng-click="togglePlayVideo()"><i class="icon-control-play i-2x"></i>
+                            </li>
+                            <li ng-click="nextVideo()"><i class="icon-control-forward i-lg"></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="progressBar">
+                        <div style="z-index:9999; cursor:default;">
+                            <span>{{ currentVideo }}</span>
                         </div>
-                        <div class="lcPlaylistAdd" ng-click="listDisplay = 'playlist'">
-                            <span class="font-bold lcHeader">Add Playlist</span>
-                            <span class="lcDescription">Add a new playlist</span>
-                            <input type="text" ng-model="addPlaylistInput" placeholder="Playlist name">
-                            <a id="addPlaylist" ng-click="addPlaylist()">
-                                <i class="icon-plus"></i>
-                            </a>
-                        </div>
-                        <div class="lcContact align-right">
-                            <span class="font-bold lcHeader">Contact Us</span>
-                            <span class="lcDescription">Find out more about us</span>
-                        </div>
-                    </div><!-- END OF LIST CONTROL -->
-                </div>
-                <!-- END OF MAIN LAYOUT -->
-            </div>
-            <!-- END OF mainView -->
-            <div class="bottomContainer noselect">
-                <div class="controllers-container">
-                    <ul class="controllers" style="font-size:15px;">
-                        <li ng-click="prevVideo()"><i class="icon-control-rewind i-lg"></i></li>
-                        <li ng-click="togglePlayVideo()"><i class="icon-control-play i-2x"></i></li>
-                        <li ng-click="nextVideo()"><i class="icon-control-forward i-lg"></i></li>
-                    </ul>
-                </div>
-                <div class="progressBar">
-                    <div style="z-index:9999; cursor:default;"><span>{{ currentVideo }}</span></div>
-                    <div class="progressLevel"></div>
-                </div>
-                <div class="time">
-                    <span class="timeStart">
-                        00:00
-                    </span>
-                </div>
-                <div class="time">
-                    <span class="timeDuration">
-                        {{ currentPlayingVideoDuration }}
-                    </span>
-                </div>
-                <div class="volume-icon">
-                    <i class="icon-volume-2"></i>
-                </div>
-                <div class="volume">
-                    <div class="volumeBar-container">
-                        <div class="volumeBar">
-                            <div class="volumeLevel"></div>
+                        <div class="progressLevel"></div>
+                    </div>
+                    <div class="time">
+                        <span class="timeStart">
+                            00:00
+                        </span>
+                    </div>
+                    <div class="time">
+                        <span class="timeDuration">
+                            {{ currentPlayingVideoDuration }}
+                        </span>
+                    </div>
+                    <div class="volume-icon">
+                        <i class="icon-volume-2"></i>
+                    </div>
+                    <div class="volume">
+                        <div class="volumeBar-container">
+                            <div class="volumeBar">
+                                <div class="volumeLevel"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="full-screen-icon">
-                    <i class="icon-size-fullscreen"></i>
+                    <div class="full-screen-icon">
+                        <i class="icon-size-fullscreen"></i>
+                    </div>
                 </div>
 
 
+                <div id="addPlaylistModal" class="popupContainer" style="display:none;">
+                    <header class="popupHeader">
+                        <span class="header_title">{{ previewTitle }}</span>
+                        <span class="modal_close"><i class="icon-close"></i>
+                        </span>
+                    </header>
+
+                    <section class="popupBody">
+                        <div class="addPlaylistModalBody">
+                             <div id="playerPreview"></div>
+                        </div>
+                    </section>
+                </div>
             </div>
+            <!-- END OF NG-CONTROLLER -->
         </div>
-        <!-- END OF NG-CONTROLLER -->
-    </div>
 </body>
 
 </html>

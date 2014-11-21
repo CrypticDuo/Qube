@@ -200,7 +200,7 @@ a {
     float: left;
 }
 #QubePlaylist .videolist .userVideolist {
-    background-color: transparent;
+    background-color: #181F24;
     list-style-type: none;
     color: #E5E5E5;
     overflow: auto;
@@ -258,7 +258,7 @@ a {
     color: #fff;
 }
 #QubePlaylist .videolist .userVideolist span i.icon-close:hover {
-    color: red;
+    color: #d6f9e7;
 }
 #QubePlaylist .videolist .player {
     position:relative;
@@ -284,6 +284,9 @@ a {
     font-size: 50px;
     color:#fff;
     z-index:4;
+}
+#QubePlaylist .videolist .player {
+    background-color: #181F24;
 }
 #QubePlaylist .videolist .player .musicVisualizer {
     position: absolute;
@@ -495,41 +498,32 @@ a {
 }
 
 #QubePlaylist #addPlaylistModal .popupHeader {
-    border-color: #d9e4e6;
     border-radius: 2px 2px 0 0;
-    background-color: #e8eff0;
-    color: #788188;
-    padding: 10px 15px;
+    background-color: #181F24;
+    color: #fff;
     border-bottom: 1px solid transparent;
-    width:auto;
+    font-weight:400;
+}
+#QubePlaylist #addPlaylistModal .popupHeader .modal_close {
+    background-color:#181F24;
+    color:#fff;
+    cursor:default;
+}
+#QubePlaylist #addPlaylistModal .popupHeader .modal_close i{
+    cursor:pointer;
 }
 
-#QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody input {
-    border: 1px solid #cccdc8;
+#QubePlaylist #addPlaylistModal {
+    width: auto;
+    background-color:#181F24;
+}
+#QubePlaylist #addPlaylistModal .popupBody {
+    padding:0;
+}
+#QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody {
     font-size: 16px;
-    padding: 5px 10px;
-    width: 204px;
-}
-#QubePlaylist #addPlaylistModal .popupBody .addPlaylistModalBody button {
-    border: 1px solid #d3d3d3;
-    background-color: #f8f8f8;
-    height: 30px;
-    padding: 0 24px;
-    float: right;
 }
 
-#QubePlaylist .view.main .playlistColumn .playlistSearch input {
-    height: 30px;
-    background: #111317;
-    -webkit-box-shadow: inset 0 0 0 1px #444a59;
-    -moz-box-shadow: inset 0 0 0 1px #444a59;
-    box-shadow: inset 0 0 0 1px #444a59;
-    font-size: 13px;
-    padding-left: 15px;
-    width: calc(100% - 15px);
-    outline: none;
-    color: #eee;
-}
 #QubePlaylist .view.main .playlistSearch {
     padding: 2px;
     background-color: #323742;
@@ -586,6 +580,10 @@ a {
     float: left;
 }
 #playlistRemove {
+    position: relative;
+    top: -28px;
+}
+#preview {
     position: relative;
     top: -28px;
 }
@@ -655,6 +653,10 @@ a {
 
 .listControl span {
     display: block;
+}
+.lcHeader {
+    text-transform: uppercase;
+    font-weight:600;
 }
 .align-right {
     text-align: right;

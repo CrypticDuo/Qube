@@ -286,6 +286,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.updatePlaylist($scope, $scope.currentPlaylist.name, list);
         return;
     }
+
+    $scope.onPreviewClick = function(title){
+        $scope.previewTitle = title;
+    }
+
     init();
 });
 
