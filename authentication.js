@@ -43,12 +43,13 @@ module.exports = passport.use(new FacebookStrategy({
 ));
 
 
-/*passport.use(new TwitterStrategy({
+passport.use(new TwitterStrategy({
         consumerKey: config.twitter.consumerKey,
         consumerSecret: config.twitter.consumerSecret,
         callbackURL: config.twitter.callbackURL
     },
     function(accessToken, refreshToken, profile, done) {
+        console.log(profile.displayName + " has logged in.");
         User.findOne({
             oauthID: profile.id
         }, function(err, user) {
@@ -80,6 +81,7 @@ passport.use(new GoogleStrategy({
         realm: config.google.realm
     },
     function(accessToken, refreshToken, profile, done) {
+        console.log(profile.displayName + " has logged in.");
         User.findOne({
             oauthID: profile.id
         }, function(err, user) {
@@ -105,4 +107,4 @@ passport.use(new GoogleStrategy({
             };
         });
     }
-));*/
+));
