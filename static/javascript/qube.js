@@ -62,7 +62,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.ytSearchResult = [];
         $scope.playlists = [];
         $scope.currentVideo = 'No Playlist Selected';
-        $scope.next = '';
         $scope.pageToken = '';
         $scope.lastSearch = '';
         QubeService.listAllPlaylist($scope);
@@ -257,20 +256,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.changeVolume = function(volume) {
         player.setVolume(volume);
-    }
-
-    $scope.changeTopHeader = function() {
-        var index = 0;
-        $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
-        for(var i = 0; i < $scope.videos.length; i++){
-            if($scope.currentPlayingVideo.id === $scope.videos[i].id){
-                if(i !== $scope.videos.length-1){
-                    index = i+1;
-                }
-                $scope.next = $scope.videos[index].snippet.title;
-                return;
-            }
-        }
     }
 
     $scope.refreshVideoList = function(list) {
