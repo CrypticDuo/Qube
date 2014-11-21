@@ -11,7 +11,7 @@ var playingFlag=false;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '310',
-        width: $('.playView').width()-7,
+        width: $('.playView').width(),
         videoId: '',
         playerVars: {
             'showinfo': 0,
@@ -27,7 +27,7 @@ function onYouTubeIframeAPIReady() {
 
     playerPreview = new YT.Player('playerPreview', {
         height: '310',
-        width: $('.playView').width()-7,
+        width: $('.playView').width(),
         videoId: '',
         playerVars: {
             'showinfo': 0,
