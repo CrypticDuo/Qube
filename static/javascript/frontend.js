@@ -330,7 +330,7 @@ $(document).ready(function() {
             $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-actual');
             $('#QubePlaylist .videolist .player').removeClass('fullscreen');
         }
-        player.setSize($('.playView').width()-7, '310');
+        player.setSize($('.playView').width(), '310');
         $('.listControl').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
@@ -381,7 +381,7 @@ $(document).ready(function() {
     })();
 
     (function(){
-        var width = $('.playView').width()-7;
+        var width = $('.playView').width();
 
         var height = '310';
         console.log(height);
@@ -395,7 +395,7 @@ $(document).ready(function() {
                     player.setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-60);
                 }
                 else{
-                    width = $('.playView').width()-7;
+                    width = $('.playView').width();
                     $('.bottomContainer .full-screen-icon > i').addClass('icon-size-fullscreen');
                     $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-actual');
                     $('#QubePlaylist .videolist .player').removeClass('fullscreen');
@@ -403,7 +403,7 @@ $(document).ready(function() {
                 }
             } else {
                 // ensure change happened
-                width = $('.playView').width()-7;
+                width = $('.playView').width();
             }
         });
     })();
