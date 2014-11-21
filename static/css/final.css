@@ -608,17 +608,22 @@ a {
     font-size: 24px;
 }
 .lcPlaylist {
-    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control1.jpg") 100% 100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control2.jpg") 100% 100%;
     height: 130px;
     padding: 20px;
 }
 .lcSearch {
-    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control2.jpg") 100% 100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control1.jpg") 100% 100%;
     height: 130px;
     padding: 20px;
 }
 .lcPlaylistAdd {
     background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control3.jpg") 100% 100%;
+    height: 130px;
+    padding: 20px;
+}
+.lcContact{
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control4.jpg") 100% 100%;
     height: 130px;
     padding: 20px;
 }
@@ -630,6 +635,9 @@ a {
 }
 .lcSearch .lcHeader {
     color: #4cb6cb;
+}
+.lcContact .lcHeader {
+    color: #f47f7f;
 }
 .listControl .lcDescription {
     color: #627b8c;
