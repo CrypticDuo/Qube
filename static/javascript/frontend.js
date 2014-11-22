@@ -408,9 +408,11 @@ $(document).ready(function() {
     (function(){
         $('.modal_close i').on('click', function(){
             playerPreview.stopVideo();
+            player.playVideo();
         });
         $('#lean_overlay').on('click', function(){
             playerPreview.stopVideo();
+            player.playVideo();
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
