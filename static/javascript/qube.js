@@ -205,6 +205,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 $scope.currentPlayingVideo = video;
             }
             $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
+            $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
         }
         // from clicking play/pause button
         else {
@@ -231,6 +232,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 }
                 $scope.currentPlayingVideo = $scope.videos[index];
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
+                $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
                 return;
             }
         }
@@ -249,6 +251,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 }
                 $scope.currentPlayingVideo = $scope.videos[index];
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
+                $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
                 return;
             }
         }

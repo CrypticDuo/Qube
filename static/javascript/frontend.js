@@ -119,6 +119,7 @@ function onSearchChange(el, query){
 
 function onPreviewClick(self){
     $('#videoPreview').click();
+    player.pauseVideo();
     playerPreview.loadVideoById($(self).attr('id'));
 }
 
@@ -406,6 +407,9 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
         $('.modal_close i').on('click', function(){
+            playerPreview.stopVideo();
+        });
+        $('#lean_overlay').on('click', function(){
             playerPreview.stopVideo();
         });
     }());
