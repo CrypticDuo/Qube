@@ -1,9 +1,0 @@
----
-applications:
-    -   name: QubePlay
-        host: QubePlay
-        path: .
-        instances: 1
-        memory: 128M
-        services:
-            - mongodb-qube
