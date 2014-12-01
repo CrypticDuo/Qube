@@ -95,6 +95,13 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
+    $scope.loadFirstPlaylist = function(playlist) {
+        if($scope.currentPlaylist.name !== playlist.name){
+            $scope.currentPlaylist = playlist;
+            $scope.listAllVideos(playlist.name);
+        }
+    }
+
     $scope.removePlaylist = function(playlist){
         //prevent outer div's event
         var e = window.event;
@@ -250,6 +257,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 player.pauseVideo();
             } else if (player.getPlayerState() === 2) {
                 player.playVideo();
+            } else if (player.getPlayerState() === 5) {
+                video = $scope.videos[0];
+                player.loadVideoById(video.id);
+                $scope.currentPlayingVideo = video;
+                $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
+                $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
             }
 
         }
@@ -314,10 +327,11 @@ app.service("QubeService", function($http, $q) {
 
     var hostURL = "http://" + window.location.host;
 
-    function getVideoDetails(target, data) {
+    function getVideoDetails(target, data, scope) {
         var evt = data.shift();
         //puts the data contentDetails inside target
         if (!evt) {
+            scope.loadFirstPlaylist(target[0]);
             return;
         }
         var videoIDlist = '';
@@ -337,12 +351,11 @@ app.service("QubeService", function($http, $q) {
                     target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
                     target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
                 }
-                getVideoDetails(target, data);
+                getVideoDetails(target, data, scope);
             })
             .error(function() {
                 alert("Something went wrong querying video details!");
             });
-
     }
 
     function searchAutoComplete(scope, query, callback){
@@ -365,7 +378,7 @@ app.service("QubeService", function($http, $q) {
                     console.log(res.msg);
                 } else {
                     scope.playlists = [];
-                    getVideoDetails(scope.playlists, res.data);
+                    getVideoDetails(scope.playlists, res.data, scope);
                 }
             })
             .error(function(err) {
