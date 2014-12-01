@@ -190,6 +190,30 @@ var database = {
                 }
         });
     },
+    updatePlaylist: function(userID, list, callback){
+        User.update({
+            oauthID: userID
+        }, {
+            "$set": {
+                "playlist" : list
+            }
+        }, function(err, user){
+            if(err) {
+                console.log("ERROR : " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+                return;
+            }
+            if(!err && user != null){
+                callback({
+                    status: "Success"
+                });
+                return;
+            }
+        });
+    },
     removeVideoFromPlaylist: function(userID, pname, vid, callback) {
         User.update({
                 oauthID: userID,
@@ -215,8 +239,7 @@ var database = {
                 }
         });
     },
-    
-    updatePlaylist: function(userID, pname, list, callback){
+    updateVideoList: function(userID, pname, list, callback){
         User.update({
             oauthID: userID,
             "playlist.name": pname

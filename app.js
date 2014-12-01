@@ -175,6 +175,13 @@ router.route('/playlists/:playlist_name')
         db.removePlaylist(req.user.oauthID, req.params.playlist_name, function(result) {
             res.json(result);
         });
+    })
+    //update playlist
+    .put(ensureAuthenticated, function(req, res){
+        var temp = JSON.parse(req.params.playlist_name);
+        db.updatePlaylist(req.user.oauthID, temp, function(result){
+            res.json(result);
+        });
     });
 
 router.route('/playlists/:playlist_name/list/:list')
@@ -186,7 +193,7 @@ router.route('/playlists/:playlist_name/list/:list')
             .map(function(str) {
                 return JSON.parse(str)
             });
-        db.updatePlaylist(req.user.oauthID, req.params.playlist_name, list, function(result) {
+        db.updateVideoList(req.user.oauthID, req.params.playlist_name, list, function(result) {
             res.json(result);
         });
     });

@@ -103,6 +103,29 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.removePlaylist($scope, playlist.name);
     }
 
+    $scope.updatePlaylist = function(list) {
+        var newlist=[];
+        var videolist = [];
+        var datalist = [];
+        for(var i = 0; i < list.length; i++){
+            for(var j = 0; j < $scope.playlists.length; j++){
+                if(list[i] === $scope.playlists[j].name){
+                    for(var k = 0; k < $scope.playlists[j].data.length; k++){
+                        videolist.push($scope.playlists[j].data[k].id);
+                    }
+                    datalist.push({
+                        name: $scope.playlists[j].name,
+                        videos: videolist
+                    });
+                    newlist.push($scope.playlists[j]);
+                }
+            }
+        }
+        $scope.playlists = newlist;
+        QubeService.updatePlaylist($scope, datalist);
+        return;
+    }
+
     $scope.listAllVideos = function(pname) {
         for (var a = 0; a < $scope.playlists.length; a++) {
             if ($scope.playlists[a].name === pname) {
@@ -122,6 +145,20 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
         QubeService.removeVideoFromPlaylist($scope, $scope.currentPlaylist.name, videoId);
+    }
+
+    $scope.updateVideoList = function(list) {
+        var newlist=[];
+        for(var i = 0; i < list.length; i++){
+            for(var j = 0; j < $scope.videos.length; j++){
+                if(list[i] === $scope.videos[j].id){
+                    newlist.push($scope.videos[j]);
+                }
+            }
+        }
+        $scope.videos = newlist;
+        QubeService.updateVideoList($scope, $scope.currentPlaylist.name, list);
+        return;
     }
 
     $scope.queryYoutube = function(e) {
@@ -261,20 +298,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         player.setVolume(volume);
     }
 
-    $scope.refreshVideoList = function(list) {
-        var newlist=[];
-        for(var i = 0; i < list.length; i++){
-            for(var j = 0; j < $scope.videos.length; j++){
-                if(list[i] === $scope.videos[j].id){
-                    newlist.push($scope.videos[j]);
-                }
-            }
-        }
-        $scope.videos = newlist;
-        QubeService.updatePlaylist($scope, $scope.currentPlaylist.name, list);
-        return;
-    }
-
     $scope.onPreviewClick = function(title){
         $scope.previewTitle = title;
     }
@@ -369,21 +392,6 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function updatePlaylist(scope, pname, list){
-        var test = JSON.stringify(list);
-        $http.put("/api/playlists/" + pname + "/list/"+test)
-            .success(function(res){
-                if (res.status.toLowerCase() === "fail") {
-                    console.log(res.msg);
-                } else {
-                    console.log("Success: updated playlist.");
-                }
-            })
-            .error(function(err){
-                alert("Error: Failed to update playlist.")
-            });
-    };
-
     function removePlaylist(scope, pname) {
         $http.delete("/api/playlists/" + pname)
             .success(function(res) {
@@ -405,6 +413,21 @@ app.service("QubeService", function($http, $q) {
             })
             .error(function(err) {
                 alert("Error: Failed to remove playlist.");
+            });
+    };
+
+    function updatePlaylist(scope, list){
+        var newList = JSON.stringify(list);
+        $http.put("/api/playlists/" + newList)
+            .success(function(res){
+                if (res.status.toLowerCase() === "fail") {
+                    console.log(res.msg);
+                } else {
+                    console.log("Success: updated playlist.");
+                }
+            })
+            .error(function(err){
+                alert("Error: Failed to update playlist.")
             });
     };
 
@@ -448,14 +471,30 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function updateVideoList(scope, pname, list){
+        var newList = JSON.stringify(list);
+        $http.put("/api/playlists/" + pname + "/list/" + newList)
+            .success(function(res){
+                if (res.status.toLowerCase() === "fail") {
+                    console.log(res.msg);
+                } else {
+                    console.log("Success: updated video list.");
+                }
+            })
+            .error(function(err){
+                alert("Error: Failed to update video list.")
+            });
+    };
+
     //Returns the public API
     return ({
         listAllPlaylist: listAllPlaylist,
         addPlaylist: addPlaylist,
-        updatePlaylist: updatePlaylist,
         removePlaylist: removePlaylist,
+        updatePlaylist: updatePlaylist,
         addVideoToPlaylist: addVideoToPlaylist,
         removeVideoFromPlaylist: removeVideoFromPlaylist,
+        updateVideoList : updateVideoList,
         searchAutoComplete: searchAutoComplete,
 
     });
