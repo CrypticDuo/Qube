@@ -66,6 +66,118 @@ a {
 .scrollbar::-webkit-scrollbar-thumb {
     background-color: #555;
 }
+
+
+@-webkit-keyframes movingbar1{
+    0%{height:32%;}
+    25%{height:80%;}
+    50%{height:56%;}
+    75%{height:100%;}
+    100%{height:84%;}
+}
+@-moz-keyframes movingbar1{
+    0%{height:32%;}
+    25%{height:80%;}
+    50%{height:56%;}
+    75%{height:100%;}
+    100%{height:84%;}
+}
+@keyframes movingbar1{
+    0%{height:32%;}
+    25%{height:80%;}
+    50%{height:56%;}
+    75%{height:100%;}
+    100%{height:84%;}
+}
+
+@-webkit-keyframes movingbar2{
+    0%{height:20%;}
+    25%{height:58%;}
+    50%{height:90%;}
+    75%{height:74%;}
+    100%{height:53%;}
+}
+@-moz-keyframes movingbar2{
+    0%{height:20%;}
+    25%{height:58%;}
+    50%{height:90%;}
+    75%{height:74%;}
+    100%{height:53%;}
+}
+@keyframes movingbar2{
+    0%{height:20%;}
+    25%{height:58%;}
+    50%{height:90%;}
+    75%{height:74%;}
+    100%{height:53%;}
+}
+
+@-webkit-keyframes movingbar3{
+    0%{height:34%;}
+    25%{height:69%;}
+    50%{height:100%;}
+    75%{height:82%;}
+    100%{height:41%;}
+}
+@-moz-keyframes movingbar3{
+    0%{height:34%;}
+    25%{height:69%;}
+    50%{height:100%;}
+    75%{height:82%;}
+    100%{height:41%;}
+}
+@keyframes movingbar3{
+    0%{height:34%;}
+    25%{height:69%;}
+    50%{height:100%;}
+    75%{height:82%;}
+    100%{height:41%;}
+}
+
+@-webkit-keyframes movingbar4{
+    0%{height:80%;}
+    25%{height:49%;}
+    50%{height:59%;}
+    75%{height:82%;}
+    100%{height:65%;}
+}
+@-moz-keyframes movingbar4{
+    0%{height:80%;}
+    25%{height:49%;}
+    50%{height:59%;}
+    75%{height:82%;}
+    100%{height:65%;}
+}
+@keyframes movingbar4{
+    0%{height:80%;}
+    25%{height:49%;}
+    50%{height:59%;}
+    75%{height:82%;}
+    100%{height:65%;}
+}
+
+@-webkit-keyframes movingbar5{
+    0%{height:50%;}
+    25%{height:30%;}
+    50%{height:90%;}
+    75%{height:50%;}
+    100%{height:65%;}
+}
+@-moz-keyframes movingbar5{
+    0%{height:50%;}
+    25%{height:30%;}
+    50%{height:90%;}
+    75%{height:50%;}
+    100%{height:65%;}
+}
+@keyframes movingbar5{
+    0%{height:50%;}
+    25%{height:30%;}
+    50%{height:90%;}
+    75%{height:50%;}
+    100%{height:65%;}
+}
+
 .ui-autocomplete {
     font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size:14;
@@ -500,6 +612,9 @@ a {
     padding: 1px;
     padding-left: 80px;
     font-size: 14px;
+    width: calc(100% - 110px);
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 #QubePlaylist .mainView .view.main .playlistDetail .duration {
     color: #627b8c;
@@ -545,6 +660,8 @@ a {
 .playlistThumbnail {
     height: 38px;
     float: left;
+    position: absolute;
+    top: 2px;
 }
 #playlistRemove {
     position: relative;
@@ -654,113 +771,8 @@ a {
 }
 .video-detail select {
     background-color: transparent; border-radius: 0; border: 1px solid rgba(98, 123, 140, 0.59); outline: none; color: #E5E5E5; font-family: 'source sans pro'; font-weight: 300; font-size: 12px;
+    width: 100px;
 }
-@-webkit-keyframes movingbar1{
-    0%{height:32%;}
-    25%{height:80%;}
-    50%{height:56%;}
-    75%{height:100%;}
-    100%{height:84%;}
-}
-@-moz-keyframes movingbar1{
-    0%{height:32%;}
-    25%{height:80%;}
-    50%{height:56%;}
-    75%{height:100%;}
-    100%{height:84%;}
-}
-@keyframes movingbar1{
-    0%{height:32%;}
-    25%{height:80%;}
-    50%{height:56%;}
-    75%{height:100%;}
-    100%{height:84%;}
-}
-
-@-webkit-keyframes movingbar2{
-    0%{height:20%;}
-    25%{height:58%;}
-    50%{height:90%;}
-    75%{height:74%;}
-    100%{height:53%;}
-}
-@-moz-keyframes movingbar2{
-    0%{height:20%;}
-    25%{height:58%;}
-    50%{height:90%;}
-    75%{height:74%;}
-    100%{height:53%;}
-}
-@keyframes movingbar2{
-    0%{height:20%;}
-    25%{height:58%;}
-    50%{height:90%;}
-    75%{height:74%;}
-    100%{height:53%;}
-}
-
-@-webkit-keyframes movingbar3{
-    0%{height:34%;}
-    25%{height:69%;}
-    50%{height:100%;}
-    75%{height:82%;}
-    100%{height:41%;}
-}
-@-moz-keyframes movingbar3{
-    0%{height:34%;}
-    25%{height:69%;}
-    50%{height:100%;}
-    75%{height:82%;}
-    100%{height:41%;}
-}
-@keyframes movingbar3{
-    0%{height:34%;}
-    25%{height:69%;}
-    50%{height:100%;}
-    75%{height:82%;}
-    100%{height:41%;}
-}
-
-@-webkit-keyframes movingbar4{
-    0%{height:80%;}
-    25%{height:49%;}
-    50%{height:59%;}
-    75%{height:82%;}
-    100%{height:65%;}
-}
-@-moz-keyframes movingbar4{
-    0%{height:80%;}
-    25%{height:49%;}
-    50%{height:59%;}
-    75%{height:82%;}
-    100%{height:65%;}
-}
-@keyframes movingbar4{
-    0%{height:80%;}
-    25%{height:49%;}
-    50%{height:59%;}
-    75%{height:82%;}
-    100%{height:65%;}
-}
-
-@-webkit-keyframes movingbar5{
-    0%{height:50%;}
-    25%{height:30%;}
-    50%{height:90%;}
-    75%{height:50%;}
-    100%{height:65%;}
-}
-@-moz-keyframes movingbar5{
-    0%{height:50%;}
-    25%{height:30%;}
-    50%{height:90%;}
-    75%{height:50%;}
-    100%{height:65%;}
-}
-@keyframes movingbar5{
-    0%{height:50%;}
-    25%{height:30%;}
-    50%{height:90%;}
-    75%{height:50%;}
-    100%{height:65%;}
+.playlistDetail {
+    position: relative;
 }
