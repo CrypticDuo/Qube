@@ -76,7 +76,12 @@ function onPlayerStateChange(event) {
         pauseTimer();
         timerStartFlag=false;
     } else if (event.data === YT.PlayerState.PLAYING) {
-        if(!$('.videolist .player .overlay').hasClass('fade-out')) $('.videolist .player .overlay').addClass('fade-out');
+        if(!$('.videolist .player .overlay').hasClass('fade-out')){
+            $('.videolist .player .overlay').addClass('fade-out');
+            setTimeout(function(){
+                $('.videolist .player .overlay').addClass('hide');
+            },1500)
+        }
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
             var $el = $('ul.controllers li i.icon-control-play');
             $el.addClass('icon-control-pause');
@@ -320,12 +325,30 @@ $(document).ready(function() {
 // SORTING VIDEOLIST
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
-    var $el = $('ul.sortable');
-    $('ul.sortable').sortable({
+    var $el = $('ul.userVideolist.sortable');
+    $('ul.userVideolist.sortable').sortable({
         stop: function(event, ui) {
             var scope = angular.element($el).scope();
             scope.$apply(function() {
-                scope.refreshVideoList($el.sortable('toArray'));
+                scope.updateVideoList($el.sortable('toArray'));
+            });
+
+        }
+    }).disableSelection();}());
+
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// SORTING PLAYLIST
+////////////////////////////////////////////////////////////////////////////////
+    (function(){
+    var $el = $('ul.userPlaylist.sortable');
+    $('ul.userPlaylist.sortable').sortable({
+        stop: function(event, ui) {
+            var scope = angular.element($el).scope();
+            console.log($el);
+            scope.$apply(function() {
+                scope.updatePlaylist($el.sortable('toArray'));
             });
 
         }
