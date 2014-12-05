@@ -1,0 +1,27 @@
+{
+  "name": "simply-toast",
+  "version": "1.1.1",
+  "homepage": "https://github.com/ericprieto/simply-toast",
+  "authors": [
+    "Eric Prieto <ericprieto@live.com>"
+  ],
+  "main": "simply-toast.js",
+  "keywords": [
+    "jquery",
+    "bootstrap",
+    "growl",
+    "toast",
+    "popup"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}

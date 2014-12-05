@@ -168,8 +168,14 @@ function pauseTimer(){
 }
 
 $(document).ready(function() {
-    $('.lcSearch > input').on('input', function() {
-        onSearchChange($(this),$(this).val());
+    $.extend(true, $.simplyToast.defaultOptions,
+    {
+       'delay': 2000
+    });
+    $('.lcSearch > input').on('input', function(e) {
+        if(e.which !== 13){
+            onSearchChange($(this),$(this).val());
+        }
     });
 
     $("#videoPreview").leanModal({
@@ -204,14 +210,12 @@ $(document).ready(function() {
         // volume is on
         if(!volumeHistory) volumeHistory = parseInt($volumeElement.css('left'));
         if($(this).attr('class') === 'icon-volume-off'){
-            console.log('turning volume off ' + volumeHistory);
             $volumeElement.css('left', 0);
             $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
              onVolumeChange($volumeElement,0);
         }
         // volume is off
         else{
-            console.log('turning volume on ' + volumeHistory);
             $volumeElement.css('left', volumeHistory);
             $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
              onVolumeChange($volumeElement,volumeHistory);
@@ -346,7 +350,6 @@ $(document).ready(function() {
     $('ul.userPlaylist.sortable').sortable({
         stop: function(event, ui) {
             var scope = angular.element($el).scope();
-            console.log($el);
             scope.$apply(function() {
                 scope.updatePlaylist($el.sortable('toArray'));
             });
@@ -400,8 +403,6 @@ $(document).ready(function() {
         var width = $('.playView').width();
 
         var height = '310';
-        console.log(height);
-        console.log(width);
         $('.full-screen-icon > i').on('click', function(){
             if($('.overlay').hasClass('fade-out')){
                 if(!$('#QubePlaylist .videolist .player').hasClass('fullscreen')){
@@ -445,13 +446,47 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
         $(window).keypress(function(e) {
-            if (e.keyCode == 0 || e.keyCode == 32) {
+            if ((e.keyCode == 0 || e.keyCode == 32) && !$('input').is(":focus")) {
                 if(isPaused){
                     player.playVideo();
                 }
                 else{
                     player.pauseVideo();
                 }
+                e.preventDefault();
+            }
+        });
+    }());
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// INPUT DISPLAY FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+
+    (function(){
+        var onSearch = false;
+        $('.lcSearch').on('mouseenter',function(){
+            $('.lcSearch > input').addClass('fade-in-lt');
+            $('.lcSearch > input').removeClass('fade-out-lt');
+            onSearch = true;
+        });
+        $('.lcSearch').on('mouseleave',function(){
+            if($('.ui-autocomplete').is(':hidden')){
+                $('.lcSearch > input').blur();
+                $('.lcSearch > input').removeClass('fade-in-lt');
+                $('.lcSearch > input').addClass('fade-out-lt');
+            }
+            onSearch=false;
+        });
+        $('.lcSearch > input').on('blur',function(){
+            $('.lcSearch > input').removeClass('fade-in-lt');
+            $('.lcSearch > input').addClass('fade-out-lt');
+            onSearch=false;
+        });
+        $('body').on('click', '.ui-autocomplete', function(){
+            if(!onSearch){
+                $('.lcSearch > input').removeClass('fade-in-lt');
+                $('.lcSearch > input').addClass('fade-out-lt');
             }
         });
     }());
