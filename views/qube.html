@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
     <script src="/static/framework/pace/pace.min.js"></script>
     <script type="text/javascript" src="/static/framework/login-popup/js/jquery.leanModal.min.js"></script>
+    <script type="text/javascript" src="/static/framework/moment/moment.min.js"></script>
     <script src="/static/javascript/qube.js"></script>
     <script src="/static/javascript/frontend.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700' rel='stylesheet' type='text/css'/>
@@ -89,18 +90,19 @@
                                     <div class="video-image">
                                         <img class="video-image" src="{{ video.thumbnail }}">
                                     </div>
+                                    <span class="video-duration">{{ video.contentDetails.duration }}</span>
                                     <div class="video-detail">
                                         <div class="overflowEllipsis">
                                             <span class="video-title">{{ video.snippet.title }}</span>
                                         </div>
+                                        <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
                                         <div class="ytVidHover">
                                             <select class="" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
                                             <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)">
-                                            <i class="icon-plus"></i>
+                                                <i class="icon-plus"></i>
                                             </button>
-                                            <span id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)"><i class="icon-social-youtube"></i></span>
+                                            <span id="{{video.id}}" class="addVideo" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)"><i class="icon-share-alt"></i></span>
                                         </div>
-                                        <span class="video-duration">{{ video.contentDetails.duration }}</span>
                                     </div>
                                 </div>
                             </div>

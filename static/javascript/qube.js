@@ -188,7 +188,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                     maxResults: '20',
                     part: 'id,snippet',
                     pageToken: pageToken,
-                    fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/medium,items/snippet/channelTitle',
+                    fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle',
                     q: val
                 }
             })
@@ -220,10 +220,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.appendContentDetail = function(data, contentDetailsData) {
         for (var i = 0; i < data.items.length; i++) {
             var formatted = convertYoutubeDuration(contentDetailsData.items[i].contentDetails.duration);
+            var publishedAt = moment(data.items[i].snippet.publishedAt, "YYYYMMDD").fromNow();
             $scope.ytSearchResult.push({
                 id: data.items[i].id.videoId,
                 snippet: {
-                    title: data.items[i].snippet.title
+                    title: data.items[i].snippet.title,
+                    date: publishedAt
                 },
                 description: data.items[i].snippet.description,
                 thumbnail: data.items[i].snippet.thumbnails.medium.url,
