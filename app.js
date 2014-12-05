@@ -58,15 +58,6 @@ passport.deserializeUser(function(id, done) {
 
 
 // RENDERING *****
-app.get('/dev', ensureAuthenticated, function(req, res) {
-    User.findById(req.session.passport.user, function(err, user) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('main.html');
-        };
-    });
-});
 app.get('/', function(req, res) {
     if (req.isAuthenticated()) { // if logged in
         User.findById(req.session.passport.user, function(err, user) {
