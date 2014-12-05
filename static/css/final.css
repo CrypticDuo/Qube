@@ -496,7 +496,7 @@ a {
     position: relative;
     height: 60px;
     display: inline-block;
-    width: 65%;
+    width: calc(100% - 450px);
     background: 0;
     background-color: #15a25a;
     border-top-left-radius: 0px;
