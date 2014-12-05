@@ -52,11 +52,25 @@ a {
     font-size: 32px;
 }
 .fade-out{
-    -webkit-transition: opacity 1.5s ease-in-out;
-    -moz-transition: opacity 1.5s ease-in-out;
-    -ms-transition: opacity 1.5s ease-in-out;
-    -o-transition: opacity 1.5s ease-in-out;
+    -webkit-transition: opacity 1.5s ease-out;
+    -moz-transition: opacity 1.5s ease-out;
+    -ms-transition: opacity 1.5s ease-out;
+    -o-transition: opacity 1.5s ease-out;
      opacity: 0;
+}
+.fade-out-lt{
+    -webkit-transition: opacity 0.2s ease-out;
+    -moz-transition: opacity 0.2s ease-out;
+    -ms-transition: opacity 0.2s ease-out;
+    -o-transition: opacity 0.2s ease-out;
+     opacity: 0!important;
+}
+.fade-in-lt{
+    -webkit-transition: opacity 0.2s ease-in;
+    -moz-transition: opacity 0.2s ease-in;
+    -ms-transition: opacity 0.2s ease-in;
+    -o-transition: opacity 0.2s ease-in;
+     opacity: 1!important;
 }
 .hide{
     display:none;
@@ -383,12 +397,11 @@ a {
 #QubePlaylist .videolist .player .musicVisualizer {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: 50px;
+    right: 10px;
     background-color: transparent;
     text-align: right;
     z-index:2;
+    width: 20px;
 }
 #QubePlaylist .videolist .player .musicVisualizer span {
     position: absolute;
@@ -397,8 +410,8 @@ a {
     text-indent: -9999px;
 }
 #QubePlaylist .videolist .player .musicVisualizer > span {
-    width: 25px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     position: relative;
     margin-right: 30px;
     margin-top: 15px;
@@ -493,7 +506,7 @@ a {
     position: relative;
     height: 60px;
     display: inline-block;
-    width: 65%;
+    width: calc(100% - 450px);
     background: 0;
     background-color: #15a25a;
     border-top-left-radius: 0px;

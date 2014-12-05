@@ -30,24 +30,24 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
    * Add / remove videos to playlists
    * Auto complete youtube search
    * Automatically load more for youtube search result
-   * Drag & Drop to re-order videos
+   * Drag & Drop to re-order videos and playlist
    * Expand view (full screen view)
    * Preview videos
    * Add to specific playlist
+   * alerting status (adding/removing videos, playlists, and errors)
 
 ### To do:
 
 #### Release 1.0
-   * alerting status (adding/removing videos, playlists, and errors)
    * profiling
-   * drag and drop playlist for reordering
-   * rename playlist
-   * landing page login (twitter + gmail)
+   * landing page design
    * related video search
-   * fb like integration/contact us info
+   * Contact us info
    * share playlist
    * default playlist for new users
    * google analytics
 
 #### BACKLOG
    * Telegram API integration
+   * Renaming playlist
+   * Facebook Like Integration
