@@ -73,7 +73,7 @@ a {
      opacity: 1!important;
 }
 .hide{
-    display:none;
+    display:none!important;
 }
 .scrollbar::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
@@ -348,7 +348,7 @@ a {
     text-overflow: ellipsis;
     color: #7d94a4;
 }
-#QubePlaylist .videolist .userVideolist span.duration {
+#QubePlaylist .videolist .userVideolist span.duration, #QubePlaylist .videolist .userVideolist span.close {
     position: relative;
     top: 2px;
     float: right;

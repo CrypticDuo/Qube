@@ -53,7 +53,7 @@ var database = {
                 console.log("imback");
 				callback({
                     status: "Fail",
-                    msg: "Playlist already exists"
+                    msg: "Error: Playlist already exists."
                 });
                 return;
             }
@@ -156,7 +156,7 @@ var database = {
                 console.log("imback");
                 callback({
                     status: "Fail",
-                    msg: "Video already exists"
+                    msg: "Error: Video already exists."
                 });
                 return;
             }

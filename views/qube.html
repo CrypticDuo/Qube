@@ -8,13 +8,14 @@
     <script type="text/javascript" src="/static/framework/pace/pace.min.js"></script>
     <script type="text/javascript" src="/static/framework/login-popup/js/jquery.leanModal.min.js"></script>
     <script type="text/javascript" src="/static/framework/moment/moment.min.js"></script>
-    <script type="text/javascript" src="/static/framework/simply-toast/simply-toast.min.js"></script>
+    <script type="text/javascript" src="/static/framework/alertify/alertify.min.js"></script>
     <script type="text/javascript" src="/static/javascript/qube.js"></script>
     <script type="text/javascript" src="/static/javascript/frontend.js"></script>
     <link type="text/css" rel="stylesheet" href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700'/>
     <link type="text/css" rel="stylesheet" href="/static/fonts/Simple-Line-Icons-Webfont/simple-line-icons.css"/>
     <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
-    <link type="text/css" rel="stylesheet" href="/static/framework/simply-toast/simply-toast.min.css" />
+    <link type="text/css" rel="stylesheet" href="/static/framework/alertify/alertify.min.css" />
+    <link type="text/css" rel="stylesheet" href="/static/framework/alertify/semantic.min.css" />
     <link type="text/css" rel="stylesheet" href="/static/framework/login-popup/css/style.css" />
     <link type="text/css" rel="stylesheet" href="/static/css/final.css"/>
 </head>
@@ -65,6 +66,7 @@
                             <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>
                             <span class="duration">{{video.contentDetails.duration}}</span>
+                            <span class="hide close"><i class="icon icon-close" ng-click="removeVideo(video.id)"></i></span>
                         </li>
                     </ul>
                 </div>

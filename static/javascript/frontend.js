@@ -168,10 +168,10 @@ function pauseTimer(){
 }
 
 $(document).ready(function() {
-    $.extend(true, $.simplyToast.defaultOptions,
-    {
-       'delay': 2000
-    });
+
+    alertify.set('notifier','position', 'top-right');
+    alertify.set('notifier','delay', 3);
+
     $('.lcSearch > input').on('input', function(e) {
         if(e.which !== 13){
             onSearchChange($(this),$(this).val());
@@ -361,17 +361,12 @@ $(document).ready(function() {
     (function(){
         var html = '';
         $('.userVideolist').on('mouseenter', 'li:not(".active")', function(){
-            html = $(this).children('span.duration').html();
-            $(this).children('span.duration').html('<i class="icon-close"></i>').bind('click', function(e){
-                var self = this;
-                var scope = angular.element($('.userVideolist')).scope();
-                scope.$apply(function() {
-                    scope.removeVideo(e, $(self).parent().attr('id'));
-                });
+            $(this).children('.duration').addClass('hide');
+            $(this).children('.close').removeClass('hide');
+            $('.userVideolist').on('mouseleave', 'li:not(".active")', function(){
+                $(this).children('.duration').removeClass('hide');
+                $(this).children('.close').addClass('hide');
             });
-        });
-        $('.userVideolist').on('mouseleave', 'li', function(){
-            $(this).children('span.duration').html(html);
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
@@ -467,8 +462,7 @@ $(document).ready(function() {
             onSearch = true;
         });
         $('.lcSearch').on('mouseleave',function(){
-                console.log($('.ui-autocomplete').is(':hidden'));
-            if($('.ui-autocomplete').is(':hidden')){
+            if(!$('.ui-autocomplete').is(':visible')){
                 $('.lcSearch > input').blur();
                 $('.lcSearch > input').removeClass('fade-in-lt');
                 $('.lcSearch > input').addClass('fade-out-lt');

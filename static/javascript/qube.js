@@ -149,9 +149,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.addVideoToPlaylist($scope, playlist, val);
     }
 
-    $scope.removeVideo = function(e, videoId){
+    $scope.removeVideo = function(videoId){
         //prevent outer div's event
-        e = e ? e : window.event;
+        var e = window.event;
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
         QubeService.removeVideoFromPlaylist($scope, $scope.currentPlaylist.name, videoId);
@@ -214,11 +214,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                         $scope.appendContentDetail(data, contentDetailsData);
                     })
                     .error(function() {
-                        $.simplyToast('Error: Something went wrong querying video details.', 'danger');
+                        alertify.error('Error: Something went wrong querying video details.');
                     });
             })
             .error(function() {
-                $.simplyToast('Error: Something went wrong querying video details.', 'danger');
+                alertify.error('Error: Something went wrong querying video details.');
             });
     }
 
@@ -361,7 +361,7 @@ app.service("QubeService", function($http, $q) {
                 getVideoDetails(target, data, scope);
             })
             .error(function() {
-                $.simplyToast('Error: Something went wrong querying video details!', 'danger');
+                alertify.error('Error: Something went wrong querying video details!');
             });
     }
 
@@ -389,7 +389,7 @@ app.service("QubeService", function($http, $q) {
                 }
             })
             .error(function(err) {
-                $.simplyToast('Error: Cannot list all playlists.', 'danger');
+                alertify.error('Error: Cannot list all playlists.');
             });
     };
 
@@ -397,18 +397,22 @@ app.service("QubeService", function($http, $q) {
         $http.post("/api/playlists/" + pname)
             .success(function(res) {
                 if (res.status.toLowerCase() === "fail") {
-                    console.log(res.msg);
+                    if(res.msg.indexOf('Error:') === 0){
+                        alertify.error(res.msg);
+                    } else{
+                        console.log(res.msg);
+                    }
                 } else {
                     scope.playlists.push({
                         name: pname,
                         data: [],
                         duration: "00:00"
                     });
-                    $.simplyToast('Success: added a playlist.', 'success');
+                    alertify.success('Success: added a playlist.');
                 }
             })
             .error(function(err) {
-                $.simplyToast('Error: Failed to add playlist.', 'danger');
+                alertify.error('Error: Failed to add playlist.');
             });
     };
 
@@ -428,11 +432,11 @@ app.service("QubeService", function($http, $q) {
                         scope.videos = [];
                         scope.currentPlaylist = {};
                     }
-                    $.simplyToast('Success: removed a playlist.', 'success');
+                    alertify.success('Success: removed a playlist.');
                 }
             })
             .error(function(err) {
-                $.simplyToast('Success: removed a playlist.', 'danger');
+                alertify.error('Error: removed a playlist.');
             });
     };
 
@@ -443,11 +447,11 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    $.simplyToast('Success: updated playlist', 'success');
+                    alertify.success('Success: updated playlist');
                 }
             })
             .error(function(err){
-                $.simplyToast('Error: Failed to update playlist.', 'danger');
+                alertify.error('Error: Failed to update playlist.');
             });
     };
 
@@ -455,7 +459,11 @@ app.service("QubeService", function($http, $q) {
         $http.post("/api/playlists/" + pname + "/videos/" + video.id)
             .success(function(res) {
                 if (res.status.toLowerCase() === "fail") {
-                    console.log(res.msg);
+                    if(res.msg.indexOf('Error:') === 0){
+                        alertify.error(res.msg);
+                    } else{
+                        console.log(res.msg);
+                    }
                 } else {
                     for(var i = 0; i<scope.playlists.length; i++){
                         if(scope.playlists[i].name === pname){
@@ -463,11 +471,11 @@ app.service("QubeService", function($http, $q) {
                             scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
                         }
                     }
-                    $.simplyToast('Success: Added a video.', 'success');
+                    alertify.success('Success: Added a video.');
                 }
             })
             .error(function(err) {
-                $.simplyToast('Error: Failed to add video.', 'danger');
+                alertify.error('Error: Failed to add video.');
             });
     };
 
@@ -483,11 +491,11 @@ app.service("QubeService", function($http, $q) {
                             break;
                         }
                     }
-                    $.simplyToast('Success: Removed a video.', 'success');
+                    alertify.success('Success: Removed a video.');
                 }
             })
             .error(function(err) {
-                $.simplyToast('Error: Failed to remove video.', 'danger');
+                alertify.error('Error: Failed to remove video.');
             });
     };
 
@@ -498,11 +506,11 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    $.simplyToast('Success: updated video list.', 'success');
+                    alertify.success('Success: updated video list.');
                 }
             })
             .error(function(err){
-                $.simplyToast('Error: Failed to update video list.', 'danger');
+                alertify.error('Error: Failed to update video list.');
             });
     };
 
