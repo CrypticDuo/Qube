@@ -467,6 +467,7 @@ $(document).ready(function() {
             onSearch = true;
         });
         $('.lcSearch').on('mouseleave',function(){
+                console.log($('.ui-autocomplete').is(':hidden'));
             if($('.ui-autocomplete').is(':hidden')){
                 $('.lcSearch > input').blur();
                 $('.lcSearch > input').removeClass('fade-in-lt');
