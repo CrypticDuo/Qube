@@ -128,6 +128,11 @@ function onPreviewClick(self){
     playerPreview.loadVideoById($(self).attr('id'));
 }
 
+function removeCloseIcon(el) {
+    $(el).children('.duration').removeClass('hide');
+    $(el).children('.close').addClass('hide');
+}
+
 function convertSecondsToTime(s) {
     var tHours = parseInt(s/3600);
     var tMinutes = parseInt((s%3600)/60);
@@ -289,10 +294,13 @@ $(document).ready(function() {
             if(onProgressClick){
                 onProgressClick = false;
                 var outerWidth = parseInt($progress.css('width'));
-                $(".progressBar > div.progressLevel").css('width', parseInt($progressElement.css('left')));
-                var newTime = parseInt(parseInt($progressElement.css('left')) / outerWidth * getMaxVideoTime()*100)/100;
-                player.seekTo(newTime);
-                player.playVideo();
+                $(".progressBar > div.progressLevel").animate({
+                    'width': parseInt($progressElement.css('left'))
+                }, 500,function(){
+                    var newTime = parseInt(parseInt($progressElement.css('left')) / outerWidth * getMaxVideoTime()*100)/100;
+                    player.seekTo(newTime);
+                    player.playVideo();
+                });
             }
         });
     });

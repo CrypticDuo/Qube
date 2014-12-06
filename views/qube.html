@@ -62,7 +62,7 @@
 
                     <ul class="userVideolist scrollbar sortable">
                         <!-- <div><i class="icon-moustache"></i></div> -->
-                        <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" id="{{ video.id }}">
+                        <li ng-repeat="video in videos" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" onclick="removeCloseIcon(this)" id="{{ video.id }}">
                             <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>
                             <span class="duration">{{video.contentDetails.duration}}</span>
