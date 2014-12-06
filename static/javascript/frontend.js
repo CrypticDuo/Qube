@@ -360,7 +360,7 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
         var html = '';
-        $('.userVideolist').on('mouseenter', 'li', function(){
+        $('.userVideolist').on('mouseenter', 'li:not(".active")', function(){
             html = $(this).children('span.duration').html();
             $(this).children('span.duration').html('<i class="icon-close"></i>').bind('click', function(e){
                 var self = this;
