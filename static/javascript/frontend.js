@@ -245,18 +245,18 @@ $(document).ready(function() {
                     $(".volume-icon i").removeClass('icon-volume-off');
                 }
             }
+            $(document).on('mouseup', function() {
+                if(onVolumeClick){
+                    onVolumeClick = false;
+                    var outerWidth = parseInt($volume.css('width'));
+                    if (outerWidth !== parseInt(parseInt($volumeElement.css('left')) / outerWidth * 100)) {
+                        var temp = parseInt(parseInt($volumeElement.css('left')) / outerWidth * 100);
+                        onVolumeChange($volumeElement, temp);
+                        $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
+                    }
+                }
+            });
         });
-    });
-    $(document).on('mouseup', function() {
-        if(onVolumeClick){
-            onVolumeClick = false;
-            var outerWidth = parseInt($volume.css('width'));
-            if (outerWidth !== parseInt(parseInt($volumeElement.css('left')) / outerWidth * 100)) {
-                var temp = parseInt(parseInt($volumeElement.css('left')) / outerWidth * 100);
-                onVolumeChange($volumeElement, temp);
-                $(".volumeBar div.volumeLevel").css('width', parseInt($volumeElement.css('left')));
-            }
-        }
     });
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -269,7 +269,6 @@ $(document).ready(function() {
             duration=(player.getCurrentTime())/(getMaxVideoTime())*100;
             $('.bottomContainer > div.time > span.timeStart').text(convertSecondsToTime(player.getCurrentTime()+1));
             $(".progressBar > div.progressLevel").css('width', duration+'%');
-            $(".progressBar > span").css('left', duration+'%');
         }
     },250);
 
@@ -286,19 +285,16 @@ $(document).ready(function() {
         $(document).on('mousemove', function() {
             if(onProgressClick) $(".progressBar > div.progressLevel").css('width', parseInt($progressElement.css('left')));
         });
-    });
-    $(document).on('mouseup', function() {
-        if(onProgressClick){
-            onProgressClick = false;
-            var outerWidth = parseInt($progress.css('width'));
-            if (outerWidth !== parseInt($progressElement.css('left')) / outerWidth * 100) {
+        $(document).on('mouseup', function() {
+            if(onProgressClick){
+                onProgressClick = false;
+                var outerWidth = parseInt($progress.css('width'));
                 $(".progressBar > div.progressLevel").css('width', parseInt($progressElement.css('left')));
-
                 var newTime = parseInt(parseInt($progressElement.css('left')) / outerWidth * getMaxVideoTime()*100)/100;
                 player.seekTo(newTime);
                 player.playVideo();
             }
-        }
+        });
     });
 
     function getMaxVideoTime(){
@@ -471,6 +467,7 @@ $(document).ready(function() {
             onSearch = true;
         });
         $('.lcSearch').on('mouseleave',function(){
+                console.log($('.ui-autocomplete').is(':hidden'));
             if($('.ui-autocomplete').is(':hidden')){
                 $('.lcSearch > input').blur();
                 $('.lcSearch > input').removeClass('fade-in-lt');
