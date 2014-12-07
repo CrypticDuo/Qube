@@ -29,7 +29,7 @@ function onYouTubeIframeAPIReady() {
 
     playerPreview = new YT.Player('playerPreview', {
         height: '310',
-        width: $('.playView').width(),
+        width: '550',
         videoId: '',
         playerVars: {
             'showinfo': 0,
