@@ -112,14 +112,21 @@ function onVolumeChange(el, volume) {
 }
 
 function onSearchChange(el, query){
-    var scope = angular.element(el).scope();
-    scope.$apply(function() {
-        scope.onSearch(query, function(data){
-            $('.lcSearch > input').autocomplete({
-                source: data
+    console.log(query);
+    if(query){
+        var scope = angular.element(el).scope();
+        scope.$apply(function() {
+            scope.onSearch(query, function(data){
+                console.log(data);
+                $('.lcSearch > input').autocomplete({
+                    source: data,
+                    response: function(event, ui){
+                        console.log(ui);
+                    }
+                });
             });
         });
-    });
+    }
 }
 
 function onPreviewClick(self){
@@ -173,13 +180,23 @@ function pauseTimer(){
 }
 
 $(document).ready(function() {
+    $('.lcSearch > input').autocomplete({appendTo: "body"});
+    $('.lcSearch > input').autocomplete('enable');
 
     alertify.set('notifier','position', 'top-right');
     alertify.set('notifier','delay', 3);
 
-    $('.lcSearch > input').on('input', function(e) {
+    $('.lcSearch > input').on('keyup', function(e) {
+        var self = this;
         if(e.which !== 13){
-            onSearchChange($(this),$(this).val());
+            onSearchChange($(self),$(self).val());
+        }
+        else if(e.which === 13){
+            console.log("hey");
+            $('.lcSearch > input').autocomplete('disable');
+            setTimeout(function(){
+                $('.lcSearch > input').autocomplete('enable');
+            },1000);
         }
     });
 
@@ -296,7 +313,7 @@ $(document).ready(function() {
                 var outerWidth = parseInt($progress.css('width'));
                 $(".progressBar > div.progressLevel").animate({
                     'width': parseInt($progressElement.css('left'))
-                }, 500,function(){
+                }, 400,function(){
                     var newTime = parseInt(parseInt($progressElement.css('left')) / outerWidth * getMaxVideoTime()*100)/100;
                     player.seekTo(newTime);
                     player.playVideo();
