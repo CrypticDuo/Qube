@@ -16,6 +16,9 @@ Pace.on("done", function(){
     $('div.loading-page').fadeOut(1000);
 });
 
+Pace.on("hide", function(){
+    Pace.stop();
+});
 function initiateYoutubePlayers(){
     var params = { allowScriptAccess: "always" };
     var atts2 = { id: "myytplayer" ,
