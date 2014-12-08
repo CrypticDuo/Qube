@@ -4,11 +4,12 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var player;
-var playerPreview;
+var player = null;
+var playerPreview = null;
 var timerStartFlag=false;
 var isPaused=true;
 var duration=0;
+var previewPlayerState = -1;
 
 
 $(window).load(function(e){ setTimeout(function(){$('div.loading-page').fadeOut(1000); },2000); });
@@ -139,6 +140,7 @@ function onPreviewClick(self){
             wmode: 'transparent'};
     swfobject.embedSWF("http://www.youtube.com/v/"+$(self).attr('id')+"?enablejsapi=1&playerapiid=playerPreview&version=3&showinfo=0&autoplay=1&autohide=1&controls=1", "playerPreview", "550", "310", "8", null, null, params, atts);
 
+    previewPlayerState = player.getPlayerState();
     player.pauseVideo();
 }
 
@@ -457,11 +459,15 @@ $(document).ready(function() {
     (function(){
         $('.modal_close i').on('click', function(){
             $('.addPlaylistModalBody').html("<div id='playerPreview'></div>");
-            player.playVideo();
+            if(previewPlayerState === 1){
+                player.playVideo();
+            }
         });
         $('#lean_overlay').on('click', function(){
             $('.addPlaylistModalBody').html("<div id='playerPreview'></div>");
-            player.playVideo();
+            if(previewPlayerState === 1){
+                player.playVideo();
+            }
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
