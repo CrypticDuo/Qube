@@ -6,12 +6,11 @@
   user-select: none;
 
   z-index: 2000;
-  position: fixed;
+  position: absolute;
   margin: auto;
-  top: 0;
+  top: calc(8% + 280px);
   left: 0;
   right: 0;
-  bottom: 0;
   height: 5px;
   width: 200px;
   background: #fff;
