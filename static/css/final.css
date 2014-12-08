@@ -206,7 +206,7 @@ a {
 }
 
 .loading-page{
-    position:fixed;
+    position: absolute;
     top:0;
     bottom:0;
     left:0;
@@ -511,17 +511,15 @@ a {
     width: 45px;
     height: 60px;
 }
-.loading-page div {
-    position: relative;
-    width:100%;
-    height:30%;
+.loading-page .buffer {
+    padding-top: 22vh;
 }
 .loading-page {
     background-color:#EEEEEE;
 }
 .loading-page div span.buffer {
-    display: inline-block;
-    margin-top:8%;
+    height: 0;
+    width: 100%;
     vertical-align: middle;
 }
 .loading-page div img{
