@@ -665,6 +665,7 @@ a {
 #QubePlaylist #addPlaylistModal {
     width: auto;
     background-color:#181F24;
+    width: 550px;
 }
 #QubePlaylist #addPlaylistModal .popupBody {
     padding:0;
