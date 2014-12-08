@@ -851,3 +851,7 @@ a {
 .playlistDetail {
     position: relative;
 }
+
+.player {
+    height: 310px;
+}
