@@ -204,8 +204,9 @@ $(document).ready(function() {
         }
         else if(e.which === 13){
             console.log("hey");
-            $('.lcSearch > input').autocomplete('disable');
+            $('.lcSearch > input').autocomplete( "destroy" );
             setTimeout(function(){
+                $('.lcSearch > input').autocomplete({appendTo: "body"});
                 $('.lcSearch > input').autocomplete('enable');
             },1000);
         }
