@@ -34,9 +34,6 @@ function onPlayerReady(event) {
     //event.target.playVideo();
     player.setVolume(100);
 }
-function onPlayerReadyPreview(event) {
-    playerPreview.setVolume(100);
-}
 
 function onPlayerStateChange(event) {
     if(player.getCurrentTime() === 0){
@@ -133,7 +130,6 @@ function onSearchChange(el, query){
 
 function onPreviewClick(self){
     $('#videoPreview').click();
-    $('#playerPreview').html("");
 
     var params = { allowScriptAccess: "always" };
     var atts = { id: "myytplayerpreview" ,
@@ -460,9 +456,11 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
         $('.modal_close i').on('click', function(){
+            $('.addPlaylistModalBody').html("<div id='playerPreview'></div>");
             player.playVideo();
         });
         $('#lean_overlay').on('click', function(){
+            $('.addPlaylistModalBody').html("<div id='playerPreview'></div>");
             player.playVideo();
         });
     }());
