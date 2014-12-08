@@ -244,6 +244,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.togglePlayVideo = function(video) {
+        console.log(player.getPlayerState());
         // from $scope.changePlaylist
         if (video) {
             if(video === 'QubeChangePlaylist'){
@@ -264,7 +265,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 player.pauseVideo();
             } else if (player.getPlayerState() === 2) {
                 player.playVideo();
-            } else if (player.getPlayerState() === 5) {
+            } else if (player.getPlayerState() === -1) {
                 video = $scope.videos[0];
                 player.loadVideoById(video.id);
                 $scope.currentPlayingVideo = video;
