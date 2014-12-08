@@ -717,6 +717,9 @@ a {
 .ytVidHover *:hover {
     color: #eee;
 }
+.ytVidHover select:hover{
+    border:1px solid #aaa;
+}
 .ytVidHover .addVideo {
     width: 20px;
     height: 20px;
@@ -844,9 +847,12 @@ a {
     font-size: 20px;
 }
 .video-detail select {
-    background-color: transparent; border-radius: 0;
-    border: 1px dotted rgba(118, 118, 118, 0.59); outline: none; font-family: 'source sans pro'; font-weight: 300; font-size: 12px;
+    background-color: transparent;
+    border-radius: 3px;
+    border: 1px solid rgba(81, 81, 81, 0.59); outline: none; font-family: 'source sans pro'; font-weight: 300; font-size: 12px;
     width: 100px;
+    -webkit-appearance:none;
+    padding: 0 5px;
 }
 .playlistDetail {
     position: relative;
