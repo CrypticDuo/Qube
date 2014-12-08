@@ -39,7 +39,8 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
 ### To do:
 
 #### Release 1.0
-   * profiling
+   * logout
+   * loading screen
    * landing page design
    * related video search
    * Contact us info
@@ -48,6 +49,7 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
    * google analytics
 
 #### BACKLOG
+   * profiling
    * Telegram API integration
    * Renaming playlist
    * Facebook Like Integration
