@@ -219,20 +219,20 @@ a {
     font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size:14;
     font-weight:400;
-    background: #1C1F25;
+    background: #232C32;
     border: 0!important;
     overflow: hidden;
     color: #eee;
 }
 .ui-autocomplete > .ui-menu-item:hover {
-    background: rgba(16, 141, 78, 0.56);
+    background: #181f24;
     color: #eee;
-    border:1px rgba(16, 141, 78, 0.56) solid;
+    border:1px #181f24 solid;
 }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-    background: rgba(16, 141, 78, 0.56);
+    background: #181f24;
     color: #eee;
-    border:1px rgba(16, 141, 78, 0.56) solid;
+    border:1px #181f24 solid;
 }
 #QubePlaylist {
     min-width: 1200px;
