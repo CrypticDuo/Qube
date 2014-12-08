@@ -292,7 +292,6 @@ a {
     height: 60px;
 }
 #QubePlaylist .topHeader > div.logo {
-    background-color: #1ab667;
     display: block;
     padding: 0;
     line-height: 60px;
@@ -300,7 +299,7 @@ a {
     font-size: 16px;
     width: 70px;
     position: absolute;
-    background-color: #1ab667;
+    background-color: #108d4e;
 }
 #QubePlaylist .topHeader > div.logo > a {
     height: 20px;
