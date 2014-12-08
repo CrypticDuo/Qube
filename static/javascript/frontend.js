@@ -12,7 +12,9 @@ var duration=0;
 var previewPlayerState = -1;
 
 
-$(window).load(function(e){ setTimeout(function(){$('div.loading-page').fadeOut(1000); },2000); });
+Pace.on("done", function(){
+    $('div.loading-page').fadeOut(1000);
+});
 
 function initiateYoutubePlayers(){
     var params = { allowScriptAccess: "always" };

@@ -18,12 +18,13 @@
     <link type="text/css" rel="stylesheet" href="/static/framework/alertify/alertify.min.css" />
     <link type="text/css" rel="stylesheet" href="/static/framework/alertify/semantic.min.css" />
     <link type="text/css" rel="stylesheet" href="/static/framework/login-popup/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="/static/framework/pace/pacebar.css"/>
     <link type="text/css" rel="stylesheet" href="/static/css/final.css"/>
 </head>
 
 <body>
     <div class="loading-page">
-        <div><span class="buffer"></span><img src="/static/logo-transparent.png"/><h1>QUBE</h1></div>
+        <div><span class="buffer"></span><img src="/static/logo-transparent.png"/><h3>LOADING</h3></div>
     </div>
     <div id="QubePlaylist">
         <div ng-controller="QubeCont">
@@ -105,7 +106,7 @@
                                         <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
                                         <div class="ytVidHover">
                                             <select class="" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
-                                            <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)">
+                                            <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)" onclick="document.activeElement.blur()">
                                                 <i class="icon-plus"></i>
                                             </button>
                                             <span id="{{video.id}}" class="addVideo" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)"><i class="icon-share-alt"></i></span>
