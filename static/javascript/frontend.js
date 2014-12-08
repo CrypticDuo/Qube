@@ -122,8 +122,8 @@ function onSearchChange(el, query){
                 console.log(data);
                 $('.lcSearch > input').autocomplete({
                     source: data,
-                    response: function(event, ui){
-                        console.log(ui);
+                    select:function(event, ui){
+                        scope.queryYoutube({},ui.item.value);
                     }
                 });
             });

@@ -173,14 +173,16 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         return;
     }
 
-    $scope.queryYoutube = function(e) {
-        if(e.which === 13){
+    $scope.queryYoutube = function(e, h) {
+        if((e && e.which === 13) || h){
             if($scope.addVideoInput !== $scope.lastSearch){
                 $scope.pageToken = "";
                 $scope.lastSearch = $scope.addVideoInput;
             }
             $scope.ytSearchResult = [];
             $('.lcSearch > input').autocomplete("close");
+            if(h)
+                $scope.addVideoInput = h;
             $scope.searchYt($scope.addVideoInput);
         }
     }
@@ -244,7 +246,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.togglePlayVideo = function(video) {
-        console.log(player.getPlayerState());
         // from $scope.changePlaylist
         if (video) {
             if(video === 'QubeChangePlaylist'){
