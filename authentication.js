@@ -28,7 +28,88 @@ module.exports = passport.use(new FacebookStrategy({
                     facebookID: profile._json.id,
                     name: profile.displayName,
                     created: Date.now(),
-                    playlist: []
+                    playlist: [
+                        {
+                            "name" : "Radio",
+                            "videos" : [
+                                "hT_nvWreIhg",
+                                "y6Sxv-sUYtM",
+                                "450p7goxZqg",
+                                "O-zpOMYRi0w",
+                                "zKX_zR022QY",
+                                "pB-5XG-DbAA",
+                                "nfWlot6h_JM",
+                                "qpgTC9MDx1o"
+                            ]
+                        },
+                        {
+                            "name" : "Pop",
+                            "videos" : [
+                                "qpgTC9MDx1o",
+                                "iD2rhdFRehU",
+                                "SYM-RJwSGQ8",
+                                "6ACl8s_tBzE",
+                                "e-ORhEE9VVg",
+                                "pUjE9H8QlA4",
+                                "yw04QD1LaB0",
+                                "g5qU7p7yOY8"
+                            ]
+                        },
+                        {
+                            "name" : "Country",
+                            "videos" : [
+                                "BkpuLMsDn48",
+                                "mH9kYn4L8TI",
+                                "RPILrZTBedY",
+                                "_MOavH-Eivw",
+                                "BuMiMBjcvWU",
+                                "inAj-sbwP7I",
+                                "-NPqM3vPDg8"
+                            ]
+                        },
+                        {
+                            "name" : "Electronic",
+                            "videos" : [
+                                "pUjE9H8QlA4",
+                                "6ACl8s_tBzE",
+                                "m-M1AtrxztU",
+                                "L8eRzOYhLuw",
+                                "a7SouU3ECpU",
+                                "EVr__5Addjw",
+                                "HMUDVMiITOU",
+                                "VPRjCeoBqrI",
+                                "fiore9Z5iUg",
+                                "ebXbLfLACGM"
+                            ]
+                        },
+                        {
+                            "name" : "Classical",
+                            "videos" : [
+                                "dyM2AnA96yE",
+                                "7jh-E5m01wY",
+                                "GRxofEmo3HA",
+                                "izQsgE0L450",
+                                "qVn2YGvIv0w",
+                                "XRU1AJsXN1g",
+                                "9E6b3swbnWg"
+                            ]
+                        },
+                        {
+                            "name" : "R & B",
+                            "videos" : [
+                                "cZaJYDPY-YQ",
+                                "avFq9errZCk",
+                                "k4YRWT_Aldo",
+                                "vJwKKKd2ZYE",
+                                "wzMrK-aGCug",
+                                "9ycBvqm9LFQ",
+                                "u3u22OYqFGo",
+                                "REcABXTDrwA",
+                                "nGt_JGHYEO4",
+                                "BU769XX_dIQ"
+                            ]
+                        }
+                    ]
                 });
                 user.save(function(err) {
                     if (err) {
