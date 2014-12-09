@@ -24,7 +24,7 @@ function onYouTubePlayerReady(event) {
 }
 
 function initiateYoutubePlayers(){
-    var params = { allowScriptAccess: "always" , wmode: "transparent"};
+    var params = { allowScriptAccess: "always" };//, wmode: "transparent"};
     var atts2 = { id: "myytplayer" ,
             'showinfo': 0,
             'autohide': 0,
