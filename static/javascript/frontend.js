@@ -17,15 +17,15 @@ Pace.on("done", function(){
 });
 
 function initiateYoutubePlayers(){
-    var params = { allowScriptAccess: "always" };
+    var params = { allowScriptAccess: "always" , wmode: "transparent"};
     var atts2 = { id: "myytplayer" ,
             'showinfo': 0,
             'autohide': 0,
             'controls': 1,
             'modestbranding': 1,
             wmode: 'transparent'};
-    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?enablejsapi=1&playerapiid=player&version=3&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
-
+    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?version=3&enablejsapi=1&playerapiid=player&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
+    //apiplayer?
 }
 
 function onYouTubePlayerReady(event) {
@@ -219,6 +219,8 @@ $(document).ready(function() {
         overlay: 0.6,
         closeButton: ".modal_close i"
     });
+
+    setSize(310, 550, false); // HACK
 
 ////////////////////////////////////////////////////////////////////////////////
 // VOLUME BAR
