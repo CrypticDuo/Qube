@@ -30,7 +30,7 @@ function initiateYoutubePlayers(){
             'controls': 1,
             'modestbranding': 1
             };
-    swfobject.embedSWF("http://www.youtube.com/apiplayer?version=3&enablejsapi=1&playerapiid=player&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
+    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?version=3&enablejsapi=1&playerapiid=player&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
     //apiplayer? v/Oi1BcouEmio?
 }
 
