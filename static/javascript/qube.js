@@ -245,6 +245,14 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
+    $scope.updatePlaylistDuration = function (playlist){
+        playlist.duration = "00:00";
+        for(var i=0; i<playlist.data.length; i++){
+            playlist.duration = addDuration(playlist.duration, playlist.data[i].contentDetails.duration);
+        }
+
+    }
+
     $scope.togglePlayVideo = function(video) {
         // from $scope.changePlaylist
         if (video) {
@@ -497,6 +505,7 @@ app.service("QubeService", function($http, $q) {
                             break;
                         }
                     }
+                    scope.updatePlaylistDuration(scope.currentPlaylist);
                     alertify.success('Success: Removed a video.');
                 }
             })

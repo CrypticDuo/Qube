@@ -20,6 +20,7 @@ function onYouTubePlayerReady(event) {
     player = document.getElementById("myytplayer");
     player.addEventListener("onReady", "onPlayerReady");
     player.addEventListener("onStateChange", "onPlayerStateChange");
+    player.setPlaybackQuality("highres");
 }
 
 function initiateYoutubePlayers(){
