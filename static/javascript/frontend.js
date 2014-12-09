@@ -24,14 +24,14 @@ function onYouTubePlayerReady(event) {
 }
 
 function initiateYoutubePlayers(){
-    var params = { allowScriptAccess: "always" };//, wmode: "transparent"};
+    var params = { allowScriptAccess: "always", wmode: "Opaque"};
     var atts2 = { id: "myytplayer" ,
             'showinfo': 0,
             'autohide': 0,
             'controls': 1,
             'modestbranding': 1
             };
-    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?version=3&enablejsapi=1&playerapiid=player&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
+    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?version=3&enablejsapi=1&playerapiid=player&showinfo=0&autohide=0&controls=0&wmode=transparent", "player", "100%", "100%", "8", null, null, params, atts2);
     //apiplayer? v/Oi1BcouEmio?
 }
 
