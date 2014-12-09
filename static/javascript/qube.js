@@ -458,27 +458,31 @@ app.service("QubeService", function($http, $q) {
     };
 
     function addVideoToPlaylist(scope, pname, video) {
-        $http.post("/api/playlists/" + pname + "/videos/" + video.id)
-            .success(function(res) {
-                if (res.status.toLowerCase() === "fail") {
-                    if(res.msg.indexOf('Error:') === 0){
-                        alertify.error(res.msg);
-                    } else{
-                        console.log(res.msg);
-                    }
-                } else {
-                    for(var i = 0; i<scope.playlists.length; i++){
-                        if(scope.playlists[i].name === pname){
-                            scope.playlists[i].data.push(video);
-                            scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
+        if(pname){
+            $http.post("/api/playlists/" + pname + "/videos/" + video.id)
+                .success(function(res) {
+                    if (res.status.toLowerCase() === "fail") {
+                        if(res.msg.indexOf('Error:') === 0){
+                            alertify.error(res.msg);
+                        } else{
+                            console.log(res.msg);
                         }
+                    } else {
+                        for(var i = 0; i<scope.playlists.length; i++){
+                            if(scope.playlists[i].name === pname){
+                                scope.playlists[i].data.push(video);
+                                scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
+                            }
+                        }
+                        alertify.success('Success: Added a video.');
                     }
-                    alertify.success('Success: Added a video.');
-                }
-            })
-            .error(function(err) {
-                alertify.error('Error: Failed to add video.');
-            });
+                })
+                .error(function(err) {
+                    alertify.error('Error: Failed to add video.');
+                });
+        } else {
+            alertify.error('Error: Please choose a playlist first.');
+        }
     };
 
     function removeVideoFromPlaylist(scope, pname, videoId){
