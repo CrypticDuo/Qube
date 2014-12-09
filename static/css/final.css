@@ -14,6 +14,7 @@ html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5
 *{
     outline:none;
 }
+
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -832,6 +833,36 @@ a {
 .lcPlaylist input {
     width: calc(100% - 20px);
 }
+
+.lcContact:hover > .contacts *{
+    opacity:1;
+    transition: 0.2s;
+}
+
+.lcContact .contacts *{
+    opacity:0;
+    transition: 0.2s;
+    margin-top:25px;
+}
+.lcContact .contacts .dev{
+    display:inline-block;
+    margin:0 15px;
+    cursor:pointer;
+    color:#627b8c;
+}
+.lcContact .contacts .dev:hover{
+    color:white;
+}
+.lcContact .contacts .dev .symbol{
+    font-size:30px;
+    display:inline-block;
+}
+.lcContact .contacts .dev .name{
+    display:inline-block;
+    font-size:15px;
+    padding-left:13px;
+}
+
 .align-left {
     text-align: left;
 }
