@@ -16,23 +16,24 @@ Pace.on("done", function(){
     $('div.loading-page').fadeOut(1000);
 });
 
+function onYouTubePlayerReady(event) {
+    player = document.getElementById("myytplayer");
+    player.addEventListener("onReady", "onPlayerReady");
+    player.addEventListener("onStateChange", "onPlayerStateChange");
+}
+
 function initiateYoutubePlayers(){
     var params = { allowScriptAccess: "always" , wmode: "transparent"};
     var atts2 = { id: "myytplayer" ,
             'showinfo': 0,
             'autohide': 0,
             'controls': 1,
-            'modestbranding': 1,
-            wmode: 'transparent'};
-    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?version=3&enablejsapi=1&playerapiid=player&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
-    //apiplayer?
+            'modestbranding': 1
+            };
+    swfobject.embedSWF("http://www.youtube.com/apiplayer?version=3&enablejsapi=1&playerapiid=player&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
+    //apiplayer? v/Oi1BcouEmio?
 }
 
-function onYouTubePlayerReady(event) {
-    player = document.getElementById("myytplayer");
-    player.addEventListener("onReady", "onPlayerReady");
-    player.addEventListener("onStateChange", "onPlayerStateChange");
-}
 function onPlayerReady(event) {
     //event.target.playVideo();
     player.setVolume(100);
