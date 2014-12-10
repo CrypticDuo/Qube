@@ -10,7 +10,7 @@
     font-style: normal;
 }
 
-.symbol, a.symbol:before {
+.symbol, span.symbol:before {
     font-family: 'Mono Social Icons Font';
     -webkit-text-rendering: optimizeLegibility;
     -moz-text-rendering: optimizeLegibility;
@@ -22,15 +22,17 @@
     -ms-font-smoothing: antialiased;
     -o-font-smoothing: antialiased;
     font-smoothing: antialiased;
+    position: relative;
+    top: -2px;
 }
 
-a.symbol:before {
+span.symbol:before {
     content: attr(title);
     margin-right: 0.3em;
     font-size: 130%;
 }
 
-a.symbol {
+span.symbol {
     background: #9f9f9f;
     padding: 7px 5px 3px 5px;
     color: white;
