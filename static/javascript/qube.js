@@ -61,7 +61,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.currentPlaylist = {};
         $scope.ytSearchResult = [];
         $scope.playlists = [];
-        $scope.currentVideo = 'No Playlist Selected';
+        $scope.currentVideoTitle = 'No Playlist Selected';
         $scope.pageToken = '';
         $scope.lastSearch = '';
         QubeService.listAllPlaylist($scope);
@@ -74,6 +74,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 $scope.searchYt($scope.lastSearch, $scope.pageToken);
             }
         });
+    }
+
+    function updateCurrentVideoTitle($scope, newTitle){
+        $scope.currentVideoTitle = $scope.currentPlayingVideo.snippet.title;
+        document.title = 'Qube - ' + $scope.currentVideoTitle;
     }
 
     $scope.onSearch = function(query, callback) {
@@ -266,7 +271,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 $scope.currentPlayingVideo = video;
             }
             $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
-            $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
+            updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
         }
         // from clicking play/pause button
         else {
@@ -279,7 +284,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 player.loadVideoById(video.id);
                 $scope.currentPlayingVideo = video;
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
-                $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
+                updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
             }
 
         }
@@ -299,7 +304,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 }
                 $scope.currentPlayingVideo = $scope.videos[index];
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
-                $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
+                updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
                 return;
             }
         }
@@ -318,7 +323,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 }
                 $scope.currentPlayingVideo = $scope.videos[index];
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
-                $scope.currentVideo = $scope.currentPlayingVideo.snippet.title;
+                updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
                 return;
             }
         }
