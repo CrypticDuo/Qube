@@ -15,7 +15,7 @@ var previewPlayerState = -1;
 Pace.on("done", function(){
     setTimeout(function(){
         $('div.loading-page').fadeOut(1000);
-    },100);
+    },200);
 });
 
 function initiateYoutubePlayers(){
