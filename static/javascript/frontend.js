@@ -13,28 +13,28 @@ var previewPlayerState = -1;
 
 
 Pace.on("done", function(){
-    $('div.loading-page').fadeOut(1000);
+    setTimeout(function(){
+        $('div.loading-page').fadeOut(1000);
+    },100);
 });
+
+function initiateYoutubePlayers(){
+    var params = { allowScriptAccess: "always" };
+    var atts2 = { id: "myytplayer" ,
+            'showinfo': 0,
+            'autohide': 0,
+            'controls': 1,
+            'modestbranding': 1,
+            wmode: 'transparent'};
+    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?enablejsapi=1&playerapiid=player&version=3&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
+
+}
 
 function onYouTubePlayerReady(event) {
     player = document.getElementById("myytplayer");
     player.addEventListener("onReady", "onPlayerReady");
     player.addEventListener("onStateChange", "onPlayerStateChange");
-    //player.setPlaybackQuality("highres");
 }
-
-function initiateYoutubePlayers(){
-    var params = { allowScriptAccess: "always", wmode: "Opaque"};
-    var atts2 = { id: "myytplayer" ,
-            'showinfo': 0,
-            'autohide': 0,
-            'controls': 1,
-            'modestbranding': 1
-            };
-    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?version=3&enablejsapi=1&playerapiid=player&showinfo=0&autohide=0&controls=0&wmode=transparent", "player", "100%", "100%", "8", null, null, params, atts2);
-    //apiplayer? v/Oi1BcouEmio?
-}
-
 function onPlayerReady(event) {
     //event.target.playVideo();
     player.setVolume(100);
@@ -221,8 +221,6 @@ $(document).ready(function() {
         overlay: 0.6,
         closeButton: ".modal_close i"
     });
-
-    setSize(310, 550, false); // HACK
 
 ////////////////////////////////////////////////////////////////////////////////
 // VOLUME BAR

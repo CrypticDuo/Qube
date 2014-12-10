@@ -70,16 +70,16 @@ module.exports = passport.use(new FacebookStrategy({
                         {
                             "name" : "Electronic",
                             "videos" : [
-                                "pUjE9H8QlA4",
-                                "6ACl8s_tBzE",
-                                "m-M1AtrxztU",
-                                "L8eRzOYhLuw",
-                                "a7SouU3ECpU",
-                                "EVr__5Addjw",
-                                "HMUDVMiITOU",
-                                "VPRjCeoBqrI",
-                                "fiore9Z5iUg",
-                                "ebXbLfLACGM"
+                                "CW56soql2N0",
+                                "zzE2lv7cMXw",
+                                "Bd6gsxjksBg",
+                                "_P837-kqrqg",
+                                "yYrvJ0hYr8I",
+                                "rvZWsr4QCRc",
+                                "FMcCnUk6n0g",
+                                "5YZwBIxjGfI",
+                                "S8HE5zl5CHM",
+                                "z2mUyssHMu8"
                             ]
                         },
                         {
@@ -97,16 +97,17 @@ module.exports = passport.use(new FacebookStrategy({
                         {
                             "name" : "R & B",
                             "videos" : [
-                                "cZaJYDPY-YQ",
-                                "avFq9errZCk",
-                                "k4YRWT_Aldo",
-                                "vJwKKKd2ZYE",
-                                "wzMrK-aGCug",
-                                "9ycBvqm9LFQ",
-                                "u3u22OYqFGo",
-                                "REcABXTDrwA",
-                                "nGt_JGHYEO4",
-                                "BU769XX_dIQ"
+                                "JPIhUaONiLU",
+                                "VJOdTVnDCSQ",
+                                "REoFWyu4LaI",
+                                "fxPBu_vX9Q0",
+                                "nxvm4P0jFKY",
+                                "ueR5gE4aCW0",
+                                "eNogqBij198",
+                                "sfBi4H8F5JE",
+                                "CEavc5AIRRg",
+                                "KrRpGSgkQHI",
+                                "m_8B9ZSGNZ0"
                             ]
                         }
                     ]

@@ -212,7 +212,6 @@ a {
     bottom:0;
     left:0;
     right:0;
-    background:white;
     z-index:1999; /* as pace has 2000 */
 }
 
@@ -512,7 +511,7 @@ a {
     width: 45px;
     height: 60px;
 }
-.loading-page .buffer {
+/*.loading-page .buffer {
     padding-top: 22vh;
 }
 .loading-page {
@@ -536,7 +535,7 @@ a {
     margin-top:10px;
     padding-left:13px;
     letter-spacing: 3px;
-}
+}*/
 #QubePlaylist .bottomContainer .controllers-container .controllers li {
     color: #d6f9e7;
     cursor: pointer;
