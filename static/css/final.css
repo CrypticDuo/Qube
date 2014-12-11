@@ -511,31 +511,6 @@ a {
     width: 45px;
     height: 60px;
 }
-/*.loading-page .buffer {
-    padding-top: 22vh;
-}
-.loading-page {
-    background-color:#EEEEEE;
-}
-.loading-page div span.buffer {
-    height: 0;
-    width: 100%;
-    vertical-align: middle;
-}
-.loading-page div img{
-    display:block;
-    margin:0 auto;
-}
-.loading-page div > h3 {
-    font-size:20px;
-    color:#3D3D3D;
-    text-align:center;
-    font-weight:700;
-    font-family: "Proxima-Nova-Light";
-    margin-top:10px;
-    padding-left:13px;
-    letter-spacing: 3px;
-}*/
 #QubePlaylist .bottomContainer .controllers-container .controllers li {
     color: #d6f9e7;
     cursor: pointer;

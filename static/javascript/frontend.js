@@ -507,14 +507,6 @@ $(document).ready(function() {
             $('.lcSearch > input').removeClass('fade-out-lt');
             onSearch = true;
         });
-        $('.lcSearch').on('mouseleave',function(){
-            if(!$('.ui-autocomplete').is(':visible')){
-                $('.lcSearch > input').blur();
-                $('.lcSearch > input').removeClass('fade-in-lt');
-                $('.lcSearch > input').addClass('fade-out-lt');
-            }
-            onSearch=false;
-        });
         $('.lcSearch > input').on('blur',function(){
             $('.lcSearch > input').removeClass('fade-in-lt');
             $('.lcSearch > input').addClass('fade-out-lt');
@@ -524,6 +516,40 @@ $(document).ready(function() {
             if(!onSearch){
                 $('.lcSearch > input').removeClass('fade-in-lt');
                 $('.lcSearch > input').addClass('fade-out-lt');
+            }
+        });
+        var onMyPlaylist = false;
+        $('.lcPlaylist').on('mouseenter',function(){
+            $('.lcPlaylist > input').addClass('fade-in-lt');
+            $('.lcPlaylist > input').removeClass('fade-out-lt');
+            onMyPlaylist = true;
+        });
+        $('.lcPlaylist > input').on('blur',function(){
+            $('.lcPlaylist > input').removeClass('fade-in-lt');
+            $('.lcPlaylist > input').addClass('fade-out-lt');
+            onMyPlaylist=false;
+        });
+        $('body').on('click', '.ui-autocomplete', function(){
+            if(!onMyPlaylist){
+                $('.lcPlaylist > input').removeClass('fade-in-lt');
+                $('.lcPlaylist > input').addClass('fade-out-lt');
+            }
+        });
+        var onAddPlaylist = false;
+        $('.lcPlaylistAdd').on('mouseenter',function(){
+            $('.lcPlaylistAdd > input').addClass('fade-in-lt');
+            $('.lcPlaylistAdd > input').removeClass('fade-out-lt');
+            onAddPlaylist = true;
+        });
+        $('.lcPlaylistAdd > input').on('blur',function(){
+            $('.lcPlaylistAdd > input').removeClass('fade-in-lt');
+            $('.lcPlaylistAdd > input').addClass('fade-out-lt');
+            onAddPlaylist=false;
+        });
+        $('body').on('click', '.ui-autocomplete', function(){
+            if(!onAddPlaylist){
+                $('.lcPlaylistAdd > input').removeClass('fade-in-lt');
+                $('.lcPlaylistAdd > input').addClass('fade-out-lt');
             }
         });
     }());
