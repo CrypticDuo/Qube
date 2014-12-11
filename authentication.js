@@ -6,29 +6,7 @@ var GoogleStrategy = require('passport-google').Strategy;
 var User = require('./user.js');
 var config = require('./oauth.js');
 
-// config
-module.exports = passport.use(new FacebookStrategy({
-        clientID: config.facebook.clientID,
-        clientSecret: config.facebook.clientSecret,
-        callbackURL: config.facebook.callbackURL
-    },
-    function(accessToken, refreshToken, profile, done) {
-        console.log(profile.displayName + " has logged in.");
-        User.findOne({
-            oauthID: profile.id
-        }, function(err, user) {
-            if (err) {
-                console.log(err);
-            }
-            if (!err && user != null) {
-                done(null, user);
-            } else {
-                var user = new User({
-                    oauthID: profile.id,
-                    facebookID: profile._json.id,
-                    name: profile.displayName,
-                    created: Date.now(),
-                    playlist: [
+var defaultPlaylist = [
                         {
                             "name" : "Radio",
                             "videos" : [
@@ -110,7 +88,31 @@ module.exports = passport.use(new FacebookStrategy({
                                 "m_8B9ZSGNZ0"
                             ]
                         }
-                    ]
+                    ];
+
+// config
+module.exports = passport.use(new FacebookStrategy({
+        clientID: config.facebook.clientID,
+        clientSecret: config.facebook.clientSecret,
+        callbackURL: config.facebook.callbackURL
+    },
+    function(accessToken, refreshToken, profile, done) {
+        console.log(profile.displayName + " has logged in.");
+        User.findOne({
+            oauthID: profile.id
+        }, function(err, user) {
+            if (err) {
+                console.log(err);
+            }
+            if (!err && user != null) {
+                done(null, user);
+            } else {
+                var user = new User({
+                    oauthID: profile.id,
+                    facebookID: profile._json.id,
+                    name: profile.displayName,
+                    created: Date.now(),
+                    playlist: defaultPlaylist
                 });
                 user.save(function(err) {
                     if (err) {
@@ -146,7 +148,7 @@ module.exports = passport.use(new GithubStrategy({
                     facebookID: profile._json.id,
                     name: profile.displayName,
                     created: Date.now(),
-                    playlist: []
+                    playlist: defaultPlaylist
                 });
                 user.save(function(err) {
                     if (err) {
@@ -194,7 +196,7 @@ module.exports = passport.use(new GithubStrategy({
         });
     }
 ));*/
-
+/*
 passport.use(new GoogleStrategy({
         returnURL: config.google.returnURL,
         realm: config.google.realm
@@ -226,4 +228,4 @@ passport.use(new GoogleStrategy({
             };
         });
     }
-));
+));*/
