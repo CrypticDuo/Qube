@@ -507,6 +507,16 @@ $(document).ready(function() {
             $('.lcSearch > input').removeClass('fade-out-lt');
             onSearch = true;
         });
+        $('.lcSearch').on('mouseleave',function(){
+            console.log($('.ui-autocomplete').is(':visible'));
+            console.log($('.lcSearch input').is(":focus"));
+            if(!$('.ui-autocomplete').is(':visible') && !$('.lcSearch input').is(":focus")){
+                $('.lcSearch > input').blur();
+                $('.lcSearch > input').removeClass('fade-in-lt');
+                $('.lcSearch > input').addClass('fade-out-lt');
+            }
+            onSearch=false;
+        });
         $('.lcSearch > input').on('blur',function(){
             $('.lcSearch > input').removeClass('fade-in-lt');
             $('.lcSearch > input').addClass('fade-out-lt');
@@ -524,6 +534,14 @@ $(document).ready(function() {
             $('.lcPlaylist > input').removeClass('fade-out-lt');
             onMyPlaylist = true;
         });
+        $('.lcPlaylist').on('mouseleave',function(){
+            if(!$('.ui-autocomplete').is(':visible') && !$('.lcPlaylist input').is(":focus")){
+                $('.lcPlaylist > input').blur();
+                $('.lcPlaylist > input').removeClass('fade-in-lt');
+                $('.lcPlaylist > input').addClass('fade-out-lt');
+            }
+            onSearch=false;
+        });
         $('.lcPlaylist > input').on('blur',function(){
             $('.lcPlaylist > input').removeClass('fade-in-lt');
             $('.lcPlaylist > input').addClass('fade-out-lt');
@@ -539,17 +557,33 @@ $(document).ready(function() {
         $('.lcPlaylistAdd').on('mouseenter',function(){
             $('.lcPlaylistAdd > input').addClass('fade-in-lt');
             $('.lcPlaylistAdd > input').removeClass('fade-out-lt');
+            $('.lcPlaylistAdd > a').addClass('fade-in-lt');
+            $('.lcPlaylistAdd > a').removeClass('fade-out-lt');
             onAddPlaylist = true;
+        });
+        $('.lcPlaylistAdd').on('mouseleave',function(){
+            if(!$('.ui-autocomplete').is(':visible') && !$('.lcPlaylistAdd input').is(":focus")){
+                $('.lcPlaylistAdd > input').blur();
+                $('.lcPlaylistAdd > input').removeClass('fade-in-lt');
+                $('.lcPlaylistAdd > input').addClass('fade-out-lt');
+                $('.lcPlaylistAdd > a').removeClass('fade-in-lt');
+                $('.lcPlaylistAdd > a').addClass('fade-out-lt');
+            }
+            onSearch=false;
         });
         $('.lcPlaylistAdd > input').on('blur',function(){
             $('.lcPlaylistAdd > input').removeClass('fade-in-lt');
             $('.lcPlaylistAdd > input').addClass('fade-out-lt');
+            $('.lcPlaylistAdd > a').removeClass('fade-in-lt');
+            $('.lcPlaylistAdd > a').addClass('fade-out-lt');
             onAddPlaylist=false;
         });
         $('body').on('click', '.ui-autocomplete', function(){
             if(!onAddPlaylist){
                 $('.lcPlaylistAdd > input').removeClass('fade-in-lt');
                 $('.lcPlaylistAdd > input').addClass('fade-out-lt');
+                $('.lcPlaylistAdd > a').removeClass('fade-in-lt');
+                $('.lcPlaylistAdd > a').addClass('fade-out-lt');
             }
         });
     }());
