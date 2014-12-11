@@ -815,10 +815,17 @@ a {
     width: calc(100% - 20px);
 }
 
+.lcContact:hover span.name{
+    opacity:1;
+    transition:0.2s;
+}
+
 .lcContact span.name{
     cursor:default;
-    color:silver;
+    color:#eaf6f9;
     margin-top:15px;
+    opacity:0;
+    transition:0.2s;
 }
 
 .align-left {
