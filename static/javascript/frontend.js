@@ -318,26 +318,28 @@ $(document).ready(function() {
     var onProgressClick = false;
 
     $progress.on('mousedown', function() {
-        onProgressClick = true;
-        $('ul.controllers li:nth-child(2)').addClass('changing');
-        player.pauseVideo();
-        var outerWidth = parseInt($progress.css('width'));
-        $(document).on('mousemove', function() {
-            if(onProgressClick) $(".progressBar > div.progressLevel").css('width', parseInt($progressElement.css('left')));
-        });
-        $(document).on('mouseup', function() {
-            if(onProgressClick){
-                onProgressClick = false;
-                var outerWidth = parseInt($progress.css('width'));
-                $(".progressBar > div.progressLevel").animate({
-                    'width': parseInt($progressElement.css('left'))
-                }, 400,function(){
-                    var newTime = parseInt(parseInt($progressElement.css('left')) / outerWidth * getMaxVideoTime()*100)/100;
-                    player.seekTo(newTime);
-                    player.playVideo();
-                });
-            }
-        });
+        if($('.overlay').hasClass('fade-out')){
+            onProgressClick = true;
+            $('ul.controllers li:nth-child(2)').addClass('changing');
+            player.pauseVideo();
+            var outerWidth = parseInt($progress.css('width'));
+            $(document).on('mousemove', function() {
+                if(onProgressClick) $(".progressBar > div.progressLevel").css('width', parseInt($progressElement.css('left')));
+            });
+            $(document).on('mouseup', function() {
+                if(onProgressClick){
+                    onProgressClick = false;
+                    var outerWidth = parseInt($progress.css('width'));
+                    $(".progressBar > div.progressLevel").animate({
+                        'width': parseInt($progressElement.css('left'))
+                    }, 400,function(){
+                        var newTime = parseInt(parseInt($progressElement.css('left')) / outerWidth * getMaxVideoTime()*100)/100;
+                        player.seekTo(newTime);
+                        player.playVideo();
+                    });
+                }
+            });
+        }
     });
 
     function getMaxVideoTime(){
