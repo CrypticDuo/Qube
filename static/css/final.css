@@ -618,6 +618,11 @@ a {
     outline: 0;
 }
 
+#QubePlaylist #addPlaylistModal {
+    width: auto;
+    background-color:#181F24;
+    width: 550px;
+}
 #QubePlaylist #addPlaylistModal .popupHeader {
     border-radius: 2px 2px 0 0;
     background-color: #181F24;
@@ -632,12 +637,6 @@ a {
 }
 #QubePlaylist #addPlaylistModal .popupHeader .modal_close i{
     cursor:pointer;
-}
-
-#QubePlaylist #addPlaylistModal {
-    width: auto;
-    background-color:#181F24;
-    width: 550px;
 }
 #QubePlaylist #addPlaylistModal .popupBody {
     padding:0;
