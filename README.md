@@ -40,15 +40,11 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
 
 #### Release 1.0
    * logout
-   * loading screen
-   * landing page design
    * related video search
-   * Contact us info
-   * share playlist
-   * default playlist for new users
    * google analytics
 
 #### BACKLOG
+   * share playlist
    * profiling
    * Telegram API integration
    * Renaming playlist

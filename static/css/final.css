@@ -815,33 +815,10 @@ a {
     width: calc(100% - 20px);
 }
 
-.lcContact:hover > .contacts *{
-    opacity:1;
-    transition: 0.2s;
-}
-
-.lcContact .contacts *{
-    opacity:0;
-    transition: 0.2s;
-    margin-top:25px;
-}
-.lcContact .contacts .dev{
-    display:inline-block;
-    margin:0 15px;
-    cursor:pointer;
-    color:#627b8c;
-}
-.lcContact .contacts .dev:hover{
-    color:white;
-}
-.lcContact .contacts .dev .symbol{
-    font-size:30px;
-    display:inline-block;
-}
-.lcContact .contacts .dev .name{
-    display:inline-block;
-    font-size:15px;
-    padding-left:13px;
+.lcContact span.name{
+    cursor:default;
+    color:silver;
+    margin-top:15px;
 }
 
 .align-left {
