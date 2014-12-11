@@ -754,10 +754,18 @@ a {
     height: 130px;
     padding: 20px;
 }
-.lcContact{
+.lcShare{
     background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control4.jpg") 100% 100%;
     height: 130px;
     padding: 20px;
+}
+.lcContact{
+    background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control5.jpg") 100% 100%;
+    height: 130px;
+    padding: 20px;
+}
+.lcShare .lcHeader {
+    color: #f47f7f;
 }
 .lcPlaylist .lcHeader {
     color: #fad733;
@@ -769,7 +777,7 @@ a {
     color: #4cb6cb;
 }
 .lcContact .lcHeader {
-    color: #f47f7f;
+    color: silver;
 }
 .listControl .lcDescription {
     color: #627b8c;
