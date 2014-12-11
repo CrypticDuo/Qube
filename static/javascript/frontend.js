@@ -522,12 +522,6 @@ $(document).ready(function() {
             $('.lcSearch > input').addClass('fade-out-lt');
             onSearch=false;
         });
-        $('body').on('click', '.ui-autocomplete', function(){
-            if(!onSearch){
-                $('.lcSearch > input').removeClass('fade-in-lt');
-                $('.lcSearch > input').addClass('fade-out-lt');
-            }
-        });
         var onMyPlaylist = false;
         $('.lcPlaylist').on('mouseenter',function(){
             $('.lcPlaylist > input').addClass('fade-in-lt');
@@ -546,12 +540,6 @@ $(document).ready(function() {
             $('.lcPlaylist > input').removeClass('fade-in-lt');
             $('.lcPlaylist > input').addClass('fade-out-lt');
             onMyPlaylist=false;
-        });
-        $('body').on('click', '.ui-autocomplete', function(){
-            if(!onMyPlaylist){
-                $('.lcPlaylist > input').removeClass('fade-in-lt');
-                $('.lcPlaylist > input').addClass('fade-out-lt');
-            }
         });
         var onAddPlaylist = false;
         $('.lcPlaylistAdd').on('mouseenter',function(){
@@ -577,14 +565,6 @@ $(document).ready(function() {
             $('.lcPlaylistAdd > a').removeClass('fade-in-lt');
             $('.lcPlaylistAdd > a').addClass('fade-out-lt');
             onAddPlaylist=false;
-        });
-        $('body').on('click', '.ui-autocomplete', function(){
-            if(!onAddPlaylist){
-                $('.lcPlaylistAdd > input').removeClass('fade-in-lt');
-                $('.lcPlaylistAdd > input').addClass('fade-out-lt');
-                $('.lcPlaylistAdd > a').removeClass('fade-in-lt');
-                $('.lcPlaylistAdd > a').addClass('fade-out-lt');
-            }
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
