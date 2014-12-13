@@ -7,7 +7,7 @@ Status : under-construction
 
 ### Developers:
 
-Paul Kim : [bumjung94](https://github.com/bumjung94)
+Paul Kim : [bumjung](https://github.com/bumjung)
 
 Insoo Choo : [insoochoo](https://github.com/insoochoo)
 

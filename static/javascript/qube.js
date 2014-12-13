@@ -61,7 +61,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.currentPlaylist = {};
         $scope.ytSearchResult = [];
         $scope.playlists = [];
-        $scope.currentVideoTitle = 'No Playlist Selected';
+        $scope.currentVideoTitle = 'No Video Selected';
         $scope.pageToken = '';
         $scope.lastSearch = '';
         QubeService.listAllPlaylist($scope);
