@@ -172,7 +172,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             }
         }
         if(JSON.stringify($scope.videos) !== JSON.stringify(newlist)){
-            $scope.videos = newlist;
+            for(var i = 0; i<$scope.playlists.length; i++){
+                if($scope.playlists[i].name === $scope.currentPlaylist.name){
+                    $scope.playlists[i].data = newlist;
+                    $scope.videos = $scope.playlists[i].data;
+                }
+            }
             QubeService.updateVideoList($scope, $scope.currentPlaylist.name, list);
         }
         return;
