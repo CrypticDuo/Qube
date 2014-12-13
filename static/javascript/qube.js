@@ -144,7 +144,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.listAllVideos = function(pname) {
         for (var a = 0; a < $scope.playlists.length; a++) {
             if ($scope.playlists[a].name === pname) {
-                $scope.videos = $scope.playlists[a].data;
+                $scope.currentPlaylist.data = $scope.playlists[a].data;
             }
         }
         $scope.currentPlaylistOption = pname;
@@ -165,17 +165,17 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.updateVideoList = function(list) {
         var newlist=[];
         for(var i = 0; i < list.length; i++){
-            for(var j = 0; j < $scope.videos.length; j++){
-                if(list[i] === $scope.videos[j].id){
-                    newlist.push($scope.videos[j]);
+            for(var j = 0; j < $scope.currentPlaylist.data.length; j++){
+                if(list[i] === $scope.currentPlaylist.data[j].id){
+                    newlist.push($scope.currentPlaylist.data[j]);
                 }
             }
         }
-        if(JSON.stringify($scope.videos) !== JSON.stringify(newlist)){
+        if(JSON.stringify($scope.currentPlaylist.data) !== JSON.stringify(newlist)){
             for(var i = 0; i<$scope.playlists.length; i++){
                 if($scope.playlists[i].name === $scope.currentPlaylist.name){
                     $scope.playlists[i].data = newlist;
-                    $scope.videos = $scope.playlists[i].data;
+                    $scope.currentPlaylist.data = $scope.playlists[i].data;
                 }
             }
             QubeService.updateVideoList($scope, $scope.currentPlaylist.name, list);
@@ -267,7 +267,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         // from $scope.changePlaylist
         if (video) {
             if(video === 'QubeChangePlaylist'){
-                video = $scope.videos[0];
+                video = $scope.currentPlaylist.data[0];
                 player.loadVideoById(video.id);
                 $scope.currentPlayingVideo = video;
             }
@@ -285,7 +285,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             } else if (player.getPlayerState() === 2) {
                 player.playVideo();
             } else if (player.getPlayerState() === -1) {
-                video = $scope.videos[0];
+                video = $scope.currentPlaylist.data[0];
                 player.loadVideoById(video.id);
                 $scope.currentPlayingVideo = video;
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
@@ -297,17 +297,17 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.prevVideo = function() {
         var index = 0;
-        for(var i = 0; i < $scope.videos.length; i++){
-            if($scope.currentPlayingVideo.id === $scope.videos[i].id){
+        for(var i = 0; i < $scope.currentPlaylist.data.length; i++){
+            if($scope.currentPlayingVideo.id === $scope.currentPlaylist.data[i].id){
                 if(i === 0){
-                    index=$scope.videos.length-1;
-                        player.loadVideoById($scope.videos[index].id);
+                    index=$scope.currentPlaylist.data.length-1;
+                        player.loadVideoById($scope.currentPlaylist.data[index].id);
                 }
                 else{
                     index=i-1;
-                    player.loadVideoById($scope.videos[index].id);
+                    player.loadVideoById($scope.currentPlaylist.data[index].id);
                 }
-                $scope.currentPlayingVideo = $scope.videos[index];
+                $scope.currentPlayingVideo = $scope.currentPlaylist.data[index];
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
                 updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
                 return;
@@ -317,16 +317,16 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.nextVideo = function() {
         var index = 0;
-        for(var i = 0; i < $scope.videos.length; i++){
-            if($scope.currentPlayingVideo.id === $scope.videos[i].id){
-                if(i === $scope.videos.length-1){
-                    player.loadVideoById($scope.videos[index].id);
+        for(var i = 0; i < $scope.currentPlaylist.data.length; i++){
+            if($scope.currentPlayingVideo.id === $scope.currentPlaylist.data[i].id){
+                if(i === $scope.currentPlaylist.data.length-1){
+                    player.loadVideoById($scope.currentPlaylist.data[index].id);
                 }
                 else{
                     index = i+1;
-                    player.loadVideoById($scope.videos[index].id);
+                    player.loadVideoById($scope.currentPlaylist.data[index].id);
                 }
-                $scope.currentPlayingVideo = $scope.videos[index];
+                $scope.currentPlayingVideo = $scope.currentPlaylist.data[index];
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
                 updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
                 return;
@@ -449,7 +449,7 @@ app.service("QubeService", function($http, $q) {
                         }
                     }
                     if (scope.currentPlaylist.name === pname){
-                        scope.videos = [];
+                        scope.currentPlaylist.data = [];
                         scope.currentPlaylist = {};
                     }
                     alertify.success('Success: removed a playlist.');
@@ -509,9 +509,9 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    for(var i = 0; i < scope.videos.length; i++){
-                        if(videoId === scope.videos[i].id){
-                            scope.videos.splice(i, 1);
+                    for(var i = 0; i < scope.currentPlaylist.data.length; i++){
+                        if(videoId === scope.currentPlaylist.data[i].id){
+                            scope.currentPlaylist.data.splice(i, 1);
                             break;
                         }
                     }
