@@ -63,7 +63,6 @@ html, body{
 }
 
 .social-links {
-   	font-family: "Lato", Helvetica, Roboto, Arial, sans-serif;
 	text-rendering: optimizelegibility;
   	opacity:0;
 	-moz-animation-delay: 1s;
@@ -102,7 +101,8 @@ html, body{
 	background-color:#F5F5F5;
 }
 .social-links span:nth-child(2) {
-    font-family: "Proxima-Nova-Light";
+   	font-family: "Lato", Helvetica, Roboto, Arial, sans-serif;
+   	font-weight:300;
     text-transform:uppercase;
     font-size:13px;
     margin-bottom:1px;
