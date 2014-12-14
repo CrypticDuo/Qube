@@ -14,13 +14,6 @@ html, body{
     -o-font-smoothing: antialiased;
     font-smoothing: antialiased;
 }
-@font-face {
-    font-family: 'Proxima-Nova-Light';
-    src: url('/static/fonts/Proxima-Nova/Mark Simonson - Proxima Nova Alt Light.otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
 .loading-page {
     background-color:#eee;
     width:100%;
@@ -41,7 +34,8 @@ html, body{
     color:#3D3D3D;
     text-align:center;
     font-weight:700;
-    font-family: "Proxima-Nova-Light";
+    font-family: "Roboto";
+    font-weight: 300;
     margin-top:10px;
     padding-left:13px;
     letter-spacing: 10px;
@@ -69,6 +63,7 @@ html, body{
 }
 
 .social-links {
+   	font-family: "Lato", Helvetica, Roboto, Arial, sans-serif;
 	text-rendering: optimizelegibility;
   	opacity:0;
 	-moz-animation-delay: 1s;
