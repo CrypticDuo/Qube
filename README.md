@@ -41,8 +41,7 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
 #### Release 1.0
    * logout
    * related video search
-   * homepage
-   * Logo (png, icns, ico)
+   * Logo
    * packaging app (Windows, OSX)
    * google analytics
 

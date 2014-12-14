@@ -444,7 +444,7 @@ $(document).ready(function() {
                     $('.bottomContainer .full-screen-icon > i').removeClass('icon-size-fullscreen');
                     $('.bottomContainer .full-screen-icon > i').addClass('icon-size-actual');
                     $('#QubePlaylist .videolist .player').addClass('fullscreen');
-                    setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-60, true);
+                    setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-120, true);
                 }
                 else{
                     width = $('.playView').width();
