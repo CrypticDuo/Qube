@@ -48,16 +48,27 @@ var defaultPlaylist = [
                         {
                             "name" : "Electronic",
                             "videos" : [
-                                "CW56soql2N0",
-                                "zzE2lv7cMXw",
-                                "Bd6gsxjksBg",
-                                "_P837-kqrqg",
-                                "yYrvJ0hYr8I",
-                                "rvZWsr4QCRc",
-                                "FMcCnUk6n0g",
-                                "5YZwBIxjGfI",
-                                "S8HE5zl5CHM",
-                                "z2mUyssHMu8"
+                                "K_yBUfMGvzc",
+                                "ZvdgyppHp3w",
+                                "AW7O0KFpVX4",
+                                "maeYZ-dE458",
+                                "QvFqyn4kWJk",
+                                "ovDcLHa2L1o",
+                                "XMJxSM_TBgo",
+                                "12W8DtQwWYA",
+                                "zq2I6oBeibg",
+                                "xWH6mVOZxK8",
+                                "auqFostuqUk",
+                                "_snOoa8fR4s",
+                                "y-75n7PgqxQ",
+                                "cXh9QkDigfA",
+                                "ZwOVOSi-5nc",
+                                "u-VKRbGvg2s",
+                                "SrWWl6KEdmo",
+                                "LzZdhWkq2HA",
+                                "ZaSh4XCyVqU",
+                                "IgGjUjQRAxw",
+                                "BQwiYUHEePA"
                             ]
                         },
                         {
