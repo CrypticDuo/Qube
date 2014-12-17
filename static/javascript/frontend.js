@@ -404,10 +404,10 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
         var html = '';
-        $('.userVideolist').on('mouseenter', 'li:not(".active")', function(){
+        $('.userVideolist').on('mouseenter', 'li', function(){
             $(this).children('.duration').addClass('hide');
             $(this).children('.close').removeClass('hide');
-            $('.userVideolist').on('mouseleave', 'li:not(".active")', function(){
+            $('.userVideolist').on('mouseleave', 'li', function(){
                 $(this).children('.duration').removeClass('hide');
                 $(this).children('.close').addClass('hide');
             });
