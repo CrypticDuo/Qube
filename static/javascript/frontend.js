@@ -94,9 +94,6 @@ function onPlayerStateChange(event) {
     }
 }
 function setSize(width, height, animate){
-    console.log("im in setsize");
-    console.log(width);
-    console.log(height);
     if(animate){
         $('.player').animate({
             'width' : width,
