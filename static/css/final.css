@@ -373,6 +373,11 @@ a {
     display: inline-block;
     font-size: 14px;
     text-align: right;
+    margin-left: 10px;
+    color:#7d94a4;
+}
+#QubePlaylist .videolist .userVideolist span.close:hover {
+    color:#fff;
 }
 #QubePlaylist .videolist .userVideolist a {
     margin-right: 10px;
@@ -380,9 +385,6 @@ a {
 }
 #QubePlaylist .videolist .userVideolist a:hover {
     color: #fff;
-}
-#QubePlaylist .videolist .userVideolist span i.icon-close:hover {
-    color: #d6f9e7;
 }
 #QubePlaylist .videolist .player {
     position:relative;

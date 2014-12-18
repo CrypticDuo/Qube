@@ -71,6 +71,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     function addInfiniteScroll(){
         $('.searchResultColumn').bind('scroll', function() {
             if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+                if($scope.lastSearch === true){
+                    $scope.relatedSearch($scope.relateVideoId, $scope.pageToken);
+                    return;
+                }
                 $scope.searchYt($scope.lastSearch, $scope.pageToken);
             }
         });
@@ -109,10 +113,14 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.removePlaylist = function(playlist){
         //prevent outer div's event
+        $scope.preventOuterDivEvent();
+        QubeService.removePlaylist($scope, playlist.name);
+    }
+
+    $scope.preventOuterDivEvent = function (){
         var e = window.event;
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
-        QubeService.removePlaylist($scope, playlist.name);
     }
 
     $scope.updatePlaylist = function(list) {
@@ -159,6 +167,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         var e = window.event;
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
+        if(videoId === $scope.currentPlayingVideo.id){
+            $scope.nextVideo();
+        }
         QubeService.removeVideoFromPlaylist($scope, $scope.currentPlaylist.name, videoId);
     }
 
@@ -196,18 +207,38 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             $scope.searchYt($scope.addVideoInput);
         }
     }
-
-    $scope.searchYt = function(val, pageToken) {
+    $scope.relatedSearch = function(videoId, pageToken){
+        $scope.preventOuterDivEvent();
+        $scope.listDisplay = 'youtube';
+        var parameters = {
+            key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
+            type: 'video',
+            maxResults: '20',
+            relatedToVideoId: videoId,
+            part: 'id,snippet',
+            pageToken: pageToken,
+            fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle'
+        };
+        $scope.lastSearch = true;
+        $scope.relateVideoId = videoId;
+        if(!pageToken)
+            $scope.ytSearchResult = [];
+        $scope.searchYt(null,null, parameters);
+    }
+    $scope.searchYt = function(val, pageToken, parameters) {
+        if(!parameters){
+            var parameters = {
+                key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
+                type: 'video',
+                maxResults: '20',
+                part: 'id,snippet',
+                pageToken: pageToken,
+                fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle',
+                q: val
+            };
+        }
         $http.get('https://www.googleapis.com/youtube/v3/search', {
-                params: {
-                    key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
-                    type: 'video',
-                    maxResults: '20',
-                    part: 'id,snippet',
-                    pageToken: pageToken,
-                    fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle',
-                    q: val
-                }
+                params: parameters
             })
             .success(function(data) {
                 videoIDlist = "";
