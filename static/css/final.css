@@ -678,7 +678,7 @@ a {
     background-color:#181F24;
     cursor:pointer;
 }
-#QubePlaylist .view.main .playlistColumn .userPlaylist li > div.playlistDetail:hover {
+#playlistRemove:hover{
     color:#fff;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
