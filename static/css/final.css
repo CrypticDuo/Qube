@@ -278,7 +278,7 @@ a {
 }
 #QubePlaylist .view.main .video {
     padding: 18px 8px 18px 8px;
-    border-bottom: 1px solid #191f23;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
 }
 #QubePlaylist .sideMenu ul {} #QubePlaylist .sideMenu ul li.active {
@@ -669,7 +669,7 @@ a {
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist li {
     padding: 12px 10px;
-    border-bottom: 1px solid #191f23;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     font-size: 13px;
     color: #9badb9;
     padding-left: 15px;
