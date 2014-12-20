@@ -529,7 +529,7 @@ a {
     position: relative;
     height: 60px;
     display: inline-block;
-    width: calc(100% - 500px);
+    width: calc(100% - 470px);
     background: 0;
     background-color: #4d5d6e;
     border-top-left-radius: 0px;
@@ -585,6 +585,9 @@ a {
 #QubePlaylist .bottomContainer div.time span {
     font-size: 12px;
     color: #acb7c1;
+}
+#QubePlaylist .bottomContainer .volume{
+    margin-right:5px
 }
 #QubePlaylist .bottomContainer .volume .volumeBar div.volumeLevel, #QubePlaylist .bottomContainer .progressBar div.progressLevel {
     background-color: #778490;
