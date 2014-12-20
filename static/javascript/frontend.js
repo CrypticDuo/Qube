@@ -47,7 +47,7 @@ function onPlayerStateChange(event) {
     if (event == YT.PlayerState.ENDED) {
         var scope = angular.element($('.userVideolist')).scope();
         scope.$apply(function() {
-            scope.nextVideo();
+            scope.nextVideo('ended');
         });
     } else if (event === YT.PlayerState.PAUSED) {
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
@@ -424,6 +424,21 @@ $(document).ready(function() {
             scope.$apply(function() {
                 scope.togglePlayVideo();
             });
+        });
+    }());
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// REPLAY FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+    (function(){
+        $('.replay-all-icon > i').on('click', function(){
+            $('.replay-all-icon').addClass('hide');
+            $('.replay-one-icon').removeClass('hide');
+        });
+        $('.replay-one-icon > i').on('click', function(){
+            $('.replay-all-icon').removeClass('hide');
+            $('.replay-one-icon').addClass('hide');
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////

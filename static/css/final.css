@@ -505,6 +505,9 @@ a {
 #QubePlaylist .bottomContainer .controllers-container li,
 #QubePlaylist .bottomContainer div.time span,
 #QubePlaylist .bottomContainer div.volume-icon i,
+#QubePlaylist .bottomContainer div.replay-all-icon i,
+#QubePlaylist .bottomContainer div.replay-one-icon i,
+#QubePlaylist .bottomContainer div.shuffle-icon i,
 #QubePlaylist .bottomContainer div.full-screen-icon i,
 #QubePlaylist .bottomContainer div.volume div,
 #QubePlaylist .videolist .overlay div,
@@ -526,7 +529,7 @@ a {
     position: relative;
     height: 60px;
     display: inline-block;
-    width: calc(100% - 450px);
+    width: calc(100% - 500px);
     background: 0;
     background-color: #4d5d6e;
     border-top-left-radius: 0px;
@@ -621,8 +624,23 @@ a {
     border: 0;
     outline: 0;
 }
-#QubePlaylist .bottomContainer .full-screen-icon {
+#QubePlaylist .bottomContainer .full-screen-icon,
+    #QubePlaylist .bottomContainer .replay-all-icon,
+    #QubePlaylist .bottomContainer .replay-one-icon,
+    #QubePlaylist .bottomContainer .shuffle-icon {
     color:#acb7c1;
+    width:30px;
+}
+#QubePlaylist .bottomContainer .replay-all-icon, #QubePlaylist .bottomContainer .replay-one-icon{
+    top:1px;
+    font-size:14px;
+}
+#QubePlaylist .bottomContainer .shuffle-icon{
+    font-size:16px;
+}
+#QubePlaylist .bottomContainer .full-screen-icon{
+    top:2px;
+    font-size:13px;
 }
 #QubePlaylist #addPlaylistModal {
     width: auto;

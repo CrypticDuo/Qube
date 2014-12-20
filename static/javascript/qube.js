@@ -64,6 +64,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.currentVideoTitle = 'No Video Selected';
         $scope.pageToken = '';
         $scope.lastSearch = '';
+        $scope.replay = 'all';
         QubeService.listAllPlaylist($scope);
         addInfiniteScroll();
     }
@@ -82,7 +83,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function updateCurrentVideoTitle($scope, newTitle){
         $scope.currentVideoTitle = $scope.currentPlayingVideo.snippet.title;
-        document.title = 'Qube - ' + $scope.currentVideoTitle;
+        document.title = '♫ ' + $scope.currentVideoTitle;
     }
 
     $scope.onSearch = function(query, callback) {
@@ -163,10 +164,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.removeVideo = function(videoId){
-        //prevent outer div's event
-        var e = window.event;
-        e.cancelBubble = true;
-        if (e.stopPropagation) e.stopPropagation();
+        $scope.preventOuterDivEvent();
         if(videoId === $scope.currentPlayingVideo.id){
             $scope.nextVideo();
         }
@@ -346,8 +344,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
-    $scope.nextVideo = function() {
+    $scope.nextVideo = function(data) {
         var index = 0;
+        if(data === 'ended' && $scope.replay === 'one'){
+            player.loadVideoById($scope.currentPlayingVideo.id);
+            return;
+        }
         for(var i = 0; i < $scope.currentPlaylist.data.length; i++){
             if($scope.currentPlayingVideo.id === $scope.currentPlaylist.data[i].id){
                 if(i === $scope.currentPlaylist.data.length-1){
