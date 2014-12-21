@@ -350,7 +350,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             randomIndex = Math.floor(Math.random() * ($scope.currentPlaylist.data.length));
         } while($scope.shuffleList[randomIndex]);
         $scope.shuffleList[randomIndex] = true;
-        console.log($scope.shuffleList);
         player.loadVideoById($scope.currentPlaylist.data[randomIndex].id);
         $scope.currentPlayingVideo = $scope.currentPlaylist.data[randomIndex];
         $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
