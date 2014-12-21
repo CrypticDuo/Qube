@@ -15,7 +15,9 @@ html, body, div, span, button, input, applet, object, iframe, h1, h2, h3, h4, h5
     outline:none;
 }
 
-
+.active {
+    color:#fff!important;
+}
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -529,7 +531,7 @@ a {
     position: relative;
     height: 60px;
     display: inline-block;
-    width: calc(100% - 470px);
+    width: calc(100% - 500px);
     background: 0;
     background-color: #4d5d6e;
     border-top-left-radius: 0px;
