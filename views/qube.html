@@ -221,11 +221,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="replay-all-icon active">
-                        <i class="icon-refresh"></i>
+                    <div class="replay-all-icon" ng-click="replay = 'one'" ng-class="{ hide: replay === 'one', active: replay === 'all'}">
+                        <span><i class="icon-refresh"></i>
+                        <span style="position: absolute;  top: 30px;right: 9px;font-size: 9px;background: rgb(90, 106, 122); cursor:default;">A</span></span>
                     </div>
-                    <div class="replay-one-icon hide">
-                        <i class="icon-reload"></i>
+                    <div class="replay-one-icon" ng-click="replay = 'all'" ng-class="{ hide: replay === 'all', active: replay === 'one'}">
+                        <span><i class="icon-reload"></i>
+                        <span style="position: absolute;  top: 30px;right: 9px;font-size: 9px;background: rgb(90, 106, 122); cursor:default;">1</span>
+                        </span>
                     </div>
                     <div class="shuffle-icon">
                         <i class="icon-shuffle"></i>

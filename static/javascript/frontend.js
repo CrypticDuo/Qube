@@ -429,64 +429,14 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-// REPLAY CONTROLLER
-////////////////////////////////////////////////////////////////////////////////
-    (function(){
-        $('.replay-all-icon > i').on('click', function(){
-            // from replay-all to replay-one
-            if($('.replay-all-icon').hasClass('active')){
-                $('.replay-all-icon').addClass('hide');
-                $('.replay-one-icon').removeClass('hide');
-                $('.replay-one-icon').addClass('active');
-                $('.replay-all-icon').removeClass('active');
-                var scope = angular.element($(this)).scope();
-                scope.$apply(function() {
-                    scope.replay = 'one';
-                });
-            }
-            // from shuffle to replay-all
-            else{
-                $('.replay-all-icon').addClass('active');
-            }
-            $('.shuffle-icon').removeClass('active');
-        });
-        $('.replay-one-icon > i').on('click', function(){
-            // from replay-one to replay-all
-            if($('.replay-one-icon').hasClass('active')){
-                $('.replay-all-icon').removeClass('hide');
-                $('.replay-one-icon').addClass('hide');
-                $('.replay-all-icon').addClass('active');
-                $('.replay-one-icon').removeClass('active');
-                var scope = angular.element($(this)).scope();
-                scope.$apply(function() {
-                    scope.replay = 'all';
-                });
-            }
-            //from shuffle to replay-one
-            else{
-                $('.replay-one-icon').addClass('active');
-            }
-            $('.shuffle-icon').removeClass('active');
-        });
-    }());
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
 // SHUFFLE CONTROLLER
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
-        $('.shuffle-icon').on('click', function(){
+        $('.shuffle-icon > i').on('click', function(){
             if($('.shuffle-icon').hasClass('active')){
-                if($('.replay-all-icon').hasClass('hide')){
-                    $('.replay-one-icon').addClass('active');
-                } else{
-                    $('.replay-all-icon').addClass('active');
-                }
                 $('.shuffle-icon').removeClass('active');
             }
             else{
-                $('.replay-all-icon').removeClass('active');
-                $('.replay-one-icon').removeClass('active');
                 $('.shuffle-icon').addClass('active');
             }
         });

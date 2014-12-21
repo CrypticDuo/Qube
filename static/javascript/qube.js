@@ -350,6 +350,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             player.loadVideoById($scope.currentPlayingVideo.id);
             return;
         }
+
         for(var i = 0; i < $scope.currentPlaylist.data.length; i++){
             if($scope.currentPlayingVideo.id === $scope.currentPlaylist.data[i].id){
                 if(i === $scope.currentPlaylist.data.length-1){
