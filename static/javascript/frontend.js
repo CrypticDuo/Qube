@@ -429,29 +429,6 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-// SHUFFLE CONTROLLER
-////////////////////////////////////////////////////////////////////////////////
-    (function(){
-        $('.shuffle-icon > i').on('click', function(){
-            var self = this;
-            var scope = angular.element($(this)).scope();
-            if($('.shuffle-icon').hasClass('active')){
-                $('.shuffle-icon').removeClass('active');
-                scope.$apply(function() {
-                  scope.shuffleState = false;
-                });
-            }
-            else{
-                $('.shuffle-icon').addClass('active');
-                scope.$apply(function() {
-                  scope.shuffleState = true;
-                });
-            }
-        });
-    }());
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
 // FULLSCREEN FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     (function(){

@@ -221,17 +221,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="replay-all-icon" ng-click="replay = 'one'" ng-class="{ hide: replay === 'one'}">
-                        <span><i class="icon-refresh"></i>
-                        <span style="position: absolute;  top: 30px;right: 8px;font-size: 9px;background: rgb(90, 106, 122); cursor:default;">A</span></span>
+                    <div class="replay-all-icon" ng-class="{ hide: replay === 'one'}">
+                        <span ng-click="replay = 'one'"><i class="icon-refresh"></i>
+                        <span style="position: absolute;  top: 30px;right: 8px;font-size: 9px;background: rgb(90, 106, 122);">A</span></span>
                     </div>
-                    <div class="replay-one-icon" ng-click="replay = 'all'" ng-class="{ hide: replay === 'all'}">
-                        <span><i class="icon-refresh"></i>
-                        <span style="position: absolute;  top: 30px;right: 9px;font-size: 9px;background: rgb(90, 106, 122); cursor:default;">1</span>
+                    <div class="replay-one-icon" ng-class="{ hide: replay === 'all'}">
+                        <span ng-click="replay = 'all'"><i class="icon-refresh"></i>
+                        <span style="position: absolute;  top: 30px;right: 9px;font-size: 9px;background: rgb(90, 106, 122);">1</span>
                         </span>
                     </div>
                     <div class="shuffle-icon">
-                        <i class="icon-shuffle"></i>
+                        <i class="icon-shuffle" ng-click="shuffleToggle()" ng-class="{ active: shuffleState }"></i>
                     </div>
                     <div class="full-screen-icon">
                         <i class="icon-size-fullscreen"></i>

@@ -65,6 +65,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.pageToken = '';
         $scope.lastSearch = '';
         $scope.replay = 'all';
+        $scope.shuffleState = false;
+        $scope.shuffleList = [];
         QubeService.listAllPlaylist($scope);
         addInfiniteScroll();
     }
@@ -100,6 +102,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.changePlaylist = function(playlist) {
         if($scope.currentPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
+            $scope.shuffleList = [];
             $scope.listAllVideos(playlist.name);
             $scope.togglePlayVideo('QubeChangePlaylist');
         }
@@ -168,6 +171,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if(videoId === $scope.currentPlayingVideo.id){
             $scope.nextVideo();
         }
+        $scope.shuffleList = [];
         QubeService.removeVideoFromPlaylist($scope, $scope.currentPlaylist.name, videoId);
     }
 
@@ -323,9 +327,30 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
         }
     }
-
+    $scope.shuffleToggle = function(){
+        $scope.shuffleState = !$scope.shuffleState;
+        if($scope.shuffleState){
+            for(var i=0; i< $scope.currentPlaylist.data.length; i++){
+                if($scope.currentPlayingVideo.id == $scope.currentPlaylist.data[i].id){
+                    $scope.shuffleList[i] = true;
+                    return;
+                }
+            }
+        }
+    }
     $scope.playRandom = function(){
-        var randomIndex = Math.floor(Math.random() * ($scope.currentPlaylist.data.length));
+        var randomIndex, i=0;
+        while($scope.shuffleList[i] && i < $scope.currentPlaylist.data.length){
+            i++;
+        }
+        if(i === $scope.currentPlaylist.data.length){
+            $scope.shuffleList = [];
+        }
+        do{
+            randomIndex = Math.floor(Math.random() * ($scope.currentPlaylist.data.length));
+        } while($scope.shuffleList[randomIndex]);
+        $scope.shuffleList[randomIndex] = true;
+        console.log($scope.shuffleList);
         player.loadVideoById($scope.currentPlaylist.data[randomIndex].id);
         $scope.currentPlayingVideo = $scope.currentPlaylist.data[randomIndex];
         $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
