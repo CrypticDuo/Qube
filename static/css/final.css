@@ -531,7 +531,7 @@ a {
   position: relative;
   height: 60px;
   display: inline-block;
-  width: calc(100% - 474px);
+  width: calc(100% - 473px);
   background: 0;
   background-color: #4d5d6e;
   border-top-left-radius: 0px;
