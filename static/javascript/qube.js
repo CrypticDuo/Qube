@@ -324,13 +324,25 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
+    $scope.playRandom = function(){
+        var randomIndex = Math.floor(Math.random() * ($scope.currentPlaylist.data.length));
+        player.loadVideoById($scope.currentPlaylist.data[randomIndex].id);
+        $scope.currentPlayingVideo = $scope.currentPlaylist.data[randomIndex];
+        $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
+        updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
+    }
+
     $scope.prevVideo = function() {
+        if($scope.shuffleState === true){ // for playing random video
+            $scope.playRandom();
+            return;
+        }
         var index = 0;
         for(var i = 0; i < $scope.currentPlaylist.data.length; i++){
             if($scope.currentPlayingVideo.id === $scope.currentPlaylist.data[i].id){
                 if(i === 0){
                     index=$scope.currentPlaylist.data.length-1;
-                        player.loadVideoById($scope.currentPlaylist.data[index].id);
+                    player.loadVideoById($scope.currentPlaylist.data[index].id);
                 }
                 else{
                     index=i-1;
@@ -350,7 +362,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             player.loadVideoById($scope.currentPlayingVideo.id);
             return;
         }
-
+        if($scope.shuffleState === true){ // for playing random video
+            $scope.playRandom();
+            return;
+        }
         for(var i = 0; i < $scope.currentPlaylist.data.length; i++){
             if($scope.currentPlayingVideo.id === $scope.currentPlaylist.data[i].id){
                 if(i === $scope.currentPlaylist.data.length-1){
