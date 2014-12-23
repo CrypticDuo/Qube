@@ -965,3 +965,13 @@ a {
   50% { opacity: 0.8; }
   100% { opacity: 0; }
 }
+
+.lcContact:hover .contacts {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.lcContact .contacts {
+    opacity: 0;
+    transition: 0.5s;
+}
