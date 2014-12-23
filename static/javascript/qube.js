@@ -446,7 +446,7 @@ app.service("QubeService", function($http, $q) {
                 }
             })
             .success(function(contentDetailsData) {
-                target.push({name : evt.name, data : contentDetailsData.items, duration : "00:00"});
+                target.push({id: evt._id, name : evt.name, data : contentDetailsData.items, duration : "00:00"});
                 for(var i=0; i<target[target.length-1].data.length; i++){
                     target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
                     target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);

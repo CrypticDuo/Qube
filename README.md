@@ -34,20 +34,12 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
    * Expand view (full screen view)
    * Preview videos
    * Add to specific playlist
-   * alerting status (adding/removing videos, playlists, and errors)
+   * Related video search
+   * Packaged app (Windows, Mac OSX)
+   * Alerting status (adding/removing videos, playlists, and errors)
 
 ### To do:
-
-#### Release 1.0
-   * logout
-   * related video search
-   * Logo
-   * packaging app (Windows, OSX)
-   * google analytics
-
-#### BACKLOG
-   * share playlist
-   * profiling
-   * Telegram API integration
+   * Share playlist
    * Renaming playlist
-   * Facebook Like Integration
+   * Profiling
+   * Global playlist (see each others)
