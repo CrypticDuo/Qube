@@ -3,7 +3,7 @@ Qube
 
 Youtube playlist application for managing youtube videos
 
-Status : under-construction
+Status : [v1.0](http://myroomserver.hanul.co:4455)
 
 ### Developers:
 
