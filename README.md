@@ -35,6 +35,8 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
    * Preview videos
    * Add to specific playlist
    * Related video search
+   * Repeat play one/all videos
+   * Shuffle play videos
    * Packaged app (Windows, Mac OSX)
    * Alerting status (adding/removing videos, playlists, and errors)
 
