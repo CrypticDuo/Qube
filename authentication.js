@@ -122,6 +122,8 @@ module.exports = passport.use(new FacebookStrategy({
                     facebookID: profile._json.id,
                     name: profile.displayName,
                     created: Date.now(),
+                    lastLogin: Date.now(),
+                    loginCount: 1,
                     playlist: defaultPlaylist
                 });
                 user.save(function(err) {

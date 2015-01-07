@@ -13,11 +13,12 @@
     "express-session": "^1.8.2",
     "body-parser": "^1.9.0",
     "method-override": "^2.2.0",
-    "passport-github": "^0.1.5"
+    "passport-github": "^0.1.5",
+    "request": "^2.51.0"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/insoochoo/Qube.git"
+    "url": "git://github.com/Team-Qube/Qube.git"
   },
   "scripts": {
     "start": "node app.js"

@@ -32,20 +32,23 @@ var database = {
                             videos: []
                         }
                     }
-                }, function(err, user) {
+                }, function(err, result) {
                     if (err) {
                         console.log(err);
                         callback({
                             status: "Fail",
                             msg: "Could not add playlist"
                         });
-                        return;
-                    } else {
+                    } else if(!err && result !== 0) {
                         console.log("adding new playlist ...");
                         callback({
 		                    status: "Success"
 		                });
-		                return;
+                    } else {
+                        callback({
+                            status: "Fail",
+                            msg: "Could not add playlist"
+                        });
                     }
                 });
 
@@ -126,7 +129,6 @@ var database = {
                 });
                 return;
             }
-            console.log("RESULT : " + user);
             if (!user.length) {
                 User.update({
                         oauthID: userID,
@@ -135,25 +137,28 @@ var database = {
                         "$push": {
                             "playlist.$.videos": vid
                         }
-                    }, function(err, user) {
+                    }, function(err, result) {
                         if (err) {
                             console.log("ERROR : " + err);
                             callback({
                                 status: "Fail",
                                 msg: "User not found"
                             });
-                            return;
                         }
-                        if(!err && user != null){
+                        else if(!err && result && result !== 0){
                             callback({
                                 status: "Success"
                             });
-                            return;
+                        }       
+                        else{
+                            callback({
+                                status: "Fail",
+                                msg: "Failed to add video to playlist"
+                            });
                         }
             	});
 
             } else {
-                console.log("imback");
                 callback({
                     status: "Fail",
                     msg: "Error: Video already exists."
@@ -173,20 +178,24 @@ var database = {
                         name:pname
                     }
                 }
-            }, function(err, user) {
+            }, function(err, result) {
                 if (err) {
                     console.log("ERROR : " + err);
                     callback({
                         status: "Fail",
                         msg: "User not found"
                     });
-                    return;
                 }
-                if(!err && user != null){
+                else if(!err && result && result !== 0){
                     callback({
                         status: "Success"
                     });
-                    return;
+                }
+                else{
+                    callback({
+                        status: "Fail",
+                        msg: "Failed to remove playlist"
+                    });
                 }
         });
     },
@@ -197,7 +206,7 @@ var database = {
             "$set": {
                 "playlist" : list
             }
-        }, function(err, user){
+        }, function(err, result){
             if(err) {
                 console.log("ERROR : " + err);
                 callback({
@@ -206,11 +215,16 @@ var database = {
                 });
                 return;
             }
-            if(!err && user != null){
+            else if(!err && result && result !== 0){
                 callback({
                     status: "Success"
                 });
-                return;
+            }
+            else{
+                callback({
+                    status: "Fail",
+                    msg: "Failed to update playlist"
+                });
             }
         });
     },
@@ -222,20 +236,24 @@ var database = {
                 "$pull": {
                     "playlist.$.videos": vid
                 }
-            }, function(err, user) {
+            }, function(err, result) {
                 if (err) {
                     console.log("ERROR : " + err);
                     callback({
                         status: "Fail",
                         msg: "User not found"
                     });
-                    return;
                 }
-                if(!err && user != null){
+                else if(!err && result && result !== 0){
                     callback({
                         status: "Success"
                     });
-                    return;
+                }
+                else{
+                    callback({
+                        status: "Fail",
+                        msg: "Failed to remove video from playlist"
+                    });
                 }
         });
     },
@@ -247,20 +265,69 @@ var database = {
             "$set": {
                 "playlist.$.videos" : list
             }
-        }, function(err, user){
+        }, function(err, result){
             if(err) {
                 console.log("ERROR : " + err);
                 callback({
                     status: "Fail",
                     msg: "User not found"
                 });
-                return;
             }
-            if(!err && user != null){
+            else if(!err && result && result !== 0){
                 callback({
                     status: "Success"
                 });
+            }
+            else{
+                callback({
+                    status: "Fail",
+                    msg: "Failed to update video list"
+                });
+            }
+        });
+    },
+    updateLoginData: function(userID, callback){
+        var id ="";
+        User.findOne({
+            oauthID: userID
+        }, function(err, user){
+            if(err){
+                console.log("ERROR: " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
                 return;
+            }
+            else{
+                id=user._id;
+            }
+        });
+
+        console.log("wtf");
+
+        User.update({
+            oauthID : userID
+        }, {
+            "$inc" : { loginCount: 1 },
+            lastLogin: Date.now()
+        }, function(err, result){
+            if(err) {
+                console.log("ERROR : " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+            } else if(!err && result && result !== 0){
+                callback({
+                    status: "Success",
+                    ID: id
+                });
+            } else {
+                callback({
+                    status: "Fail",
+                    msg: "Failed to update login data"
+                });
             }
         });
     }

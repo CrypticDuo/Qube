@@ -8,6 +8,7 @@ var passport = require('passport');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var methodOverride = require('method-override');
+var request = require('request');
 
 var auth = require('./authentication.js');
 var db = require('./database.js');
@@ -125,11 +126,9 @@ var router = express.Router();
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
-    // do logging
-    console.log('Something is happening.');
+    console.log('REST API: ', req.protocol + '://' + req.get('host') + req.originalUrl);
     next();
 });
-
 /*
     GET     /playlists
     GET     /playlists/:playlist_name
@@ -143,6 +142,21 @@ router.use(function(req, res, next) {
 router.route('/playlists')
     //get all playlist
     .get(ensureAuthenticated, function(req, res) {
+        db.updateLoginData(req.user.oauthID, function(result){
+            console.log(result);
+            var options = {
+                url: req.protocol + '://' + req.get('host').substring(0, req.get('host').lastIndexOf(':')) + ':4456'+'/api/update/{"data":"'+result.ID+'"}',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            };
+            request(options, function (error, response, body) {
+                if (!error && response && response.statusCode === 200) {
+                    console.log(body);
+                }
+            });
+        });
         db.listAllPlaylists(req.user.oauthID, function(result) {
             res.json(result);
         });
