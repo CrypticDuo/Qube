@@ -17,7 +17,9 @@ var defaultPlaylist = [
                                 "pB-5XG-DbAA",
                                 "nfWlot6h_JM",
                                 "qpgTC9MDx1o"
-                            ]
+                            ],
+                            isPublic : false,
+                            count : 0
                         },
                         {
                             "name" : "Pop",
@@ -30,7 +32,9 @@ var defaultPlaylist = [
                                 "pUjE9H8QlA4",
                                 "yw04QD1LaB0",
                                 "g5qU7p7yOY8"
-                            ]
+                            ],
+                            isPublic : false,
+                            count : 0
                         },
                         {
                             "name" : "Country",
@@ -42,7 +46,9 @@ var defaultPlaylist = [
                                 "BuMiMBjcvWU",
                                 "inAj-sbwP7I",
                                 "-NPqM3vPDg8"
-                            ]
+                            ],
+                            isPublic : false,
+                            count : 0
                         },
                         {
                             "name" : "Electronic",
@@ -68,7 +74,9 @@ var defaultPlaylist = [
                                 "ZaSh4XCyVqU",
                                 "IgGjUjQRAxw",
                                 "BQwiYUHEePA"
-                            ]
+                            ],
+                            isPublic : false,
+                            count : 0
                         },
                         {
                             "name" : "Classical",
@@ -80,7 +88,9 @@ var defaultPlaylist = [
                                 "qVn2YGvIv0w",
                                 "XRU1AJsXN1g",
                                 "9E6b3swbnWg"
-                            ]
+                            ],
+                            isPublic : false,
+                            count : 0
                         },
                         {
                             "name" : "R & B",
@@ -96,7 +106,9 @@ var defaultPlaylist = [
                                 "CEavc5AIRRg",
                                 "KrRpGSgkQHI",
                                 "m_8B9ZSGNZ0"
-                            ]
+                            ],
+                            isPublic : false,
+                            count : 0
                         }
                     ];
 

@@ -11,7 +11,9 @@ var User = mongoose.model('User', {
     playlist: [
     	{
     		name: String,
-    		videos:[String]
+    		videos:[String],
+            isPublic: Boolean,
+            count: Number
     	}
     ]
 });

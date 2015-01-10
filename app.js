@@ -92,28 +92,6 @@ app.get('/auth/github/callback',
     function(req, res) {
         res.redirect('/');
     });
-/*app.get('/auth/twitter',
-    passport.authenticate('twitter'),
-    function(req, res) {});
-app.get('/auth/twitter/callback',
-    passport.authenticate('twitter', {
-        failureRedirect: '/'
-    }),
-    function(req, res) {
-        res.redirect('/');
-    });*/
-app.get('/auth/google',
-    passport.authenticate('google'),
-    function(req, res) {});
-app.get('/auth/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/'
-    }),
-    function(req, res) {
-        res.redirect('/');
-    }
-);
-
 
 app.get('/logout', function(req, res) {
     req.logout();
@@ -143,7 +121,6 @@ router.route('/playlists')
     //get all playlist
     .get(ensureAuthenticated, function(req, res) {
         db.updateLoginData(req.user.oauthID, function(result){
-            console.log(result);
             var options = {
                 url: req.protocol + '://' + req.get('host').substring(0, req.get('host').lastIndexOf(':')) + ':4456'+'/api/update/{"data":"'+result.ID+'"}',
                 method: 'POST',
@@ -153,7 +130,7 @@ router.route('/playlists')
             };
             request(options, function (error, response, body) {
                 if (!error && response && response.statusCode === 200) {
-                    console.log(body);
+                    console.log('Call REST API to Qube-Analytics: ' + body);
                 }
             });
         });
@@ -213,6 +190,29 @@ router.route('/playlists/:playlist_name/videos/:videoID')
     //delete video
     .delete(ensureAuthenticated, function(req, res) {
         db.removeVideoFromPlaylist(req.user.oauthID, req.params.playlist_name, req.params.videoID, function(result) {
+            res.json(result);
+        });
+    });
+
+router.route('/global')
+    .get(function(req, res){
+        db.getGlobalPlaylists(function(result){
+            res.json(result);
+        });
+    });
+
+router.route('/global/toggle/:playlist_name')
+    //update playlist to make it public/private
+    .put(ensureAuthenticated, function(req, res){
+        db.toggleGlobalPlaylist(req.user.oauthID, req.params.playlist_name, function(result){
+            res.json(result);
+        });
+    });
+
+router.route('/global/incr/:playlist_name')
+    //update playlist view count
+    .put(ensureAuthenticated, function(req, res){
+        db.incrementGlobalPlaylist(req.user.oauthID, req.params.playlist_name, function(result){
             res.json(result);
         });
     });
