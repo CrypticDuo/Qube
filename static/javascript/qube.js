@@ -121,6 +121,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.removePlaylist($scope, playlist.name);
     }
 
+    $scope.togglePublicPlaylist = function(playlist){
+        //prevent outer div's event
+        $scope.preventOuterDivEvent();
+        QubeService.togglePublicPlaylist($scope, playlist.name);
+    }
+
     $scope.preventOuterDivEvent = function (){
         var e = window.event;
         e.cancelBubble = true;
@@ -446,7 +452,15 @@ app.service("QubeService", function($http, $q) {
                 }
             })
             .success(function(contentDetailsData) {
-                target.push({id: evt._id, name : evt.name, data : contentDetailsData.items, duration : "00:00"});
+                target.push(
+                    {
+                        id: evt._id,
+                        name : evt.name,
+                        isPublic: evt.isPublic,
+                        count: evt.count,
+                        data : contentDetailsData.items,
+                        duration : "00:00"
+                    });
                 for(var i=0; i<target[target.length-1].data.length; i++){
                     target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
                     target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
@@ -548,6 +562,27 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function togglePublicPlaylist(scope, pname){
+        $http.put("/api/global/toggle/"+pname)
+            .success(function(res){
+                if (res.status.toLowerCase() === "fail") {
+                    console.log(res.msg);
+                } else {
+                    var temp;
+                    for(var i = 0; i < scope.playlists.length; i++){
+                        if(scope.playlists[i].name === pname){
+                            scope.playlists[i].isPublic = !scope.playlists[i].isPublic;
+                            temp = scope.playlists[i].isPublic ? 'public.' : 'private.';
+                        }
+                    }
+                    alertify.success('Success: Updated playlist to be '+temp);
+                }
+            })
+            .error(function(err){
+                alertify.error('Error: Failed to toggle playlist to public/private.');
+            });
+    };
+
     function addVideoToPlaylist(scope, pname, video) {
         if(pname){
             $http.post("/api/playlists/" + pname + "/videos/" + video.id)
@@ -619,6 +654,7 @@ app.service("QubeService", function($http, $q) {
         removePlaylist: removePlaylist,
         updatePlaylist: updatePlaylist,
         addVideoToPlaylist: addVideoToPlaylist,
+        togglePublicPlaylist: togglePublicPlaylist,
         removeVideoFromPlaylist: removeVideoFromPlaylist,
         updateVideoList : updateVideoList,
         searchAutoComplete: searchAutoComplete,

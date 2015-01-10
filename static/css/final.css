@@ -709,6 +709,21 @@ a {
 #playlistRemove:hover{
   color:#fff;
 }
+#QubePlaylist #globalLock{
+  display: inline-block;
+  top: -28px;
+  position: relative;
+  right:10px;
+}
+#QubePlaylist #globalLock i{
+  font-size:14px;
+}
+#QubePlaylist #globalLock i.icon-lock{
+  color:#D24D57;
+}
+#QubePlaylist #globalLock i.icon-lock-open{
+  color:#66CC99;
+}
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
   background: 0;
 }

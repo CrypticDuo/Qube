@@ -102,6 +102,10 @@
                                         <div class="duration">{{playlist.duration}}</div>
                                         <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i>
                                         </div>
+                                        <div class="float-right" id="globalLock" ng-click="togglePublicPlaylist(playlist)">
+                                            <i class="icon-lock" ng-class="{hide : playlist.isPublic }"></i>
+                                            <i class="icon-lock-open" ng-class="{hide : !playlist.isPublic }"></i>
+                                        </div>
                                 </li>
                             </ul>
                             </div>
