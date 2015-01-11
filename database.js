@@ -354,6 +354,12 @@ var database = {
                 }]
             },
 
+        }, {
+            $project: {
+                _id: -1,
+                created: 1,
+                playlist: 1
+            }
         }], function(err, user) {
             if (err) {
                 console.log("ERROR: " + err);
