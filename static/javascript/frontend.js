@@ -400,13 +400,28 @@ $(document).ready(function() {
 // VIDEOLIST REMOVE FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
-        var html = '';
         $('.userVideolist').on('mouseenter', 'li', function(){
             $(this).children('.duration').addClass('hide');
             $(this).children('.close').removeClass('hide');
             $('.userVideolist').on('mouseleave', 'li', function(){
                 $(this).children('.duration').removeClass('hide');
                 $(this).children('.close').addClass('hide');
+            });
+        });
+    }());
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// USERPLAYLIST OPTIONS FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+    (function(){
+        $('.userPlaylist').on('mouseenter', 'li', function(){
+            $(this).children('.playlistDetail').children('.globalSummary').addClass('hide');
+            $(this).children('.playlistDetail').children('.playlistOptions').removeClass('hide');
+            console.log($(this).children('.playlistOptions').attr('class'));
+            $('.userPlaylist').on('mouseleave', 'li', function(){
+                $(this).children('.playlistDetail').children('.globalSummary').removeClass('hide');
+                $(this).children('.playlistDetail').children('.playlistOptions').addClass('hide');
             });
         });
     }());

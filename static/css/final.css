@@ -706,14 +706,20 @@ a {
   background-color:#181F24;
   cursor:pointer;
 }
-#playlistRemove:hover{
-  color:#fff;
+#QubePlaylist #playlistRemove, #QubePlaylist #globalLock, #QubePlaylist .globalSummary svg, #QubePlaylist .globalSummary span{
+  top:-28px;
+  position:relative;
+  display:inline-block;
+}
+#QubePlaylist .globalSummary span{
+  top:-31px;
+  margin-left:2px;
 }
 #QubePlaylist #globalLock{
-  display: inline-block;
-  top: -28px;
-  position: relative;
-  right:10px;
+  margin-right:10px;
+}
+#playlistRemove:hover{
+  color:#fff;
 }
 #QubePlaylist #globalLock i{
   font-size:14px;
@@ -759,10 +765,6 @@ a {
   float: left;
   position: absolute;
   top: 2px;
-}
-#playlistRemove {
-  position: relative;
-  top: -28px;
 }
 #preview {
   position: relative;

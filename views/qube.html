@@ -100,11 +100,27 @@
                                         <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                         <div class="title">{{playlist.name}}</div>
                                         <div class="duration">{{playlist.duration}}</div>
-                                        <div class="float-right" id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i>
+                                        <div class="float-right globalSummary">
+                                            <div ng-class="{hide: playlist.isPublic}">
+                                                <svg height="15" width="15">
+                                                    <circle cx="7" cy="7" r="5" stroke-width="3" fill="#D24D57" />
+                                                </svg>
+                                                <span>Private</span>
+                                            </div>
+                                            <div ng-class="{hide: !playlist.isPublic}">
+                                                <svg height="15" width="15">
+                                                    <circle cx="7" cy="7" r="5" stroke-width="3" fill="#66CC99" />
+                                                </svg>
+                                                <span>Public</span>
+                                            </div>
                                         </div>
-                                        <div class="float-right" id="globalLock" ng-click="togglePublicPlaylist(playlist)">
-                                            <i class="icon-lock" ng-class="{hide : playlist.isPublic }"></i>
-                                            <i class="icon-lock-open" ng-class="{hide : !playlist.isPublic }"></i>
+                                        <div class="float-right playlistOptions hide">
+                                            <div id="globalLock" ng-click="togglePublicPlaylist(playlist)">
+                                                <i class="icon-lock" ng-class="{hide : playlist.isPublic }"></i>
+                                                <i class="icon-lock-open" ng-class="{hide : !playlist.isPublic }"></i>
+                                            </div>
+                                            <div id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i>
+                                            </div>
                                         </div>
                                 </li>
                             </ul>
