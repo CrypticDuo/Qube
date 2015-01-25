@@ -575,10 +575,15 @@ $(document).ready(function() {
             $('.globalView').toggleClass('hide');
             $('.view.main').toggleClass('hide');
             $('#QubePlaylist').toggleClass('global');
+            var scope = angular.element($('.userVideolist')).scope();
+            scope.$apply(function() {
+              scope.loadFirstPlaylist();
+            });
         }
 
         $('.logo').on('click', function(){
             transformToGlobal();
+            $(window).resize();
         });
     }());
 });

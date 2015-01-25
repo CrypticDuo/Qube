@@ -111,11 +111,14 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
-    $scope.loadFirstPlaylist = function(playlist) {
-        if($scope.currentPlaylist !== playlist){
-            $scope.currentPlaylist = playlist;
-            //$scope.listAllVideos(playlist.name);
-            $scope.currentPlaylistOption = playlist.name;
+    $scope.loadFirstPlaylist = function() {
+        if($( "#QubePlaylist" ).hasClass( "global" )){
+            $scope.currentPlaylist = $scope.globalPlaylists[0];
+            $scope.currentPlaylistOption = $scope.globalPlaylists[0].name;
+        }
+        else{
+            $scope.currentPlaylist = $scope.playlists[0];
+            $scope.currentPlaylistOption = $scope.playlists[0].name;
         }
     }
 
@@ -445,7 +448,7 @@ app.service("QubeService", function($http, $q) {
         var evt = data.shift();
         //puts the data contentDetails inside target
         if (!evt) {
-            scope.loadFirstPlaylist(target[0]);
+            scope.loadFirstPlaylist();
             return;
         }
         var videoIDlist = '';
