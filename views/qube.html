@@ -94,7 +94,6 @@
             <div class="globalView">
                 <ul><li ng-repeat="playlist in globalPlaylists" class="globalList" ng-class="{active: currentPlaylist == playlist}" ng-click="changePlaylist(playlist)">
                     <div class="playlistDetail">
-                        <div class="title">{{playlist.name}}</div>
                         <div class="mainImage">
                           <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                         </div>
@@ -103,10 +102,12 @@
                           --><img class="playlistThumbnail" src="{{ playlist.data[2].snippet.thumbnails.medium.url }}"><!--
                         --><img class="playlistThumbnail" src="{{ playlist.data[3].snippet.thumbnails.medium.url }}">
                         </div>
+                        <div class="title">{{playlist.name}}</div>
                         <div class="imageBottomContainer">
-                        <!--<div class="duration">{{playlist.duration}}</div>-->
-                        <span class="likes-count">0 Likes</span>
-                        <span class="like"><i class="icon-heart"></i></span></div>
+                          <!--<div class="duration">{{playlist.duration}}</div>-->
+                          <span class="likes-count">0 Likes</span>
+                          <span class="like"><i class="icon-heart"></i></span>
+                        </div>
                     </div>
                 </li></ul>
             </div>
