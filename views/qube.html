@@ -92,8 +92,6 @@
         <!-- END OF playView -->
         <div class="mainView">
             <div class="globalView">
-                <h2>Global Playlists</h2>
-
                 <ul><li ng-repeat="playlist in globalPlaylists" class="globalList" ng-class="{active: currentPlaylist == playlist}" ng-click="changePlaylist(playlist)">
                     <div class="playlistDetail">
                         <div class="title">{{playlist.name}}</div>
