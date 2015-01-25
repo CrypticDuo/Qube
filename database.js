@@ -2,6 +2,26 @@ var mongoose = require('mongoose');
 var User = require('./user.js');
 
 var database = {
+    getUserID: function(userID, callback){
+        User.find({
+            oauthID: userID
+        }, function(err, user){
+            if (err) {
+                console.log("ERROR : " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+            } else if (user.length > 0) {
+                console.log(user[0]._id);
+                callback({
+                    status: "Success",
+                    data: user[0]._id
+                });
+            }
+        });
+    },
+
     createPlaylist: function(userID, pname, callback) {
         if (!pname) {
             callback({
@@ -455,7 +475,7 @@ var database = {
         });
     },
 
-    updatePlaylistLikes: function(userID, globalID, callback) {
+    updatePlaylistLikes: function(userID, id, globalID, callback) {
         User.aggregate([{
             $unwind: "$playlist"
         }, {
@@ -477,13 +497,13 @@ var database = {
             } else if (result.length > 0) {
                 result = result[0];
                 for(var i=0; i<result['likes'].length; i++){
-                    if(result['likes'][i] === userID.toString()){
+                    if(result['likes'][i] === id.toString()){
                         User.update({
-                            oauthID: userID,
+                            oauthID: result.oauthID,
                             "playlist.name": result.name
                         }, {
                             "$pull": {
-                                "playlist.$.likes": userID
+                                "playlist.$.likes": id
                             }
                         }, function(err, result){
                             if(err){
@@ -495,6 +515,7 @@ var database = {
                             } else if(!err && result && result !== 0){
                                 callback({
                                     status: "Success",
+                                    action: 'unlike',
                                     msg: "Successfully unliked global playlist"
                                 });
                             } else {
@@ -509,11 +530,11 @@ var database = {
                     }
                 }
                 User.update({
-                    oauthID: userID,
+                    oauthID: result.oauthID,
                     "playlist.name": result.name
                 }, {
                     "$push": {
-                        "playlist.$.likes": userID
+                        "playlist.$.likes": id
                     }
                 }, function(err, result){
                     if(err){
@@ -525,6 +546,7 @@ var database = {
                     } else if(!err && result && result !== 0){
                         callback({
                             status: "Success",
+                            action: 'like',
                             msg: "Successfully liked global playlist"
                         });
                     } else {

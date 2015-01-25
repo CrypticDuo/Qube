@@ -9,6 +9,7 @@
     <link type="text/css" rel="stylesheet" href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700'/>
     <link type="text/css" rel="stylesheet" href="/static/fonts/Simple-Line-Icons-Webfont/simple-line-icons.css"/>
     <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="/static/framework/alertify/alertify.min.css" />
     <link type="text/css" rel="stylesheet" href="/static/framework/alertify/semantic.min.css" />
     <link type="text/css" rel="stylesheet" href="/static/framework/login-popup/css/style.css" />
@@ -104,10 +105,9 @@
                         </div>
                         <div class="title">{{playlist.name}}</div>
                         <div class="imageBottomContainer">
-                          <!--<div class="duration">{{playlist.duration}}</div>-->
-                          <span class="likes-count">0 Likes</span>
-                          <span class="like"><i class="icon-heart"></i></span>
-                        </div>
+                        <!--<div class="duration">{{playlist.duration}}</div>-->
+                        <span class="likes-count">{{playlist.likeList.length}} <ng-pluralize count="playlist.likeList.length" when="{'1': 'Like', 'other': 'Likes'}"></ng-pluralize></span>
+                        <span class="like" ng-class="{ liked: playlist.liked }"><i ng-click="updateLikeGlobalPlaylist(playlist)" class="fa fa-heart"></i></span></div>
                     </div>
                 </li></ul>
             </div>

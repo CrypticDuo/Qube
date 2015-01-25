@@ -1115,11 +1115,17 @@ a {
   bottom:10px;
   font-size:13px;
 }
+.global#QubePlaylist .globalView .imageBottomContainer span.like{
+  color:#ddd;
+}
+.global#QubePlaylist .globalView .imageBottomContainer span.liked {
+  color:#4CB6CB;
+}
 .global#QubePlaylist .globalView .imageBottomContainer span.like i{
   cursor:pointer;
 }
-.global#QubePlaylist .globalView .imageBottomContainer span.like i:hover{
-  color: #E0EAEC;
+.global#QubePlaylist .globalView .imageBottomContainer span.like:not(.liked) i:hover{
+  color: #C6EDF5;
 }
 .global#QubePlaylist .globalView .title, .global#QubePlaylist .globalView .duration{
   color: #545a5f;
@@ -1133,7 +1139,6 @@ a {
 .global#QubePlaylist .globalView .duration{
   font-size:13px;
   text-align: right;
-  color: grey;
 }
 
 .mainImage .playlistThumbnail {

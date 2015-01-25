@@ -194,6 +194,13 @@ router.route('/playlists/:playlist_name/videos/:videoID')
         });
     });
 
+router.route('/user')
+    .get(ensureAuthenticated, function(req, res){
+        db.getUserID(req.user.oauthID, function(result){
+            res.json(result);
+        });
+    });
+
 router.route('/global')
     .get(ensureAuthenticated, function(req, res){
         db.getGlobalPlaylists(function(result){
@@ -222,9 +229,11 @@ router.route('/global/likes/:global_id')
         db.getPlaylistLikes(req.params.global_id, function(result){
             res.json(result);
         })
-    })
+    });
+
+router.route('/global/user/:id/likes/:global_id')
     .put(ensureAuthenticated, function(req, res){
-        db.updatePlaylistLikes(req.user.oauthID, req.params.global_id, function(result){
+        db.updatePlaylistLikes(req.user.oauthID, req.params.id, req.params.global_id, function(result){
             res.json(result);
         });
     });

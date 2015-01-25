@@ -55,6 +55,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
         $scope.layout = 'main';
+        $scope.userID = '';
         $scope.listDisplay = 'playlist';
         $scope.currentPlayingVideo = null;
         $scope.currentPlayingVideoDuration = '00:00'
@@ -68,9 +69,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.replay = 'all';
         $scope.shuffleState = false;
         $scope.shuffleList = [];
-        QubeService.listAllPlaylist($scope);
-        QubeService.getGlobalPlaylist($scope);
-        addInfiniteScroll();
+        QubeService.getUserID($scope, function(){
+            QubeService.listAllPlaylist($scope);
+            QubeService.getGlobalPlaylist($scope);
+            addInfiniteScroll();
+        });
     }
 
     function addInfiniteScroll(){
@@ -122,6 +125,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
 
+    $scope.preventOuterDivEvent = function (){
+        var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+    }
+
     $scope.removePlaylist = function(playlist){
         //prevent outer div's event
         $scope.preventOuterDivEvent();
@@ -134,12 +143,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.togglePublicPlaylist($scope, playlist.name);
     }
 
-    $scope.preventOuterDivEvent = function (){
-        var e = window.event;
-        e.cancelBubble = true;
-        if (e.stopPropagation) e.stopPropagation();
+    $scope.updateLikeGlobalPlaylist = function(playlist){
+        //prevent outer div's event
+        $scope.preventOuterDivEvent();
+        QubeService.updateLikeGlobalPlaylist($scope, playlist.id);
     }
-
+    
     $scope.updatePlaylist = function(list) {
         var newlist=[];
         var videolist = [];
@@ -469,6 +478,8 @@ app.service("QubeService", function($http, $q) {
                         name : evt.name,
                         isPublic: evt.isPublic,
                         count: evt.count,
+                        likeList: evt.likes,
+                        liked: false,
                         data : contentDetailsData.items,
                         duration : "00:00"
                     });
@@ -477,6 +488,9 @@ app.service("QubeService", function($http, $q) {
                     target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
                 }
                 getVideoDetails(target, data, scope);
+                if(target[target.length-1].likeList && target[target.length-1].likeList.indexOf(scope.userID) > -1){
+                    target[target.length-1].liked = true;
+                }
             })
             .error(function() {
                 alertify.error('Error: Something went wrong querying video details!');
@@ -495,6 +509,17 @@ app.service("QubeService", function($http, $q) {
         });
 
     }
+
+    function getUserID(scope, callback){
+        $http.get(hostURL + "/api/user")
+            .success(function(res){
+                scope.userID = res.data;
+                callback();
+            })
+            .error(function(err){
+                alertify.error('Error: Cannot get user ID.');
+            });
+    };
 
     function listAllPlaylist(scope) {
         $http.get(hostURL + "/api/playlists")
@@ -515,10 +540,10 @@ app.service("QubeService", function($http, $q) {
         $http.get(hostURL + "/api/global")
             .success(function(res) {
               if (res.status.toLowerCase() === "fail") {
-                  console.log(res.msg);
+                    console.log(res.msg);
               } else {
-                  scope.globalPlaylists = [];
-                  getVideoDetails(scope.globalPlaylists, res.data, scope);
+                    scope.globalPlaylists = [];
+                    getVideoDetails(scope.globalPlaylists, res.data, scope);
               }
             })
             .error(function(err) {
@@ -609,6 +634,38 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function updateLikeGlobalPlaylist(scope, globalID){
+        $http.put("/api/global/user/"+scope.userID+"/likes/"+globalID)
+            .success(function(res){
+                if (res.status.toLowerCase() === "fail"){
+                    console.log(res.msg);
+                } else{
+                    if(res.action === 'like'){
+                        alertify.success('Success: Liked playlist.');
+                    } else if(res.action === 'unlike') {
+                        alertify.success('Success: Unliked playlist.');
+                    } else {
+                        alertify.success('Error: Could not like/unlike playlist.');
+                    }
+
+                    for(var i=0; i<scope.globalPlaylists.length; i++){
+                        if(scope.globalPlaylists[i].id === globalID){
+                            scope.globalPlaylists[i].liked=!scope.globalPlaylists[i].liked;
+                            if(scope.globalPlaylists[i].likeList.indexOf(scope.userID) > -1){
+                                scope.globalPlaylists[i].likeList.splice(scope.globalPlaylists[i].likeList.indexOf(scope.userID), 1)
+                            } else {
+                                scope.globalPlaylists[i].likeList.push(scope.userID);
+                            }
+                            break;
+                        }
+                    }
+                }
+            })
+            .error(function(err) {
+                alertify.error('Error: Failed to liked/unlike playlist.');
+            });
+    }
+
     function addVideoToPlaylist(scope, pname, video) {
         if(pname){
             $http.post("/api/playlists/" + pname + "/videos/" + video.id)
@@ -675,12 +732,14 @@ app.service("QubeService", function($http, $q) {
 
     //Returns the public API
     return ({
+        getUserID: getUserID,
         listAllPlaylist: listAllPlaylist,
         addPlaylist: addPlaylist,
         removePlaylist: removePlaylist,
         updatePlaylist: updatePlaylist,
         addVideoToPlaylist: addVideoToPlaylist,
         togglePublicPlaylist: togglePublicPlaylist,
+        updateLikeGlobalPlaylist: updateLikeGlobalPlaylist,
         removeVideoFromPlaylist: removeVideoFromPlaylist,
         updateVideoList : updateVideoList,
         searchAutoComplete: searchAutoComplete,
