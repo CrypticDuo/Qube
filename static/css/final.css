@@ -992,3 +992,126 @@ a {
     opacity: 0;
     transition: 0.5s;
 }
+
+
+
+
+/* GLOBAL */
+.global {
+  background-color:#F2F4F8;
+}
+.global .scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+.global .scrollbar::-webkit-scrollbar {
+  width: 6px;
+  background-color: #fff;
+}
+.global .scrollbar::-webkit-scrollbar-thumb {
+  background-color: #F2F4F8;
+}
+
+.global#QubePlaylist .topHeader{
+  background-color:#FFFFFF;
+}
+
+.global#QubePlaylist .topHeader span{
+  color: #555;
+}
+.global#QubePlaylist .playView {
+  width: 30%;
+  height: 100%;
+  background-color: #E0EAEC;
+  float: right;
+}
+
+.global#QubePlaylist .videolist .userVideolist {
+  list-style-type: none;
+  color: #E5E5E5;
+  overflow: auto;
+}
+
+.global#QubePlaylist .videolist .userVideolist > div{
+  width: 640px!important;
+}
+
+.global#QubePlaylist .videolist .userVideolist > div > i{
+  font-size: 50px;
+  color:#fff;
+  z-index:4;
+}
+
+.global#QubePlaylist .videolist .userVideolist li:first-child {
+  border-top: 1px solid #F2F4F8;
+}
+.global#QubePlaylist .videolist .userVideolist li {
+  border-bottom: 1px solid #F2F4F8;
+  padding: 12px 10px;
+  color:#555;
+  background-color:#E0EAEC;
+}
+.global#QubePlaylist .videolist .userVideolist li.active, .global#QubePlaylist .videolist .userVideolist li.active a, .global#QubePlaylist .videolist .userVideolist li.active span.title, .global#QubePlaylist .videolist .userVideolist li.active span.duration {
+  background-color: #4CB6CB;
+}
+.global#QubePlaylist .videolist .userVideolist li:hover {
+  cursor: pointer;
+}
+.global#QubePlaylist .videolist .userVideolist span.title {
+  position: relative;
+  top: 2px;
+  width: 80%;
+  display: inline-block;
+  overflow: hidden;
+  font-size: 14px;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  color:#555;
+}
+.global#QubePlaylist .videolist .userVideolist i.icon-magnifier{
+  display:none;
+}
+.global#QubePlaylist .videolist .userVideolist span.duration, .global#QubePlaylist .videolist .userVideolist span.close {
+  position: relative;
+  top: 2px;
+  float: right;
+  display: inline-block;
+  font-size: 14px;
+  text-align: right;
+  margin-left: 10px;
+  color:#555;
+}
+.global#QubePlaylist .videolist .userVideolist span.close:hover {
+  color:#fff;
+}
+.global#QubePlaylist .videolist .userVideolist a {
+  margin-right: 10px;
+  color: #627b8c;
+}
+.global#QubePlaylist .videolist .userVideolist a:hover {
+  color: #fff;
+}
+.global#QubePlaylist .videolist .player {
+  position:relative;
+  border-top: 5px solid #E0EAEC;
+  z-index:1;
+}
+.global#QubePlaylist .videolist .player.fullscreen {
+  position:absolute;
+  border:0;
+}
+.global#QubePlaylist .videolist .overlay{
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  background-color: #E0EAEC;
+  width: 100%;
+  z-index:3;
+}
+.global#QubePlaylist .videolist .overlay > div > i{
+  color:#555;
+}
+.global#QubePlaylist .videolist .player {
+  background-color: transparent;
+}

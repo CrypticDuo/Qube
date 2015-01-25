@@ -38,244 +38,244 @@
     </div>
     <h1>LOADING ...</h1>
 </div>
-    <div id="QubePlaylist">
-        <div ng-controller="QubeCont">
-            <!--             <div class="sideMenu">
-                <ul>
-                    <li style="background-color:#1ab667;"><a class="category"><i style="font-size:20px; color:white;" class="icon-earphones"></i></a>
-                    </li>
-                    <li ng-class="{active: layout == 'main'}" ng-click="layout = 'main'"><a class="category"><i style="color:#4cb6cb" class="icon-social-youtube icon"></i></a>
-                    </li>
-                    <li ng-class="{active: layout == 'global'}" ng-click="layout = 'global'"><a class="category"><i style="color:#747bb9" class="icon-music-tone-alt"></i></a>
+<div id="QubePlaylist" class="global">
+    <div ng-controller="QubeCont">
+        <!--             <div class="sideMenu">
+            <ul>
+                <li style="background-color:#1ab667;"><a class="category"><i style="font-size:20px; color:white;" class="icon-earphones"></i></a>
+                </li>
+                <li ng-class="{active: layout == 'main'}" ng-click="layout = 'main'"><a class="category"><i style="color:#4cb6cb" class="icon-social-youtube icon"></i></a>
+                </li>
+                <li ng-class="{active: layout == 'global'}" ng-click="layout = 'global'"><a class="category"><i style="color:#747bb9" class="icon-music-tone-alt"></i></a>
+                </li>
+            </ul>
+        </div> -->
+        <!-- END OF sideMenu -->
+        <div class="topHeader">
+            <div class="logo"><a class="home"><i class="icon icon-earphones"></i></a>
+            </div>
+            <span>{{ currentPlaylist.name }}</span>
+        </div>
+        <!-- END OF topHeader -->
+
+        <div class="playView">
+            <div class="videolist">
+                <div class="player noselect" style="height:inherit; width:inherit;">
+                    <div id="player"></div>
+                    <div class="overlay">
+                        <div><i class="icon-moustache"></i>
+                        </div>
+                    </div>
+                    <div class="musicVisualizer">
+                        <span class="musicbar bg-success bg-empty inline m-r-lg m-t">
+                            <span class="bar1 a3"></span>
+                            <span class="bar2 a5"></span>
+                            <span class="bar3 a1"></span>
+                            <span class="bar4 a4"></span>
+                            <span class="bar5 a2"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <ul class="userVideolist scrollbar sortable">
+                    <!-- <div><i class="icon-moustache"></i></div> -->
+                    <li ng-repeat="video in currentPlaylist.data" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" onclick="removeCloseIcon(this)" id="{{ video.id }}">
+                        <a><i class="icon-music-tone-alt"></i></a>
+                        <span class="title">{{video.snippet.title}}</span>
+                        <span class="duration">{{video.contentDetails.duration}}</span>
+                        <span class="hide close"><i class="icon icon-close" ng-click="removeVideo(video.id)"></i></span>
+                        <span class="hide close"><i class="icon icon-magnifier" ng-click="relatedSearch(video.id)"></i></span>
                     </li>
                 </ul>
-            </div> -->
-            <!-- END OF sideMenu -->
-            <div class="topHeader">
-                <div class="logo"><a class="home"><i class="icon icon-earphones"></i></a>
-                </div>
-                <span>{{ currentPlaylist.name }}</span>
             </div>
-            <!-- END OF topHeader -->
-
-            <div class="playView">
-                <div class="videolist">
-                    <div class="player noselect" style="height:inherit; width:inherit;">
-                        <div id="player"></div>
-                        <div class="overlay">
-                            <div><i class="icon-moustache"></i>
+        </div>
+        <!-- END OF playView -->
+        <div class="mainView">
+            <div ng-show="layout == 'main'" class="view main hide">
+                <div class="listDisplay">
+                    <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
+                        <ul class="userPlaylist scrollbar sortable">
+                            <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)" id="{{ playlist.name }}">
+                                <div class="playlistDetail">
+                                    <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+                                    <div class="title">{{playlist.name}}</div>
+                                    <div class="duration">{{playlist.duration}}</div>
+                                    <div class="float-right globalSummary">
+                                        <div ng-class="{hide: playlist.isPublic}">
+                                            <svg height="15" width="15">
+                                                <circle cx="7" cy="7" r="5" stroke-width="3" fill="#D24D57" />
+                                            </svg>
+                                            <span>Private</span>
+                                        </div>
+                                        <div ng-class="{hide: !playlist.isPublic}">
+                                            <svg height="15" width="15">
+                                                <circle cx="7" cy="7" r="5" stroke-width="3" fill="#66CC99" />
+                                            </svg>
+                                            <span>Public</span>
+                                        </div>
+                                    </div>
+                                    <div class="float-right playlistOptions hide">
+                                        <div id="globalLock" ng-click="togglePublicPlaylist(playlist)">
+                                            <i class="icon-lock" ng-class="{hide : playlist.isPublic }"></i>
+                                            <i class="icon-lock-open" ng-class="{hide : !playlist.isPublic }"></i>
+                                        </div>
+                                        <div id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i>
+                                        </div>
+                                    </div>
+                            </li>
+                        </ul>
+                        </div>
+                        <!-- END OF PLAYLIST COLUMN -->
+                        <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
+                            <div class="video" ng-repeat="video in ytSearchResult">
+                                <div class="video-image">
+                                    <img class="video-image" src="{{ video.thumbnail }}">
+                                </div>
+                                <span class="video-duration">{{ video.contentDetails.duration }}</span>
+                                <div class="video-detail">
+                                    <div class="overflowEllipsis">
+                                        <span class="video-title">{{ video.snippet.title }}</span>
+                                    </div>
+                                    <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
+                                    <div class="ytVidHover">
+                                        <select class="" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
+                                        <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)" onclick="document.activeElement.blur()">
+                                            <i class="icon-plus"></i>
+                                        </button>
+                                        <span id="{{video.id}}" class="addVideo" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)"><i class="icon-share-alt"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video" ng-show="ytSearchResult.length > 0" style="text-align:center">
+                              <div class="loading">
+                              		<div class="loading-dot"></div>
+                              		<div class="loading-dot"></div>
+                              		<div class="loading-dot"></div>
+                                  <div class="loading-dot"></div>
+                              </div>
                             </div>
                         </div>
-                        <div class="musicVisualizer">
-                            <span class="musicbar bg-success bg-empty inline m-r-lg m-t">
-                                <span class="bar1 a3"></span>
-                                <span class="bar2 a5"></span>
-                                <span class="bar3 a1"></span>
-                                <span class="bar4 a4"></span>
-                                <span class="bar5 a2"></span>
+                    </div>
+
+
+                    <!-- END OF LIST DISPLAY -->
+                    <div class="listControl scrollbar">
+                        <!-- <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input> -->
+                        <div class="lcSearch" ng-click="listDisplay = 'youtube'">
+                            <span class="font-bold lcHeader">Find</span>
+                            <span class="lcDescription">Search the youtube video you like</span>
+                            <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
+
+                        </div>
+                        <div class="lcPlaylist" ng-click="listDisplay = 'playlist'">
+                            <span class="font-bold lcHeader">My Playlists</span>
+                            <span class="lcDescription">Control your playlists</span>
+                            <input type="text" placeholder="Search is under construction"> <!--ng-model="searchString" placeholder="Search playlist">-->
+                        </div>
+                        <div class="lcPlaylistAdd" ng-click="listDisplay = 'playlist'">
+                            <span class="font-bold lcHeader">Add Playlist</span>
+                            <span class="lcDescription">Add a new playlist</span>
+                            <input type="text" ng-keyup="$event.keyCode == 13 && addPlaylist()" ng-model="addPlaylistInput" placeholder="Playlist name">
+                            <a id="addPlaylist" ng-click="addPlaylist()">
+                                <i class="icon-plus"></i>
+                            </a>
+                        </div>
+                        <div class="lcShare">
+                            <span class="font-bold lcHeader">Share</span>
+                            <span class="lcDescription">Coming Soon in 2015</span>
+                        </div>
+                        <div class="lcContact">
+                            <span class="font-bold lcHeader">QUBE</span>
+                            <span class="lcDescription">Find the peace in your heart</span>
+                            <span class="contacts">
+                                <br/>
+                                <div><!-- Qube is a playlist application full of pure awesomeness. --></div>
+                                <br/>
+                                <span style="float:right; color:#CDCDCD">- Made with <i aria-hidden="true" class="icon-heart" style="color:#e74c3c"></i> by Insoo and Paul</span>
+                                <br/>
+                                <span style="float:right; color:#CDCDCD">- Logo made by Mina Moon <i data-icon="&#xe028;" style="color:#f1c40f"></i></span>
+                                <!-- <a href="#" class="dev"><span class="symbol">roundedfacebook</span><span class="name">Facebook</span></a>
+                                <a href="https://github.com/insoochoo/Qube" class="dev"><span class="symbol">roundedgithubalt</span><span class="name">Github</span></a> -->
                             </span>
                         </div>
                     </div>
-
-                    <ul class="userVideolist scrollbar sortable">
-                        <!-- <div><i class="icon-moustache"></i></div> -->
-                        <li ng-repeat="video in currentPlaylist.data" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" onclick="removeCloseIcon(this)" id="{{ video.id }}">
-                            <a><i class="icon-music-tone-alt"></i></a>
-                            <span class="title">{{video.snippet.title}}</span>
-                            <span class="duration">{{video.contentDetails.duration}}</span>
-                            <span class="hide close"><i class="icon icon-close" ng-click="removeVideo(video.id)"></i></span>
-                            <span class="hide close"><i class="icon icon-magnifier" ng-click="relatedSearch(video.id)"></i></span>
+                    <!-- END OF LIST CONTROL -->
+                </div>
+                <!-- END OF MAIN LAYOUT -->
+            </div>
+            <!-- END OF mainView -->
+            <div class="bottomContainer noselect">
+                <div class="controllers-container">
+                    <ul class="controllers" style="font-size:15px;">
+                        <li ng-click="prevVideo()"><i class="icon-control-rewind i-lg"></i>
+                        </li>
+                        <li ng-click="togglePlayVideo()"><i class="icon-control-play i-2x"></i>
+                        </li>
+                        <li ng-click="nextVideo()"><i class="icon-control-forward i-lg"></i>
                         </li>
                     </ul>
                 </div>
-            </div>
-            <!-- END OF playView -->
-            <div class="mainView">
-                <div ng-show="layout == 'main'" class="view main">
-                    <div class="listDisplay">
-                        <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
-                            <ul class="userPlaylist scrollbar sortable">
-                                <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)" id="{{ playlist.name }}">
-                                    <div class="playlistDetail">
-                                        <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
-                                        <div class="title">{{playlist.name}}</div>
-                                        <div class="duration">{{playlist.duration}}</div>
-                                        <div class="float-right globalSummary">
-                                            <div ng-class="{hide: playlist.isPublic}">
-                                                <svg height="15" width="15">
-                                                    <circle cx="7" cy="7" r="5" stroke-width="3" fill="#D24D57" />
-                                                </svg>
-                                                <span>Private</span>
-                                            </div>
-                                            <div ng-class="{hide: !playlist.isPublic}">
-                                                <svg height="15" width="15">
-                                                    <circle cx="7" cy="7" r="5" stroke-width="3" fill="#66CC99" />
-                                                </svg>
-                                                <span>Public</span>
-                                            </div>
-                                        </div>
-                                        <div class="float-right playlistOptions hide">
-                                            <div id="globalLock" ng-click="togglePublicPlaylist(playlist)">
-                                                <i class="icon-lock" ng-class="{hide : playlist.isPublic }"></i>
-                                                <i class="icon-lock-open" ng-class="{hide : !playlist.isPublic }"></i>
-                                            </div>
-                                            <div id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i>
-                                            </div>
-                                        </div>
-                                </li>
-                            </ul>
-                            </div>
-                            <!-- END OF PLAYLIST COLUMN -->
-                            <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
-                                <div class="video" ng-repeat="video in ytSearchResult">
-                                    <div class="video-image">
-                                        <img class="video-image" src="{{ video.thumbnail }}">
-                                    </div>
-                                    <span class="video-duration">{{ video.contentDetails.duration }}</span>
-                                    <div class="video-detail">
-                                        <div class="overflowEllipsis">
-                                            <span class="video-title">{{ video.snippet.title }}</span>
-                                        </div>
-                                        <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
-                                        <div class="ytVidHover">
-                                            <select class="" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
-                                            <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)" onclick="document.activeElement.blur()">
-                                                <i class="icon-plus"></i>
-                                            </button>
-                                            <span id="{{video.id}}" class="addVideo" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)"><i class="icon-share-alt"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="video" ng-show="ytSearchResult.length > 0" style="text-align:center">
-                                  <div class="loading">
-                                  		<div class="loading-dot"></div>
-                                  		<div class="loading-dot"></div>
-                                  		<div class="loading-dot"></div>
-                                      <div class="loading-dot"></div>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- END OF LIST DISPLAY -->
-                        <div class="listControl scrollbar">
-                            <!-- <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input> -->
-                            <div class="lcSearch" ng-click="listDisplay = 'youtube'">
-                                <span class="font-bold lcHeader">Find</span>
-                                <span class="lcDescription">Search the youtube video you like</span>
-                                <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
-
-                            </div>
-                            <div class="lcPlaylist" ng-click="listDisplay = 'playlist'">
-                                <span class="font-bold lcHeader">My Playlists</span>
-                                <span class="lcDescription">Control your playlists</span>
-                                <input type="text" placeholder="Search is under construction"> <!--ng-model="searchString" placeholder="Search playlist">-->
-                            </div>
-                            <div class="lcPlaylistAdd" ng-click="listDisplay = 'playlist'">
-                                <span class="font-bold lcHeader">Add Playlist</span>
-                                <span class="lcDescription">Add a new playlist</span>
-                                <input type="text" ng-keyup="$event.keyCode == 13 && addPlaylist()" ng-model="addPlaylistInput" placeholder="Playlist name">
-                                <a id="addPlaylist" ng-click="addPlaylist()">
-                                    <i class="icon-plus"></i>
-                                </a>
-                            </div>
-                            <div class="lcShare">
-                                <span class="font-bold lcHeader">Share</span>
-                                <span class="lcDescription">Coming Soon in 2015</span>
-                            </div>
-                            <div class="lcContact">
-                                <span class="font-bold lcHeader">QUBE</span>
-                                <span class="lcDescription">Find the peace in your heart</span>
-                                <span class="contacts">
-                                    <br/>
-                                    <div><!-- Qube is a playlist application full of pure awesomeness. --></div>
-                                    <br/>
-                                    <span style="float:right; color:#CDCDCD">- Made with <i aria-hidden="true" class="icon-heart" style="color:#e74c3c"></i> by Insoo and Paul</span>
-                                    <br/>
-                                    <span style="float:right; color:#CDCDCD">- Logo made by Mina Moon <i data-icon="&#xe028;" style="color:#f1c40f"></i></span>
-                                    <!-- <a href="#" class="dev"><span class="symbol">roundedfacebook</span><span class="name">Facebook</span></a>
-                                    <a href="https://github.com/insoochoo/Qube" class="dev"><span class="symbol">roundedgithubalt</span><span class="name">Github</span></a> -->
-                                </span>
-                            </div>
-                        </div>
-                        <!-- END OF LIST CONTROL -->
+                <div class="progressBar">
+                    <div style="z-index:9999; cursor:default;">
+                        <span>{{ currentVideoTitle }}</span>
                     </div>
-                    <!-- END OF MAIN LAYOUT -->
+                    <div class="progressLevel"></div>
                 </div>
-                <!-- END OF mainView -->
-                <div class="bottomContainer noselect">
-                    <div class="controllers-container">
-                        <ul class="controllers" style="font-size:15px;">
-                            <li ng-click="prevVideo()"><i class="icon-control-rewind i-lg"></i>
-                            </li>
-                            <li ng-click="togglePlayVideo()"><i class="icon-control-play i-2x"></i>
-                            </li>
-                            <li ng-click="nextVideo()"><i class="icon-control-forward i-lg"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="progressBar">
-                        <div style="z-index:9999; cursor:default;">
-                            <span>{{ currentVideoTitle }}</span>
+                <div class="time">
+                    <span class="timeStart">
+                        00:00
+                    </span>
+                </div>
+                <div class="time">
+                    <span class="timeDuration">
+                        {{ currentPlayingVideoDuration }}
+                    </span>
+                </div>
+                <div class="volume-icon">
+                    <i class="icon-volume-2"></i>
+                </div>
+                <div class="volume">
+                    <div class="volumeBar-container">
+                        <div class="volumeBar">
+                            <div class="volumeLevel"></div>
                         </div>
-                        <div class="progressLevel"></div>
-                    </div>
-                    <div class="time">
-                        <span class="timeStart">
-                            00:00
-                        </span>
-                    </div>
-                    <div class="time">
-                        <span class="timeDuration">
-                            {{ currentPlayingVideoDuration }}
-                        </span>
-                    </div>
-                    <div class="volume-icon">
-                        <i class="icon-volume-2"></i>
-                    </div>
-                    <div class="volume">
-                        <div class="volumeBar-container">
-                            <div class="volumeBar">
-                                <div class="volumeLevel"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="replay-all-icon" ng-class="{ hide: replay === 'one'}">
-                        <span ng-click="replay = 'one'"><i class="icon-refresh"></i>
-                        <span style="position: absolute;  top: 30px;right: 8px;font-size: 9px;background: rgb(90, 106, 122);">A</span></span>
-                    </div>
-                    <div class="replay-one-icon" ng-class="{ hide: replay === 'all'}">
-                        <span ng-click="replay = 'all'"><i class="icon-refresh"></i>
-                        <span style="position: absolute;  top: 30px;right: 9px;font-size: 9px;background: rgb(90, 106, 122);">1</span>
-                        </span>
-                    </div>
-                    <div class="shuffle-icon">
-                        <i class="icon-shuffle" ng-click="shuffleToggle()" ng-class="{ active: shuffleState }"></i>
-                    </div>
-                    <div class="full-screen-icon">
-                        <i class="icon-size-fullscreen"></i>
                     </div>
                 </div>
-
-
-                <a id="videoPreview" href="#addPlaylistModal"></a>
-                <div id="addPlaylistModal" class="popupContainer" style="display:none;">
-                    <header class="popupHeader">
-                        <span class="header_title">{{ previewTitle }}</span>
-                        <span class="modal_close"><i class="icon-close"></i>
-                        </span>
-                    </header>
-
-                    <section class="popupBody">
-                        <div class="addPlaylistModalBody">
-                             <div id="playerPreview"></div>
-                        </div>
-                    </section>
+                <div class="replay-all-icon" ng-class="{ hide: replay === 'one'}">
+                    <span ng-click="replay = 'one'"><i class="icon-refresh"></i>
+                    <span style="position: absolute;  top: 30px;right: 8px;font-size: 9px;background: rgb(90, 106, 122);">A</span></span>
+                </div>
+                <div class="replay-one-icon" ng-class="{ hide: replay === 'all'}">
+                    <span ng-click="replay = 'all'"><i class="icon-refresh"></i>
+                    <span style="position: absolute;  top: 30px;right: 9px;font-size: 9px;background: rgb(90, 106, 122);">1</span>
+                    </span>
+                </div>
+                <div class="shuffle-icon">
+                    <i class="icon-shuffle" ng-click="shuffleToggle()" ng-class="{ active: shuffleState }"></i>
+                </div>
+                <div class="full-screen-icon">
+                    <i class="icon-size-fullscreen"></i>
                 </div>
             </div>
-            <!-- END OF NG-CONTROLLER -->
+
+
+            <a id="videoPreview" href="#addPlaylistModal"></a>
+            <div id="addPlaylistModal" class="popupContainer" style="display:none;">
+                <header class="popupHeader">
+                    <span class="header_title">{{ previewTitle }}</span>
+                    <span class="modal_close"><i class="icon-close"></i>
+                    </span>
+                </header>
+
+                <section class="popupBody">
+                    <div class="addPlaylistModalBody">
+                         <div id="playerPreview"></div>
+                    </div>
+                </section>
+            </div>
         </div>
+        <!-- END OF NG-CONTROLLER -->
+    </div>
 </body>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

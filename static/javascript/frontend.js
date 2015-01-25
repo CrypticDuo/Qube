@@ -569,4 +569,15 @@ $(document).ready(function() {
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
+
+    (function(){
+        function transformToGlobal(){
+            $('.view.main').toggleClass('hide');
+            $('#QubePlaylist').toggleClass('global');
+        }
+
+        $('.logo').on('click', function(){
+            transformToGlobal();
+        });
+    }());
 });
