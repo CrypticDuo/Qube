@@ -355,6 +355,7 @@ $(document).ready(function() {
             $('#QubePlaylist .videolist .player').removeClass('fullscreen');
         }
         setSize($('.videolist').width(), '310');
+        $('.overlay > div').css('width', $('.videolist').width());
         $('.listControl').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
@@ -582,6 +583,14 @@ $(document).ready(function() {
         }
 
         $('.logo').on('click', function(){
+            if($('.logo i.icon-earphones').length > 0){
+                console.log('wtf');
+                $('.logo i').removeClass('icon-earphones');
+                $('.logo i').addClass('icon-globe');
+            } else{
+                $('.logo i').removeClass('icon-globe');
+                $('.logo i').addClass('icon-earphones');
+            }
             transformToGlobal();
             $(window).resize();
         });

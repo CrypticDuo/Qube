@@ -444,34 +444,6 @@ var database = {
             if (err) {
                 console.log("ERROR: " + err);
                 callback({
-                    status: "Fail",
-                    msg: "User not found"
-                });
-            } else if (result.length > 0) {
-                callback({
-                    status: "Success",
-                    data: result
-                });
-            }
-        });
-    },
-
-    getPlaylistLikes: function(globalID, callback) {
-        User.aggregate([{
-            $unwind: "$playlist"
-        }, {
-            $match: {
-                "playlist._id": mongoose.Types.ObjectId(globalID)
-            }
-        }, {
-            $project: {
-                _id: 0, 
-                likes:"$playlist.likes"
-            }
-        }], function(err, result){
-            if (err) {
-                console.log("ERROR: " + err);
-                callback({
                     status: "Fail"
                 });
             } else if (result.length > 0) {
