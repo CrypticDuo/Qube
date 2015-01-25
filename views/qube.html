@@ -104,7 +104,7 @@
                 <div class="listDisplay">
                     <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
                         <ul class="userPlaylist scrollbar sortable">
-                            <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)" id="{{ playlist.name }}">
+                            <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist == playlist}" ng-click="changePlaylist(playlist)" id="{{ playlist.name }}">
                                 <div class="playlistDetail">
                                     <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                     <div class="title">{{playlist.name}}</div>

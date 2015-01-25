@@ -195,13 +195,17 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             }
         }
         if(JSON.stringify($scope.currentPlaylist.data) !== JSON.stringify(newlist)){
+            var flag = false;
             for(var i = 0; i<$scope.playlists.length; i++){
-                if($scope.playlists[i].name === $scope.currentPlaylist.name){
+                if($scope.playlists[i] === $scope.currentPlaylist){
                     $scope.playlists[i].data = newlist;
                     $scope.currentPlaylist.data = $scope.playlists[i].data;
+                    flag = true;
                 }
             }
-            QubeService.updateVideoList($scope, $scope.currentPlaylist.name, list);
+            if(flag){
+              QubeService.updateVideoList($scope, $scope.currentPlaylist.name, list);
+            }
         }
         return;
     }
