@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 var User = require('./user.js');
 
 var database = {
@@ -427,6 +428,144 @@ var database = {
         });
     },
 
+    getPlaylistLikes: function(globalID, callback) {
+        User.aggregate([{
+            $unwind: "$playlist"
+        }, {
+            $match: {
+                "playlist._id": mongoose.Types.ObjectId(globalID)
+            }
+        }, {
+            $project: {
+                _id: 0, 
+                likes:"$playlist.likes"
+            }
+        }], function(err, result){
+            if (err) {
+                console.log("ERROR: " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+            } else if (result.length > 0) {
+                callback({
+                    status: "Success",
+                    data: result
+                });
+            }
+        });
+    },
+
+    getPlaylistLikes: function(globalID, callback) {
+        User.aggregate([{
+            $unwind: "$playlist"
+        }, {
+            $match: {
+                "playlist._id": mongoose.Types.ObjectId(globalID)
+            }
+        }, {
+            $project: {
+                _id: 0, 
+                likes:"$playlist.likes"
+            }
+        }], function(err, result){
+            if (err) {
+                console.log("ERROR: " + err);
+                callback({
+                    status: "Fail"
+                });
+            } else if (result.length > 0) {
+                callback({
+                    status: "Success",
+                    data: result
+                });
+            }
+        });
+    },
+
+    updatePlaylistLikes: function(userID, globalID, callback) {
+        User.aggregate([{
+            $unwind: "$playlist"
+        }, {
+            $match: {
+                "playlist._id": mongoose.Types.ObjectId(globalID)
+            }
+        }, {
+            $project: {
+                oauthID: 1,
+                name: "$playlist.name",
+                likes:"$playlist.likes"
+            }
+        }], function(err, result){
+            if (err) {
+                console.log("ERROR: " + err);
+                callback({
+                    status: "Fail"
+                });
+            } else if (result.length > 0) {
+                result = result[0];
+                for(var i=0; i<result['likes'].length; i++){
+                    if(result['likes'][i] === userID.toString()){
+                        User.update({
+                            oauthID: userID,
+                            "playlist.name": result.name
+                        }, {
+                            "$pull": {
+                                "playlist.$.likes": userID
+                            }
+                        }, function(err, result){
+                            if(err){
+                                console.log("ERROR: " + err);
+                                callback({
+                                    status: "Fail",
+                                    msg: err
+                                });
+                            } else if(!err && result && result !== 0){
+                                callback({
+                                    status: "Success",
+                                    msg: "Successfully unliked global playlist"
+                                });
+                            } else {
+                                callback({
+                                    status: "Fail",
+                                    msg: "Failed to unlike for a public playlist"
+                                });
+                            }
+                        });
+
+                        return;
+                    }
+                }
+                User.update({
+                    oauthID: userID,
+                    "playlist.name": result.name
+                }, {
+                    "$push": {
+                        "playlist.$.likes": userID
+                    }
+                }, function(err, result){
+                    if(err){
+                        console.log("ERROR: " + err);
+                        callback({
+                            status: "Fail",
+                            msg: err
+                        });
+                    } else if(!err && result && result !== 0){
+                        callback({
+                            status: "Success",
+                            msg: "Successfully liked global playlist"
+                        });
+                    } else {
+                        callback({
+                            status: "Fail",
+                            msg: "Failed to like for a public playlist"
+                        });
+                    }
+                });
+            };
+        });
+    },
+    
     incrementGlobalPlaylist: function(userID, pname, callback) {
         User.update({
             oauthID: userID,

@@ -9,14 +9,13 @@ var User = mongoose.model('User', {
     lastLogin: Date,
     loginCount: Number,
     userName: String,
-    playlist: [
-    	{
+    playlist: [{
     		name: String,
     		videos:[String],
-        isPublic: Boolean,
-        likes:[String],
-        followers:[String],
-        count: Number
+            isPublic: Boolean,
+            likes:[String],
+            followers:[String],
+            count: Number
     	}
     ]
 });
