@@ -61,6 +61,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.currentPlaylist = {};
         $scope.ytSearchResult = [];
         $scope.playlists = [];
+        $scope.globalPlaylists = [];
         $scope.currentVideoTitle = 'No Video Selected';
         $scope.pageToken = '';
         $scope.lastSearch = '';
@@ -68,6 +69,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.shuffleState = false;
         $scope.shuffleList = [];
         QubeService.listAllPlaylist($scope);
+        QubeService.getGlobalPlaylist($scope);
         addInfiniteScroll();
     }
 
@@ -100,18 +102,20 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.changePlaylist = function(playlist) {
-        if($scope.currentPlaylist.name !== playlist.name){
+        if($scope.currentPlaylist !== playlist){
             $scope.currentPlaylist = playlist;
             $scope.shuffleList = [];
-            $scope.listAllVideos(playlist.name);
+            //$scope.listAllVideos(playlist.name);
+            $scope.currentPlaylistOption = playlist.name;
             $scope.togglePlayVideo('QubeChangePlaylist');
         }
     }
 
     $scope.loadFirstPlaylist = function(playlist) {
-        if($scope.currentPlaylist.name !== playlist.name){
+        if($scope.currentPlaylist !== playlist){
             $scope.currentPlaylist = playlist;
-            $scope.listAllVideos(playlist.name);
+            //$scope.listAllVideos(playlist.name);
+            $scope.currentPlaylistOption = playlist.name;
         }
     }
 
@@ -500,6 +504,21 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function getGlobalPlaylist(scope){
+        $http.get(hostURL + "/api/global")
+            .success(function(res) {
+              if (res.status.toLowerCase() === "fail") {
+                  console.log(res.msg);
+              } else {
+                  scope.globalPlaylists = [];
+                  getVideoDetails(scope.globalPlaylists, res.data, scope);
+              }
+            })
+            .error(function(err) {
+              alertify.error('Error: Cannot get global playlists.');
+            });
+    }
+
     function addPlaylist(scope, pname) {
         $http.post("/api/playlists/" + pname)
             .success(function(res) {
@@ -658,6 +677,7 @@ app.service("QubeService", function($http, $q) {
         removeVideoFromPlaylist: removeVideoFromPlaylist,
         updateVideoList : updateVideoList,
         searchAutoComplete: searchAutoComplete,
+        getGlobalPlaylist: getGlobalPlaylist
 
     });
 });

@@ -572,6 +572,7 @@ $(document).ready(function() {
 
     (function(){
         function transformToGlobal(){
+            $('.globalView').toggleClass('hide');
             $('.view.main').toggleClass('hide');
             $('#QubePlaylist').toggleClass('global');
         }

@@ -984,13 +984,13 @@ a {
 }
 
 .lcContact:hover .contacts {
-    opacity: 1;
-    transition: 0.5s;
+  opacity: 1;
+  transition: 0.5s;
 }
 
 .lcContact .contacts {
-    opacity: 0;
-    transition: 0.5s;
+  opacity: 0;
+  transition: 0.5s;
 }
 
 
@@ -999,17 +999,6 @@ a {
 /* GLOBAL */
 .global {
   background-color:#F2F4F8;
-}
-.global .scrollbar::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
-  background-color: #fff;
-}
-.global .scrollbar::-webkit-scrollbar {
-  width: 6px;
-  background-color: #fff;
-}
-.global .scrollbar::-webkit-scrollbar-thumb {
-  background-color: #F2F4F8;
 }
 
 .global#QubePlaylist .topHeader{
@@ -1114,4 +1103,28 @@ a {
 }
 .global#QubePlaylist .videolist .player {
   background-color: transparent;
+}
+.global#QubePlaylist .mainView{
+  width:70%;
+}
+.globalView{
+  color:black;
+  padding: 5px 10px;
+}
+.globalView .globalList {
+  display: inline-block;
+  width: calc(25% - 20px);
+  margin: 10px;
+}
+
+.globalView .globalList .playlistThumbnail {
+  width: 100%;
+  position: relative;
+  float: none;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.globalView .globalList.active {
+  color: rgb(34, 0, 160) !important;
 }

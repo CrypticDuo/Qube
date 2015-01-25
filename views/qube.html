@@ -91,6 +91,15 @@
         </div>
         <!-- END OF playView -->
         <div class="mainView">
+            <div class="globalView">
+                <li ng-repeat="playlist in globalPlaylists" class="globalList" ng-class="{active: currentPlaylist == playlist}" ng-click="changePlaylist(playlist)">
+                    <div class="playlistDetail">
+                        <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+                        <div class="title">{{playlist.name}}</div>
+                        <div class="duration">{{playlist.duration}}</div>
+                    </div>
+                </li>
+            </div>
             <div ng-show="layout == 'main'" class="view main hide">
                 <div class="listDisplay">
                     <div class="playlistColumn" ng-show="listDisplay == 'playlist'">

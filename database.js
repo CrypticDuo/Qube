@@ -356,8 +356,7 @@ var database = {
 
         }, {
             $project: {
-                _id: -1,
-                created: 1,
+                _id: 0,
                 playlist: 1
             }
         }], function(err, user) {
@@ -368,9 +367,13 @@ var database = {
                     msg: "User not found"
                 });
             } else if (user.length > 0) {
+                var ret = [];
+                for (var i = 0; i < user.length; i++){
+                    ret.push(user[i].playlist);
+                }
                 callback({
                     status: "Success",
-                    data: user
+                    data: ret
                 });
             }
         });
