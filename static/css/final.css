@@ -1107,24 +1107,71 @@ a {
 .global#QubePlaylist .mainView{
   width:70%;
 }
-.globalView{
+.global#QubePlaylist .globalView{
   color:black;
   padding: 5px 10px;
 }
-.globalView .globalList {
+.global#QubePlaylist .globalView .globalList {
   display: inline-block;
-  width: calc(25% - 20px);
-  margin: 10px;
+  width: calc(20% - 20px);
+  margin: 20px 10px;
+  -webkit-box-shadow: 0 4px 4px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0 4px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 4px rgba(0,0,0,0.3);
 }
 
-.globalView .globalList .playlistThumbnail {
+.global#QubePlaylist .globalView .globalList .playlistThumbnail {
   width: 100%;
   position: relative;
   float: none;
   height: 100%;
-  border-radius: 4px;
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
 }
 
-.globalView .globalList.active {
+.global#QubePlaylist .globalView .globalList.active {
   color: rgb(34, 0, 160) !important;
+}
+
+.global#QubePlaylist .globalView .imageTopContainer, .global#QubePlaylist .globalView .imageBottomContainer{
+  background-color:#fff;
+  width:inherit;
+  height:120px;
+  color:#333;
+  position:relative;
+  margin-bottom:-4px;
+}
+
+.global#QubePlaylist .globalView .imageBottomContainer{
+  margin-top:-4px;
+  border-bottom-right-radius:4px;
+  border-bottom-left-radius:4px;
+}
+.global#QubePlaylist .globalView .imageBottomContainer span{
+  position:absolute;
+  display:block;
+  right:10px;
+  bottom:10px;
+  font-size:17px;
+}
+.global#QubePlaylist .globalView .imageBottomContainer span i{
+  cursor:pointer;
+}
+.global#QubePlaylist .globalView .imageBottomContainer span i:hover{
+  color: #E0EAEC;
+}
+.global#QubePlaylist .globalView .title, .global#QubePlaylist .globalView .duration{
+  color: #545a5f;
+  margin-left:10px;
+}
+.global#QubePlaylist .globalView .title{
+  padding-top:15px;
+  font-size:14px;
+  margin-bottom:3px;
+}
+.global#QubePlaylist .globalView .duration{
+  font-size:12px;
+  position:absolute;
+  display:block;
+  bottom:15px;
 }
