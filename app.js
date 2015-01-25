@@ -195,7 +195,7 @@ router.route('/playlists/:playlist_name/videos/:videoID')
     });
 
 router.route('/global')
-    .get(function(req, res){
+    .get(ensureAuthenticated, function(req, res){
         db.getGlobalPlaylists(function(result){
             res.json(result);
         });
@@ -213,6 +213,18 @@ router.route('/global/incr/:playlist_name')
     //update playlist view count
     .put(ensureAuthenticated, function(req, res){
         db.incrementGlobalPlaylist(req.user.oauthID, req.params.playlist_name, function(result){
+            res.json(result);
+        });
+    });
+
+router.route('/global/likes/:global_id')
+    .get(ensureAuthenticated, function(req, res){
+        db.getPlaylistLikes(req.params.global_id, function(result){
+            res.json(result);
+        })
+    })
+    .put(ensureAuthenticated, function(req, res){
+        db.updatePlaylistLikes(req.user.oauthID, req.params.global_id, function(result){
             res.json(result);
         });
     });
