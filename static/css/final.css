@@ -1163,6 +1163,9 @@ a {
   text-align: center;
   width: 40px;
   height: 60px;
+  position: relative;
+  top: 5px;
+  right: -6px;
 }
 .global#QubePlaylist .mainImage .overlay{
   position: absolute;
@@ -1174,6 +1177,8 @@ a {
   z-index: 9;
   font-size: 37px;
   transition:300ms;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .global#QubePlaylist .mainImage .overlay:hover{
   opacity:1;
