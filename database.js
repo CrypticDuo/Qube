@@ -51,6 +51,9 @@ var database = {
                             name: pname,
                             videos: [],
                             isPublic: false,
+                            isDefault: false,
+                            likes: [],
+                            followers: [],
                             count: 0
                         }
                     }

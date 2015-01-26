@@ -902,7 +902,6 @@ a {
 }
 .playlistDetail {
   position: relative;
-  padding: 6px;
 }
 
 .player {
@@ -1010,7 +1009,7 @@ a {
   color: #555;
 }
 .global#QubePlaylist .playView {
-  width: 30%;
+  width: 25%;
   background-color: #fff;
   border-top: 1px solid rgb(229, 229, 229);
   border-left: 1px solid rgb(229, 229, 229);
@@ -1055,7 +1054,7 @@ a {
   color:#555;
 }
 .global#QubePlaylist .mainView{
-  width:70%;
+  width:75%;
 }
 .global#QubePlaylist .globalView{
   color:black;
@@ -1074,20 +1073,18 @@ a {
   display: inline-block;
   width: calc(25% - 20px);
   margin: 10px;
-  -webkit-box-shadow: 0 0px 2px rgba(0,0,0,0.10);
-  -moz-box-shadow: 0 4px 4px rgba(0,0,0,0.10);
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.10);
-  border-radius: 2px;
-  background: white;
+  background: transparent;
 }
 
 .global#QubePlaylist .globalView .globalList .playlistThumbnail {
   box-sizing: border-box;
   position: relative;
   float: none;
-  border: 1px solid rgba(184, 184, 184, 0.97);
 }
-
+.global#QubePlaylist .globalView .globalList .mainImage .playlistThumbnail {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
 .global#QubePlaylist .globalView .globalList.active {
   color: rgb(34, 0, 160) !important;
 }
@@ -1101,27 +1098,32 @@ a {
 }
 
 .global#QubePlaylist .globalView .imageBottomContainer{
-  margin-top:-4px;
+  position: absolute;
+  width: 100%;
+  top: 0;
   border-bottom-right-radius:4px;
   border-bottom-left-radius:4px;
-  border-top: 1px solid rgb(242, 242, 242);
+  background-color: rgba(0, 0, 0, 0.58);
+  color: #fff;
+  z-index: 9;
+  height: calc(100% - 3px);
 }
 .global#QubePlaylist .globalView .imageBottomContainer span.like, .global#QubePlaylist .globalView .imageBottomContainer span.likes-count{
   position:absolute;
   display:block;
   right:10px;
-  bottom: 7px;
-  font-size:17px;
+  font-size:17px; 
+  top: calc(50% - 10px);
 }
 .global#QubePlaylist .globalView .imageBottomContainer span.likes-count{
   position:absolute;
   display:block;
   left:10px;
-  bottom:10px;
   font-size:13px;
+  top: calc(50% - 8px);
 }
 .global#QubePlaylist .globalView .imageBottomContainer span.like{
-  color:#ddd;
+  color:#ddd; 
 }
 .global#QubePlaylist .globalView .imageBottomContainer span.liked {
   color:#4CB6CB;
@@ -1132,21 +1134,13 @@ a {
 .global#QubePlaylist .globalView .imageBottomContainer span.like:not(.liked) i:hover{
   color: #C6EDF5;
 }
-.global#QubePlaylist .globalView .title, .global#QubePlaylist .globalView .duration{
+.global#QubePlaylist .globalView .title{
   color: #545a5f;
 }
 .global#QubePlaylist .globalView .title{
-  font-size: 14px;
-  font-weight: 600;
-  padding-left: 2px;
-  padding-bottom: 10px;
-  margin-bottom: 2px;
+  font-size: 15px;
+  padding-left: 5px;
 }
-.global#QubePlaylist .globalView .duration{
-  font-size:13px;
-  text-align: right;
-}
-
 .mainImage .playlistThumbnail {
   width: 100%;
   height: 100%;
@@ -1165,10 +1159,16 @@ a {
 }
 
 .imageBox {
-  top: -2px;
+  top: -5px;
   position: relative;
 }
+.imageBox img:first-child {
+  border-bottom-left-radius: 5px;
+}
 
+.imageBox img:last-child {
+  border-bottom-right-radius: 5px;
+}
 .global#QubePlaylist .bottomContainer {
   background-color: #2ea0b6;
 }

@@ -1,7 +1,6 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GithubStrategy = require('passport-github').Strategy;
-var GoogleStrategy = require('passport-google').Strategy;
 var User = require('./user.js');
 var config = require('./oauth.js');
 
@@ -19,6 +18,9 @@ var defaultPlaylist = [
                                 "qpgTC9MDx1o"
                             ],
                             isPublic : false,
+                            isDefault: true,
+                            likes: [],
+                            followers: [],
                             count : 0
                         },
                         {
@@ -34,6 +36,9 @@ var defaultPlaylist = [
                                 "g5qU7p7yOY8"
                             ],
                             isPublic : false,
+                            isDefault: true,
+                            likes: [],
+                            followers: [],
                             count : 0
                         },
                         {
@@ -48,6 +53,9 @@ var defaultPlaylist = [
                                 "-NPqM3vPDg8"
                             ],
                             isPublic : false,
+                            isDefault: true,
+                            likes: [],
+                            followers: [],
                             count : 0
                         },
                         {
@@ -76,6 +84,9 @@ var defaultPlaylist = [
                                 "BQwiYUHEePA"
                             ],
                             isPublic : false,
+                            isDefault: true,
+                            likes: [],
+                            followers: [],
                             count : 0
                         },
                         {
@@ -90,6 +101,9 @@ var defaultPlaylist = [
                                 "9E6b3swbnWg"
                             ],
                             isPublic : false,
+                            isDefault: true,
+                            likes: [],
+                            followers: [],
                             count : 0
                         },
                         {
@@ -108,6 +122,9 @@ var defaultPlaylist = [
                                 "m_8B9ZSGNZ0"
                             ],
                             isPublic : false,
+                            isDefault: true,
+                            likes: [],
+                            followers: [],
                             count : 0
                         }
                     ];

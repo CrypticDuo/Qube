@@ -476,6 +476,7 @@ app.service("QubeService", function($http, $q) {
                         id: evt._id,
                         name : evt.name,
                         isPublic: evt.isPublic,
+                        isDefault: evt.isDefault,
                         count: evt.count,
                         likeList: evt.likes,
                         liked: false,

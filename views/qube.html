@@ -99,15 +99,14 @@
                           <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                         </div>
                         <div class="imageBox">
+                        <div class="imageBottomContainer">
+                        <span class="likes-count ng-binding">{{ playlist.likeList.length}} <ng-pluralize count="playlist.likeList.length" when="{'1': 'Like', 'other': 'Likes'}"></ng-pluralize></span>
+                        <span class="like" ng-class="{ liked: playlist.liked }"><i ng-click="updateLikeGlobalPlaylist(playlist)" class="fa fa-heart"></i></span></div>
                           <img class="playlistThumbnail" src="{{ playlist.data[1].snippet.thumbnails.medium.url }}"><!--
                           --><img class="playlistThumbnail" src="{{ playlist.data[2].snippet.thumbnails.medium.url }}"><!--
                         --><img class="playlistThumbnail" src="{{ playlist.data[3].snippet.thumbnails.medium.url }}">
                         </div>
                         <div class="title">{{playlist.name}}</div>
-                        <div class="imageBottomContainer">
-                        <!--<div class="duration">{{playlist.duration}}</div>-->
-                        <span class="likes-count">{{playlist.likeList.length}} <ng-pluralize count="playlist.likeList.length" when="{'1': 'Like', 'other': 'Likes'}"></ng-pluralize></span>
-                        <span class="like" ng-class="{ liked: playlist.liked }"><i ng-click="updateLikeGlobalPlaylist(playlist)" class="fa fa-heart"></i></span></div>
                     </div>
                 </li></ul>
             </div>
@@ -121,13 +120,19 @@
                                     <div class="title">{{playlist.name}}</div>
                                     <div class="duration">{{playlist.duration}}</div>
                                     <div class="float-right globalSummary">
-                                        <div ng-class="{hide: playlist.isPublic}">
+                                        <div ng-class="{hide: !playlist.isDefault}">
+                                            <svg height="15" width="15">
+                                                <circle cx="7" cy="7" r="5" stroke-width="3" fill="#999" />
+                                            </svg>
+                                            <span>Default</span>
+                                        </div>
+                                        <div ng-class="{hide: playlist.isDefault || playlist.isPublic}">
                                             <svg height="15" width="15">
                                                 <circle cx="7" cy="7" r="5" stroke-width="3" fill="#D24D57" />
                                             </svg>
                                             <span>Private</span>
                                         </div>
-                                        <div ng-class="{hide: !playlist.isPublic}">
+                                        <div ng-class="{hide: playlist.isDefault || !playlist.isPublic}">
                                             <svg height="15" width="15">
                                                 <circle cx="7" cy="7" r="5" stroke-width="3" fill="#66CC99" />
                                             </svg>
@@ -136,8 +141,8 @@
                                     </div>
                                     <div class="float-right playlistOptions hide">
                                         <div id="globalLock" ng-click="togglePublicPlaylist(playlist)">
-                                            <i class="icon-lock" ng-class="{hide : playlist.isPublic }"></i>
-                                            <i class="icon-lock-open" ng-class="{hide : !playlist.isPublic }"></i>
+                                            <i class="icon-lock" ng-class="{hide : playlist.isDefault || playlist.isPublic }"></i>
+                                            <i class="icon-lock-open" ng-class="{hide : playlist.isDefault || !playlist.isPublic }"></i>
                                         </div>
                                         <div id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i>
                                         </div>

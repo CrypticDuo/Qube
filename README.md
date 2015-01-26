@@ -42,8 +42,15 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
    * Packaged app (Windows, Mac OSX)
    * Alerting status (adding/removing videos, playlists, and errors)
 
+#### Release 2.0
+   * Global Playlist
+   * Like global playlists
+
 ### To do:
-   * Share playlist
-   * Renaming playlist
    * Profiling
    * Global playlist (see each others)
+   * Edge cases: (4+ videos to make playlist public, notify user that it will not be public if < 4 videos in playlist)
+   * Tooltip
+   * Database backup
+   * Rename playlist
+   * Share playlist
