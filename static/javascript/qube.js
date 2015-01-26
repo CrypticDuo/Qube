@@ -457,6 +457,7 @@ app.service("QubeService", function($http, $q) {
         //puts the data contentDetails inside target
         if (!evt) {
             scope.loadFirstPlaylist();
+            $(window).resize();
             return;
         }
         var videoIDlist = '';

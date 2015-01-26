@@ -352,7 +352,9 @@ $(document).ready(function() {
             $('#QubePlaylist .videolist .player').removeClass('fullscreen');
         }
         setSize($('.videolist').width(), '310');
-        $('.overlay > div').css('width', $('.videolist').width());
+        $('.videolist .overlay > div').css('width', $('.videolist').width());
+        $('.mainImage .overlay > div').css('height', $('.mainImage .overlay').height());
+        $('.mainImage .overlay > div').css('width', $('.mainImage .overlay').width());
         $('.listControl').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));

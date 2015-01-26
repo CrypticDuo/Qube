@@ -1104,17 +1104,22 @@ a {
   top: 2px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.58);
+  background-color: #2C3942;
   color: #fff;
   z-index: 9;
   height: calc(100% - 5px);
 }
-.global#QubePlaylist .globalView .imageBottomContainer span.like, .global#QubePlaylist .globalView .imageBottomContainer span.likes-count{
+.global#QubePlaylist .globalView .imageBottomContainer span.options, .global#QubePlaylist .globalView .imageBottomContainer span.likes-count{
   position:absolute;
   display:block;
-  right:10px;
   font-size:17px;
   top: calc(50% - 10px);
+}
+.global#QubePlaylist .globalView .imageBottomContainer span.options.like{
+  right:10px;
+}
+.global#QubePlaylist .globalView .imageBottomContainer span.options.favorite{
+  right:45px;
 }
 .global#QubePlaylist .globalView .imageBottomContainer span.likes-count{
   position:absolute;
@@ -1123,49 +1128,84 @@ a {
   font-size:13px;
   top: calc(50% - 8px);
 }
-.global#QubePlaylist .globalView .imageBottomContainer span.like{
+.global#QubePlaylist .globalView .imageBottomContainer span.options{
   color:#ddd;
 }
 .global#QubePlaylist .globalView .imageBottomContainer span.liked {
   color:#4CB6CB;
 }
-.global#QubePlaylist .globalView .imageBottomContainer span.like i{
+.global#QubePlaylist .globalView .imageBottomContainer span.options i{
   cursor:pointer;
 }
-.global#QubePlaylist .globalView .imageBottomContainer span.like:not(.liked) i:hover{
+.global#QubePlaylist .globalView .imageBottomContainer span.options:not(.liked) i:hover{
   color: #C6EDF5;
 }
-.global#QubePlaylist .globalView .title{
+.global#QubePlaylist .globalView .title, .global#QubePlaylist .globalView .user{
   color: #545a5f;
-}
-.global#QubePlaylist .globalView .title{
-  font-size: 15px;
+  font-size: 14px;
   padding-left: 5px;
 }
-.mainImage .playlistThumbnail {
+.global#QubePlaylist .globalView .user{
+  font-size: 12px;
+  color: #A0A0A0;
+}
+.global#QubePlaylist .mainImage .playlistThumbnail {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
 }
-
-.imageBox .playlistThumbnail {
+.global#QubePlaylist .mainImage{
+  position:relative;
+}
+.global#QubePlaylist .mainImage .overlay div {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 40px;
+  height: 60px;
+}
+.global#QubePlaylist .mainImage .overlay{
+  position: absolute;
+  opacity:0;
+  width: 100%;
+  top: 2px;
+  height: calc(100% - 5px);
+  background-color: rgba(0, 0, 0, 0.58);
+  z-index: 9;
+  font-size: 37px;
+  transition:300ms;
+}
+.global#QubePlaylist .mainImage .overlay:hover{
+  opacity:1;
+  transition:300ms;
+}
+.global#QubePlaylist .mainImage .overlay div i{
+  color: #aaa;
+  transition:300ms;
+}
+.global#QubePlaylist .mainImage .overlay div i:hover{
+  color:#fff;
+  transition:300ms;
+}
+.global#QubePlaylist .imageBox .playlistThumbnail {
   width: 33.3%;
   height: 100%;
+  opacity: 0;
 }
 
-.imageBox .playlistThumbnail:last-child {
+.global#QubePlaylist .imageBox .playlistThumbnail:last-child {
   margin-right: 0;
 }
 
-.imageBox {
+.global#QubePlaylist .imageBox {
   top: -5px;
   position: relative;
 }
-.imageBox img:nth-child(2) {
+.global#QubePlaylist .imageBox img:nth-child(2) {
   border-bottom-left-radius: 5px;
 }
 
-.imageBox img:last-child {
+.global#QubePlaylist .imageBox img:last-child {
   border-bottom-right-radius: 5px;
 }
 .global#QubePlaylist .bottomContainer {
