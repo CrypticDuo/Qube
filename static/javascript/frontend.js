@@ -26,7 +26,7 @@ function initiateYoutubePlayers(){
             'controls': 1,
             'modestbranding': 1,
             wmode: 'transparent'};
-    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?enablejsapi=1&playerapiid=player&version=3&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
+    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?enablejsapi=1&playerapiid=player&version=3&showinfo=0&autohide=0&controls=0&iv_load_policy=3", "player", "100%", "100%", "8", null, null, params, atts2);
 
 }
 
