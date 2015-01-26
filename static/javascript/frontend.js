@@ -586,9 +586,9 @@ $(document).ready(function() {
         $('.logo').on('click', function(){
             if($('.logo i.icon-earphones').length > 0){
                 $('.logo i').removeClass('icon-earphones');
-                $('.logo i').addClass('icon-globe');
+                $('.logo i').addClass('fa fa-globe');
             } else{
-                $('.logo i').removeClass('icon-globe');
+                $('.logo i').removeClass('fa fa-globe');
                 $('.logo i').addClass('icon-earphones');
             }
             transformToGlobal();

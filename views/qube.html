@@ -53,7 +53,7 @@
         </div> -->
         <!-- END OF sideMenu -->
         <div class="topHeader">
-            <div class="logo"><a class="home"><i class="icon icon-globe"></i></a>
+            <div class="logo"><a class="home"><i class="fa fa-globe"></i></a>
             </div>
             <span>{{ currentPlaylist.name }}</span>
         </div>
@@ -145,8 +145,8 @@
                                     </div>
                                     <div class="float-right playlistOptions hide">
                                         <div id="globalLock" ng-click="togglePublicPlaylist(playlist)">
-                                            <i class="icon-lock" ng-class="{hide : playlist.isDefault || playlist.isPublic }"></i>
-                                            <i class="icon-lock-open" ng-class="{hide : playlist.isDefault || !playlist.isPublic }"></i>
+                                            <i class="fa fa-lock" ng-class="{hide : playlist.isDefault || playlist.isPublic }"></i>
+                                            <i class="fa fa-unlock-alt" ng-class="{hide : playlist.isDefault || !playlist.isPublic }"></i>
                                         </div>
                                         <div id="playlistRemove" ng-click="removePlaylist(playlist)"><i class="icon-close"></i>
                                         </div>
@@ -171,7 +171,7 @@
                                         <button class=" addVideo" ng-click="addVideo(video, currentPlaylistOption)" onclick="document.activeElement.blur()">
                                             <i class="icon-plus"></i>
                                         </button>
-                                        <span id="{{video.id}}" class="addVideo" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)"><i class="icon-share-alt"></i></span>
+                                        <span id="{{video.id}}" class="addVideo" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)"><i class="fa fa-youtube-play"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -220,9 +220,9 @@
                                 <br/>
                                 <div><!-- Qube is a playlist application full of pure awesomeness. --></div>
                                 <br/>
-                                <span style="float:right; color:#CDCDCD">- Made with <i aria-hidden="true" class="icon-heart" style="color:#e74c3c"></i> by Insoo and Paul</span>
+                                <span style="float:right; color:#CDCDCD">- Made with <i aria-hidden="true" class="fa fa-heart" style="color:#e74c3c"></i> by Insoo and Paul</span>
                                 <br/>
-                                <span style="float:right; color:#CDCDCD">- Logo made by Mina Moon <i data-icon="&#xe028;" style="color:#f1c40f"></i></span>
+                                <span style="float:right; color:#CDCDCD">- Logo made by Mina Moon <i class="fa fa-beer" style="color:#f1c40f"></i></span>
                                 <!-- <a href="#" class="dev"><span class="symbol">roundedfacebook</span><span class="name">Facebook</span></a>
                                 <a href="https://github.com/insoochoo/Qube" class="dev"><span class="symbol">roundedgithubalt</span><span class="name">Github</span></a> -->
                             </span>
