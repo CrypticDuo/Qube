@@ -113,12 +113,10 @@ function onVolumeChange(el, volume) {
 }
 
 function onSearchChange(el, query){
-    console.log(query);
     if(query){
         var scope = angular.element(el).scope();
         scope.$apply(function() {
             scope.onSearch(query, function(data){
-                console.log(data);
                 $('.lcSearch > input').autocomplete({
                     source: data,
                     select:function(event, ui){
@@ -204,7 +202,6 @@ $(document).ready(function() {
             onSearchChange($(self),$(self).val());
         }
         else if(e.which === 13){
-            console.log("hey");
             $('.lcSearch > input').autocomplete( "destroy" );
             setTimeout(function(){
                 $('.lcSearch > input').autocomplete({appendTo: "body"});
@@ -403,12 +400,14 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
         $('.userVideolist').on('mouseenter', 'li', function(){
-            $(this).children('.duration').addClass('hide');
-            $(this).children('.close').removeClass('hide');
-            $('.userVideolist').on('mouseleave', 'li', function(){
-                $(this).children('.duration').removeClass('hide');
-                $(this).children('.close').addClass('hide');
-            });
+            if($('#QubePlaylist:not(".global")').length > 0) {
+              $(this).children('.duration').addClass('hide');
+              $(this).children('.close').removeClass('hide');
+              $('.userVideolist').on('mouseleave', 'li', function(){
+                  $(this).children('.duration').removeClass('hide');
+                  $(this).children('.close').addClass('hide');
+              });
+            }
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
@@ -420,7 +419,6 @@ $(document).ready(function() {
         $('.userPlaylist').on('mouseenter', 'li', function(){
             $(this).children('.playlistDetail').children('.globalSummary').addClass('hide');
             $(this).children('.playlistDetail').children('.playlistOptions').removeClass('hide');
-            console.log($(this).children('.playlistOptions').attr('class'));
             $('.userPlaylist').on('mouseleave', 'li', function(){
                 $(this).children('.playlistDetail').children('.globalSummary').removeClass('hide');
                 $(this).children('.playlistDetail').children('.playlistOptions').addClass('hide');
@@ -585,7 +583,6 @@ $(document).ready(function() {
 
         $('.logo').on('click', function(){
             if($('.logo i.icon-earphones').length > 0){
-                console.log('wtf');
                 $('.logo i').removeClass('icon-earphones');
                 $('.logo i').addClass('icon-globe');
             } else{

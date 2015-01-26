@@ -108,21 +108,20 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if($scope.currentPlaylist !== playlist){
             $scope.currentPlaylist = playlist;
             $scope.shuffleList = [];
-            //$scope.listAllVideos(playlist.name);
             $scope.currentPlaylistOption = playlist.name;
             $scope.togglePlayVideo('QubeChangePlaylist');
         }
     }
 
     $scope.loadFirstPlaylist = function() {
-        if($( "#QubePlaylist" ).hasClass( "global" )){
-            $scope.currentPlaylist = $scope.globalPlaylists[0];
-            $scope.currentPlaylistOption = $scope.globalPlaylists[0].name;
-        }
-        else{
-            $scope.currentPlaylist = $scope.playlists[0];
-            $scope.currentPlaylistOption = $scope.playlists[0].name;
-        }
+        // if($( "#QubePlaylist" ).hasClass( "global" )){
+        //     $scope.currentPlaylist = $scope.globalPlaylists[0];
+        //     $scope.currentPlaylistOption = $scope.globalPlaylists[0].name;
+        // }
+        // else{
+        //     $scope.currentPlaylist = $scope.playlists[0];
+        //     $scope.currentPlaylistOption = $scope.playlists[0].name;
+        // }
     }
 
     $scope.preventOuterDivEvent = function (){
@@ -148,7 +147,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.preventOuterDivEvent();
         QubeService.updateLikeGlobalPlaylist($scope, playlist.id);
     }
-    
+
     $scope.updatePlaylist = function(list) {
         var newlist=[];
         var videolist = [];
