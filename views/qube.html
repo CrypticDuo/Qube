@@ -55,7 +55,7 @@
         <div class="topHeader">
             <div class="logo"><a class="home"><i class="fa fa-globe"></i></a>
             </div>
-            <span>{{ currentPlaylist.name }}</span>
+            <span>{{ currentPlaylist.name }}<!-- <span class="username"> | by: {{userID}}</span> --></span>
         </div>
         <!-- END OF topHeader -->
 
@@ -102,7 +102,7 @@
                         <div class="imageBox">
                             <div class="imageBottomContainer">
                             <span class="likes-count ng-binding">{{ playlist.likeList.length}} <ng-pluralize count="playlist.likeList.length" when="{'1': 'Like', 'other': 'Likes'}"></ng-pluralize></span>
-                            <span class="options favorite"><i class="fa fa-star"></i></span>
+                            <span class="options favorite" ng-class="{ favorited: playlist.favorited }"><i ng-click="updateFavoriteGlobalPlaylist(playlist)" class="fa fa-star"></i></span>
                             <span class="options like" ng-class="{ liked: playlist.liked }"><i ng-click="updateLikeGlobalPlaylist(playlist)" class="fa fa-heart"></i></span>
                             </div>
                               <img class="playlistThumbnail" src="{{ playlist.data[1].snippet.thumbnails.medium.url }}"><!--

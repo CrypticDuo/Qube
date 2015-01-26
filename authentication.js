@@ -20,6 +20,7 @@ var defaultPlaylist = [
                             isPublic : false,
                             isDefault: true,
                             likes: [],
+                            favorites: [],
                             followers: [],
                             count : 0
                         },
@@ -38,6 +39,7 @@ var defaultPlaylist = [
                             isPublic : false,
                             isDefault: true,
                             likes: [],
+                            favorites: [],
                             followers: [],
                             count : 0
                         },
@@ -55,6 +57,7 @@ var defaultPlaylist = [
                             isPublic : false,
                             isDefault: true,
                             likes: [],
+                            favorites: [],
                             followers: [],
                             count : 0
                         },
@@ -86,6 +89,7 @@ var defaultPlaylist = [
                             isPublic : false,
                             isDefault: true,
                             likes: [],
+                            favorites: [],
                             followers: [],
                             count : 0
                         },
@@ -103,6 +107,7 @@ var defaultPlaylist = [
                             isPublic : false,
                             isDefault: true,
                             likes: [],
+                            favorites: [],
                             followers: [],
                             count : 0
                         },
@@ -124,6 +129,7 @@ var defaultPlaylist = [
                             isPublic : false,
                             isDefault: true,
                             likes: [],
+                            favorites: [],
                             followers: [],
                             count : 0
                         }

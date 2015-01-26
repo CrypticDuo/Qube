@@ -1115,7 +1115,7 @@ i.fa.fa-youtube-play:hover {
   top: 2px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  background-color: #2C3942;
+  background-color: rgba(44, 57, 66, 1);
   color: #fff;
   z-index: 9;
   height: calc(100% - 5px);
@@ -1145,11 +1145,17 @@ i.fa.fa-youtube-play:hover {
 .global#QubePlaylist .globalView .imageBottomContainer span.liked {
   color:#4CB6CB;
 }
+.global#QubePlaylist .globalView .imageBottomContainer span.like:not(.liked) i:hover{
+  color: #C6EDF5;
+}
+.global#QubePlaylist .globalView .imageBottomContainer span.favorited {
+  color:#FFC200;
+}
+.global#QubePlaylist .globalView .imageBottomContainer span.favorite:not(.favorited) i:hover{
+  color: #FCE8A8;
+}
 .global#QubePlaylist .globalView .imageBottomContainer span.options i{
   cursor:pointer;
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.options:not(.liked) i:hover{
-  color: #C6EDF5;
 }
 .global#QubePlaylist .globalView .title, .global#QubePlaylist .globalView .user{
   color: #545a5f;
@@ -1206,7 +1212,6 @@ i.fa.fa-youtube-play:hover {
 .global#QubePlaylist .imageBox .playlistThumbnail {
   width: 33.3%;
   height: 100%;
-  opacity: 0;
 }
 
 .global#QubePlaylist .imageBox .playlistThumbnail:last-child {
@@ -1254,4 +1259,7 @@ i.fa.fa-youtube-play:hover {
 
 .globalSummary {
   width: 60px;
+}
+#QubePlaylist .topHeader .username{
+  font-size:13px;
 }

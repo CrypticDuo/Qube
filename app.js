@@ -224,16 +224,16 @@ router.route('/global/incr/:playlist_name')
         });
     });
 
-router.route('/global/likes/:global_id')
-    .get(ensureAuthenticated, function(req, res){
-        db.getPlaylistLikes(req.params.global_id, function(result){
-            res.json(result);
-        })
-    });
-
 router.route('/global/user/:id/likes/:global_id')
     .put(ensureAuthenticated, function(req, res){
         db.updatePlaylistLikes(req.user.oauthID, req.params.id, req.params.global_id, function(result){
+            res.json(result);
+        });
+    });
+
+router.route('/global/user/:id/favorites/:global_id')
+    .put(ensureAuthenticated, function(req, res){
+        db.updatePlaylistFavorites(req.user.oauthID, req.params.id, req.params.global_id, function(result){
             res.json(result);
         });
     });

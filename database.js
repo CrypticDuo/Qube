@@ -348,8 +348,14 @@ var database = {
         User.aggregate([{
             $unwind: "$playlist"
         }, {
+            $project: {
+                playlist: 1,
+                vSize: {$size : "$playlist.videos"}
+            }
+        }, {
             $match: {
                 $and: [{
+                vSize : { $gte: 4},
                     "playlist.name": {
                         $ne: "Radio"
                     }
@@ -451,33 +457,6 @@ var database = {
         });
     },
 
-    getPlaylistLikes: function(globalID, callback) {
-        User.aggregate([{
-            $unwind: "$playlist"
-        }, {
-            $match: {
-                "playlist._id": mongoose.Types.ObjectId(globalID)
-            }
-        }, {
-            $project: {
-                _id: 0, 
-                likes:"$playlist.likes"
-            }
-        }], function(err, result){
-            if (err) {
-                console.log("ERROR: " + err);
-                callback({
-                    status: "Fail"
-                });
-            } else if (result.length > 0) {
-                callback({
-                    status: "Success",
-                    data: result
-                });
-            }
-        });
-    },
-
     updatePlaylistLikes: function(userID, id, globalID, callback) {
         User.aggregate([{
             $unwind: "$playlist"
@@ -563,6 +542,92 @@ var database = {
         });
     },
     
+    updatePlaylistFavorites: function(userID, id, globalID, callback) {
+        User.aggregate([{
+            $unwind: "$playlist"
+        }, {
+            $match: {
+                "playlist._id": mongoose.Types.ObjectId(globalID)
+            }
+        }, {
+            $project: {
+                oauthID: 1,
+                name: "$playlist.name",
+                favorites:"$playlist.favorites"
+            }
+        }], function(err, result){
+            if (err) {
+                console.log("ERROR: " + err);
+                callback({
+                    status: "Fail"
+                });
+            } else if (result.length > 0) {
+                result = result[0];
+                for(var i=0; i<result['favorites'].length; i++){
+                    if(result['favorites'][i] === id.toString()){
+                        // Update global playlist OWNER's JSON
+                        User.update({
+                            oauthID: result.oauthID,
+                            "playlist.name": result.name
+                        }, {
+                            "$pull": {
+                                "playlist.$.favorites": id
+                            }
+                        }, function(err, result){
+                            if(err){
+                                console.log("ERROR: " + err);
+                                callback({
+                                    status: "Fail",
+                                    msg: err
+                                });
+                            } else if(!err && result && result !== 0){
+                                callback({
+                                    status: "Success",
+                                    action: 'unfavorite',
+                                    msg: "Successfully unfavorited global playlist"
+                                });
+                            } else {
+                                callback({
+                                    status: "Fail",
+                                    msg: "Failed to unfavorite for a public playlist"
+                                });
+                            }
+                        });
+
+                        return;
+                    }
+                }
+                User.update({
+                    oauthID: result.oauthID,
+                    "playlist.name": result.name
+                }, {
+                    "$push": {
+                        "playlist.$.favorites": id
+                    }
+                }, function(err, result){
+                    if(err){
+                        console.log("ERROR: " + err);
+                        callback({
+                            status: "Fail",
+                            msg: err
+                        });
+                    } else if(!err && result && result !== 0){
+                        callback({
+                            status: "Success",
+                            action: 'favorite',
+                            msg: "Successfully favorited global playlist"
+                        });
+                    } else {
+                        callback({
+                            status: "Fail",
+                            msg: "Failed to favorite for a public playlist"
+                        });
+                    }
+                });
+            };
+        });
+    },
+
     incrementGlobalPlaylist: function(userID, pname, callback) {
         User.update({
             oauthID: userID,

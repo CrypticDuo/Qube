@@ -148,6 +148,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         QubeService.updateLikeGlobalPlaylist($scope, playlist.id);
     }
 
+    $scope.updateFavoriteGlobalPlaylist = function(playlist){
+        //prevent outer div's event
+        $scope.preventOuterDivEvent();
+        QubeService.updateFavoriteGlobalPlaylist($scope, playlist.id);
+    }
+
     $scope.updatePlaylist = function(list) {
         var newlist=[];
         var videolist = [];
@@ -480,6 +486,8 @@ app.service("QubeService", function($http, $q) {
                         isDefault: evt.isDefault,
                         count: evt.count,
                         likeList: evt.likes,
+                        favoriteList: evt.favorites,
+                        favorited: false,
                         liked: false,
                         data : contentDetailsData.items,
                         duration : "00:00"
@@ -491,6 +499,9 @@ app.service("QubeService", function($http, $q) {
                 getVideoDetails(target, data, scope);
                 if(target[target.length-1].likeList && target[target.length-1].likeList.indexOf(scope.userID) > -1){
                     target[target.length-1].liked = true;
+                }
+                if(target[target.length-1].favoriteList && target[target.length-1].favoriteList.indexOf(scope.userID) > -1){
+                    target[target.length-1].favorited = true;
                 }
             })
             .error(function() {
@@ -666,7 +677,37 @@ app.service("QubeService", function($http, $q) {
                 alertify.error('Error: Failed to liked/unlike playlist.');
             });
     }
+    function updateFavoriteGlobalPlaylist(scope, globalID){
+        $http.put("/api/global/user/"+scope.userID+"/favorites/"+globalID)
+            .success(function(res){
+                if (res.status.toLowerCase() === "fail"){
+                    console.log(res.msg);
+                } else{
+                    if(res.action === 'favorite'){
+                        alertify.success('Success: Favorited playlist.');
+                    } else if(res.action === 'unfavorite') {
+                        alertify.success('Success: Unfavorited playlist.');
+                    } else {
+                        alertify.success('Error: Failed to favorite/unfavorite playlist.');
+                    }
 
+                    for(var i=0; i<scope.globalPlaylists.length; i++){
+                        if(scope.globalPlaylists[i].id === globalID){
+                            scope.globalPlaylists[i].favorited=!scope.globalPlaylists[i].favorited;
+                            if(scope.globalPlaylists[i].favoriteList.indexOf(scope.userID) > -1){
+                                scope.globalPlaylists[i].favoriteList.splice(scope.globalPlaylists[i].favoriteList.indexOf(scope.userID), 1)
+                            } else {
+                                scope.globalPlaylists[i].favoriteList.push(scope.userID);
+                            }
+                            break;
+                        }
+                    }
+                }
+            })
+            .error(function(err) {
+                alertify.error('Error: Failed to liked/unlike playlist.');
+            });
+    }
     function addVideoToPlaylist(scope, pname, video) {
         if(pname){
             $http.post("/api/playlists/" + pname + "/videos/" + video.id)
@@ -741,6 +782,7 @@ app.service("QubeService", function($http, $q) {
         addVideoToPlaylist: addVideoToPlaylist,
         togglePublicPlaylist: togglePublicPlaylist,
         updateLikeGlobalPlaylist: updateLikeGlobalPlaylist,
+        updateFavoriteGlobalPlaylist: updateFavoriteGlobalPlaylist,
         removeVideoFromPlaylist: removeVideoFromPlaylist,
         updateVideoList : updateVideoList,
         searchAutoComplete: searchAutoComplete,
