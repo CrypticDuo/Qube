@@ -1011,8 +1011,11 @@ a {
 }
 .global#QubePlaylist .playView {
   width: 30%;
-  background-color: #E0EAEC;
+  background-color: #fff;
+  border-top: 1px solid rgb(229, 229, 229);
+  border-left: 1px solid rgb(229, 229, 229);
   float: right;
+  box-sizing: border-box;
 }
 
 .global#QubePlaylist .videolist .userVideolist li:first-child {
@@ -1021,10 +1024,11 @@ a {
 .global#QubePlaylist .videolist .userVideolist li {
   border-bottom: 1px solid #F2F4F8;
   color:#555;
-  background-color:#E0EAEC;
+  background-color: #fff;
 }
 .global#QubePlaylist .videolist .userVideolist li.active, .global#QubePlaylist .videolist .userVideolist li.active a, .global#QubePlaylist .videolist .userVideolist li.active span.title, .global#QubePlaylist .videolist .userVideolist li.active span.duration {
-  background-color: #4CB6CB;
+  color: #4CB6CB;
+  background-color: transparent;
 }
 .global#QubePlaylist .videolist .userVideolist span.title {
   width: 75%;
@@ -1045,7 +1049,7 @@ a {
   border-top: 0px;
 }
 .global#QubePlaylist .videolist .overlay{
-  background-color: #E0EAEC;
+  background-color: #fff;
 }
 .global#QubePlaylist .videolist .overlay > div > i{
   color:#555;
