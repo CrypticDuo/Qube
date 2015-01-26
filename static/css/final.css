@@ -1030,7 +1030,7 @@ a {
   background-color: transparent;
 }
 .global#QubePlaylist .videolist .userVideolist span.title {
-  width: 75%;
+  width: 70%;
   font-size: 14px;
   color:#555;
 }
@@ -1046,6 +1046,7 @@ a {
 }
 .global#QubePlaylist .videolist .player {
   border-top: 0px;
+  height: 200px !important;
 }
 .global#QubePlaylist .videolist .overlay{
   background-color: #fff;
@@ -1148,10 +1149,8 @@ a {
 }
 
 .imageBox .playlistThumbnail {
-  width: calc(33.3% - 2px);
+  width: 33.3%;
   height: 100%;
-  margin-right: 3px;
-  box-sizing: border-box;
 }
 
 .imageBox .playlistThumbnail:last-child {
