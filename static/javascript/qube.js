@@ -165,11 +165,17 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                     for(var k = 0; k < $scope.playlists[j].data.length; k++){
                         videolist.push($scope.playlists[j].data[k].id);
                     }
+                    // NEED TO UPDATE IF USER.JS CHANGES
                     datalist.push({
                         name: $scope.playlists[j].name,
-                        videos: videolist
+                        videos: videolist,
+                        isPublic: $scope.playlists[j].isPublic,
+                        isDefault: $scope.playlists[j].isDefault,
+                        likes: $scope.playlists[j].likeList,
+                        favorites: $scope.playlists[j].favoriteList
                     });
                     newlist.push($scope.playlists[j]);
+                    break;
                 }
             }
         }
