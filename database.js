@@ -559,11 +559,13 @@ var database = {
                 for(var i=0; i<result.favorites.length; i++){
                     (function(){
                         var pos = i;
+                        console.log(pos);
                         User.aggregate([{
                             $unwind : "$playlist"
                         }, {
                             $match : {
-                                "playlist._id": mongoose.Types.ObjectId(result.favorites[i])
+                                "playlist._id": mongoose.Types.ObjectId(result.favorites[i]),
+                                "playlist.isPublic": true
                             }
                         }, {
                             $project : {
@@ -578,8 +580,10 @@ var database = {
                                     msg: err
                                 });
                                 return;
-                            } else if(result2.length > 0){
-                                data.push(result2[0]);
+                            } else {
+                                if(result2[0]){
+                                    data.push(result2[0]);
+                                }
                                 if(pos === result.favorites.length-1){    
                                     callback({
                                         status: "Success",
