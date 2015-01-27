@@ -1022,7 +1022,6 @@ i.fa.fa-youtube-play:hover {
 .global#QubePlaylist .playView {
   width: 25%;
   background-color: #fff;
-  border-top: 1px solid rgb(229, 229, 229);
   border-left: 1px solid rgb(229, 229, 229);
   float: right;
   box-sizing: border-box;
@@ -1060,7 +1059,7 @@ i.fa.fa-youtube-play:hover {
   height: 200px !important;
 }
 .global#QubePlaylist .videolist .overlay{
-  background-color: #fff;
+  background-color: #F2F4F8;
 }
 .global#QubePlaylist .videolist .overlay > div > i{
   color:#555;
@@ -1262,4 +1261,8 @@ i.fa.fa-youtube-play:hover {
 }
 #QubePlaylist .topHeader .username{
   font-size:13px;
+}
+
+.global#QubePlaylist .videolist .overlay > div{
+  height: 200px!important;
 }
