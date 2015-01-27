@@ -555,11 +555,10 @@ var database = {
                 });
             } else if (result.length > 0) {
                 result=result[0];
-                var data = [];
+                var favoriteData = [];
+                var count = 0;
                 for(var i=0; i<result.favorites.length; i++){
                     (function(){
-                        var pos = i;
-                        console.log(pos);
                         User.aggregate([{
                             $unwind : "$playlist"
                         }, {
@@ -582,12 +581,13 @@ var database = {
                                 return;
                             } else {
                                 if(result2[0]){
-                                    data.push(result2[0]);
+                                    favoriteData.push(result2[0]);
                                 }
-                                if(pos === result.favorites.length-1){    
+                                count++;
+                                if(count === result.favorites.length){ 
                                     callback({
                                         status: "Success",
-                                        data:data
+                                        data:favoriteData
                                     });
                                 }
                             }
