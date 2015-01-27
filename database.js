@@ -542,6 +542,58 @@ var database = {
         });
     },
 
+    getPlaylistFavorites: function(userID, callback) {
+        User.find({
+            oauthID: userID
+        }, {
+            favorites:1
+        }, function(err, result){
+            if (err) {
+                console.log("ERROR: " + err);
+                callback({
+                    status: "Fail"
+                });
+            } else if (result.length > 0) {
+                result=result[0];
+                var data = [];
+                for(var i=0; i<result.favorites.length; i++){
+                    (function(){
+                        var pos = i;
+                        User.aggregate([{
+                            $unwind : "$playlist"
+                        }, {
+                            $match : {
+                                "playlist._id": mongoose.Types.ObjectId(result.favorites[i])
+                            }
+                        }, {
+                            $project : {
+                                _id: 0,
+                                playlist: 1
+                            }
+                        }], function(err, result2){
+                            if(err){
+                                console.log("ERROR: " + err);
+                                callback({
+                                    status: "Fail",
+                                    msg: err
+                                });
+                                return;
+                            } else if(result2.length > 0){
+                                data.push(result2[0]);
+                                if(pos === result.favorites.length-1){    
+                                    callback({
+                                        status: "Success",
+                                        data:data
+                                    });
+                                }
+                            }
+                         });
+                    })();
+                };
+            }
+        });
+    },
+
     updatePlaylistFavorites: function(userID, id, globalID, callback) {
         User.aggregate([{
             $unwind: "$playlist"

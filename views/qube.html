@@ -96,7 +96,7 @@
                 <ul><li ng-repeat="playlist in globalPlaylists" class="globalList" ng-class="{active: currentPlaylist == playlist}" ng-click="changePlaylist(playlist)">
                     <div class="playlistDetail">
                         <div class="mainImage">
-                            <div class="overlay"><div><i class="icon icon-control-play"></i></div></div>
+                            <div class="overlay"><div><i ng-click="togglePlayVideo()" class="icon icon-control-play"></i></div></div>
                             <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                         </div>
                         <div class="imageBox">

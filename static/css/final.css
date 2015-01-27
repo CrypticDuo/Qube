@@ -1200,6 +1200,9 @@ i.fa.fa-youtube-play:hover {
   opacity:1;
   transition:300ms;
 }
+.global#QubePlaylist .active .mainImage .overlay{
+  opacity:1;
+}
 .global#QubePlaylist .mainImage .overlay div i{
   color: #aaa;
   transition:300ms;

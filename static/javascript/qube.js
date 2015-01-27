@@ -69,11 +69,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.replay = 'all';
         $scope.shuffleState = false;
         $scope.shuffleList = [];
+        QubeService.listAllPlaylist($scope);
         QubeService.getUserID($scope, function(){
-            QubeService.listAllPlaylist($scope);
             QubeService.getGlobalPlaylist($scope);
-            addInfiniteScroll();
         });
+        addInfiniteScroll();
     }
 
     function addInfiniteScroll(){
@@ -355,11 +355,13 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             } else if (player.getPlayerState() === 2) {
                 player.playVideo();
             } else if (player.getPlayerState() === -1) {
-                video = $scope.currentPlaylist.data[0];
-                player.loadVideoById(video.id);
-                $scope.currentPlayingVideo = video;
-                $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
-                updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
+                if($scope.currentPlaylist.data){
+                    video = $scope.currentPlaylist.data[0];
+                    player.loadVideoById(video.id);
+                    $scope.currentPlayingVideo = video;
+                    $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
+                    updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
+                }
             }
 
         }
@@ -714,6 +716,7 @@ app.service("QubeService", function($http, $q) {
                 alertify.error('Error: Failed to liked/unlike playlist.');
             });
     }
+
     function addVideoToPlaylist(scope, pname, video) {
         if(pname){
             $http.post("/api/playlists/" + pname + "/videos/" + video.id)
