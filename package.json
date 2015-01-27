@@ -14,7 +14,9 @@
     "body-parser": "^1.9.0",
     "method-override": "^2.2.0",
     "passport-github": "^0.1.5",
-    "request": "^2.51.0"
+    "request": "^2.51.0",
+    "redis": "*",
+    "connect-redis": "*"
   },
   "repository": {
     "type": "git",
