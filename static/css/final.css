@@ -300,26 +300,36 @@ a {
   display: block;
   padding: 0;
   line-height: 60px;
-  text-align: center;
-  font-size: 16px;
-  width: 70px;
-  position: absolute;
+  font-size: 18px;
+  padding-left: 20px;
+  padding-right:10px;
+  position: relative;
   background-color: #4cb6cb;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 115px;
+  height: 100%;
 }
 #QubePlaylist .topHeader > div.logo > a {
-  height: 20px;
-}
-#QubePlaylist .topHeader > span {
-  width: 50%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 17px;
-  color: #E5E5E5;
-  margin-left: 70px;
-  text-align: center;
-  line-height: 60px;
+  position: relative;
   display: block;
-  margin: 0 auto;
+  height: 100%;
+}
+#QubePlaylist .topHeader .logo span {
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight:700;
+  color:#fff;
+  padding-left: 10px;
+  height: 100%;
+}
+#QubePlaylist .topHeader .logo i {
+  width: 20%;
+  display: inline-block;
 }
 #QubePlaylist .playView {
   width: 45%;
@@ -1002,23 +1012,20 @@ i.fa.fa-youtube-play:hover {
   transition: 0.5s;
 }
 
-
-
-
 /* GLOBAL */
 .global {
   background-color:#F2F4F8;
 }
-.global .fa.fa-globe{
+.global#QubePlaylist .topHeader .fa.fa-globe{
+  position:relative;
+  top:1px;
   font-size:20px;
 }
 .global#QubePlaylist .topHeader{
   background-color:#FFFFFF;
+  position: relative;
 }
 
-.global#QubePlaylist .topHeader span{
-  color: #555;
-}
 .global#QubePlaylist .playView {
   width: 25%;
   background-color: #fff;

@@ -13,7 +13,6 @@ var database = {
                     msg: "User not found"
                 });
             } else if (user.length > 0) {
-                console.log(user[0]._id);
                 callback({
                     status: "Success",
                     data: user[0]._id
@@ -344,7 +343,7 @@ var database = {
         });
     },
 
-    getGlobalPlaylists: function(callback) {
+    getGlobalPlaylists: function(offset, callback) {
         User.aggregate([{
             $unwind: "$playlist"
         }, {
@@ -389,6 +388,10 @@ var database = {
                 _id: 0,
                 playlist: 1
             }
+        }, {
+            $skip: offset
+        }, {
+            $limit: 20
         }], function(err, user) {
             if (err) {
                 console.log("ERROR: " + err);
