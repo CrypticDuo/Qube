@@ -8,7 +8,6 @@ var app = express();
 var mongoose = require('mongoose');
 var passport = require('passport');
 var bodyParser = require('body-parser');
-var session = require('express-session');
 var methodOverride = require('method-override');
 var request = require('request');
 var cluster = require('cluster');
