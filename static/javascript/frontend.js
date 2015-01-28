@@ -54,6 +54,9 @@ function onPlayerStateChange(event) {
             var $el = $('ul.controllers li i.icon-control-pause');
             $el.removeClass('icon-control-pause');
             $el.addClass('icon-control-play');
+            $el = $('.active i.icon-control-pause');
+            $el.removeClass('icon-control-pause');
+            $el.addClass('icon-control-play');
             $('.bar1.a3').removeClass('animate');
             $('.bar2.a5').removeClass('animate');
             $('.bar3.a1').removeClass('animate');
@@ -74,6 +77,9 @@ function onPlayerStateChange(event) {
         }
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
             var $el = $('ul.controllers li i.icon-control-play');
+            $el.addClass('icon-control-pause');
+            $el.removeClass('icon-control-play');
+            $el = $('.active i.icon-control-play');
             $el.addClass('icon-control-pause');
             $el.removeClass('icon-control-play');
             $('.bar1.a3').addClass('animate');

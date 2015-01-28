@@ -69,11 +69,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.replay = 'all';
         $scope.shuffleState = false;
         $scope.shuffleList = [];
+        QubeService.listAllPlaylist($scope);
         QubeService.getUserID($scope, function(){
-            QubeService.listAllPlaylist($scope);
             QubeService.getGlobalPlaylist($scope);
-            addInfiniteScroll();
         });
+        addInfiniteScroll();
     }
 
     function addInfiniteScroll(){
@@ -165,11 +165,17 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                     for(var k = 0; k < $scope.playlists[j].data.length; k++){
                         videolist.push($scope.playlists[j].data[k].id);
                     }
+                    // NEED TO UPDATE IF USER.JS CHANGES
                     datalist.push({
                         name: $scope.playlists[j].name,
-                        videos: videolist
+                        videos: videolist,
+                        isPublic: $scope.playlists[j].isPublic,
+                        isDefault: $scope.playlists[j].isDefault,
+                        likes: $scope.playlists[j].likeList,
+                        favorites: $scope.playlists[j].favoriteList
                     });
                     newlist.push($scope.playlists[j]);
+                    break;
                 }
             }
         }
@@ -349,11 +355,13 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             } else if (player.getPlayerState() === 2) {
                 player.playVideo();
             } else if (player.getPlayerState() === -1) {
-                video = $scope.currentPlaylist.data[0];
-                player.loadVideoById(video.id);
-                $scope.currentPlayingVideo = video;
-                $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
-                updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
+                if($scope.currentPlaylist.data){
+                    video = $scope.currentPlaylist.data[0];
+                    player.loadVideoById(video.id);
+                    $scope.currentPlayingVideo = video;
+                    $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
+                    updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
+                }
             }
 
         }
@@ -459,54 +467,60 @@ app.service("QubeService", function($http, $q) {
     var hostURL = "http://" + window.location.host;
 
     function getVideoDetails(target, data, scope) {
-        var evt = data.shift();
-        //puts the data contentDetails inside target
-        if (!evt) {
-            scope.loadFirstPlaylist();
-            $(window).resize();
-            return;
-        }
-        var videoIDlist = '';
-        for (var i = 0; i < evt.videos.length; i++) {
-            videoIDlist = videoIDlist + evt.videos[i] + ",";
-        }
-        $http.get('https://www.googleapis.com/youtube/v3/videos', {
-                params: {
-                    part: 'contentDetails, statistics, snippet',
-                    id: videoIDlist,
-                    key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+        var count=0;
+        console.log(data);
+        for(var i=0; i<data.length; i++){
+            (function(){
+                //puts the data contentDetails inside target
+                var videoIDlist = '';
+                var pos = i;
+                for (var j = 0; j < data[pos].videos.length; j++) {
+                    videoIDlist = videoIDlist + data[pos].videos[j] + ",";
                 }
-            })
-            .success(function(contentDetailsData) {
-                target.push(
-                    {
-                        id: evt._id,
-                        name : evt.name,
-                        isPublic: evt.isPublic,
-                        isDefault: evt.isDefault,
-                        count: evt.count,
-                        likeList: evt.likes,
-                        favoriteList: evt.favorites,
-                        favorited: false,
-                        liked: false,
-                        data : contentDetailsData.items,
-                        duration : "00:00"
+                $http.get('https://www.googleapis.com/youtube/v3/videos', {
+                        params: {
+                            part: 'contentDetails, statistics, snippet',
+                            id: videoIDlist,
+                            key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+                        }
+                    })
+                    .success(function(contentDetailsData) {
+                        target.push(
+                            {
+                                id: data[pos]._id,
+                                name : data[pos].name,
+                                isPublic: data[pos].isPublic,
+                                isDefault: data[pos].isDefault,
+                                count: data[pos].count,
+                                likeList: data[pos].likes,
+                                favoriteList: data[pos].favorites,
+                                favorited: false,
+                                liked: false,
+                                data : contentDetailsData.items,
+                                duration : "00:00"
+                            });
+                        for(var k=0; k<target[target.length-1].data.length; k++){
+                            target[target.length-1].data[k].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[k].contentDetails.duration);
+                            target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[k].contentDetails.duration);
+                        }
+                        if(target[target.length-1].likeList && target[target.length-1].likeList.indexOf(scope.userID) > -1){
+                            target[target.length-1].liked = true;
+                        }
+                        if(target[target.length-1].favoriteList && target[target.length-1].favoriteList.indexOf(scope.userID) > -1){
+                            target[target.length-1].favorited = true;
+                        }
+
+                        if(count === videoIDlist.length-1){
+                            scope.loadFirstPlaylist();
+                            $(window).resize();
+                        }
+                        count++;
+                    })
+                    .error(function() {
+                        alertify.error('Error: Something went wrong querying video details!');
                     });
-                for(var i=0; i<target[target.length-1].data.length; i++){
-                    target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
-                    target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
-                }
-                getVideoDetails(target, data, scope);
-                if(target[target.length-1].likeList && target[target.length-1].likeList.indexOf(scope.userID) > -1){
-                    target[target.length-1].liked = true;
-                }
-                if(target[target.length-1].favoriteList && target[target.length-1].favoriteList.indexOf(scope.userID) > -1){
-                    target[target.length-1].favorited = true;
-                }
-            })
-            .error(function() {
-                alertify.error('Error: Something went wrong querying video details!');
-            });
+                })();
+        }
     }
 
     function searchAutoComplete(scope, query, callback){
@@ -708,6 +722,7 @@ app.service("QubeService", function($http, $q) {
                 alertify.error('Error: Failed to liked/unlike playlist.');
             });
     }
+
     function addVideoToPlaylist(scope, pname, video) {
         if(pname){
             $http.post("/api/playlists/" + pname + "/videos/" + video.id)

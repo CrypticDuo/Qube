@@ -541,15 +541,73 @@ var database = {
             };
         });
     },
-    
+
+    getPlaylistFavorites: function(userID, callback) {
+        User.find({
+            oauthID: userID
+        }, {
+            favorites:1
+        }, function(err, result){
+            if (err) {
+                console.log("ERROR: " + err);
+                callback({
+                    status: "Fail"
+                });
+            } else if (result.length > 0) {
+                result=result[0];
+                var favoriteData = [];
+                var count = 0;
+                for(var i=0; i<result.favorites.length; i++){
+                    (function(){
+                        User.aggregate([{
+                            $unwind : "$playlist"
+                        }, {
+                            $match : {
+                                "playlist._id": mongoose.Types.ObjectId(result.favorites[i]),
+                                "playlist.isPublic": true
+                            }
+                        }, {
+                            $project : {
+                                _id: 0,
+                                playlist: 1
+                            }
+                        }], function(err, result2){
+                            if(err){
+                                console.log("ERROR: " + err);
+                                callback({
+                                    status: "Fail",
+                                    msg: err
+                                });
+                                return;
+                            } else {
+                                if(result2[0]){
+                                    favoriteData.push(result2[0]);
+                                }
+                                count++;
+                                if(count === result.favorites.length){ 
+                                    callback({
+                                        status: "Success",
+                                        data:favoriteData
+                                    });
+                                }
+                            }
+                         });
+                    })();
+                };
+            }
+        });
+    },
+
     updatePlaylistFavorites: function(userID, id, globalID, callback) {
         User.aggregate([{
             $unwind: "$playlist"
         }, {
+            // match the global playlist owner
             $match: {
                 "playlist._id": mongoose.Types.ObjectId(globalID)
             }
         }, {
+            // get the JSON of owner
             $project: {
                 oauthID: 1,
                 name: "$playlist.name",
@@ -565,7 +623,8 @@ var database = {
                 result = result[0];
                 for(var i=0; i<result['favorites'].length; i++){
                     if(result['favorites'][i] === id.toString()){
-                        // Update global playlist OWNER's JSON
+                        // Favorite exists already, hence must UNFAVORITE
+                        // Update owner's data
                         User.update({
                             oauthID: result.oauthID,
                             "playlist.name": result.name
@@ -581,15 +640,38 @@ var database = {
                                     msg: err
                                 });
                             } else if(!err && result && result !== 0){
-                                callback({
-                                    status: "Success",
-                                    action: 'unfavorite',
-                                    msg: "Successfully unfavorited global playlist"
+
+                                // Update user's data
+                                User.update({
+                                    oauthID: userID
+                                }, {
+                                    "$pull": {
+                                        "favorites": globalID
+                                    }
+                                }, function(err, result){
+                                    if(err){
+                                        console.log("ERROR: " + err);
+                                        callback({
+                                            status: "Fail",
+                                            msg: err
+                                        });
+                                    } else if(!err && result && result !== 0){
+                                        callback({
+                                            status: "Success",
+                                            action: 'unfavorite',
+                                            msg: "Successfully unfavorited global playlist"
+                                        });
+                                    } else {
+                                        callback({
+                                            status: "Fail",
+                                            msg: "Failed to unfavorite global playlist"
+                                        });
+                                    }
                                 });
                             } else {
                                 callback({
                                     status: "Fail",
-                                    msg: "Failed to unfavorite for a public playlist"
+                                    msg: "Failed to unfavorite global playlist in owner's data"
                                 });
                             }
                         });
@@ -612,15 +694,38 @@ var database = {
                             msg: err
                         });
                     } else if(!err && result && result !== 0){
-                        callback({
-                            status: "Success",
-                            action: 'favorite',
-                            msg: "Successfully favorited global playlist"
+
+                        // Update user's data
+                        User.update({
+                            oauthID: userID
+                        }, {
+                            "$push": {
+                                "favorites": globalID
+                            }
+                        }, function(err, result){
+                            if(err){
+                                console.log("ERROR: " + err);
+                                callback({
+                                    status: "Fail",
+                                    msg: err
+                                });
+                            } else if(!err && result && result !== 0){
+                                callback({
+                                    status: "Success",
+                                    action: 'unfavorite',
+                                    msg: "Successfully unfavorited global playlist"
+                                });
+                            } else {
+                                callback({
+                                    status: "Fail",
+                                    msg: "Failed to unfavorite global playlist"
+                                });
+                            }
                         });
                     } else {
                         callback({
                             status: "Fail",
-                            msg: "Failed to favorite for a public playlist"
+                            msg: "Failed to favorite global playlist in owner's data"
                         });
                     }
                 });
