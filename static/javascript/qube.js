@@ -71,7 +71,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.shuffleList = [];
         QubeService.listAllPlaylist($scope);
         QubeService.getUserID($scope, function(){
-            QubeService.getGlobalPlaylist($scope);
+            QubeService.getGlobalPlaylist($scope, 0);
         });
         addInfiniteScroll();
     }
@@ -468,7 +468,6 @@ app.service("QubeService", function($http, $q) {
 
     function getVideoDetails(target, data, scope) {
         var count=0;
-        console.log(data);
         for(var i=0; i<data.length; i++){
             (function(){
                 //puts the data contentDetails inside target
@@ -563,7 +562,7 @@ app.service("QubeService", function($http, $q) {
     };
 
     function getGlobalPlaylist(scope){
-        $http.get(hostURL + "/api/global")
+        $http.get(hostURL + "/api/global/"+0)
             .success(function(res) {
               if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);

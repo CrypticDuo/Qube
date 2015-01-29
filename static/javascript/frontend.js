@@ -593,9 +593,11 @@ $(document).ready(function() {
             if($('.logo i.icon-earphones').length > 0){
                 $('.logo i').removeClass('icon-earphones');
                 $('.logo i').addClass('fa fa-globe');
+                $('.logo span').text('Global Playlist');
             } else{
                 $('.logo i').removeClass('fa fa-globe');
                 $('.logo i').addClass('icon-earphones');
+                $('.logo span').text('My Music');
             }
             transformToGlobal();
             $(window).resize();

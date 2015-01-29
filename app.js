@@ -221,9 +221,9 @@ if (cluster.isMaster) {
             });
         });
 
-    router.route('/global')
+    router.route('/global/:offset')
         .get(ensureAuthenticated, function(req, res) {
-            db.getGlobalPlaylists(function(result) {
+            db.getGlobalPlaylists(parseInt(req.params.offset), function(result) {
                 res.json(result);
             });
         });
