@@ -45,11 +45,12 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
 #### Release 2.0
    * Global Playlist
    * Like global playlists
+   * Favorite global playlists 
 
 ### To do:
    * Profiling
    * Global playlist (see each others)
-   * Edge cases: (4+ videos to make playlist public, notify user that it will not be public if < 4 videos in playlist)
+   * Edge cases: (notify user that it will not be public if < 4 videos in playlist)
    * Tooltip
    * Database backup
    * Rename playlist
