@@ -354,30 +354,7 @@ var database = {
         }, {
             $match: {
                 $and: [{
-                vSize : { $gte: 4},
-                    "playlist.name": {
-                        $ne: "Radio"
-                    }
-                }, {
-                    "playlist.name": {
-                        $ne: "Pop"
-                    }
-                }, {
-                    "playlist.name": {
-                        $ne: "Country"
-                    }
-                }, {
-                    "playlist.name": {
-                        $ne: "Electronic"
-                    }
-                }, {
-                    "playlist.name": {
-                        $ne: "Classical"
-                    }
-                }, {
-                    "playlist.name": {
-                        $ne: "R & B"
-                    }
+                    vSize : { $gte: 4},
                 }, {
                     "playlist.isPublic" : true
                 }]
