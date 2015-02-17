@@ -349,6 +349,7 @@ var database = {
         }, {
             $project: {
                 playlist: 1,
+                name:1,
                 vSize: {$size : "$playlist.videos"}
             }
         }, {
@@ -363,7 +364,8 @@ var database = {
         }, {
             $project: {
                 _id: 0,
-                playlist: 1
+                playlist: 1,
+                name: 1
             }
         }, {
             $skip: offset
@@ -379,6 +381,7 @@ var database = {
             } else if (user.length > 0) {
                 var ret = [];
                 for (var i = 0; i < user.length; i++){
+                    user[i].playlist.username = user[i].name;
                     ret.push(user[i].playlist);
                 }
                 callback({
@@ -564,7 +567,7 @@ var database = {
                                     favoriteData.push(result2[0]);
                                 }
                                 count++;
-                                if(count === result.favorites.length){ 
+                                if(count === result.favorites.length){
                                     callback({
                                         status: "Success",
                                         data:favoriteData

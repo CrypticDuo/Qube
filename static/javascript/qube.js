@@ -54,7 +54,6 @@ function addDuration(x,y){
 app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
-        $scope.layout = 'main';
         $scope.userID = '';
         $scope.listDisplay = 'playlist';
         $scope.currentPlayingVideo = null;
@@ -496,7 +495,8 @@ app.service("QubeService", function($http, $q) {
                                 favorited: false,
                                 liked: false,
                                 data : contentDetailsData.items,
-                                duration : "00:00"
+                                duration : "00:00",
+                                username : data[pos].username
                             });
                         for(var k=0; k<target[target.length-1].data.length; k++){
                             target[target.length-1].data[k].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[k].contentDetails.duration);

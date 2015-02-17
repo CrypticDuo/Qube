@@ -39,7 +39,7 @@
     </div>
     <h1>LOADING ...</h1>
 </div>
-<div id="QubePlaylist" class="global">
+<div id="QubePlaylist">
     <div ng-controller="QubeCont">
         <!--             <div class="sideMenu">
             <ul>
@@ -53,7 +53,7 @@
         </div> -->
         <!-- END OF sideMenu -->
         <div class="topHeader">
-            <div class="logo"><a class="home"><i class="fa fa-globe"></i><span>Global Playlist</span></a>
+            <div class="logo"><a class="home"><i class="icon-earphones"></i><span>My Music</span></a>
             </div>
             <span>{{ currentPlaylist.name }}<!-- <span class="username"> | by: {{userID}}</span> --></span>
         </div>
@@ -92,7 +92,7 @@
         </div>
         <!-- END OF playView -->
         <div class="mainView">
-            <div class="globalView">
+            <div class="globalView hide">
                 <ul><li ng-repeat="playlist in globalPlaylists" class="globalList" ng-class="{active: currentPlaylist == playlist}" ng-click="changePlaylist(playlist)">
                     <div class="playlistDetail">
                         <div class="mainImage">
@@ -110,11 +110,11 @@
                             --><img class="playlistThumbnail" src="{{ playlist.data[3].snippet.thumbnails.medium.url }}">
                         </div>
                         <div class="title">{{playlist.name}}</div>
-                        <div class="user">User_name</div>
+                        <div class="user">{{playlist.username}}</div>
                     </div>
                 </li></ul>
             </div>
-            <div ng-show="layout == 'main'" class="view main hide">
+            <div class="view main">
                 <div class="listDisplay">
                     <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
                         <ul class="userPlaylist scrollbar sortable">
