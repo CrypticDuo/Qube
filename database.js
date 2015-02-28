@@ -367,11 +367,13 @@ var database = {
                 playlist: 1,
                 name: 1
             }
-        }, {
-            $skip: offset
-        }, {
-            $limit: 20
-        }], function(err, user) {
+        }
+        // , {
+        //     $skip: offset
+        // }, {
+        //     $limit: 20
+        // }
+        ], function(err, user) {
             if (err) {
                 console.log("ERROR: " + err);
                 callback({
