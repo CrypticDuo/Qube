@@ -498,7 +498,7 @@ app.service("QubeService", function($http, $q) {
                         liked: false,
                         data : contentDetailsData.items,
                         duration : "00:00",
-                        username : data[pos].username
+                        username : evt.username
                     });
                 for(var i=0; i<target[target.length-1].data.length; i++){
                     target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
