@@ -579,26 +579,36 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 
     (function(){
-        function transformToGlobal(){
-            $('.globalView').toggleClass('hide');
-            $('.view.main').toggleClass('hide');
-            $('#QubePlaylist').toggleClass('global');
+        function transformToMyMusic(){
+            $('a.mymusic').addClass('active');
+            $('a.home').removeClass('active');
+            $('.globalView').addClass('hide');
+            $('.view.main').removeClass('hide');
+            $('#QubePlaylist').removeClass('global');
             var scope = angular.element($('.userVideolist')).scope();
             scope.$apply(function() {
               scope.loadFirstPlaylist();
             });
         }
 
-        $('.logo').on('click', function(){
-            if($('.logo i.icon-earphones').length > 0){
-                $('.logo i').removeClass('icon-earphones');
-                $('.logo i').addClass('fa fa-globe');
-                $('.logo span').text('Global Playlist');
-            } else{
-                $('.logo i').removeClass('fa fa-globe');
-                $('.logo i').addClass('icon-earphones');
-                $('.logo span').text('My Music');
-            }
+        function transformToGlobal(){
+            $('a.home').addClass('active');
+            $('a.mymusic').removeClass('active');
+            $('.globalView').removeClass('hide');
+            $('.view.main').addClass('hide');
+            $('#QubePlaylist').addClass('global');
+            var scope = angular.element($('.userVideolist')).scope();
+            scope.$apply(function() {
+              scope.loadFirstPlaylist();
+            });
+        }
+
+        $('.mymusic').on('click', function(){
+            transformToMyMusic();
+            $(window).resize();
+        });
+
+        $('.home').on('click', function(){
             transformToGlobal();
             $(window).resize();
         });

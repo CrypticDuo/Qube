@@ -466,60 +466,55 @@ app.service("QubeService", function($http, $q) {
     var hostURL = "http://" + window.location.host;
 
     function getVideoDetails(target, data, scope) {
-        var count=0;
-        for(var i=0; i<data.length; i++){
-            (function(){
-                //puts the data contentDetails inside target
-                var videoIDlist = '';
-                var pos = i;
-                for (var j = 0; j < data[pos].videos.length; j++) {
-                    videoIDlist = videoIDlist + data[pos].videos[j] + ",";
-                }
-                $http.get('https://www.googleapis.com/youtube/v3/videos', {
-                        params: {
-                            part: 'contentDetails, statistics, snippet',
-                            id: videoIDlist,
-                            key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
-                        }
-                    })
-                    .success(function(contentDetailsData) {
-                        target.push(
-                            {
-                                id: data[pos]._id,
-                                name : data[pos].name,
-                                isPublic: data[pos].isPublic,
-                                isDefault: data[pos].isDefault,
-                                count: data[pos].count,
-                                likeList: data[pos].likes,
-                                favoriteList: data[pos].favorites,
-                                favorited: false,
-                                liked: false,
-                                data : contentDetailsData.items,
-                                duration : "00:00",
-                                username : data[pos].username
-                            });
-                        for(var k=0; k<target[target.length-1].data.length; k++){
-                            target[target.length-1].data[k].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[k].contentDetails.duration);
-                            target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[k].contentDetails.duration);
-                        }
-                        if(target[target.length-1].likeList && target[target.length-1].likeList.indexOf(scope.userID) > -1){
-                            target[target.length-1].liked = true;
-                        }
-                        if(target[target.length-1].favoriteList && target[target.length-1].favoriteList.indexOf(scope.userID) > -1){
-                            target[target.length-1].favorited = true;
-                        }
-
-                        if(count === videoIDlist.length-1){
-                            scope.loadFirstPlaylist();
-                            $(window).resize();
-                        }
-                        count++;
-                    })
-                    .error(function() {
-                        alertify.error('Error: Something went wrong querying video details!');
-                    });
-                })();
+        var evt = data.shift();
+        //puts the data contentDetails inside target
+        if (!evt) {
+            scope.loadFirstPlaylist();
+            $(window).resize();
+            return;
         }
+        var videoIDlist = '';
+        for (var i = 0; i < evt.videos.length; i++) {
+            videoIDlist = videoIDlist + evt.videos[i] + ",";
+        }
+        $http.get('https://www.googleapis.com/youtube/v3/videos', {
+                params: {
+                    part: 'contentDetails, statistics, snippet',
+                    id: videoIDlist,
+                    key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+                }
+            })
+            .success(function(contentDetailsData) {
+                target.push(
+                    {
+                        id: evt._id,
+                        name : evt.name,
+                        isPublic: evt.isPublic,
+                        isDefault: evt.isDefault,
+                        count: evt.count,
+                        likeList: evt.likes,
+                        favoriteList: evt.favorites,
+                        favorited: false,
+                        liked: false,
+                        data : contentDetailsData.items,
+                        duration : "00:00",
+                        username : evt.username
+                    });
+                for(var i=0; i<target[target.length-1].data.length; i++){
+                    target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
+                    target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
+                }
+                getVideoDetails(target, data, scope);
+                if(target[target.length-1].likeList && target[target.length-1].likeList.indexOf(scope.userID) > -1){
+                    target[target.length-1].liked = true;
+                }
+                if(target[target.length-1].favoriteList && target[target.length-1].favoriteList.indexOf(scope.userID) > -1){
+                    target[target.length-1].favorited = true;
+                }
+            })
+            .error(function() {
+                alertify.error('Error: Something went wrong querying video details!');
+            });
     }
 
     function searchAutoComplete(scope, query, callback){
