@@ -25,7 +25,7 @@ app.set("view options", {
 app.use("/static", express.static(__dirname + "/static"));
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
-app.set('port', process.env.PORT || 4455);
+app.set('port', process.env.PORT || 8080);
 
 // get all data/stuff of the body (POST) parameters
 app.use(bodyParser.json());
