@@ -44,7 +44,7 @@ function onPlayerStateChange(event) {
     if(player.getCurrentTime() === 0){
         timerStartFlag=false;
     }
-    if (event == YT.PlayerState.ENDED) {
+    if (event === YT.PlayerState.ENDED) {
         var scope = angular.element($('.userVideolist')).scope();
         scope.$apply(function() {
             scope.nextVideo('ended');
