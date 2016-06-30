@@ -213,7 +213,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.preventOuterDivEvent();
         $scope.listDisplay = 'youtube';
         var parameters = {
-            key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
+            key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI',
             type: 'video',
             maxResults: '20',
             relatedToVideoId: videoId,
@@ -230,7 +230,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.searchYt = function(val, pageToken, parameters) {
         if(!parameters){
             var parameters = {
-                key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0',
+                key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI',
                 type: 'video',
                 maxResults: '20',
                 part: 'id,snippet',
@@ -252,7 +252,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                         params: {
                             part: 'contentDetails, statistics',
                             id: videoIDlist,
-                            key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+                            key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI'
                         }
                     })
                     .success(function(contentDetailsData) {
@@ -442,7 +442,7 @@ app.service("QubeService", function($http, $q) {
                 params: {
                     part: 'contentDetails, statistics, snippet',
                     id: videoIDlist,
-                    key: 'AIzaSyD62u1qRt4_QKzAKvn9frRCDRWsEN2_ul0'
+                    key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI'
                 }
             })
             .success(function(contentDetailsData) {
