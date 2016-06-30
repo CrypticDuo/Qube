@@ -26,7 +26,7 @@ function initiateYoutubePlayers(){
             'controls': 1,
             'modestbranding': 1,
             wmode: 'transparent'};
-    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?enablejsapi=1&playerapiid=player&version=3&showinfo=0&autohide=0&controls=0&iv_load_policy=3", "player", "100%", "100%", "8", null, null, params, atts2);
+    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?enablejsapi=1&playerapiid=player&version=3&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
 
 }
 
@@ -54,9 +54,6 @@ function onPlayerStateChange(event) {
             var $el = $('ul.controllers li i.icon-control-pause');
             $el.removeClass('icon-control-pause');
             $el.addClass('icon-control-play');
-            $el = $('.active i.icon-control-pause');
-            $el.removeClass('icon-control-pause');
-            $el.addClass('icon-control-play');
             $('.bar1.a3').removeClass('animate');
             $('.bar2.a5').removeClass('animate');
             $('.bar3.a1').removeClass('animate');
@@ -77,9 +74,6 @@ function onPlayerStateChange(event) {
         }
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
             var $el = $('ul.controllers li i.icon-control-play');
-            $el.addClass('icon-control-pause');
-            $el.removeClass('icon-control-play');
-            $el = $('.active i.icon-control-play');
             $el.addClass('icon-control-pause');
             $el.removeClass('icon-control-play');
             $('.bar1.a3').addClass('animate');
@@ -119,10 +113,12 @@ function onVolumeChange(el, volume) {
 }
 
 function onSearchChange(el, query){
+    console.log(query);
     if(query){
         var scope = angular.element(el).scope();
         scope.$apply(function() {
             scope.onSearch(query, function(data){
+                console.log(data);
                 $('.lcSearch > input').autocomplete({
                     source: data,
                     select:function(event, ui){
@@ -208,6 +204,7 @@ $(document).ready(function() {
             onSearchChange($(self),$(self).val());
         }
         else if(e.which === 13){
+            console.log("hey");
             $('.lcSearch > input').autocomplete( "destroy" );
             setTimeout(function(){
                 $('.lcSearch > input').autocomplete({appendTo: "body"});
@@ -358,15 +355,11 @@ $(document).ready(function() {
             $('#QubePlaylist .videolist .player').removeClass('fullscreen');
         }
         setSize($('.videolist').width(), '310');
-        $('.videolist .overlay > div').css('width', $('.videolist').width());
-        $('.mainImage .overlay > div').css('height', $('.mainImage .overlay').height());
-        $('.mainImage .overlay > div').css('width', $('.mainImage .overlay').width());
         $('.listControl').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
         $('.userVideolist > div').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
         $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.yourPlaylists').outerHeight()));
-        $('.global#QubePlaylist .globalView').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.yourPlaylists').outerHeight()));
     });
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -407,29 +400,13 @@ $(document).ready(function() {
 // VIDEOLIST REMOVE FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
+        var html = '';
         $('.userVideolist').on('mouseenter', 'li', function(){
-            if($('#QubePlaylist:not(".global")').length > 0) {
-              $(this).children('.duration').addClass('hide');
-              $(this).children('.close').removeClass('hide');
-              $('.userVideolist').on('mouseleave', 'li', function(){
-                  $(this).children('.duration').removeClass('hide');
-                  $(this).children('.close').addClass('hide');
-              });
-            }
-        });
-    }());
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// USERPLAYLIST OPTIONS FUNCTIONALITY
-////////////////////////////////////////////////////////////////////////////////
-    (function(){
-        $('.userPlaylist').on('mouseenter', 'li', function(){
-            $(this).children('.playlistDetail').children('.globalSummary').addClass('hide');
-            $(this).children('.playlistDetail').children('.playlistOptions').removeClass('hide');
-            $('.userPlaylist').on('mouseleave', 'li', function(){
-                $(this).children('.playlistDetail').children('.globalSummary').removeClass('hide');
-                $(this).children('.playlistDetail').children('.playlistOptions').addClass('hide');
+            $(this).children('.duration').addClass('hide');
+            $(this).children('.close').removeClass('hide');
+            $('.userVideolist').on('mouseleave', 'li', function(){
+                $(this).children('.duration').removeClass('hide');
+                $(this).children('.close').addClass('hide');
             });
         });
     }());
@@ -577,40 +554,4 @@ $(document).ready(function() {
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
-
-    (function(){
-        function transformToMyMusic(){
-            $('a.mymusic').addClass('active');
-            $('a.home').removeClass('active');
-            $('.globalView').addClass('hide');
-            $('.view.main').removeClass('hide');
-            $('#QubePlaylist').removeClass('global');
-            var scope = angular.element($('.userVideolist')).scope();
-            scope.$apply(function() {
-              scope.loadFirstPlaylist();
-            });
-        }
-
-        function transformToGlobal(){
-            $('a.home').addClass('active');
-            $('a.mymusic').removeClass('active');
-            $('.globalView').removeClass('hide');
-            $('.view.main').addClass('hide');
-            $('#QubePlaylist').addClass('global');
-            var scope = angular.element($('.userVideolist')).scope();
-            scope.$apply(function() {
-              scope.loadFirstPlaylist();
-            });
-        }
-
-        $('.mymusic').on('click', function(){
-            transformToMyMusic();
-            $(window).resize();
-        });
-
-        $('.home').on('click', function(){
-            transformToGlobal();
-            $(window).resize();
-        });
-    }());
 });

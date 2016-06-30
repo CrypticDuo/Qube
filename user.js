@@ -6,19 +6,10 @@ var User = mongoose.model('User', {
     facebookID: Number,
     name: String,
     created: Date,
-    lastLogin: Date,
-    loginCount: Number,
-    userName: String,
-    favorites:[String],
-    playlist: [{
+    playlist: [
+    	{
     		name: String,
-    		videos:[String],
-            isPublic: Boolean,
-            isDefault: false,
-            likes:[String],
-            favorites:[String],
-            followers:[String],
-            count: Number
+    		videos:[String]
     	}
     ]
 });

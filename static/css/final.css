@@ -242,7 +242,6 @@ a {
   width: 100%;
   height:100%;
   position: absolute;
-  overflow: hidden;
 }
 #QubePlaylist .view.main .playlistColumn {
   background-color: #232C32;
@@ -300,47 +299,26 @@ a {
   display: block;
   padding: 0;
   line-height: 60px;
-  font-size: 18px;
-  position: relative;
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 115px;
-  height: 100%;
-}
-#QubePlaylist .topHeader > div.logo > a {
-  position: relative;
-  height: 100%;
-  width: 50%;
-  display: inline-block;
   text-align: center;
+  font-size: 16px;
+  width: 70px;
+  position: absolute;
+  background-color: #4cb6cb;
 }
 #QubePlaylist .topHeader > div.logo > a {
-  background-color:#4cb6cb;
+  height: 20px;
 }
-#QubePlaylist .topHeader > div.logo > a.active {
-  background-color:rgba(68, 132, 146, 1);
-}
-
-#QubePlaylist .topHeader .fa.fa-globe{
-  position:relative;
-  top:1px;
-  font-size:20px;
-}
-#QubePlaylist .topHeader .logo span {
-  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight:700;
-  color:#fff;
-  padding-left: 10px;
-  height: 100%;
-}
-#QubePlaylist .topHeader .logo i {
-  width: 100%;
-  display: inline-block;
+#QubePlaylist .topHeader > span {
+  width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 17px;
+  color: #E5E5E5;
+  margin-left: 70px;
+  text-align: center;
+  line-height: 60px;
+  display: block;
+  margin: 0 auto;
 }
 #QubePlaylist .playView {
   width: 45%;
@@ -728,29 +706,8 @@ a {
   background-color:#181F24;
   cursor:pointer;
 }
-#QubePlaylist #playlistRemove, #QubePlaylist #globalLock, #QubePlaylist .globalSummary svg, #QubePlaylist .globalSummary span{
-  top:-28px;
-  position:relative;
-  display:inline-block;
-}
-#QubePlaylist .globalSummary span{
-  top:-31px;
-  margin-left:2px;
-}
-#QubePlaylist #globalLock{
-  margin-right:10px;
-}
 #playlistRemove:hover{
   color:#fff;
-}
-#QubePlaylist #globalLock i{
-  font-size:14px;
-}
-#QubePlaylist #globalLock i.fa-lock{
-  color:#D24D57;
-}
-#QubePlaylist #globalLock i.fa-unlock-alt{
-  color:#66CC99;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
   background: 0;
@@ -761,14 +718,6 @@ a {
 .ytVidHover * {
   margin-right: 12px;
   color: rgb(84, 84, 84);
-}
-i.fa.fa-youtube-play {
-  font-size: 17px;
-  position: relative;
-  top: 1px;
-}
-i.fa.fa-youtube-play:hover {
-  color:#D24D57;
 }
 .ytVidHover *:hover {
   color: #eee;
@@ -795,6 +744,10 @@ i.fa.fa-youtube-play:hover {
   float: left;
   position: absolute;
   top: 2px;
+}
+#playlistRemove {
+  position: relative;
+  top: -28px;
 }
 #preview {
   position: relative;
@@ -1011,278 +964,4 @@ i.fa.fa-youtube-play:hover {
   0% { opacity: 0; }
   50% { opacity: 0.8; }
   100% { opacity: 0; }
-}
-
-.lcContact:hover .contacts {
-  opacity: 1;
-  transition: 0.5s;
-}
-
-.lcContact .contacts {
-  opacity: 0;
-  transition: 0.5s;
-}
-
-/* GLOBAL */
-.global {
-  background-color:#F2F4F8;
-}
-
-.global#QubePlaylist .topHeader{
-  background-color:#FFFFFF;
-  position: relative;
-}
-
-.global#QubePlaylist .playView {
-  width: 25%;
-  background-color: #fff;
-  border-left: 1px solid rgb(229, 229, 229);
-  float: right;
-  box-sizing: border-box;
-}
-
-.global#QubePlaylist .videolist .userVideolist li:first-child {
-  border-top: 1px solid #F2F4F8;
-}
-.global#QubePlaylist .videolist .userVideolist li {
-  border-bottom: 1px solid #F2F4F8;
-  color:#555;
-  background-color: #fff;
-}
-.global#QubePlaylist .videolist .userVideolist li.active, .global#QubePlaylist .videolist .userVideolist li.active a, .global#QubePlaylist .videolist .userVideolist li.active span.title, .global#QubePlaylist .videolist .userVideolist li.active span.duration {
-  color: #4CB6CB;
-  background-color: transparent;
-}
-.global#QubePlaylist .videolist .userVideolist span.title {
-  width: 70%;
-  font-size: 14px;
-  color:#555;
-}
-.global#QubePlaylist .videolist .userVideolist i.icon-magnifier{
-  display:none;
-}
-.global#QubePlaylist .videolist .userVideolist i.icon-close{
-  display:none;
-}
-.global#QubePlaylist .videolist .userVideolist a {
-  margin-right: 10px;
-  color: #627b8c;
-}
-.global#QubePlaylist .videolist .player {
-  border-top: 0px;
-  height: 200px !important;
-}
-.global#QubePlaylist .videolist .overlay{
-  background-color: #F2F4F8;
-}
-.global#QubePlaylist .videolist .overlay > div > i{
-  color:#555;
-}
-.global#QubePlaylist .mainView{
-  width:75%;
-}
-.global#QubePlaylist .globalView{
-  color:black;
-  padding: 10px;
-  overflow: auto;
-}
-.global#QubePlaylist .globalView h2{
-  color:black;
-  font-size:25px;
-  text-decoration: underline;
-  text-transform:uppercase;
-  letter-spacing: 5px;
-  margin:20px 10px 5px 10px;
-}
-.global#QubePlaylist .globalView .globalList {
-  display: inline-block;
-  width: calc(25% - 20px);
-  margin: 10px;
-  background: transparent;
-}
-
-.global#QubePlaylist .globalView .globalList .playlistThumbnail {
-  box-sizing: border-box;
-  position: relative;
-  float: none;
-}
-.global#QubePlaylist .globalView .globalList .mainImage .playlistThumbnail {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-.global#QubePlaylist .globalView .globalList.active {
-  color: rgb(34, 0, 160) !important;
-}
-
-.global#QubePlaylist .globalView .imageTopContainer, .global#QubePlaylist .globalView .imageBottomContainer{
-  width:inherit;
-  height: 40px;
-  color:#333;
-  position:relative;
-  margin-bottom:-4px;
-}
-
-.global#QubePlaylist .globalView .imageBottomContainer{
-  position: absolute;
-  width: 100%;
-  top: 2px;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  background-color: rgba(44, 57, 66, 1);
-  color: #fff;
-  z-index: 9;
-  height: calc(100% - 5px);
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.options, .global#QubePlaylist .globalView .imageBottomContainer span.likes-count{
-  position:absolute;
-  display:block;
-  font-size:17px;
-  top: calc(50% - 10px);
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.options.like{
-  right:10px;
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.options.favorite{
-  right:45px;
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.likes-count{
-  position:absolute;
-  display:block;
-  left:10px;
-  font-size:13px;
-  top: calc(50% - 8px);
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.options{
-  color:#ddd;
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.liked {
-  color:#4CB6CB;
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.like:not(.liked) i:hover{
-  color: #C6EDF5;
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.favorited {
-  color:#FFC200;
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.favorite:not(.favorited) i:hover{
-  color: #FCE8A8;
-}
-.global#QubePlaylist .globalView .imageBottomContainer span.options i{
-  cursor:pointer;
-}
-.global .full-screen-icon{
-  display:none!important;
-}
-.global#QubePlaylist .globalView .title, .global#QubePlaylist .globalView .user{
-  color: #545a5f;
-  font-size: 14px;
-  padding-left: 5px;
-}
-.global#QubePlaylist .globalView .user{
-  font-size: 12px;
-  color: #A0A0A0;
-}
-.global#QubePlaylist .mainImage .playlistThumbnail {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-}
-.global#QubePlaylist .mainImage{
-  position:relative;
-}
-.global#QubePlaylist .mainImage .overlay div {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  width: 40px;
-  height: 60px;
-  position: relative;
-  top: 5px;
-  right: -6px;
-}
-.global#QubePlaylist .mainImage .overlay{
-  position: absolute;
-  opacity:0;
-  width: 100%;
-  top: 2px;
-  height: calc(100% - 5px);
-  background-color: rgba(0, 0, 0, 0.58);
-  z-index: 9;
-  font-size: 37px;
-  transition:300ms;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-.global#QubePlaylist .mainImage .overlay:hover{
-  opacity:1;
-  transition:300ms;
-}
-.global#QubePlaylist .active .mainImage .overlay{
-  opacity:1;
-}
-.global#QubePlaylist .mainImage .overlay div i{
-  color: #aaa;
-  transition:300ms;
-}
-.global#QubePlaylist .mainImage .overlay div i:hover{
-  color:#fff;
-  transition:300ms;
-}
-.global#QubePlaylist .imageBox .playlistThumbnail {
-  width: 33.3%;
-  height: 100%;
-}
-
-.global#QubePlaylist .imageBox .playlistThumbnail:last-child {
-  margin-right: 0;
-}
-
-.global#QubePlaylist .imageBox {
-  top: -5px;
-  position: relative;
-}
-.global#QubePlaylist .imageBox img:nth-child(2) {
-  border-bottom-left-radius: 5px;
-}
-
-.global#QubePlaylist .imageBox img:last-child {
-  border-bottom-right-radius: 5px;
-}
-.global#QubePlaylist .bottomContainer {
-  background-color: #2ea0b6;
-}
-
-.global#QubePlaylist .bottomContainer .progressBar {
-  background-color: #36B0C8;
-}
-
-.global#QubePlaylist .bottomContainer div.time span {
-  color: #c3e6ed;
-}
-
-.global#QubePlaylist .replay-all-icon span, .global#QubePlaylist .replay-one-icon span {
-  background: rgb(46, 160, 182) !important;
-}
-
-.global#QubePlaylist .bottomContainer .full-screen-icon, .global#QubePlaylist .bottomContainer .replay-all-icon, .global#QubePlaylist .bottomContainer .replay-one-icon, .global#QubePlaylist .bottomContainer .shuffle-icon {
-  color: #c3e6ed;
-}
-
-.global#QubePlaylist .bottomContainer .volume .volumeBar div.volumeLevel {
-  background-color: #78c3d2;
-}
-
-.global#QubePlaylist .bottomContainer .volume .volumeBar {
-  background-color: #36b0c8;
-}
-
-.globalSummary {
-  width: 60px;
-}
-#QubePlaylist .topHeader .username{
-  font-size:13px;
-}
-
-.global#QubePlaylist .videolist .overlay > div{
-  height: 200px!important;
 }
