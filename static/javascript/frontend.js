@@ -17,26 +17,19 @@ Pace.on("done", function(){
         $('div.loading-page').fadeOut(1000);
     },200);
 });
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        playerVars: { controls:0, showinfo: 0, rel: 0, showsearch: 0, iv_load_policy: 3, modestbranding: 1 },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
 
-function initiateYoutubePlayers(){
-    var params = { allowScriptAccess: "always" };
-    var atts2 = { id: "myytplayer" ,
-            'showinfo': 0,
-            'autohide': 0,
-            'controls': 1,
-            'modestbranding': 1,
-            wmode: 'transparent'};
-    swfobject.embedSWF("http://www.youtube.com/v/Oi1BcouEmio?enablejsapi=1&playerapiid=player&version=3&showinfo=0&autohide=0&controls=0", "player", "100%", "100%", "8", null, null, params, atts2);
-
-}
-
-function onYouTubePlayerReady(event) {
-    player = document.getElementById("myytplayer");
-    player.addEventListener("onReady", "onPlayerReady");
-    player.addEventListener("onStateChange", "onPlayerStateChange");
-}
 function onPlayerReady(event) {
-    //event.target.playVideo();
     player.setVolume(100);
 }
 
@@ -44,12 +37,12 @@ function onPlayerStateChange(event) {
     if(player.getCurrentTime() === 0){
         timerStartFlag=false;
     }
-    if (event === YT.PlayerState.ENDED && player.getCurrentTime() !== 0) {
+    if (event.data === YT.PlayerState.ENDED && player.getCurrentTime() !== 0) {
         var scope = angular.element($('.userVideolist')).scope();
         scope.$apply(function() {
             scope.nextVideo('ended');
         });
-    } else if (event === YT.PlayerState.PAUSED) {
+    } else if (event.data === YT.PlayerState.PAUSED) {
         if(!$('ul.controllers li:nth-child(2)').hasClass('changing')){
             var $el = $('ul.controllers li i.icon-control-pause');
             $el.removeClass('icon-control-pause');
@@ -65,7 +58,7 @@ function onPlayerStateChange(event) {
         }
         pauseTimer();
         timerStartFlag=false;
-    } else if (event === YT.PlayerState.PLAYING) {
+    } else if (event.data === YT.PlayerState.PLAYING) {
         if(!$('.videolist .player .overlay').hasClass('fade-out')){
             $('.videolist .player .overlay').addClass('fade-out');
             setTimeout(function(){
@@ -190,7 +183,6 @@ function pauseTimer(){
 }
 
 $(document).ready(function() {
-    initiateYoutubePlayers();
 
     $('.lcSearch > input').autocomplete({appendTo: "body"});
     $('.lcSearch > input').autocomplete('enable');
