@@ -218,7 +218,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             maxResults: '20',
             relatedToVideoId: videoId,
             part: 'id,snippet',
-	    videoSyndicated: "true",
+            videoSyndicated: "true",
             pageToken: pageToken,
             fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle'
         };
