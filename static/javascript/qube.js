@@ -236,7 +236,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 maxResults: '20',
                 part: 'id,snippet',
                 pageToken: pageToken,
-		videoSyndicated: "true",
+		        videoSyndicated: "true",
                 fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle',
                 q: val,
                 videoEmbeddable: 'true'
@@ -253,7 +253,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 }
                 $scope.searchYoutubeContentDetails(videoIDlist)
                     .success(function(contentDetailsData) {
-                        $scope.appendContentDetail(data, contentDetailsData);
+                        for (var i = 0; i < data.items.length; i++) {
+                            $scope.ytSearchResult.push($scope.appendContentDetail(i, data.items, contentDetailsData));
+                        }
                     })
                     .error(function() {
                         alertify.error('Error: Something went wrong querying video details.');
@@ -265,6 +267,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.discoverPlaylist = function(videoId) {
+        $scope.preventOuterDivEvent();
         $scope.generateRelatedVideos(videoId, [], 10);
     }
 
@@ -323,27 +326,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.searchYoutubeContentDetails(videoIdList)
             .success(function(contentDetailsData) {
                 for (var i = 0; i < data.length; i++) {
-                    var formatted = convertYoutubeDuration(contentDetailsData.items[i].contentDetails.duration);
-                    var publishedAt = moment(data[i].snippet.publishedAt, "YYYYMMDD").fromNow();
+                    var video = $scope.appendContentDetail(i, data, contentDetailsData);
 
-                    var video = {
-                        id: data[i].id.videoId,
-                        snippet: {
-                            title: data[i].snippet.title,
-                            date: publishedAt
-                        },
-                        description: data[i].snippet.description,
-                        thumbnail: data[i].snippet.thumbnails.medium.url,
-                        author: data[i].snippet.channelTitle,
-                        contentDetails: {
-                            duration: formatted
-                        },
-                        views: contentDetailsData.items[i].statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    };
-
+                    // TODO (Paul): use promise and on all complete, alertify user success
                     for(var a = 0; a< $scope.playlists.length; a++){
                         if($scope.playlists[a].name === $scope.currentPlaylist.name){
-                            QubeService.addVideoToPlaylist($scope, $scope.playlists[a].name, video);
+                            QubeService.addVideoToPlaylist($scope, $scope.playlists[a].name, video, true);
                         }
                     }
                 }
@@ -360,25 +348,23 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             });
     }
 
-    $scope.appendContentDetail = function(data, contentDetailsData) {
-        for (var i = 0; i < data.items.length; i++) {
-            var formatted = convertYoutubeDuration(contentDetailsData.items[i].contentDetails.duration);
-            var publishedAt = moment(data.items[i].snippet.publishedAt, "YYYYMMDD").fromNow();
-            $scope.ytSearchResult.push({
-                id: data.items[i].id.videoId,
-                snippet: {
-                    title: data.items[i].snippet.title,
-                    date: publishedAt
-                },
-                description: data.items[i].snippet.description,
-                thumbnail: data.items[i].snippet.thumbnails.medium.url,
-                author: data.items[i].snippet.channelTitle,
-                contentDetails: {
-                    duration: formatted
-                },
-                views: contentDetailsData.items[i].statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            });
-        }
+    $scope.appendContentDetail = function(index, dataItem, contentDetailsData) {
+        var formatted = convertYoutubeDuration(contentDetailsData.items[index].contentDetails.duration);
+        var publishedAt = moment(dataItem[index].snippet.publishedAt, "YYYYMMDD").fromNow();
+        return {
+            id: dataItem[index].id.videoId,
+            snippet: {
+                title: dataItem[index].snippet.title,
+                date: publishedAt
+            },
+            description: dataItem[index].snippet.description,
+            thumbnail: dataItem[index].snippet.thumbnails.medium.url,
+            author: dataItem[index].snippet.channelTitle,
+            contentDetails: {
+                duration: formatted
+            },
+            views: contentDetailsData.items[index].statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        };
     }
 
     $scope.updatePlaylistDuration = function (playlist){
@@ -636,7 +622,7 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function addVideoToPlaylist(scope, pname, video) {
+    function addVideoToPlaylist(scope, pname, video, silence = false) {
         if(pname){
             $http.post("/api/playlists/" + pname + "/videos/" + video.id)
                 .success(function(res) {
@@ -653,14 +639,14 @@ app.service("QubeService", function($http, $q) {
                                 scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
                             }
                         }
-                        alertify.success('Success: Added a video.');
+                        if(!silence) alertify.success('Success: Added a video.');
                     }
                 })
                 .error(function(err) {
-                    alertify.error('Error: Failed to add video.');
+                    if(!silence) alertify.error('Error: Failed to add video.');
                 });
         } else {
-            alertify.error('Error: Please choose a playlist first.');
+            if(!silence) alertify.error('Error: Please choose a playlist first.');
         }
     };
 
