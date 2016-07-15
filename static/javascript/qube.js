@@ -236,7 +236,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 part: 'id,snippet',
                 pageToken: pageToken,
                 fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle',
-                q: val
+                q: val,
+                videoEmbeddable: 'true'
             };
         }
         $http.get('https://www.googleapis.com/youtube/v3/search', {
@@ -248,13 +249,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 for (var i = 0; i < data.items.length; i++) {
                     videoIDlist = videoIDlist + data.items[i].id.videoId + ",";
                 }
-                $http.get('https://www.googleapis.com/youtube/v3/videos', {
-                        params: {
-                            part: 'contentDetails, statistics',
-                            id: videoIDlist,
-                            key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI'
-                        }
-                    })
+                $scope.searchYoutubeContentDetails(videoIDlist)
                     .success(function(contentDetailsData) {
                         $scope.appendContentDetail(data, contentDetailsData);
                     })
@@ -265,6 +260,20 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             .error(function() {
                 alertify.error('Error: Something went wrong querying video details.');
             });
+    }
+
+    $scope.discoverPlaylist = function(videoId) {
+        QubeService.discoverPlaylist($scope, videoId);
+    }
+
+    $scope.searchYoutubeContentDetails = function(videoIDlist) {
+        return $http.get('https://www.googleapis.com/youtube/v3/videos', {
+                params: {
+                    part: 'contentDetails, statistics',
+                    id: videoIDlist,
+                    key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI'
+                }
+            })
     }
 
     $scope.appendContentDetail = function(data, contentDetailsData) {
@@ -559,6 +568,7 @@ app.service("QubeService", function($http, $q) {
                             console.log(res.msg);
                         }
                     } else {
+
                         for(var i = 0; i<scope.playlists.length; i++){
                             if(scope.playlists[i].name === pname){
                                 scope.playlists[i].data.push(video);
@@ -612,6 +622,46 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function discoverPlaylist(scope, videoId) {
+        $http.get("/api/youtube/playlists/" + scope.currentPlaylist.name + "/videos/" + videoId)
+            .success(function(res) {
+                // error handling
+
+                for(var i = 0; i<scope.playlists.length; i++){
+                    if(scope.playlists[i].name === scope.currentPlaylist.name){
+
+                        scope.searchYoutubeContentDetails(res.videoIDList)
+                            .success(function(contentDetailsData) {
+                                for (var i = 0; i < res.data.items.length; i++) {
+                                    var formatted = convertYoutubeDuration(contentDetailsData.items[i].contentDetails.duration);
+                                    var publishedAt = moment(res.data.items[i].snippet.publishedAt, "YYYYMMDD").fromNow();
+
+                                    scope.playlists[i].data.push({
+                                        id: res.data.items[i].id.videoId,
+                                        snippet: {
+                                            title: res.data.items[i].snippet.title,
+                                            date: publishedAt
+                                        },
+                                        description: res.data.items[i].snippet.description,
+                                        thumbnail: res.data.items[i].snippet.thumbnails.medium.url,
+                                        author: res.data.items[i].snippet.channelTitle,
+                                        contentDetails: {
+                                            duration: formatted
+                                        },
+                                        views: contentDetailsData.items[i].statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                    });
+                                    scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
+                                }
+                            });
+                    }
+                }
+            })
+            .error(function(err){
+                alertify.error('Error: Failed to discover videos.');
+            });
+
+    }
+
     //Returns the public API
     return ({
         listAllPlaylist: listAllPlaylist,
@@ -622,7 +672,7 @@ app.service("QubeService", function($http, $q) {
         removeVideoFromPlaylist: removeVideoFromPlaylist,
         updateVideoList : updateVideoList,
         searchAutoComplete: searchAutoComplete,
-
+        discoverPlaylist : discoverPlaylist
     });
 });
 
