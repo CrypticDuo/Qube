@@ -238,8 +238,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 pageToken: pageToken,
                 videoSyndicated: "true",
                 fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle',
-                q: val,
-                videoEmbeddable: 'true'
+                q: val
             };
         }
         $http.get('https://www.googleapis.com/youtube/v3/search', {
@@ -282,6 +281,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             maxResults: '3',
             relatedToVideoId: videoId,
             part: 'id,snippet',
+            videoSyndicated: "true",
             fields: 'nextPageToken, items/id,items/snippet/title,items/snippet/description,items/snippet/publishedAt,items/snippet/thumbnails/medium,items/snippet/channelTitle'
         };
         $http.get('https://www.googleapis.com/youtube/v3/search', {
