@@ -622,7 +622,7 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function addVideoToPlaylist(scope, pname, video, silence = false) {
+    function addVideoToPlaylist(scope, pname, video, silence) {
         if(pname){
             $http.post("/api/playlists/" + pname + "/videos/" + video.id)
                 .success(function(res) {

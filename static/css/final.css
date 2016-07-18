@@ -635,12 +635,12 @@ a {
 #QubePlaylist .bottomContainer .shuffle-icon {
   color:#acb7c1;
   width:30px;
+  cursor: pointer;
 }
 #QubePlaylist .bottomContainer .replay-all-icon span, #QubePlaylist .bottomContainer .replay-one-icon span{
   top:1px;
   font-size:14px;
   color:#fff;
-  cursor: pointer;
 }
 #QubePlaylist .bottomContainer .shuffle-icon{
   font-size:16px;
