@@ -489,61 +489,17 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 // INPUT DISPLAY FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
-
     (function(){
-        $('.lcSearch').on('mouseenter',function(){
-            $('.lcSearch > input').addClass('fade-in-lt');
-            $('.lcSearch > input').removeClass('fade-out-lt');
-        });
-        $('.lcSearch').on('mouseleave',function(){
-            if(!$('.ui-autocomplete').is(':visible') && !$('.lcSearch input').is(":focus")){
-                $('.lcSearch > input').blur();
-                $('.lcSearch > input').removeClass('fade-in-lt');
-                $('.lcSearch > input').addClass('fade-out-lt');
-            }
-        });
-        $('.lcSearch > input').on('blur',function(){
-            $('.lcSearch > input').removeClass('fade-in-lt');
-            $('.lcSearch > input').addClass('fade-out-lt');
+        $('.lcNavigatable').on('click',function(){
+          if($(this).hasClass('lcPlaylistAdd')) {
+            $('.listControl').find('.selected').removeClass('selected');
+            $('.lcPlaylist').addClass('selected');
+          } else {
+            $('.listControl').find('.selected').removeClass('selected');
+            $(this).addClass('selected');
+          }
         });
 
-        $('.lcPlaylist').on('mouseenter',function(){
-            $('.lcPlaylist > input').addClass('fade-in-lt');
-            $('.lcPlaylist > input').removeClass('fade-out-lt');
-        });
-        $('.lcPlaylist').on('mouseleave',function(){
-            if(!$('.ui-autocomplete').is(':visible') && !$('.lcPlaylist input').is(":focus")){
-                $('.lcPlaylist > input').blur();
-                $('.lcPlaylist > input').removeClass('fade-in-lt');
-                $('.lcPlaylist > input').addClass('fade-out-lt');
-            }
-        });
-        $('.lcPlaylist > input').on('blur',function(){
-            $('.lcPlaylist > input').removeClass('fade-in-lt');
-            $('.lcPlaylist > input').addClass('fade-out-lt');
-        });
-
-        $('.lcPlaylistAdd').on('mouseenter',function(){
-            $('.lcPlaylistAdd > input').addClass('fade-in-lt');
-            $('.lcPlaylistAdd > input').removeClass('fade-out-lt');
-            $('.lcPlaylistAdd > a').addClass('fade-in-lt');
-            $('.lcPlaylistAdd > a').removeClass('fade-out-lt');
-        });
-        $('.lcPlaylistAdd').on('mouseleave',function(){
-            if(!$('.ui-autocomplete').is(':visible') && !$('.lcPlaylistAdd input').is(":focus")){
-                $('.lcPlaylistAdd > input').blur();
-                $('.lcPlaylistAdd > input').removeClass('fade-in-lt');
-                $('.lcPlaylistAdd > input').addClass('fade-out-lt');
-                $('.lcPlaylistAdd > a').removeClass('fade-in-lt');
-                $('.lcPlaylistAdd > a').addClass('fade-out-lt');
-            }
-        });
-        $('.lcPlaylistAdd > input').on('blur',function(){
-            $('.lcPlaylistAdd > input').removeClass('fade-in-lt');
-            $('.lcPlaylistAdd > input').addClass('fade-out-lt');
-            $('.lcPlaylistAdd > a').removeClass('fade-in-lt');
-            $('.lcPlaylistAdd > a').addClass('fade-out-lt');
-        });
     }());
 ////////////////////////////////////////////////////////////////////////////////
 });

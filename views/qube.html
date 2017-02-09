@@ -142,30 +142,40 @@
                         <!-- END OF LIST DISPLAY -->
                         <div class="listControl scrollbar">
                             <!-- <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for Youtube videos"></input> -->
-                            <div class="lcSearch" ng-click="listDisplay = 'youtube'">
+                            <div class="lcNavigatable lcSearch" ng-click="listDisplay = 'youtube'">
+                              <div class="lcSelectionIndicator"></div>
+                              <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">Find</span>
                                 <span class="lcDescription">Search the youtube video you like</span>
                                 <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
-
+                              </div>
                             </div>
-                            <div class="lcPlaylist" ng-click="listDisplay = 'playlist'">
+                            <div class="lcNavigatable lcPlaylist selected" ng-click="listDisplay = 'playlist'">
+                              <div class="lcSelectionIndicator"></div>
+                              <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">My Playlists</span>
                                 <span class="lcDescription">Control your playlists</span>
                                 <input type="text" ng-model="searchString" placeholder="Search playlist">
+                              </div>
                             </div>
-                            <div class="lcPlaylistAdd" ng-click="listDisplay = 'playlist'">
+                            <div class="lcNavigatable lcPlaylistAdd" ng-click="listDisplay = 'playlist'">
+                              <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">Add Playlist</span>
                                 <span class="lcDescription">Add a new playlist</span>
                                 <input type="text" ng-keyup="$event.keyCode == 13 && addPlaylist()" ng-model="addPlaylistInput" placeholder="Playlist name">
                                 <a id="addPlaylist" ng-click="addPlaylist()">
                                     <i class="icon-plus"></i>
                                 </a>
+                              </div>
                             </div>
                             <div class="lcShare">
+                              <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">Discover</span>
                                 <span class="lcDescription">Coming Soon in 2017</span>
+                              </div>
                             </div>
                             <div class="lcContact">
+                              <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">QUBE</span>
                                 <span class="lcDescription">Find the peace in your heart</span>
                                 <span class="contacts">
@@ -177,7 +187,8 @@
                                     <!-- <a href="#" class="dev"><span class="symbol">roundedfacebook</span><span class="name">Facebook</span></a>
                                     <a href="https://github.com/insoochoo/Qube" class="dev"><span class="symbol">roundedgithubalt</span><span class="name">Github</span></a> -->
                                 </span>
-                            </div>
+                              </div>
+                          </div>
                         </div>
                         <!-- END OF LIST CONTROL -->
                     </div>
