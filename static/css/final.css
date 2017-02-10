@@ -30,7 +30,7 @@ body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   background: #000;
-  color: #eee;
+  color: #fff;
   line-height: 1.40;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
@@ -366,7 +366,7 @@ a {
   white-space: nowrap;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  color: #7d94a4;
+  color: #fdfdfd;
 }
 #QubePlaylist .videolist .userVideolist span.duration, #QubePlaylist .videolist .userVideolist span.close {
   position: relative;
@@ -699,7 +699,7 @@ a {
   padding: 12px 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   font-size: 13px;
-  color: #9badb9;
+  color: #ffffff;
   padding-left: 15px;
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
