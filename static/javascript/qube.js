@@ -210,6 +210,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
     $scope.relatedSearch = function(videoId, pageToken){
+        if (!videoId && !$scope.currentPlayingVideo) {
+            alertify.error('Try playing a video before using the discover feature');
+        }
+        videoId = videoId || $scope.currentPlayingVideo.id;
         $scope.preventOuterDivEvent();
         $scope.listDisplay = 'youtube';
         var parameters = {
@@ -223,8 +227,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         };
         $scope.lastSearch = true;
         $scope.relateVideoId = videoId;
-        if(!pageToken)
+        if(!pageToken) {
             $scope.ytSearchResult = [];
+        }
         $scope.searchYt(null,null, parameters);
     }
     $scope.searchYt = function(val, pageToken, parameters) {

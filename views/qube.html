@@ -159,12 +159,11 @@
                                 <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
                               </div>
                             </div>
-                            <div class="lcNavigatable lcPlaylist selected" ng-click="listDisplay = 'playlist'">
+                            <div class="lcNavigatable lcPlaylist selected" ng-click="listDisplay = 'playlist'" style="cursor:pointer;">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">My Playlists</span>
                                 <span class="lcDescription">Control your playlists</span>
-                                <input type="text" ng-model="searchString" placeholder="Search playlist">
                               </div>
                             </div>
                             <div class="lcNavigatable lcPlaylistAdd" ng-click="listDisplay = 'playlist'">
@@ -177,7 +176,7 @@
                                 </a>
                               </div>
                             </div>
-                            <div class="lcShare">
+                            <div class="lcShare" style="cursor:pointer;" ng-click="relatedSearch()">
                               <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">Discover</span>
                                 <span class="lcDescription">Add related videos to your playlist</span>
