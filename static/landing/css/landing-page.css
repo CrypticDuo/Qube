@@ -246,6 +246,22 @@ h6 {
     margin-top: 0;
 }
 
+.searchplay {
+    padding: 230px 0;
+    color: #f8f8f8;
+    background: url(../img/searchplay.png) no-repeat center center;
+    background-size: cover;
+    border-radius: 250px;
+}
+
+.discover {
+    padding: 230px 0;
+    color: #f8f8f8;
+    background: url(../img/discover.png) no-repeat center center;
+    background-size: cover;
+    border-radius: 250px;
+}
+
 @media(max-width:1199px) {
     ul.banner-social-buttons {
         float: left;
