@@ -22,7 +22,7 @@ h6 {
 }
 
 .topnav {
-    font-size: 14px; 
+    font-size: 14px;
 }
 
 .lead {
@@ -31,34 +31,85 @@ h6 {
 }
 
 .intro-header {
+    position: relative;
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../img/intro-bg.jpg) no-repeat center center;
-    background-size: cover;
+    /*background-size: cover;*/
+    background-color: #222;
+}
+
+.intro-header .overlay {
+  background-color: #222;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.4;
+  top:0;
+  z-index: -1;
+}
+
+.intro-header .demo {
+  background-color: #222;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.6;
+  top:0;
+  background: url(/static/landing/img/demo.gif) no-repeat;
+  background-size: 100%;
+  z-index: -2;
+}
+
+.navbar-header img {
+  display: inline-block;
+}
+
+.navbar-header span {
+  font-size: 23px;
 }
 
 .intro-message {
-    position: relative;
-    padding-top: 20%;
-    padding-bottom: 20%;
+  position: relative;
+  padding-top: 10%;
+  padding-bottom: 8%;
+  letter-spacing: 0;
+  line-height: 54px;
+  z-index: 1;
 }
 
 .intro-message > h1 {
-    margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-    font-size: 5em;
+  margin: 0;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 54px;
+  margin-bottom: 20px;
+}
+
+.intro-message > h1 span {
+  font-weight: 600;
+}
+
+.intro-message > p {
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.intro-message .demo-gif {
+  max-width: 100%;
+  margin-top: 30px;
+  border-radius: 5px 5px 0 0;
+  width: 70%;
 }
 
 .intro-divider {
     width: 400px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     border-top: 1px solid #f8f8f8;
     border-bottom: 1px solid rgba(0,0,0,0.2);
-}
-
-.intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
 }
 
 @media(max-width:767px) {
@@ -85,11 +136,71 @@ h6 {
     }
 }
 
-.network-name {
+.intro-social-buttons > li {
     text-transform: uppercase;
-    font-size: 14px;
+    display: inline-block;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 0;
+    min-width: 250px;
+    margin: 20px 5px 0 5px;
+}
+
+.intro-social-buttons > li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.intro-social-buttons > li .icon {
+    color: #fff;
+    font-size: 22px;
+    float: left;
+    position: relative;
+    border: 1px solid transparent;
+    padding: 0 10px;
+}
+
+.intro-social-buttons > li.facebook .icon {
+  background-color: #2d4373;
+}
+
+.intro-social-buttons > li.github .icon {
+  background-color: #dedede;
+  color: #333;
+}
+
+.intro-social-buttons > li.facebook {
+    background-color: #3b5998;
+}
+
+.intro-social-buttons > li.github {
+    background-color: #fafafa;
+}
+
+.intro-social-buttons > li.github a {
+    color: #333;
+}
+
+.intro-social-buttons > li.facebook:hover {
+  background-color: #385591;
+}
+
+.intro-social-buttons > li.github:hover {
+  background-color: #eee;
+}
+
+.network-name {
+    font-size: 12px;
     font-weight: 400;
-    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .content-section-a {

@@ -2,14 +2,13 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Landing Page - Qube</title>
+    <title>Qube</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/landing/css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +17,7 @@
     <link href="/static/landing/css/landing-page.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/landing/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -43,19 +42,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">Qube</a>
+                <a class="navbar-brand topnav" href="#">
+                  <span>Qube</span>
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#about">About</a>
-                    </li>
-                    <li>
                         <a href="#features">Features</a>
                     </li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="#">Login</a>
                     </li>
                 </ul>
             </div>
@@ -73,15 +71,19 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
+                        <div class="overlay"></div>
+                        <div class="demo"></div>
                         <h1>Qube</h1>
-                        <h3>Rediscover Videos</h3>
+                        <h3>Rediscover Youtube Playlists</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
-                            <li>
-                                <a href="/auth/facebook" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Login with Facebook</span></a>
+                            <li class="facebook">
+                                <a href="/auth/facebook">
+                                  <div class="icon"><i class="fa fa-facebook-square fa-fw"></i></div><span class="network-name">Login with Facebook</span></a>
                             </li>
-                            <li>
-                                <a href="/auth/github" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Login with Github</span></a>
+                            <li class="github">
+                                <a href="/auth/github">
+                                  <div class="icon"><i class="fa fa-github fa-fw"></i></div><span class="network-name">Login with Github</span></a>
                             </li>
                         </ul>
                     </div>
@@ -96,7 +98,7 @@
 
     <!-- Page Content -->
 
-    <a  name="features"></a>
+    <a name="features"></a>
     <div class="content-section-a">
 
         <div class="container">
@@ -162,7 +164,7 @@
     <!-- </div> -->
     <!-- /.content-section-a -->
 
-    <a  name="contact"></a>
+    <a name="contact"></a>
     <div class="banner">
 
         <div class="container">
