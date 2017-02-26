@@ -333,6 +333,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                         }
                     }
                 }
+                alertify.success('Discovered ' + data.length + ' new videos.');
             });
     }
 
