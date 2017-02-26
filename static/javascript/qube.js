@@ -59,6 +59,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.currentPlayingVideo = null;
         $scope.currentPlayingVideoDuration = '00:00'
         $scope.currentPlaylist = {};
+        $scope.playingPlaylist = {};
         $scope.ytSearchResult = [];
         $scope.playlists = [];
         $scope.currentVideoTitle = 'No Video Selected';
@@ -103,15 +104,20 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if($scope.currentPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
             $scope.shuffleList = [];
-            $scope.listAllVideos(playlist.name);
+            $scope.listAllVideos(playlist);
             $scope.togglePlayVideo('QubeChangePlaylist');
         }
+    }
+
+    $scope.previewPlaylist = function(playlist) {
+        $scope.currentPlaylist = playlist;
+        $scope.listAllVideos(playlist);
     }
 
     $scope.loadFirstPlaylist = function(playlist) {
         if($scope.currentPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
-            $scope.listAllVideos(playlist.name);
+            $scope.listAllVideos(playlist);
         }
     }
 
@@ -153,13 +159,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         return;
     }
 
-    $scope.listAllVideos = function(pname) {
-        for (var a = 0; a < $scope.playlists.length; a++) {
-            if ($scope.playlists[a].name === pname) {
-                $scope.currentPlaylist.data = $scope.playlists[a].data;
-            }
-        }
-        $scope.currentPlaylistOption = pname;
+    $scope.listAllVideos = function(playlist) {
+        $scope.currentPlaylist.data = playlist.data;
+        $scope.currentPlaylistOption = playlist.name;
     };
 
     $scope.addVideo = function(val, playlist) {
@@ -211,7 +213,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
     $scope.relatedSearch = function(videoId, pageToken){
         if (!videoId && !$scope.currentPlayingVideo) {
-            alertify.error('Try playing a video before using the discover feature');
+            alertify.error('Please play a video before using the discover feature');
         }
         videoId = videoId || $scope.currentPlayingVideo.id;
         $scope.preventOuterDivEvent();
@@ -388,6 +390,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             }
             else if(video.id){
                 player.loadVideoById(video.id);
+                $scope.playingPlaylist = $scope.currentPlaylist;
                 $scope.currentPlayingVideo = video;
             }
             $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
@@ -399,9 +402,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 player.pauseVideo();
             } else if (player.getPlayerState() === 2) {
                 player.playVideo();
-            } else if (player.getPlayerState() === -1) {
+            } else if (player.getPlayerState() === 5) {
                 video = $scope.currentPlaylist.data[0];
                 player.loadVideoById(video.id);
+                $scope.playingPlaylist = $scope.currentPlaylist;
                 $scope.currentPlayingVideo = video;
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
                 updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
@@ -412,28 +416,29 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     $scope.shuffleToggle = function(){
         $scope.shuffleState = !$scope.shuffleState;
         if($scope.shuffleState){
-            for(var i=0; i< $scope.currentPlaylist.data.length; i++){
-                if($scope.currentPlayingVideo.id == $scope.currentPlaylist.data[i].id){
+            for(var i=0; i< $scope.playingPlaylist.data.length; i++){
+                if($scope.currentPlayingVideo.id == $scope.playingPlaylist.data[i].id){
                     $scope.shuffleList[i] = true;
                     return;
                 }
             }
         }
     }
+    // TODO: Fix shuffle
     $scope.playRandom = function(){
         var randomIndex, i=0;
-        while($scope.shuffleList[i] && i < $scope.currentPlaylist.data.length){
+        while($scope.shuffleList[i] && i < $scope.playingPlaylist.data.length){
             i++;
         }
-        if(i === $scope.currentPlaylist.data.length){
+        if(i === $scope.playingPlaylist.data.length){
             $scope.shuffleList = [];
         }
         do{
-            randomIndex = Math.floor(Math.random() * ($scope.currentPlaylist.data.length));
+            randomIndex = Math.floor(Math.random() * ($scope.playingPlaylist.data.length));
         } while($scope.shuffleList[randomIndex]);
         $scope.shuffleList[randomIndex] = true;
-        player.loadVideoById($scope.currentPlaylist.data[randomIndex].id);
-        $scope.currentPlayingVideo = $scope.currentPlaylist.data[randomIndex];
+        player.loadVideoById($scope.playingPlaylist.data[randomIndex].id);
+        $scope.currentPlayingVideo = $scope.playingPlaylist.data[randomIndex];
         $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
         updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
     }
@@ -444,17 +449,17 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             return;
         }
         var index = 0;
-        for(var i = 0; i < $scope.currentPlaylist.data.length; i++){
-            if($scope.currentPlayingVideo.id === $scope.currentPlaylist.data[i].id){
+        for(var i = 0; i < $scope.playingPlaylist.data.length; i++){
+            if($scope.currentPlayingVideo.id === $scope.playingPlaylist.data[i].id){
                 if(i === 0){
-                    index=$scope.currentPlaylist.data.length-1;
-                    player.loadVideoById($scope.currentPlaylist.data[index].id);
+                    index=$scope.playingPlaylist.data.length-1;
+                    player.loadVideoById($scope.playingPlaylist.data[index].id);
                 }
                 else{
                     index=i-1;
-                    player.loadVideoById($scope.currentPlaylist.data[index].id);
+                    player.loadVideoById($scope.playingPlaylist.data[index].id);
                 }
-                $scope.currentPlayingVideo = $scope.currentPlaylist.data[index];
+                $scope.currentPlayingVideo = $scope.playingPlaylist.data[index];
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
                 updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
                 return;
@@ -463,7 +468,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.nextVideo = function(data) {
-        var index = 0;
         if(data === 'ended' && $scope.replay === 'one'){
             player.loadVideoById($scope.currentPlayingVideo.id);
             return;
@@ -472,21 +476,25 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             $scope.playRandom();
             return;
         }
-        for(var i = 0; i < $scope.currentPlaylist.data.length; i++){
-            if($scope.currentPlayingVideo.id === $scope.currentPlaylist.data[i].id){
-                if(i === $scope.currentPlaylist.data.length-1){
-                    player.loadVideoById($scope.currentPlaylist.data[index].id);
+
+        var index = 0;
+        for(var i = 0; i < $scope.playingPlaylist.data.length; i++){
+            if($scope.currentPlayingVideo.id === $scope.playingPlaylist.data[i].id){
+                if(i === $scope.playingPlaylist.data.length-1){
+                    player.loadVideoById($scope.playingPlaylist.data[index].id);
                 }
-                else{
+                else {
                     index = i+1;
-                    player.loadVideoById($scope.currentPlaylist.data[index].id);
+                    player.loadVideoById($scope.playingPlaylist.data[index].id);
                 }
-                $scope.currentPlayingVideo = $scope.currentPlaylist.data[index];
+                $scope.currentPlayingVideo = $scope.playingPlaylist.data[index];
                 $scope.currentPlayingVideoDuration = $scope.currentPlayingVideo.contentDetails.duration;
                 updateCurrentVideoTitle($scope, $scope.currentPlayingVideo.snippet.title);
                 return;
             }
         }
+
+        // TODO: no more next videos, reset
     }
 
     $scope.changeVolume = function(volume) {
@@ -591,19 +599,24 @@ app.service("QubeService", function($http, $q) {
             .success(function(res) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
-                } else {
-                    for(var i = 0; i < scope.playlists.length; i++){
-                        if (scope.playlists[i].name === pname){
-                            scope.playlists.splice(i, 1);
-                            break;
-                        }
-                    }
-                    if (scope.currentPlaylist.name === pname){
-                        scope.currentPlaylist.data = [];
-                        scope.currentPlaylist = {};
-                    }
-                    alertify.success('Success: removed a playlist.');
+                    return;
                 }
+                var i;
+                for(i = 0; i < scope.playlists.length; i++){
+                    if (scope.playlists[i].name === pname){
+                        scope.playlists.splice(i, 1);
+                        break;
+                    }
+                }
+                if (scope.currentPlaylist.name === pname){
+                    scope.currentPlaylist.data = [];
+                    scope.currentPlaylist = {};
+
+                    if(i-1 > 0) {
+                      scope.currentPlaylist = scope.playlists[i-1];
+                    }
+                }
+                alertify.success('Success: removed a playlist.');
             })
             .error(function(err) {
                 alertify.error('Error: removed a playlist.');
