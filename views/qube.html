@@ -177,7 +177,8 @@
                                 </a>
                               </div>
                             </div>
-                            <div class="lcShare" style="cursor:pointer;" ng-click="relatedSearch()">
+                            <div class="lcShare" style="cursor:pointer;" ng-class="{lcNavigatable : currentPlayingVideo.id }" ng-click="relatedSearch()">
+                              <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">Discover</span>
                                 <span class="lcDescription">Add related videos to your playlist</span>
