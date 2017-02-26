@@ -745,9 +745,13 @@ a {
   position: absolute;
   top: 2px;
 }
-#playlistRemove {
+#playlistRemove, #speaker {
   position: relative;
   top: -28px;
+}
+#speaker {
+  color: #7d94a4;
+  right:10px;
 }
 #preview {
   position: relative;

@@ -105,13 +105,14 @@
                     <div class="listDisplay">
                         <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
                             <ul class="userPlaylist scrollbar sortable">
-                                <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="changePlaylist(playlist)" id="{{ playlist.name }}">
+                                <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="previewPlaylist(playlist)" id="{{ playlist.name }}">
                                     <div class="playlistDetail">
                                         <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                         <div class="title">{{playlist.name}}</div>
                                         <div class="duration">{{playlist.duration}}</div>
                                         <div class="float-right tooltip-left" id="playlistRemove" ng-click="removePlaylist(playlist)" data-tooltip="Delete playlist"><i class="icon-close"></i>
                                         </div>
+                                        <div class="float-right tooltip-left" ng-class="{hide: playlist.name != playingPlaylist.name}" id="speaker"><i class="icon-volume-2"></i></div>
                                 </li>
                             </ul>
                             </div>

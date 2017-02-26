@@ -123,6 +123,9 @@ h6 {
     .intro-header .demo {
       background: 0;
     }
+    .intro-header .overlay {
+      display: none;
+    }
 }
 
 @media(max-width:767px) {
