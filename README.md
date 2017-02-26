@@ -3,13 +3,15 @@ Qube
 
 Youtube playlist application for managing youtube videos
 
-Status : under-construction
+Status : QubeVideos.com
 
 ### Developers:
 
 Paul Kim : [bumjung](https://github.com/bumjung)
 
 Insoo Choo : [insoochoo](https://github.com/insoochoo)
+
+Sumit Belani : [sumitbalani](https://github.com/sumitbalani)
 
 ### Dependencies:
 
@@ -39,9 +41,6 @@ Insoo Choo : [insoochoo](https://github.com/insoochoo)
 ### To do:
 
 #### Release 1.0
-   * logout
-   * related video search
-   * Logo
    * packaging app (Windows, OSX)
    * google analytics
 
