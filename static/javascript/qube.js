@@ -168,7 +168,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.removeVideo = function(videoId){
         $scope.preventOuterDivEvent();
-        if(videoId === $scope.currentPlayingVideo.id){
+        if($scope.currentPlayingVideo && videoId === $scope.currentPlayingVideo.id){
             $scope.nextVideo();
         }
         $scope.shuffleList = [];
@@ -727,4 +727,3 @@ app.filter('searchFor', function() {
     };
 
 });
-
