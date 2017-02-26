@@ -839,6 +839,9 @@ a {
 .listControl .lcSearch .lcSelectionIndicator {
   background-color: #4cb6cb;
 }
+.listControl .lcShare .lcSelectionIndicator {
+  background-color: #f47f7f;
+}
 .listControl .selected .lcSelectionIndicator {
   visibility: visible;
 }
