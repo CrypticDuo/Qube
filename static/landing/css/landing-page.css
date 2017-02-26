@@ -84,6 +84,7 @@ h6 {
   font-weight: 400;
   line-height: 54px;
   margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 
 .intro-message > h1 span {
