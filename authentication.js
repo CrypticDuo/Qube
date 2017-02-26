@@ -7,98 +7,43 @@ var config = require('./oauth.js');
 
 var defaultPlaylist = [
                         {
-                            "name" : "Radio",
+                            "name" : "Pop Music",
                             "videos" : [
-                                "hT_nvWreIhg",
-                                "y6Sxv-sUYtM",
-                                "450p7goxZqg",
-                                "O-zpOMYRi0w",
-                                "zKX_zR022QY",
-                                "pB-5XG-DbAA",
-                                "nfWlot6h_JM",
-                                "qpgTC9MDx1o"
+                                "JGwWNGJdvx8",
+                                "FM7MFYoylVs",
+                                "D5drYkLiLI8",
+                                "7F37r50VUTQ",
+                                "8gsGhdZDC-0",
+                                "34Na4j8AVgA",
+                                "UqyT8IEBkvY",
+                                "YQHsXMglC9A"
                             ]
                         },
                         {
-                            "name" : "Pop",
+                            "name" : "Jimmy Fallon",
                             "videos" : [
-                                "qpgTC9MDx1o",
-                                "iD2rhdFRehU",
-                                "SYM-RJwSGQ8",
-                                "6ACl8s_tBzE",
-                                "e-ORhEE9VVg",
-                                "pUjE9H8QlA4",
-                                "yw04QD1LaB0",
-                                "g5qU7p7yOY8"
+                                "2OFKM2G-dE8",
+                                "RYI8KU7PKc0",
+                                "7PzjIXixe24",
+                                "wkSYGykMiwE",
+                                "0Yw-U34X4sc",
+                                "0PRFAh602kU",
+                                "svOElhHUb38"
                             ]
                         },
                         {
-                            "name" : "Country",
+                            "name" : "BuzzFeed",
                             "videos" : [
-                                "BkpuLMsDn48",
-                                "mH9kYn4L8TI",
-                                "RPILrZTBedY",
-                                "_MOavH-Eivw",
-                                "BuMiMBjcvWU",
-                                "inAj-sbwP7I",
-                                "-NPqM3vPDg8"
-                            ]
-                        },
-                        {
-                            "name" : "Electronic",
-                            "videos" : [
-                                "K_yBUfMGvzc",
-                                "ZvdgyppHp3w",
-                                "AW7O0KFpVX4",
-                                "maeYZ-dE458",
-                                "QvFqyn4kWJk",
-                                "ovDcLHa2L1o",
-                                "XMJxSM_TBgo",
-                                "12W8DtQwWYA",
-                                "zq2I6oBeibg",
-                                "xWH6mVOZxK8",
-                                "auqFostuqUk",
-                                "_snOoa8fR4s",
-                                "y-75n7PgqxQ",
-                                "cXh9QkDigfA",
-                                "ZwOVOSi-5nc",
-                                "u-VKRbGvg2s",
-                                "SrWWl6KEdmo",
-                                "LzZdhWkq2HA",
-                                "ZaSh4XCyVqU",
-                                "IgGjUjQRAxw",
-                                "BQwiYUHEePA"
-                            ]
-                        },
-                        {
-                            "name" : "Classical",
-                            "videos" : [
-                                "dyM2AnA96yE",
-                                "7jh-E5m01wY",
-                                "GRxofEmo3HA",
-                                "izQsgE0L450",
-                                "qVn2YGvIv0w",
-                                "XRU1AJsXN1g",
-                                "9E6b3swbnWg"
-                            ]
-                        },
-                        {
-                            "name" : "R & B",
-                            "videos" : [
-                                "JPIhUaONiLU",
-                                "VJOdTVnDCSQ",
-                                "REoFWyu4LaI",
-                                "fxPBu_vX9Q0",
-                                "nxvm4P0jFKY",
-                                "ueR5gE4aCW0",
-                                "eNogqBij198",
-                                "sfBi4H8F5JE",
-                                "CEavc5AIRRg",
-                                "KrRpGSgkQHI",
-                                "m_8B9ZSGNZ0"
+                                "5SSfwEuP6xU",
+                                "YK4ptwHgIJo",
+                                "R-uJviYD2T4",
+                                "1vARrao4HH8",
+                                "w2-FtU2pZes",
+                                "Q8IWkdGLm70",
+                                "n0tAXKkfvxk"
                             ]
                         }
-                    ];
+                     ];
 
 // config
 module.exports = passport.use(new FacebookStrategy({
