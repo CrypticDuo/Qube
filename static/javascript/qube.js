@@ -265,7 +265,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     $scope.discoverPlaylist = function(videoId) {
         $scope.preventOuterDivEvent();
-        $scope.generateRelatedVideos(videoId, [], 10);
+        $scope.generateRelatedVideos(videoId, [], 8);
     }
 
     $scope.generateRelatedVideos = function(videoId, list, number) {
