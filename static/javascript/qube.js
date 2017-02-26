@@ -329,7 +329,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                     // TODO (Paul): use promise and on all complete, alertify user success
                     for(var a = 0; a< $scope.playlists.length; a++){
                         if($scope.playlists[a].name === $scope.currentPlaylist.name){
-                            QubeService.addVideoToPlaylist($scope, $scope.playlists[a].name, video, true);
+                            QubeService.addVideoToPlaylist($scope, $scope.playlists[a].name, video, false);
                         }
                     }
                 }
@@ -620,7 +620,7 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function addVideoToPlaylist(scope, pname, video, silence) {
+    function addVideoToPlaylist(scope, pname, video, showAlert = true) {
         if(pname){
             $http.post("/api/playlists/" + pname + "/videos/" + video.id)
                 .success(function(res) {
@@ -637,14 +637,14 @@ app.service("QubeService", function($http, $q) {
                                 scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
                             }
                         }
-                        alertify.success('Success: Added ' + video.snippet.title);
+                        if(showAlert) alertify.success('Success: Added ' + video.snippet.title);
                     }
                 })
                 .error(function(err) {
-                    if(!silence) alertify.error('Error: Failed to add video.');
+                    if(showAlert) alertify.error('Error: Failed to add video.');
                 });
         } else {
-            if(!silence) alertify.error('Error: Please choose a playlist first.');
+            if(showAlert) alertify.error('Error: Please choose a playlist first.');
         }
     };
 
