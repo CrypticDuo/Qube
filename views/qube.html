@@ -119,7 +119,7 @@
                             <!-- END OF PLAYLIST COLUMN -->
                             <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
                                 <div class="video" ng-repeat="video in ytSearchResult">
-                                    <div class="video-image">
+                                    <div class="video-image tooltip-right" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video">
                                         <img class="video-image" src="{{ video.thumbnail }}">
                                     </div>
                                     <span class="video-duration">{{ video.contentDetails.duration }}</span>
@@ -133,7 +133,6 @@
                                             <button class=" addVideo tooltip-top" ng-click="addVideo(video, currentPlaylistOption)" onclick="document.activeElement.blur()" data-tooltip="Add to playlist">
                                                 <i class="icon-plus"></i>
                                             </button>
-                                            <span id="{{video.id}}" class="addVideo tooltip-top" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video"><i class="icon-share-alt"></i></span>
                                         </div>
                                     </div>
                                 </div>
