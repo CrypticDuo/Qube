@@ -276,7 +276,7 @@ a {
 }
 #QubePlaylist .view.main .video-detail {
   margin-left: 115px;
-  font-weight: 300;
+  font-weight: 400;
 }
 #QubePlaylist .view.main .video {
   padding: 18px 8px 18px 8px;
@@ -717,7 +717,7 @@ a {
 }
 .ytVidHover * {
   margin-right: 12px;
-  color: rgb(84, 84, 84);
+  color: rgb(199, 199, 199);
 }
 .ytVidHover *:hover {
   color: #eee;
@@ -736,7 +736,7 @@ a {
   color:#e5e5e5;
 }
 .video-views {
-  font-size: 12px;
+  font-size: 13px;
   color: rgb(190, 190, 190);
 }
 .playlistThumbnail {
