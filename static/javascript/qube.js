@@ -640,7 +640,6 @@ app.service("QubeService", function($http, $q) {
                         duration: "00:00"
                     });
                     alertify.success('Added playlist.');
-                    return;
                 }
             })
             .error(function(err) {
