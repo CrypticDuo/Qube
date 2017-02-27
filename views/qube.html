@@ -112,7 +112,7 @@
                                         <div class="duration">{{playlist.duration}}</div>
                                         <div class="icon-container">
                                           <div class="float-right tooltip-left" id="playlistRemove" ng-click="removePlaylist(playlist)" data-tooltip="Delete playlist"><i class="icon-close"></i></div>
-                                          <div class="float-right tooltip-left playPlaylist" ng-click="changePlaylist(playlist)">Play</div>
+                                          <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist.name == playingPlaylist.name}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
                                           <div class="float-right tooltip-left speaker" ng-class="{hide: playlist.name != playingPlaylist.name}"><i class="icon-volume-2"></i></div>
                                         <div>
                                 </li>

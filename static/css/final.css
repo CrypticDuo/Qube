@@ -770,6 +770,16 @@ a {
   border: 1px solid #fff;
   color: #fff;
 }
+.playPlaylist > span {
+  display: none;
+}
+.playPlaylist.active {
+  color: #fff;
+  border-color: #fff;
+}
+.playPlaylist.active > span {
+  display: inline;
+}
 .speaker {
   position:relative;
   color: #fff;
