@@ -728,6 +728,9 @@ a {
   background-color:#181F24;
   cursor:pointer;
 }
+#playlistRemove {
+  color: #7d94a4;
+}
 #playlistRemove:hover{
   color:#fff;
 }
