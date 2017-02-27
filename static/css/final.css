@@ -605,6 +605,9 @@ a {
   position: relative;
   float: left;
 }
+#QubePlaylist .bottomContainer .volume-icon > i {
+  cursor: pointer;
+}
 #QubePlaylist .bottomContainer .volume-icon > i:hover {
   color: #fff;
 }
@@ -645,8 +648,19 @@ a {
   width:30px;
   cursor: pointer;
 }
-#QubePlaylist .bottomContainer .replay-all-icon span, #QubePlaylist .bottomContainer .replay-one-icon span{
-  top:1px;
+
+#QubePlaylist .bottomContainer .icon-container {
+  position: relative;
+  top: -23px;
+}
+#QubePlaylist .bottomContainer .shuffle-icon .icon-container {
+  top: -23px;
+}
+#QubePlaylist .bottomContainer .full-screen-icon .icon-container {
+  top: -25px;
+}
+
+#QubePlaylist .bottomContainer .replay-all-icon span, #QubePlaylist .bottomContainer .replay-one-icon span {
   font-size:14px;
   color:#fff;
 }
@@ -925,6 +939,8 @@ a {
   height: 310px;
 }
 
+
+
 .loading {
   padding: 14px;
   margin: 0 auto;
@@ -1123,6 +1139,8 @@ a {
   -webkit-transform: translateY(-12px);
   -moz-transform:    translateY(-12px);
   transform:         translateY(-12px);
+  -webkit-transition-delay: 0.5s; /* Safari */
+  transition-delay: 0.5s;
 }
 
 /* Left */
