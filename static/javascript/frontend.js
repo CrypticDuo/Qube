@@ -490,12 +490,11 @@ $(document).ready(function() {
 // INPUT DISPLAY FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
-        $('.listControl').on('click', 'div.lcNavigatable', function(){
-          if($(this).hasClass('lcPlaylistAdd')) {
+        $(document).on('click', '.lcNavigatable', function(){
+          if($(this).hasClass('lcPlaylistAdd') || $(this).hasClass('playingPlaylistName')) {
             $('.listControl').find('.selected').removeClass('selected');
             $('.lcPlaylist').addClass('selected');
           } else {
-            console.log($(this));
             $('.listControl').find('.selected').removeClass('selected');
             $(this).addClass('selected');
           }

@@ -122,6 +122,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.listAllVideos(playlist);
     }
 
+    $scope.previewAndViewPlaylist = function(playlist) {
+      $scope.listDisplay = 'playlist';
+      $scope.previewPlaylist(playlist);
+    }
+
     $scope.loadFirstPlaylist = function(playlist) {
         if($scope.currentPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
