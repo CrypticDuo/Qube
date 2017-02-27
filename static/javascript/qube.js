@@ -260,11 +260,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                         }
                     })
                     .error(function() {
-                        alertify.error('Error: Something went wrong querying video details.');
+                        alertify.error('Failed to query video details.');
                     });
             })
             .error(function() {
-                alertify.error('Error: Something went wrong querying video details.');
+                alertify.error('Failed to search videos.');
             });
     }
 
@@ -314,7 +314,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 $scope.generateRelatedVideos(null, list, -1);
             })
             .error(function() {
-                alertify.error('Error: Something went wrong with discover feature');
+                alertify.error('Something went wrong with discover feature.');
             });
 
     }
@@ -531,7 +531,7 @@ app.service("QubeService", function($http, $q) {
                 getVideoDetails(target, data, scope);
             })
             .error(function() {
-                alertify.error('Error: Something went wrong querying video details!');
+                alertify.error('Failed to load contents from youtube.');
             });
     }
 
@@ -559,7 +559,7 @@ app.service("QubeService", function($http, $q) {
                 }
             })
             .error(function(err) {
-                alertify.error('Error: Cannot list all playlists.');
+                alertify.error('Failed to list playlists.');
             });
     };
 
@@ -578,11 +578,11 @@ app.service("QubeService", function($http, $q) {
                         data: [],
                         duration: "00:00"
                     });
-                    alertify.success('Success: added a playlist.');
+                    alertify.success('Added playlist.');
                 }
             })
             .error(function(err) {
-                alertify.error('Error: Failed to add playlist.');
+                alertify.error('Failed to add playlist.');
             });
     };
 
@@ -602,11 +602,11 @@ app.service("QubeService", function($http, $q) {
                         scope.currentPlaylist.data = [];
                         scope.currentPlaylist = {};
                     }
-                    alertify.success('Success: removed a playlist.');
+                    alertify.success('Deleted playlist.');
                 }
             })
             .error(function(err) {
-                alertify.error('Error: removed a playlist.');
+                alertify.error('Failed to remove playlist.');
             });
     };
 
@@ -617,11 +617,11 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    alertify.success('Success: updated playlist');
+                    alertify.success('Updated playlist order.');
                 }
             })
             .error(function(err){
-                alertify.error('Error: Failed to update playlist.');
+                alertify.error('Failed to update playlist.');
             });
     };
 
@@ -642,14 +642,14 @@ app.service("QubeService", function($http, $q) {
                                 scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
                             }
                         }
-                        if(showAlert) alertify.success('Success: Added ' + video.snippet.title);
+                        if(showAlert) alertify.success('Added ' + video.snippet.title);
                     }
                 })
                 .error(function(err) {
-                    if(showAlert) alertify.error('Error: Failed to add video.');
+                    if(showAlert) alertify.error('Failed to add video.');
                 });
         } else {
-            if(showAlert) alertify.error('Error: Please choose a playlist first.');
+            if(showAlert) alertify.error('Please choose a playlist first.');
         }
     };
 
@@ -666,11 +666,11 @@ app.service("QubeService", function($http, $q) {
                         }
                     }
                     scope.updatePlaylistDuration(scope.currentPlaylist);
-                    alertify.success('Success: Removed a video.');
+                    alertify.success('Deleted video.');
                 }
             })
             .error(function(err) {
-                alertify.error('Error: Failed to remove video.');
+                alertify.error('Failed to remove video.');
             });
     };
 
@@ -681,11 +681,11 @@ app.service("QubeService", function($http, $q) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
                 } else {
-                    alertify.success('Success: updated video list.');
+                    alertify.success('Updated video order.');
                 }
             })
             .error(function(err){
-                alertify.error('Error: Failed to update video list.');
+                alertify.error('Failed to update video list.');
             });
     };
 
