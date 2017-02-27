@@ -21,7 +21,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '100%',
         width: '100%',
-        playerVars: { controls:0, playsinline:1, rel:0, showinfo:0, modestbranding:0, iv_load_policy:3, fs:0, enablejsapi: 1, disablekb:1 }, 
+        playerVars: { controls:0, playsinline:1, rel:0, showinfo:0, modestbranding:0, iv_load_policy:3, fs:0, enablejsapi: 1, disablekb:1 },
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
@@ -490,11 +490,12 @@ $(document).ready(function() {
 // INPUT DISPLAY FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
-        $('.lcNavigatable').on('click',function(){
+        $('.listControl').on('click', 'div.lcNavigatable', function(){
           if($(this).hasClass('lcPlaylistAdd')) {
             $('.listControl').find('.selected').removeClass('selected');
             $('.lcPlaylist').addClass('selected');
           } else {
+            console.log($(this));
             $('.listControl').find('.selected').removeClass('selected');
             $(this).addClass('selected');
           }

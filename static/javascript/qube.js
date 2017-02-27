@@ -101,8 +101,16 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.changePlaylist = function(playlist) {
-        if($scope.currentPlaylist.name !== playlist.name){
+        $scope.preventOuterDivEvent();
+        if(playlist.data.length <= 0) {
+          alertify.error('There are no videos in this playlist.');
+          return;
+        }
+
+
+        if($scope.playingPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
+            $scope.playingPlaylist = playlist;
             $scope.shuffleList = [];
             $scope.listAllVideos(playlist);
             $scope.togglePlayVideo('QubeChangePlaylist');
@@ -213,10 +221,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
     $scope.relatedSearch = function(videoId, pageToken){
         if (!videoId && !$scope.currentPlayingVideo) {
-            alertify.error('Please play a video before using the discover feature');
+            alertify.error('Please play a video before using the discover feature.');
+            return;
         }
         videoId = videoId || $scope.currentPlayingVideo.id;
-        $scope.preventOuterDivEvent();
         $scope.listDisplay = 'youtube';
         var parameters = {
             key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI',
