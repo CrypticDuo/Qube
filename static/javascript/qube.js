@@ -223,8 +223,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             if(h)
                 $scope.addVideoInput = h;
             $scope.searchYt($scope.addVideoInput);
-
-            if($scope.ytSearchFirstView) $scope.ytSearchFirstView = false;
         }
     }
     $scope.relatedSearch = function(videoId, pageToken){
@@ -288,6 +286,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             .error(function() {
                 alertify.error('Failed to search videos.');
             });
+            if($scope.ytSearchFirstView) $scope.ytSearchFirstView = false;
     }
 
     $scope.discoverPlaylist = function(videoId) {
