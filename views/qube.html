@@ -3,7 +3,7 @@
 
 <head>
     <title>Qube</title>
-
+    <meta property="og:image" content="http://qubevideos.com/static/images/demo_picture.png" />
     <link rel="icon" href="/static/logo.ico?v=2" type="image/x-icon"/>
     <link rel="shortcut icon" href="/static/logo.ico?v=2" type="image/x-icon"/>
     <link type="text/css" rel="stylesheet" href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700'/>
@@ -98,41 +98,46 @@
                                           <div class="float-right tooltip-left" id="playlistRemove" ng-click="removePlaylist(playlist)" data-tooltip="Delete playlist"><i class="icon-close"></i></div>
                                           <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist.name == playingPlaylist.name}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
                                           <div class="float-right tooltip-left speaker" ng-class="{hide: playlist.name != playingPlaylist.name}"><i class="icon-volume-2"></i></div>
-                                        <div>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
-                            </div>
-                            <!-- END OF PLAYLIST COLUMN -->
-                            <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
-                                <div class="video" ng-repeat="video in ytSearchResult">
-                                    <div class="video-image tooltip-right" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video">
-                                        <img class="video-image" src="{{ video.thumbnail }}">
-                                    </div>
-                                    <span class="video-duration">{{ video.contentDetails.duration }}</span>
-                                    <div class="video-detail">
-                                        <div class="overflowEllipsis">
-                                            <span class="video-title">{{ video.snippet.title }}</span>
-                                        </div>
-                                        <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
-                                        <div class="ytVidHover">
-                                            <div class="addVideo playPlaylist clickable" onclick="onAddVideoToPlaylist(this)" ng-click="checkPlaylistExists()">Add To Playlist</div>
-                                            <div class="playlist-names playlist-menu">
-                                                <ul class="sf-menu-sub" style="display:none;">
-                                                    <li class = "playlist-menu" ng-repeat="playlist in playlists" ng-click="addVideo(video, playlist.name)"><a href="#">{{playlist.name}}</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="video" ng-show="ytSearchResult.length > 0" style="text-align:center">
+                          </div>
+                          <!-- END OF PLAYLIST COLUMN -->
+                          <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
+                              <div class="placeholder" ng-show="ytSearchFirstView">
+                                <i class="icon icon-magnifier"></i>
+                                <p>Search Youtube videos using the search bar!</p>
+                              </div>
+                              <div class="video" ng-repeat="video in ytSearchResult">
+                                  <div class="video-image tooltip-right" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video">
+                                      <img class="video-image" src="{{ video.thumbnail }}">
+                                  </div>
+                                  <span class="video-duration">{{ video.contentDetails.duration }}</span>
+                                  <div class="video-detail">
+                                      <div class="overflowEllipsis">
+                                          <span class="video-title">{{ video.snippet.title }}</span>
+                                      </div>
+                                      <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
+                                      <div class="ytVidHover">
+                                          <div class="addVideo playPlaylist clickable" onclick="onAddVideoToPlaylist(this)" ng-click="checkPlaylistExists()">Add To Playlist</div>
+                                          <div class="playlist-names playlist-menu">
+                                              <ul class="sf-menu-sub" style="display:none;">
+                                                  <li class = "playlist-menu" ng-repeat="playlist in playlists" ng-click="addVideo(video, playlist.name)"><a href="#">{{playlist.name}}</a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="video" ng-show="ytSearchResult.length > 0" style="text-align:center">
                                   <div class="loading">
                                   		<div class="loading-dot"></div>
                                   		<div class="loading-dot"></div>
                                   		<div class="loading-dot"></div>
                                       <div class="loading-dot"></div>
                                   </div>
-                                </div>
-                            </div>
+                              </div>
+                          </div>
                         </div>
 
 

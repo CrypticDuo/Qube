@@ -222,20 +222,26 @@ a {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:14;
   font-weight:400;
-  background: #232C32;
+  background: rgb(17, 23, 27);
   border: 0!important;
   overflow: hidden;
   color: #eee;
 }
+.ui-autocomplete > li.ui-menu-item {
+  border-bottom:1px #191f23 solid;
+  padding: 7px 10px;
+}
 .ui-autocomplete > .ui-menu-item:hover {
-  background: #181f24;
+  background: #191f23;
   color: #eee;
-  border:1px #181f24 solid;
+  border:1px #191f23 solid;
+  border-bottom:2px #191f23 solid;
 }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-  background: #181f24;
+  background: #191f23;
   color: #eee;
-  border:1px #181f24 solid;
+  border:1px #191f23 solid;
+  border-bottom:2px #191f23 solid;
 }
 #QubePlaylist {
   min-width: 1200px;
@@ -249,6 +255,20 @@ a {
 #QubePlaylist .view.main .searchResultColumn {
   background-color: #232C32;
   overflow: auto;
+}
+#QubePlaylist .view.main .searchResultColumn .placeholder {
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 45%;
+  position: relative;
+  color: #acb7c1;
+  font-size: 20px;
+}
+#QubePlaylist .view.main .searchResultColumn .placeholder > i {
+  font-size: 55px;
+}
+#QubePlaylist .view.main .searchResultColumn .placeholder > p {
+  margin-top: 20px;
 }
 #QubePlaylist .view.main .video-image {
   float: left;
@@ -1234,7 +1254,7 @@ a {
   margin-bottom: -16px;
 }
 
-/* playlist menu dropdown styling */ 
+/* playlist menu dropdown styling */
 
 .playlist-menu ul {
   list-style-type: none;
@@ -1272,4 +1292,3 @@ a {
   background-color: rgb(17, 23, 27);
   z-index: 9;
 }
-

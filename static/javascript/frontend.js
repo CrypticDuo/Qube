@@ -128,7 +128,7 @@ function onSearchChange(el, query){
         scope.$apply(function() {
             scope.onSearch(query, function(data){
                 console.log(data);
-                $('.lcSearch > input').autocomplete({
+                $('.lcSearch input').autocomplete({
                     source: data,
                     select:function(event, ui){
                         scope.queryYoutube({},ui.item.value);
@@ -200,22 +200,22 @@ function pauseTimer(){
 
 $(document).ready(function() {
 
-    $('.lcSearch > input').autocomplete({appendTo: "body"});
-    $('.lcSearch > input').autocomplete('enable');
+    $('.lcSearch input').autocomplete({appendTo: "body"});
+    $('.lcSearch input').autocomplete('enable');
 
     alertify.set('notifier','position', 'top-right');
     alertify.set('notifier','delay', 3);
 
-    $('.lcSearch > input').on('keyup', function(e) {
+    $('.lcSearch input').on('keyup', function(e) {
         var self = this;
         if(e.which !== 13){
             onSearchChange($(self),$(self).val());
         }
         else if(e.which === 13){
-            $('.lcSearch > input').autocomplete( "destroy" );
+            $('.lcSearch input').autocomplete( "destroy" );
             setTimeout(function(){
-                $('.lcSearch > input').autocomplete({appendTo: "body"});
-                $('.lcSearch > input').autocomplete('enable');
+                $('.lcSearch input').autocomplete({appendTo: "body"});
+                $('.lcSearch input').autocomplete('enable');
             },1000);
         }
     });

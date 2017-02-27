@@ -61,6 +61,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.currentPlaylist = {};
         $scope.playingPlaylist = {};
         $scope.ytSearchResult = [];
+        $scope.ytSearchFirstView = true;
         $scope.playlists = [];
         $scope.currentVideoTitle = 'No Video Selected';
         $scope.pageToken = '';
@@ -285,6 +286,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             .error(function() {
                 alertify.error('Failed to search videos.');
             });
+            if($scope.ytSearchFirstView) $scope.ytSearchFirstView = false;
     }
 
     $scope.discoverPlaylist = function(videoId) {
