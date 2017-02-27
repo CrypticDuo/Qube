@@ -320,6 +320,14 @@ a {
   display: block;
   margin: 0 auto;
 }
+#QubePlaylist .topHeader .playingPlaylist {
+  color: #ccc;
+  font-size: 13px;
+  position: relative;
+  top: -1px;
+  margin-right: 5px;
+  text-transform: uppercase;
+}
 #QubePlaylist .playView {
   width: 45%;
   height: 100%;
