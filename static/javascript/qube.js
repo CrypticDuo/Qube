@@ -525,35 +525,74 @@ app.service("QubeService", function($http, $q) {
 
     var hostURL = "http://" + window.location.host;
 
+    function createRequest(videoIDlist) {
+	    var deferred = Q.defer();
+
+      $http.get('https://www.googleapis.com/youtube/v3/videos', {
+              params: {
+                  part: 'contentDetails, statistics, snippet',
+                  id: videoIDlist,
+                  key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI'
+              }
+          })
+          .success(function(contentDetailsData) {
+              deferred.resolve(contentDetailsData);
+          })
+          .error(function() {
+              deferred.reject(null);
+              alertify.error('Failed to load contents from youtube.');
+          });
+
+      return deferred.promise;
+    }
+
     function getVideoDetails(target, data, scope) {
         var evt = data.shift();
         //puts the data contentDetails inside target
         if (!evt) {
+            scope.$apply();
             scope.loadFirstPlaylist(target[0]);
             return;
         }
-        var videoIDlist = '';
+        var promises = [];
+        var videoIDlist = [];
+        var videoIDString = '';
+
+        var count = 1;
         for (var i = 0; i < evt.videos.length; i++) {
-            videoIDlist = videoIDlist + evt.videos[i] + ",";
+            videoIDString = videoIDString + evt.videos[i] + ",";
+            if(count % 45 === 0) {
+              videoIDlist.push(videoIDString);
+              videoIDString = '';
+            }
+            count++;
         }
-        $http.get('https://www.googleapis.com/youtube/v3/videos', {
-                params: {
-                    part: 'contentDetails, statistics, snippet',
-                    id: videoIDlist,
-                    key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI'
-                }
-            })
-            .success(function(contentDetailsData) {
-                target.push({name : evt.name, data : contentDetailsData.items, duration : "00:00"});
-                for(var i=0; i<target[target.length-1].data.length; i++){
-                    target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
-                    target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
-                }
-                getVideoDetails(target, data, scope);
-            })
-            .error(function() {
-                alertify.error('Failed to load contents from youtube.');
-            });
+        if (videoIDString !== '') {
+          videoIDlist.push(videoIDString);
+        }
+
+        for (var i = 0; i < videoIDlist.length; i++) {
+          promises.push(createRequest(videoIDlist[i]));
+        }
+
+        Q.allSettled(promises).then(function(result) {
+          var contentDetailsData = [];
+
+          for (var i = 0; i < result.length; i++) {
+              var value = result[i]['value'];
+
+              if(result[i]['state'] === 'fulfilled' && value) {
+                contentDetailsData = contentDetailsData.concat(value.items);
+              }
+          }
+
+          target.push({name : evt.name, data : contentDetailsData, duration : "00:00"});
+          for(var i=0; i<target[target.length-1].data.length; i++){
+              target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
+              target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
+          }
+          getVideoDetails(target, data, scope);
+        });
     }
 
     function searchAutoComplete(scope, query, callback){
