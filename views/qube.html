@@ -130,11 +130,14 @@
                                             <span class="video-title">{{ video.snippet.title }}</span>
                                         </div>
                                         <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
+
                                         <div class="ytVidHover">
-                                            <select class="" ng-model="currentPlaylistOption" ng-options="playlist.name as playlist.name for playlist in playlists" ng-selected="currentPlaylist.name" required></select>
-                                            <button class=" addVideo tooltip-top" ng-click="addVideo(video, currentPlaylistOption)" onclick="document.activeElement.blur()" data-tooltip="Add to playlist">
-                                                <i class="icon-plus"></i>
-                                            </button>
+                                            <div class="addVideo playPlaylist clickable" onclick="onAddVideoToPlaylist(this)">Add To Playlist</div>
+                                            <div class="playlist-names playlist-menu">
+                                                <ul class="sf-menu-sub" style="display:none;">
+                                                    <li class = "playlist-menu" ng-repeat="playlist in playlists" ng-click="addVideo(video, playlist.name)"><a href="#">{{playlist.name}}</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

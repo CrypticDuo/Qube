@@ -11,11 +11,27 @@ var isPaused=true;
 var duration=0;
 var previewPlayerState = -1;
 
-
 Pace.on("done", function(){
     setTimeout(function(){
         $('div.loading-page').fadeOut(1000);
     },200);
+});
+
+function onAddVideoToPlaylist(element) {
+    var sf_menu_sub = $(element).parent().find(".sf-menu-sub");
+    $(sf_menu_sub).toggle();
+}
+
+$(document).on('click', function(e) {
+    if($(e.target).hasClass('addVideo')) {
+        return;
+    }
+     var listOfMenu = $('.sf-menu-sub');
+     for(var i = 0; i < listOfMenu.length; i++) {
+        if($(listOfMenu[i]).css('display') !== 'none') {
+            $(listOfMenu[i]).hide();
+        }
+    }
 });
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
