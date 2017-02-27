@@ -523,6 +523,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.previewTitle = title;
     }
 
+    $scope.checkPlaylistExists = function(){
+        if($scope.playlists.length === 0) {
+            alertify.error('Please add a playlist to add videos to.');
+        }
+    }
+
     init();
 });
 
