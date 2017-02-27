@@ -143,6 +143,11 @@ router.use(function(req, res, next) {
 router.route('/playlists')
     //get all playlist
     .get(ensureAuthenticated, function(req, res) {
+        db.updateLoginData(req.user.oauthID, function(result) {
+          if(result.status !== 'Success') {
+            console.log(result);
+          }
+        });
         db.listAllPlaylists(req.user.oauthID, function(result) {
             res.json(result);
         });

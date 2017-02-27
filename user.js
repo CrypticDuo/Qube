@@ -6,6 +6,8 @@ var User = mongoose.model('User', {
     facebookID: Number,
     name: String,
     created: Date,
+    lastLogin: Date,
+    loginCount: Number,
     playlist: [
     	{
     		name: String,
