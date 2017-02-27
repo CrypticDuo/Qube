@@ -604,7 +604,6 @@ a {
 #QubePlaylist .bottomContainer .volume .volumeBar div.volumeLevel, #QubePlaylist .bottomContainer .progressBar div.progressLevel {
   background-color: #778490;
   display: block;
-  position: relative;
   float: left;
 }
 #QubePlaylist .bottomContainer .volume-icon > i {
