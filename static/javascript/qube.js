@@ -61,6 +61,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.currentPlaylist = {};
         $scope.playingPlaylist = {};
         $scope.ytSearchResult = [];
+        $scope.ytSearchFirstView = true;
         $scope.playlists = [];
         $scope.currentVideoTitle = 'No Video Selected';
         $scope.pageToken = '';
@@ -222,6 +223,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             if(h)
                 $scope.addVideoInput = h;
             $scope.searchYt($scope.addVideoInput);
+
+            if($scope.ytSearchFirstView) $scope.ytSearchFirstView = false;
         }
     }
     $scope.relatedSearch = function(videoId, pageToken){

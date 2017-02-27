@@ -250,6 +250,20 @@ a {
   background-color: #232C32;
   overflow: auto;
 }
+#QubePlaylist .view.main .searchResultColumn .placeholder {
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 45%;
+  position: relative;
+  color: #acb7c1;
+  font-size: 20px;
+}
+#QubePlaylist .view.main .searchResultColumn .placeholder > i {
+  font-size: 55px;
+}
+#QubePlaylist .view.main .searchResultColumn .placeholder > p {
+  margin-top: 20px;
+}
 #QubePlaylist .view.main .video-image {
   float: left;
 }
@@ -1234,7 +1248,7 @@ a {
   margin-bottom: -16px;
 }
 
-/* playlist menu dropdown styling */ 
+/* playlist menu dropdown styling */
 
 .playlist-menu ul {
   list-style-type: none;
@@ -1272,4 +1286,3 @@ a {
   background-color: rgb(17, 23, 27);
   z-index: 9;
 }
-
