@@ -123,8 +123,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.previewAndViewPlaylist = function(playlist) {
-      $scope.listDisplay = 'playlist';
-      $scope.previewPlaylist(playlist);
+        $scope.listDisplay = 'playlist';
+        $scope.previewPlaylist(playlist);
     }
 
     $scope.loadFirstPlaylist = function(playlist) {
@@ -225,6 +225,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
     $scope.relatedSearch = function(videoId, pageToken){
+        $scope.preventOuterDivEvent();
         if (!videoId && !$scope.currentPlayingVideo) {
             alertify.error('Please play a video before using the discover feature.');
             return;
