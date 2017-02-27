@@ -579,7 +579,9 @@ a {
 }
 #QubePlaylist .bottomContainer .progressBar > div.progressLevel {
   width: 0;
-  height: 60px;
+  height: 5px;
+  bottom: 0;
+  position: absolute;
   background-color: #4cb6cb !important;
 }
 #QubePlaylist .bottomContainer div.progressBar > div > span {
