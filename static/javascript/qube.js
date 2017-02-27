@@ -225,10 +225,13 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
     }
     $scope.relatedSearch = function(videoId, pageToken){
-        $scope.preventOuterDivEvent();
         if (!videoId && !$scope.currentPlayingVideo) {
             alertify.error('Please play a video before using the discover feature.');
             return;
+        }
+        // coming from 'Search Related' icon
+        if (videoId) {
+          $scope.preventOuterDivEvent();
         }
         videoId = videoId || $scope.currentPlayingVideo.id;
         $scope.listDisplay = 'youtube';
