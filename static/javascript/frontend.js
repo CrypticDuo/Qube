@@ -196,7 +196,6 @@ $(document).ready(function() {
             onSearchChange($(self),$(self).val());
         }
         else if(e.which === 13){
-            console.log("hey");
             $('.lcSearch > input').autocomplete( "destroy" );
             setTimeout(function(){
                 $('.lcSearch > input').autocomplete({appendTo: "body"});
@@ -205,6 +204,12 @@ $(document).ready(function() {
         }
     });
 
+    $('.lcPlaylistAdd input').on('keypress', function(e) {
+        var self = this;
+        if(e.which === 13){
+          console.log('wat');
+        }
+    });
     $("#videoPreview").leanModal({
         top: 50,
         overlay: 0.6,

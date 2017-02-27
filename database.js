@@ -263,6 +263,52 @@ var database = {
                 return;
             }
         });
+    },
+
+    updateLoginData: function(userID, callback) {
+        var id = "";
+        console.log('update');
+        User.findOne({
+            oauthID: userID
+        }, function(err, user) {
+            if (err) {
+                console.log("ERROR: " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+                return;
+            } else {
+                id = user._id;
+            }
+        });
+
+        User.update({
+            oauthID: userID
+        }, {
+            "$inc": {
+                loginCount: 1
+            },
+            lastLogin: Date.now()
+        }, function(err, result) {
+            if (err) {
+                console.log("ERROR : " + err);
+                callback({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+            } else if (!err && result && result !== 0) {
+                callback({
+                    status: "Success",
+                    ID: id
+                });
+            } else {
+                callback({
+                    status: "Fail",
+                    msg: "Failed to update login data"
+                });
+            }
+        });
     }
 };
 

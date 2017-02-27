@@ -155,7 +155,7 @@
                               <div class="lcContentContainer">
                                 <span class="font-bold lcHeader">Add Playlist</span>
                                 <span class="lcDescription">Add a new playlist</span>
-                                <input type="text" ng-keyup="$event.keyCode == 13 && addPlaylist()" ng-model="addPlaylistInput" placeholder="Playlist name">
+                                <input type="text" ng-keypress="$event.keyCode == 13 && addPlaylist()" ng-model="addPlaylistInput" placeholder="Playlist name">
                                 <a id="addPlaylist" ng-click="addPlaylist()">
                                     <i class="icon-plus"></i>
                                 </a>
