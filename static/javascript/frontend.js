@@ -153,11 +153,6 @@ function onPreviewClick(self){
     player.pauseVideo();
 }
 
-function removeCloseIcon(el) {
-    $(el).children('.duration').removeClass('hide');
-    $(el).children('.close').addClass('hide');
-}
-
 function convertSecondsToTime(s) {
     var tHours = parseInt(s/3600);
     var tMinutes = parseInt((s%3600)/60);
@@ -399,22 +394,6 @@ $(document).ready(function() {
         }
     }).disableSelection();}());
 
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// VIDEOLIST REMOVE FUNCTIONALITY
-////////////////////////////////////////////////////////////////////////////////
-    (function(){
-        var html = '';
-        $('.userVideolist').on('mouseenter', 'li', function(){
-            $(this).children('.duration').addClass('hide');
-            $(this).children('.close').removeClass('hide');
-            $('.userVideolist').on('mouseleave', 'li', function(){
-                $(this).children('.duration').removeClass('hide');
-                $(this).children('.close').addClass('hide');
-            });
-        });
-    }());
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////

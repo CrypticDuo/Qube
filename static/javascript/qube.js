@@ -752,8 +752,11 @@ app.service("QubeService", function($http, $q) {
                     } else {
                         for(var i = 0; i<scope.playlists.length; i++){
                             if(scope.playlists[i].name === pname){
+                                video.snippet.thumbnails = {medium: { uri: '' }};
+                                video.snippet.thumbnails.medium.url = video.thumbnail;
                                 scope.playlists[i].data.push(video);
                                 scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
+                                break;
                             }
                         }
                         if(showAlert) alertify.success('Added ' + video.snippet.title);

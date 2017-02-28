@@ -76,9 +76,9 @@
                             <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>
                             <span class="duration">{{video.contentDetails.duration}}</span>
-                            <span class="hide close tooltip-left" data-tooltip="Delete"><i class="icon icon-close" ng-click="removeVideo(video.id)"></i></span>
-                            <span class="hide close tooltip-left" data-tooltip="Search related"><i class="icon icon-magnifier" ng-click="relatedSearch(video.id)"></i></span>
-                            <span class="hide close tooltip-left" data-tooltip="Auto generate"><i class="icon icon-social-youtube" ng-click="discoverPlaylist(video.id)"></i></span>
+                            <span class="close tooltip-left" data-tooltip="Delete"><i class="icon icon-close" ng-click="removeVideo(video.id)"></i></span>
+                            <span class="close tooltip-left" data-tooltip="Search related"><i class="icon icon-magnifier" ng-click="relatedSearch(video.id)"></i></span>
+                            <span class="close tooltip-left" data-tooltip="Auto generate"><i class="icon icon-social-youtube" ng-click="discoverPlaylist(video.id)"></i></span>
                         </li>
                     </ul>
                 </div>
@@ -91,7 +91,7 @@
                             <ul class="userPlaylist scrollbar sortable">
                                 <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="previewPlaylist(playlist)" id="{{ playlist.name }}">
                                     <div class="playlistDetail">
-                                        <img class="playlistThumbnail" src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+                                        <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                         <div class="title">
                                           <div class="edit">
                                             <span class="text">{{playlist.name}}</span>

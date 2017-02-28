@@ -406,6 +406,18 @@ a {
   margin-left: 10px;
   color:#7d94a4;
 }
+#QubePlaylist .videolist .userVideolist span.duration {
+  display: inline;
+}
+#QubePlaylist .videolist .userVideolist > li:hover span.duration {
+  display: none;
+}
+#QubePlaylist .videolist .userVideolist span.close {
+  display: none;
+}
+#QubePlaylist .videolist .userVideolist > li:hover span.close {
+  display: inline;
+}
 #QubePlaylist .videolist .userVideolist span.close:hover {
   color:#fff;
 }
@@ -828,7 +840,7 @@ a {
   color: rgb(190, 190, 190);
 }
 .playlistThumbnail {
-  height: 38px;
+  max-height: 38px;
   float: left;
   position: absolute;
   top: 2px;
