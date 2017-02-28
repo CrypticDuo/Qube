@@ -33,6 +33,7 @@ $(document).on('click', function(e) {
         }
     }
 });
+
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '100%',
@@ -122,12 +123,10 @@ function onVolumeChange(el, volume) {
 }
 
 function onSearchChange(el, query){
-    console.log(query);
     if(query){
         var scope = angular.element(el).scope();
         scope.$apply(function() {
             scope.onSearch(query, function(data){
-                console.log(data);
                 $('.lcSearch input').autocomplete({
                     source: data,
                     select:function(event, ui){
@@ -217,13 +216,6 @@ $(document).ready(function() {
                 $('.lcSearch input').autocomplete({appendTo: "body"});
                 $('.lcSearch input').autocomplete('enable');
             },1000);
-        }
-    });
-
-    $('.lcPlaylistAdd input').on('keypress', function(e) {
-        var self = this;
-        if(e.which === 13){
-          console.log('wat');
         }
     });
     $("#videoPreview").leanModal({
@@ -521,6 +513,91 @@ $(document).ready(function() {
           }
         });
 
+    }());
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// EDIT PLAYLIST NAME FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+    function hideEditingPlaylist(inputEl, textEl) {
+        inputEl.hide();
+        textEl.show();
+        inputEl.val(textEl.text());
+    }
+
+    (function(){
+        $(document).on('click', '.playlistDetail .edit .edit-icon', function(e){
+            var elements = $('.playlistDetail .edit input.edit-input');
+
+            var editing_index = -1;
+            for(var i = 0; i < elements.length; i++) {
+              if($(elements[i]).css('display') !== 'none') {
+                editing_index = i;
+                break;
+              }
+            }
+
+            if(editing_index !== -1) {
+              if($(e.target).parents('.userPlaylist li').index() === editing_index) {
+                  return;
+              }
+              var textEl = $(elements[editing_index]).parent().find('.text');
+              hideEditingPlaylist($(elements[editing_index]), textEl);
+            }
+
+            var el = $(this).parent();
+
+            el.find('.text').hide();
+            el.find('input').width(el.find('.text').css('width'));
+            el.find('input').show();
+            el.find('input').focus().val(el.find('input').val());
+            $(this).hide();
+        });
+        $(document).on('keypress', '.playlistDetail .edit input.edit-input', function(e){
+            if (e.keyCode == 65) {
+              e.target.select();
+              return;
+            }
+            if(e.keyCode == 13) {
+              var el = $(this);
+              var scope = angular.element(el).scope();
+              scope.$apply(function() {
+                  var result = scope.editPlaylistName(e);
+                  var textEl = el.parent().find('.text');
+                  if(result) {
+                    textEl.text(el.val());
+                  }
+                  el.parent().find('.text').show();
+                  el.hide();
+                  el.parent().find('.edit-icon').show();
+              });
+            }
+        });
+        $(document).on('mouseleave', '.playlistDetail', function(e){
+            $(e.target).parent().find('.edit-icon').hide();
+        });
+        $(document).on('mouseenter', '.playlistDetail', function(e){
+            $(e.target).parent().find('.edit-icon').show();
+        });
+        $(document).on('click', function(e) {
+            if($(e.target).hasClass('icon-pencil')
+              || $(e.target).hasClass('edit-input')) {
+                return;
+            }
+            var elements = $('.playlistDetail .edit input.edit-input');
+
+            for(var i = 0; i < elements.length; i++) {
+              if($(elements[i]).css('display') !== 'none') {
+                var textEl = $(elements[i]).parent().find('.text');
+                if($(e.target).parents('.userPlaylist li').index()
+                  === $(elements[i]).parents('.userPlaylist li').index()){
+                  $(elements[i]).parent().find('.edit-icon').show();
+                }
+                hideEditingPlaylist($(elements[i]), textEl);
+                break;
+              }
+            }
+      });
     }());
 ////////////////////////////////////////////////////////////////////////////////
 });
