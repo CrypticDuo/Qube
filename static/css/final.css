@@ -406,6 +406,18 @@ a {
   margin-left: 10px;
   color:#7d94a4;
 }
+#QubePlaylist .videolist .userVideolist span.duration {
+  display: inline;
+}
+#QubePlaylist .videolist .userVideolist > li:hover span.duration {
+  display: none;
+}
+#QubePlaylist .videolist .userVideolist span.close {
+  display: none;
+}
+#QubePlaylist .videolist .userVideolist > li:hover span.close {
+  display: inline;
+}
 #QubePlaylist .videolist .userVideolist span.close:hover {
   color:#fff;
 }
@@ -738,6 +750,49 @@ a {
 #QubePlaylist .mainView .view.main .playlistDetail .duration {
   color: #627b8c;
 }
+#QubePlaylist .mainView .view.main .playlistDetail .edit {
+  height: 20px;
+}
+#QubePlaylist .mainView .view.main .playlistDetail .edit > input {
+  color: #fff;
+  position: relative;
+  background: transparent;
+  padding:0;
+  margin:0;
+  background-color: transparent;
+  border-bottom: 1px solid #7d94a4;
+  display: none;
+  min-width:125px;
+  max-width: calc(100% - 85px);
+}
+#QubePlaylist .mainView .view.main .playlistDetail .edit .text {
+  color: #fff;
+  max-width: calc(100% - 80px);
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#QubePlaylist .mainView .view.main .playlistDetail .editing .edit-icon {
+  display: none !important;
+}
+#QubePlaylist .mainView .view.main .playlistDetail .edit-icon {
+  top: -5px;
+  position: relative;
+  color: #7d94a4;
+  font-size:10px;
+  margin-left:7px;
+  display:none;
+}
+#QubePlaylist .mainView .view.main .playlistDetail:hover .edit-icon {
+  display:inline;
+}
+#QubePlaylist .mainView .view.main .playlistDetail .edit-icon:hover {
+  color: #fff;
+}
+#QubePlaylist .mainView .view.main .playlistDetail .title .edit:hover .edit-icon {
+  display: inline-block;
+}
 #QubePlaylist .view.main .playlistColumn .userPlaylist li {
   padding: 12px 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -785,7 +840,7 @@ a {
   color: rgb(190, 190, 190);
 }
 .playlistThumbnail {
-  height: 38px;
+  max-height: 38px;
   float: left;
   position: absolute;
   top: 2px;

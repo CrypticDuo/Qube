@@ -147,6 +147,35 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if (e.stopPropagation) e.stopPropagation();
     }
 
+    $scope.editPlaylistName = function(e) {
+      var value = $(e.target).val();
+      var playlistIndex = $(e.target).parents('li').index();
+
+      var datalist = [];
+      for(var i = 0; i < $scope.playlists.length; i++){
+          if($scope.playlists[i].name === value) {
+            alertify.error('\'' + value + '\' playlist name already exists.');
+            return false;
+          }
+          var videolist = [];
+          for(var j = 0; j < $scope.playlists[i].data.length; j++){
+              videolist.push($scope.playlists[i].data[j].id);
+          }
+          datalist.push({
+              name: $scope.playlists[i].name,
+              videos: videolist
+          });
+      }
+      datalist[playlistIndex].name = value;
+      return QubeService.updatePlaylist($scope, datalist, 'Updated playlist name.').then(function(result) {
+          if(result === true) {
+            $scope.playlists[playlistIndex].name = value;
+          }
+
+          return result;
+      });
+    }
+
     $scope.updatePlaylist = function(list) {
         var newlist=[];
         var videolist = [];
@@ -168,7 +197,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
         if(JSON.stringify($scope.playlists) !== JSON.stringify(newlist)){
             $scope.playlists = newlist;
-            QubeService.updatePlaylist($scope, datalist);
+            QubeService.updatePlaylist($scope, datalist, 'Updated playlist order.');
         }
         return;
     }
@@ -688,19 +717,26 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function updatePlaylist(scope, list){
+    function updatePlaylist(scope, list, successMessage){
+        var deferred = Q.defer();
+
         var newList = JSON.stringify(list);
         $http.put("/api/playlists/" + newList)
             .success(function(res){
                 if (res.status.toLowerCase() === "fail") {
+                    deferred.reject(false);
                     console.log(res.msg);
                 } else {
-                    alertify.success('Updated playlist order.');
+                    deferred.resolve(true);
+                    alertify.success(successMessage);
                 }
             })
             .error(function(err){
+                deferred.reject(false);
                 alertify.error('Failed to update playlist.');
             });
+
+        return deferred.promise;
     };
 
     function addVideoToPlaylist(scope, pname, video, showAlert = true) {
@@ -716,8 +752,11 @@ app.service("QubeService", function($http, $q) {
                     } else {
                         for(var i = 0; i<scope.playlists.length; i++){
                             if(scope.playlists[i].name === pname){
+                                video.snippet.thumbnails = {medium: { uri: '' }};
+                                video.snippet.thumbnails.medium.url = video.thumbnail;
                                 scope.playlists[i].data.push(video);
                                 scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
+                                break;
                             }
                         }
                         if(showAlert) alertify.success('Added ' + video.snippet.title);

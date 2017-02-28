@@ -33,6 +33,7 @@ $(document).on('click', function(e) {
         }
     }
 });
+
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '100%',
@@ -122,12 +123,10 @@ function onVolumeChange(el, volume) {
 }
 
 function onSearchChange(el, query){
-    console.log(query);
     if(query){
         var scope = angular.element(el).scope();
         scope.$apply(function() {
             scope.onSearch(query, function(data){
-                console.log(data);
                 $('.lcSearch input').autocomplete({
                     source: data,
                     select:function(event, ui){
@@ -152,11 +151,6 @@ function onPreviewClick(self){
 
     previewPlayerState = player.getPlayerState();
     player.pauseVideo();
-}
-
-function removeCloseIcon(el) {
-    $(el).children('.duration').removeClass('hide');
-    $(el).children('.close').addClass('hide');
 }
 
 function convertSecondsToTime(s) {
@@ -217,13 +211,6 @@ $(document).ready(function() {
                 $('.lcSearch input').autocomplete({appendTo: "body"});
                 $('.lcSearch input').autocomplete('enable');
             },1000);
-        }
-    });
-
-    $('.lcPlaylistAdd input').on('keypress', function(e) {
-        var self = this;
-        if(e.which === 13){
-          console.log('wat');
         }
     });
     $("#videoPreview").leanModal({
@@ -410,22 +397,6 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-// VIDEOLIST REMOVE FUNCTIONALITY
-////////////////////////////////////////////////////////////////////////////////
-    (function(){
-        var html = '';
-        $('.userVideolist').on('mouseenter', 'li', function(){
-            $(this).children('.duration').addClass('hide');
-            $(this).children('.close').removeClass('hide');
-            $('.userVideolist').on('mouseleave', 'li', function(){
-                $(this).children('.duration').removeClass('hide');
-                $(this).children('.close').addClass('hide');
-            });
-        });
-    }());
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
 // OVERLAY FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
@@ -521,6 +492,83 @@ $(document).ready(function() {
           }
         });
 
+    }());
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// EDIT PLAYLIST NAME FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+    function hideEditingPlaylist(inputEl, textEl) {
+        textEl.parent().removeClass('editing');
+        inputEl.hide();
+        textEl.show();
+        inputEl.val(textEl.text());
+    }
+
+    (function(){
+        $(document).on('click', '.playlistDetail .edit .edit-icon', function(e){
+            var elements = $('.playlistDetail .edit input.edit-input');
+            $(e.target).parents('.userPlaylist li').find('.edit').addClass('editing');
+
+            var editing_index = -1;
+            for(var i = 0; i < elements.length; i++) {
+              if($(elements[i]).css('display') !== 'none') {
+                editing_index = i;
+                break;
+              }
+            }
+
+            if(editing_index !== -1) {
+              if($(e.target).parents('.userPlaylist li').index() === editing_index) {
+                  return;
+              }
+              var textEl = $(elements[editing_index]).parent().find('.text');
+              hideEditingPlaylist($(elements[editing_index]), textEl);
+            }
+
+            var el = $(this).parent();
+
+            el.find('.text').hide();
+            el.find('input').width(el.find('.text').css('width'));
+            el.find('input').show();
+            el.find('input').focus().val(el.find('input').val());
+        });
+        $(document).on('keypress', '.playlistDetail .edit input.edit-input', function(e){
+            if(e.keyCode == 13) {
+              var el = $(this);
+              var scope = angular.element(el).scope();
+              var textEl = el.parent().find('.text');
+              scope.$apply(function() {
+                  var promise = scope.editPlaylistName(e);
+
+                  if(!promise) return;
+
+                  promise.then(function(result) {
+                    if(result) {
+                      textEl.text(el.val());
+                    }
+                    el.parent().removeClass('editing');
+                    textEl.show();
+                    el.hide();
+                  });
+              });
+            }
+        });
+        $(document).on('click', function(e) {
+            if($(e.target).hasClass('icon-pencil')
+              || $(e.target).hasClass('edit-input')) {
+                return;
+            }
+            var elements = $('.playlistDetail .edit input.edit-input');
+
+            for(var i = 0; i < elements.length; i++) {
+              if($(elements[i]).css('display') !== 'none') {
+                var textEl = $(elements[i]).parent().find('.text');
+                hideEditingPlaylist($(elements[i]), textEl);
+                break;
+              }
+            }
+      });
     }());
 ////////////////////////////////////////////////////////////////////////////////
 });
