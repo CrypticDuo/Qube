@@ -17,25 +17,6 @@ Pace.on("done", function(){
     },200);
 });
 
-function onAddVideoToPlaylist(element) {
-    var sf_menu_sub = $(element).parent().find(".sf-menu-sub");
-    $(sf_menu_sub).toggle();
-}
-
-$(document).on('click', function(e) {
-    if($(e.target).hasClass('addVideo') || $(e.target).hasClass('morePlaylistOptions')) {
-        return;
-    }
-     var listOfMenu = $('.sf-menu-sub');
-     for(var i = 0; i < listOfMenu.length; i++) {
-        if($(listOfMenu[i]).css('display') !== 'none') {
-            $(listOfMenu[i]).hide();
-            $(listOfMenu[i]).parents('.userPlaylist li').removeClass('moreOptionOpen');
-            break;
-        }
-    }
-});
-
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '100%',
@@ -498,6 +479,55 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
+// ADD TO PLAYLIST FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+    function getOpenedOptionIndex(elements) {
+        var openedOptionIndex = -1;
+        for(var i = 0; i < elements.length; i++) {
+            if($(elements[i]).css('display') !== 'none') {
+              openedOptionIndex = i;
+              break;
+            }
+        }
+        return openedOptionIndex;
+    }
+
+    (function(){
+        $(document).on('click', '.addVideo', function(e) {
+            $(e.target).parents('.video').addClass('addingToPlaylist');
+            var elements = $('.video .sf-menu-sub');
+            var dropdown = $(e.target).parent().find(".sf-menu-sub");
+
+            var openedOptionIndex = getOpenedOptionIndex(elements);
+
+            if(openedOptionIndex !== -1) {
+                $(elements[openedOptionIndex]).hide();
+                $(elements[openedOptionIndex]).parents('.video').removeClass('addingToPlaylist');
+            }
+            if($(e.target).parents('.video').index() !== openedOptionIndex) {
+              dropdown.toggle();
+            }
+        });
+    }());
+
+////////////////////////////////////////////////////////////////////////////////
+
+$(document).on('click', function(e) {
+    if($(e.target).hasClass('addVideo') || $(e.target).hasClass('morePlaylistOptions')) {
+        return;
+    }
+     var listOfMenu = $('.sf-menu-sub');
+     for(var i = 0; i < listOfMenu.length; i++) {
+        if($(listOfMenu[i]).css('display') !== 'none') {
+            $(listOfMenu[i]).hide();
+            $(listOfMenu[i]).parents('.video').removeClass('addingToPlaylist');
+            $(listOfMenu[i]).parents('.userPlaylist li').removeClass('moreOptionOpen');
+            break;
+        }
+    }
+});
+
+////////////////////////////////////////////////////////////////////////////////
 // PLAYLIST MORE OPTIONS FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
@@ -506,19 +536,12 @@ $(document).ready(function() {
           var elements = $('.playlistDetail .dropdown');
           var dropdown = $(e.target).parent().find('.dropdown');
 
-          var openedOptionIndex = -1;
-          for(var i = 0; i < elements.length; i++) {
-            if($(elements[i]).css('display') !== 'none') {
-              openedOptionIndex = i;
-              break;
-            }
-          }
+          var openedOptionIndex = getOpenedOptionIndex(elements);
 
           if(openedOptionIndex !== -1) {
               $(elements[openedOptionIndex]).hide();
               $(elements[openedOptionIndex]).parents('.userPlaylist li').removeClass('moreOptionOpen');
           }
-
           if($(e.target).parents('.userPlaylist li').index() !== openedOptionIndex) {
             dropdown.toggle();
           }

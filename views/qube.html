@@ -120,25 +120,27 @@
                                 <i class="icon icon-magnifier"></i>
                                 <p>Search Youtube videos using the search bar!</p>
                               </div>
-                              <div class="video" ng-repeat="video in ytSearchResult">
-                                  <div class="video-image tooltip-right" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video">
-                                      <img class="video-image" src="{{ video.thumbnail }}">
-                                  </div>
-                                  <span class="video-duration">{{ video.contentDetails.duration }}</span>
-                                  <div class="video-detail">
-                                      <div class="overflowEllipsis">
-                                          <span class="video-title">{{ video.snippet.title }}</span>
-                                      </div>
-                                      <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
-                                      <div class="ytVidHover">
-                                          <div class="addVideo playPlaylist clickable" onclick="onAddVideoToPlaylist(this)" ng-click="checkPlaylistExists()">Add To Playlist</div>
-                                          <div class="playlist-names playlist-menu">
-                                              <ul class="sf-menu-sub" style="display:none;">
-                                                  <li class="playlist-menu" ng-repeat="playlist in playlists" ng-click="addVideo(video, playlist.name)"><a href="#">{{playlist.name}}</a></li>
-                                              </ul>
-                                          </div>
-                                      </div>
-                                  </div>
+                              <div class="videoContainer">
+                                  <div class="video" ng-repeat="video in ytSearchResult">
+                                    <div class="video-image tooltip-right" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video">
+                                        <img class="video-image" src="{{ video.thumbnail }}">
+                                    </div>
+                                    <span class="video-duration">{{ video.contentDetails.duration }}</span>
+                                    <div class="video-detail">
+                                        <div class="overflowEllipsis">
+                                            <span class="video-title">{{ video.snippet.title }}</span>
+                                        </div>
+                                        <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
+                                        <div class="ytVidHover">
+                                            <div class="addVideo playPlaylist clickable" ng-click="checkPlaylistExists()">Add To Playlist</div>
+                                            <div class="playlist-names playlist-menu">
+                                                <ul class="sf-menu-sub" style="display:none;">
+                                                    <li class="playlist-menu" ng-repeat="playlist in playlists" ng-click="addVideo(video, playlist.name)"><a href="#">{{playlist.name}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                               </div>
                               <div class="video" ng-show="ytSearchResult.length > 0" style="text-align:center">
                                   <div class="loading">

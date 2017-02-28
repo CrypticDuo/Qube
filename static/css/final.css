@@ -808,8 +808,15 @@ a {
   font-size: 12px;
 }
 .ytVidHover .addVideo:hover {
-  color:#e5e5e5;
+  color:#fff;
 }
+.video.addingToPlaylist .ytVidHover .addVideo {
+  border: 1px solid #fff;
+}
+.video.addingToPlaylist .ytVidHover .addVideo {
+  color: #fff;
+}
+
 .video-views {
   font-size: 13px;
   color: rgb(190, 190, 190);
