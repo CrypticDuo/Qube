@@ -759,6 +759,7 @@ a {
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
 }
 #QubePlaylist .mainView .view.main .playlistDetail .edit-icon {
   top: -5px;
@@ -767,6 +768,9 @@ a {
   font-size:10px;
   margin-left:7px;
   display:none;
+}
+#QubePlaylist .mainView .view.main .playlistDetail .edit-icon:hover {
+  color: #fff;
 }
 #QubePlaylist .mainView .view.main .playlistDetail .title .edit:hover .edit-icon {
   display: inline-block;

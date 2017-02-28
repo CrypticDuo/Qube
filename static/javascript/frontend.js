@@ -520,6 +520,7 @@ $(document).ready(function() {
 // EDIT PLAYLIST NAME FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     function hideEditingPlaylist(inputEl, textEl) {
+        textEl.parent().removeClass('editing');
         inputEl.hide();
         textEl.show();
         inputEl.val(textEl.text());
@@ -528,6 +529,7 @@ $(document).ready(function() {
     (function(){
         $(document).on('click', '.playlistDetail .edit .edit-icon', function(e){
             var elements = $('.playlistDetail .edit input.edit-input');
+            $(e.target).parents('.userPlaylist li').find('.edit').addClass('editing');
 
             var editing_index = -1;
             for(var i = 0; i < elements.length; i++) {
@@ -561,15 +563,21 @@ $(document).ready(function() {
             if(e.keyCode == 13) {
               var el = $(this);
               var scope = angular.element(el).scope();
+              var textEl = el.parent().find('.text');
               scope.$apply(function() {
-                  var result = scope.editPlaylistName(e);
-                  var textEl = el.parent().find('.text');
-                  if(result) {
-                    textEl.text(el.val());
-                  }
-                  el.parent().find('.text').show();
-                  el.hide();
-                  el.parent().find('.edit-icon').show();
+                  var promise = scope.editPlaylistName(e);
+
+                  if(!promise) return;
+
+                  promise.then(function(result) {
+                    if(result) {
+                      textEl.text(el.val());
+                    }
+                    el.parent().removeClass('editing');
+                    textEl.show();
+                    el.hide();
+                    el.parent().find('.edit-icon').show();
+                  });
               });
             }
         });
@@ -577,6 +585,8 @@ $(document).ready(function() {
             $(e.target).parent().find('.edit-icon').hide();
         });
         $(document).on('mouseenter', '.playlistDetail', function(e){
+            if($(e.target).parents('.userPlaylist li').find('.edit').hasClass('editing')) return;
+
             $(e.target).parent().find('.edit-icon').show();
         });
         $(document).on('click', function(e) {

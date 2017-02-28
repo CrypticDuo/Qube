@@ -167,11 +167,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
           });
       }
       datalist[playlistIndex].name = value;
-      QubeService.updatePlaylist($scope, datalist, 'Updated playlist name.').then(function(result) {
+      return QubeService.updatePlaylist($scope, datalist, 'Updated playlist name.').then(function(result) {
           if(result === true) {
             $scope.playlists[playlistIndex].name = value;
-            $scope.$apply();
           }
+
+          return result;
       });
     }
 
