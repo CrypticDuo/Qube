@@ -553,7 +553,6 @@ $(document).ready(function() {
             el.find('input').width(el.find('.text').css('width'));
             el.find('input').show();
             el.find('input').focus().val(el.find('input').val());
-            $(this).hide();
         });
         $(document).on('keypress', '.playlistDetail .edit input.edit-input', function(e){
             if(e.keyCode == 13) {
@@ -572,18 +571,9 @@ $(document).ready(function() {
                     el.parent().removeClass('editing');
                     textEl.show();
                     el.hide();
-                    el.parent().find('.edit-icon').show();
                   });
               });
             }
-        });
-        $(document).on('mouseleave', '.playlistDetail', function(e){
-            $(e.target).parent().find('.edit-icon').hide();
-        });
-        $(document).on('mouseenter', '.playlistDetail', function(e){
-            if($(e.target).parents('.userPlaylist li').find('.edit').hasClass('editing')) return;
-
-            $(e.target).parent().find('.edit-icon').show();
         });
         $(document).on('click', function(e) {
             if($(e.target).hasClass('icon-pencil')
@@ -595,10 +585,6 @@ $(document).ready(function() {
             for(var i = 0; i < elements.length; i++) {
               if($(elements[i]).css('display') !== 'none') {
                 var textEl = $(elements[i]).parent().find('.text');
-                if($(e.target).parents('.userPlaylist li').index()
-                  === $(elements[i]).parents('.userPlaylist li').index()){
-                  $(elements[i]).parent().find('.edit-icon').show();
-                }
                 hideEditingPlaylist($(elements[i]), textEl);
                 break;
               }
