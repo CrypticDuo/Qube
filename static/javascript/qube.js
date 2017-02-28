@@ -151,6 +151,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
       var value = $(e.target).val();
       var playlistIndex = $(e.target).parents('li').index();
 
+      if (value.replace(/\s/g, "").length === 0) {
+          alertify.error('Playlist name can\'t be empty');
+          return;
+      }
+
       var datalist = [];
       for(var i = 0; i < $scope.playlists.length; i++){
           if($scope.playlists[i].name === value) {

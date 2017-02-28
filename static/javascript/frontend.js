@@ -23,13 +23,15 @@ function onAddVideoToPlaylist(element) {
 }
 
 $(document).on('click', function(e) {
-    if($(e.target).hasClass('addVideo')) {
+    if($(e.target).hasClass('addVideo') || $(e.target).hasClass('morePlaylistOptions')) {
         return;
     }
      var listOfMenu = $('.sf-menu-sub');
      for(var i = 0; i < listOfMenu.length; i++) {
         if($(listOfMenu[i]).css('display') !== 'none') {
             $(listOfMenu[i]).hide();
+            $(listOfMenu[i]).parents('.userPlaylist li').removeClass('moreOptionOpen');
+            break;
         }
     }
 });
@@ -496,6 +498,35 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
+// PLAYLIST MORE OPTIONS FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+    (function(){
+        $(document).on('click', '.playlistDetail .morePlaylistOptions', function(e){
+          $(e.target).parents('.userPlaylist li').addClass('moreOptionOpen');
+          var elements = $('.playlistDetail .dropdown');
+          var dropdown = $(e.target).parent().find('.dropdown');
+
+          var openedOptionIndex = -1;
+          for(var i = 0; i < elements.length; i++) {
+            if($(elements[i]).css('display') !== 'none') {
+              openedOptionIndex = i;
+              break;
+            }
+          }
+
+          if(openedOptionIndex !== -1) {
+              $(elements[openedOptionIndex]).hide();
+              $(elements[openedOptionIndex]).parents('.userPlaylist li').removeClass('moreOptionOpen');
+          }
+
+          if($(e.target).parents('.userPlaylist li').index() !== openedOptionIndex) {
+            dropdown.toggle();
+          }
+        });
+    }());
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
 // EDIT PLAYLIST NAME FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     function hideEditingPlaylist(inputEl, textEl) {
@@ -506,27 +537,10 @@ $(document).ready(function() {
     }
 
     (function(){
-        $(document).on('click', '.playlistDetail .edit .edit-icon', function(e){
-            var elements = $('.playlistDetail .edit input.edit-input');
+        $(document).on('click', '.editPlaylist', function(e){
             $(e.target).parents('.userPlaylist li').find('.edit').addClass('editing');
 
-            var editing_index = -1;
-            for(var i = 0; i < elements.length; i++) {
-              if($(elements[i]).css('display') !== 'none') {
-                editing_index = i;
-                break;
-              }
-            }
-
-            if(editing_index !== -1) {
-              if($(e.target).parents('.userPlaylist li').index() === editing_index) {
-                  return;
-              }
-              var textEl = $(elements[editing_index]).parent().find('.text');
-              hideEditingPlaylist($(elements[editing_index]), textEl);
-            }
-
-            var el = $(this).parent();
+            var el = $(this).parents('.userPlaylist li');
 
             el.find('.text').hide();
             el.find('input').width(el.find('.text').css('width'));
@@ -555,7 +569,7 @@ $(document).ready(function() {
             }
         });
         $(document).on('click', function(e) {
-            if($(e.target).hasClass('icon-pencil')
+            if($(e.target).hasClass('editPlaylist')
               || $(e.target).hasClass('edit-input')) {
                 return;
             }
