@@ -556,10 +556,6 @@ $(document).ready(function() {
             $(this).hide();
         });
         $(document).on('keypress', '.playlistDetail .edit input.edit-input', function(e){
-            if (e.keyCode == 65) {
-              e.target.select();
-              return;
-            }
             if(e.keyCode == 13) {
               var el = $(this);
               var scope = angular.element(el).scope();

@@ -201,11 +201,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         }
         return;
     }
-    //
-    // function getPlaylistDataFromName(scope, list) {
-    //
-    //     return newlist;
-    // }
 
     $scope.listAllVideos = function(playlist) {
         $scope.currentPlaylist.data = playlist.data;
