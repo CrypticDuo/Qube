@@ -1,0 +1,23 @@
+{
+  "name": "Qube",
+  "version": "1.0.0",
+  "homepage": "qubevideos.com",
+  "authors": [
+    "Bumjung Kim <bj6kim@uwaterloo.ca>"
+  ],
+  "description": "Rediscover Youtube Playlists",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "simple-line-icons": "~2.4.1",
+    "q": "~2.0.2",
+    "pace": "~1.0.2",
+    "moment": "~2.17.1"
+  }
+}
