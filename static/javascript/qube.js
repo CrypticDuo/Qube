@@ -637,6 +637,10 @@ app.service("QubeService", function($http, $q) {
     };
 
     function addPlaylist(scope, pname) {
+        if (pname.replace(/\s/g, "").length === 0) {
+            alertify.error('Playlist name can\'t be empty');
+            return;
+        }
         $http.post("/api/playlists/" + pname)
             .success(function(res) {
                 if (res.status.toLowerCase() === "fail") {
