@@ -1,4 +1,5 @@
 oauth.js
 node_modules/
+bower_components/
 data/
 .DS_Store
