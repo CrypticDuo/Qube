@@ -222,26 +222,26 @@ a {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:14;
   font-weight:400;
-  background: rgb(17, 23, 27);
+  background: #3e4a58;
   border: 0!important;
   overflow: hidden;
   color: #eee;
 }
 .ui-autocomplete > li.ui-menu-item {
-  border-bottom:1px #191f23 solid;
+  border-bottom:1px #4f5f71 solid;
   padding: 7px 10px;
 }
 .ui-autocomplete > .ui-menu-item:hover {
-  background: #191f23;
+  background: #4f5f71;
   color: #eee;
-  border:1px #191f23 solid;
-  border-bottom:2px #191f23 solid;
+  border:1px #4f5f71 solid;
+  border-bottom:2px #4f5f71 solid;
 }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-  background: #191f23;
+  background: #4f5f71;
   color: #eee;
-  border:1px #191f23 solid;
-  border-bottom:2px #191f23 solid;
+  border:1px #4f5f71 solid;
+  border-bottom:2px #4f5f71 solid;
 }
 #QubePlaylist {
   min-width: 1200px;
