@@ -773,26 +773,6 @@ a {
   overflow: hidden;
   white-space: nowrap;
 }
-#QubePlaylist .mainView .view.main .playlistDetail .editing .edit-icon {
-  display: none !important;
-}
-#QubePlaylist .mainView .view.main .playlistDetail .edit-icon {
-  top: -5px;
-  position: relative;
-  color: #7d94a4;
-  font-size:10px;
-  margin-left:7px;
-  display:none;
-}
-#QubePlaylist .mainView .view.main .playlistDetail:hover .edit-icon {
-  display:inline;
-}
-#QubePlaylist .mainView .view.main .playlistDetail .edit-icon:hover {
-  color: #fff;
-}
-#QubePlaylist .mainView .view.main .playlistDetail .title .edit:hover .edit-icon {
-  display: inline-block;
-}
 #QubePlaylist .view.main .playlistColumn .userPlaylist li {
   padding: 12px 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -803,12 +783,6 @@ a {
 #QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
   background-color:#181F24;
   cursor:pointer;
-}
-#playlistRemove {
-  color: #7d94a4;
-}
-#playlistRemove:hover{
-  color:#fff;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
   background: 0;
@@ -845,14 +819,28 @@ a {
   position: absolute;
   top: 2px;
 }
-.icon-container {
+.userPlaylist .icon-container {
   position: relative;
   top: -28px;
 }
-#playlistRemove {
+.userPlaylist li .icon-container .optionContainer {
   visibility: hidden;
 }
-.userPlaylist > li:hover #playlistRemove {
+.userPlaylist li:hover .icon-container .optionContainer {
+  visibility: visible;
+}
+.userPlaylist .icon-container .sf-menu-sub {
+  position: absolute;
+  right: 0;
+}
+#QubePlaylist .view.main .playlistColumn .userPlaylist .icon-container .sf-menu-sub .playlist-menu {
+  padding: 7px 30px;
+  border-bottom: 1px solid #4f5f71;
+}
+#QubePlaylist .view.main .playlistColumn .userPlaylist .icon-container .sf-menu-sub .playlist-menu:hover {
+  background-color:#4f5f71;
+}
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.moreOptionOpen .icon-container .optionContainer {
   visibility: visible;
 }
 .playPlaylist {
@@ -1325,7 +1313,7 @@ a {
   padding: 7px 10px;
   margin: 0;
   cursor: pointer;
-  border-bottom: 1px solid #191f23;
+  border-bottom: 1px solid #4f5f71;
 }
 
 .playlist-menu li:last-child {
@@ -1338,12 +1326,13 @@ a {
 }
 
 .playlist-menu li:hover {
-  background-color: #191f23;
+  background-color: #4f5f71;
 }
 
 .sf-menu-sub {
   display: block;
   position: absolute;
-  background-color: rgb(17, 23, 27);
+  background-color: #3e4a58;
   z-index: 9;
+  box-shadow: rgb(17, 17, 17) 0px 0px 5px 0.5px;
 }
