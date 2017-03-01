@@ -251,12 +251,13 @@ a {
 }
 #QubePlaylist .view.main .playlistColumn {
   background-color: #232C32;
+  overflow: auto;
 }
 #QubePlaylist .view.main .searchResultColumn {
   background-color: #232C32;
   overflow: auto;
 }
-#QubePlaylist .view.main .searchResultColumn .placeholder {
+#QubePlaylist .view.main .listDisplay .placeholder {
   text-align: center;
   vertical-align: middle;
   margin-top: 45%;
@@ -264,10 +265,10 @@ a {
   color: #acb7c1;
   font-size: 20px;
 }
-#QubePlaylist .view.main .searchResultColumn .placeholder > i {
+#QubePlaylist .view.main .listDisplay .placeholder > i {
   font-size: 55px;
 }
-#QubePlaylist .view.main .searchResultColumn .placeholder > p {
+#QubePlaylist .view.main .listDisplay .placeholder > p {
   margin-top: 20px;
 }
 #QubePlaylist .view.main .video-image {
