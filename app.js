@@ -19,6 +19,7 @@ app.use("/static", express.static(__dirname + "/static"));
 app.use("/bower_components", express.static(__dirname + "/bower_components"));
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 80);
 
 // passport ====================================================================

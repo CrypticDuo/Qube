@@ -1,5 +1,7 @@
 'use strict';
 
+var ObjectId = require('mongoose').Types.ObjectId;
+var Q = require('q');
 var User = require('../model/user');
 var defaultPlaylist = require('../config/defaultPlaylist');
 
@@ -34,6 +36,43 @@ var database = {
                 });
             };
         });
+    },
+
+    getUser: function(globalID) {
+        var deferred = Q.defer();
+
+        User.findOne({
+            _id: ObjectId(globalID)
+        }, function(err, user){
+            if (err) {
+                console.log("ERROR : " + err);
+                deferred.reject({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+            } else if (!err && user) {
+                deferred.resolve({
+                    status: "Success",
+                    data: user
+                });
+            }
+        });
+
+        return deferred.promise;
+    },
+
+    getUserById: function(id) {
+      var deferred = Q.defer();
+
+      User.findById(id, function(err, user) {
+          if (err) {
+              deferred.resolve(null);
+          } else if (!err && user) {
+              deferred.resolve(user);
+          }
+      });
+
+      return deferred.promise;
     },
 
     createPlaylist: function(userID, pname, callback) {
@@ -94,26 +133,57 @@ var database = {
             }
         });
     },
-    listAllPlaylists: function(userID, callback) {
+    listAllPlaylists: function(userID) {
+        var deferred = Q.defer();
+
         User.find({
             oauthID: userID
         }, function(err, user) {
             if (err) {
                 console.log("ERROR : " + err);
-                callback({
+                deferred.resolve({
                     status: "Fail",
                     msg: "User not found"
                 });
-                return;
             }
             if(!err && user != null){
-                callback({
+                deferred.resolve({
                     status: "Success",
                     data: user[0].playlist
                 });
-                return;
             }
+
+            deferred.resolve({
+                status: "Fail",
+                msg: "User not found"
+            });
         });
+
+        return deferred.promise;
+    },
+    getPlaylistById: function(playlistID) {
+        var deferred = Q.defer();
+
+        User.findOne({
+            "playlist._id" : ObjectId(playlistID)
+        },{
+            playlist: {
+                "$elemMatch": {
+                    _id : ObjectId(playlistID)
+                }
+            }
+        }, function(err, playlist) {
+          if(err) {
+            deferred.reject(err);
+          } else if(!err && playlist) {
+            deferred.resolve(playlist);
+          } else {
+            // playlist id does not exist
+            deferred.reject(null);
+          }
+        });
+
+        return deferred.promise;
     },
     listAllVideos: function(userID, pname, callback) {
         User.find({
@@ -225,7 +295,9 @@ var database = {
                 }
         });
     },
-    updatePlaylist: function(userID, list, callback){
+    updatePlaylist: function(userID, list){
+        var deferred = Q.defer();
+
         User.update({
             oauthID: userID
         }, {
@@ -235,19 +307,21 @@ var database = {
         }, function(err, user){
             if(err) {
                 console.log("ERROR : " + err);
-                callback({
+                deferred.resolve({
                     status: "Fail",
                     msg: "User not found"
                 });
                 return;
             }
             if(!err && user != null){
-                callback({
+                deferred.resolve({
                     status: "Success"
                 });
                 return;
             }
         });
+
+        return deferred.promise;
     },
     removeVideoFromPlaylist: function(userID, pname, vid, callback) {
         User.update({

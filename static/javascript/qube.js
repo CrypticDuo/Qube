@@ -569,8 +569,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 });
 
 app.service("QubeService", function($http, $q) {
-
-    var hostURL = "http://" + window.location.host;
+    var hostURL = location.protocol + '//' + location.host;
 
     function createRequest(videoIDlist) {
 	    var deferred = Q.defer();
@@ -585,7 +584,7 @@ app.service("QubeService", function($http, $q) {
           .success(function(contentDetailsData) {
               deferred.resolve(contentDetailsData);
           })
-          .error(function() {
+          .error(function(error) {
               deferred.reject(null);
               alertify.error('Failed to load contents from youtube.');
           });
