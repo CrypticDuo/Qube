@@ -38,35 +38,12 @@ var database = {
         });
     },
 
-    getUser: function(globalID) {
-        var deferred = Q.defer();
-
-        User.findOne({
-            _id: ObjectId(globalID)
-        }, function(err, user){
-            if (err) {
-                console.log("ERROR : " + err);
-                deferred.reject({
-                    status: "Fail",
-                    msg: "User not found"
-                });
-            } else if (!err && user) {
-                deferred.resolve({
-                    status: "Success",
-                    data: user
-                });
-            }
-        });
-
-        return deferred.promise;
-    },
-
     getUserById: function(id) {
       var deferred = Q.defer();
 
       User.findById(id, function(err, user) {
           if (err) {
-              deferred.resolve(null);
+              deferred.reject(null);
           } else if (!err && user) {
               deferred.resolve(user);
           }

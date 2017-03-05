@@ -8,8 +8,8 @@ var db = require('./database');
 module.exports = {
     // uses mongoDB ID
     handleShare: function(id, sharePlaylistId) {
-        return db.getUser(id).then(function(result) {
-            var oauthID = result.data.oauthID;
+        return db.getUserById(id).then(function(result) {
+            var oauthID = result.oauthID;
             return db.listAllPlaylists(oauthID).then(function(result) {
                 var playlists = result.data ? result.data : [];
 

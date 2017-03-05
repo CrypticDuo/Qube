@@ -42,6 +42,8 @@ var Routes = function (app, router) {
               res.redirect('/');
             });
         } else {
+            // TODO: can we redirect to /login, then render login.ejs
+            //       while maintaining playlist_id?
             res.render('login.ejs', {
               'playlist_id': req.params.playlist_id
             });
