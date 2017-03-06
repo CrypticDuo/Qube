@@ -3,17 +3,18 @@
   "description": "Qube youtube playlist",
   "version": "0.0.1",
   "dependencies": {
-    "express": "~4.5.1",
+    "body-parser": "^1.9.0",
     "ejs": "*",
+    "express": "~4.5.1",
+    "express-session": "^1.8.2",
+    "method-override": "^2.2.0",
     "mongoose": "^3.8.16",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
+    "passport-github": "^0.1.5",
     "passport-google": "^0.3.0",
     "passport-twitter": "^1.0.2",
-    "express-session": "^1.8.2",
-    "body-parser": "^1.9.0",
-    "method-override": "^2.2.0",
-    "passport-github": "^0.1.5"
+    "q": "^1.4.1"
   },
   "repository": {
     "type": "git",
