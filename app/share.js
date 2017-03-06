@@ -20,14 +20,15 @@ module.exports = {
                         sharePlaylist['_id'] = new ObjectId();
 
                         // TODO: edit sharePlaylist name and such
-                        sharePlaylist['name'] += ' - Shared';
+                        sharePlaylist['name'] += ' (Shared)';
                         playlists.push(sharePlaylist);
                         return playlists;
                     })
                     .catch(function(err) {
-                        console.log(err);
+                        return playlists;
                     });
             }).then(function(newPlaylist) {
+
                 return db.updatePlaylist(oauthID, newPlaylist);
             });
         });
