@@ -38,9 +38,7 @@ var Routes = function (app, router) {
             share.handleShare(
                 req.session.passport.user,
                 req.params.playlist_id
-            ).then(function() {
-              res.redirect('/');
-            });
+            );
         } else {
             // TODO: can we redirect to /login, then render login.ejs
             //       while maintaining playlist_id?
