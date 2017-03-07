@@ -250,13 +250,16 @@ a {
   position: absolute;
 }
 #QubePlaylist .view.main .playlistColumn {
-  background-color: #232C32;
-}
-#QubePlaylist .view.main .searchResultColumn {
-  background-color: #232C32;
+  background-color: #101010;
   overflow: auto;
 }
-#QubePlaylist .view.main .searchResultColumn .placeholder {
+#QubePlaylist .view.main .searchResultColumn {
+  background-color: #101010;
+  border-left: 1px solid #242424;
+  border-right: 1px solid #242424;
+  overflow: auto;
+}
+#QubePlaylist .view.main .listDisplay .placeholder {
   text-align: center;
   vertical-align: middle;
   margin-top: 45%;
@@ -264,10 +267,10 @@ a {
   color: #acb7c1;
   font-size: 20px;
 }
-#QubePlaylist .view.main .searchResultColumn .placeholder > i {
+#QubePlaylist .view.main .listDisplay .placeholder > i {
   font-size: 55px;
 }
-#QubePlaylist .view.main .searchResultColumn .placeholder > p {
+#QubePlaylist .view.main .listDisplay .placeholder > p {
   margin-top: 20px;
 }
 #QubePlaylist .view.main .video-image {
@@ -312,7 +315,7 @@ a {
   display: inline-block;
 }
 #QubePlaylist .topHeader {
-  background-color: #3b464d;
+  background-color: #242424;
   height: 60px;
 }
 #QubePlaylist .topHeader > div.logo {
@@ -323,7 +326,7 @@ a {
   font-size: 16px;
   width: 70px;
   position: absolute;
-  background-color: #4cb6cb;
+  background-color: #242424;
 }
 #QubePlaylist .topHeader > div.logo > a {
   height: 20px;
@@ -351,7 +354,7 @@ a {
 #QubePlaylist .playView {
   width: 45%;
   height: 100%;
-  background-color: #0d1215;
+  background-color: #101010;
   float: left;
 }
 #QubePlaylist .videolist .userVideolist {
@@ -371,13 +374,13 @@ a {
 }
 
 #QubePlaylist .videolist .userVideolist li {
-  border-bottom: 1px solid #191f23;
+  border-bottom: 1px solid #242424;
   padding: 10px 10px;
-  color: #627b8c;
-  background-color:#0d1215;
+  color: #767676;
+  background-color: #101010;
 }
 #QubePlaylist .videolist .userVideolist li.active, #QubePlaylist .videolist .userVideolist li.active a, #QubePlaylist .videolist .userVideolist li.active span.title, #QubePlaylist .videolist .userVideolist li.active span.duration {
-  background-color: #181f24;
+  background-color: #1d1d1d;
   color: #fff;
 }
 #QubePlaylist .videolist .userVideolist li:hover {
@@ -404,7 +407,7 @@ a {
   font-size: 14px;
   text-align: right;
   margin-left: 10px;
-  color:#7d94a4;
+  color: #767676;
 }
 #QubePlaylist .videolist .userVideolist span.duration {
   display: inline;
@@ -423,7 +426,7 @@ a {
 }
 #QubePlaylist .videolist .userVideolist a {
   margin-right: 10px;
-  color: #627b8c;
+  color: #767676;
 }
 #QubePlaylist .videolist .userVideolist a:hover {
   color: #fff;
@@ -534,7 +537,7 @@ a {
   position: fixed;
   width: 100%;
   height: 60px;
-  background-color: #5a6a7a;
+  background-color: #242424;
   bottom: 0;
   padding: 0 15px;
   z-index: 100;
@@ -573,7 +576,7 @@ a {
   display: inline-block;
   width: calc(100% - 473px);
   background: 0;
-  background-color: #4d5d6e;
+  background-color: #2f2f2f;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -614,7 +617,7 @@ a {
   height: 60px;
   bottom: 0;
   position: absolute;
-  background-color: #4cb6cb !important;
+  background-color: rgb(64, 64, 64) !important;
 }
 #QubePlaylist .bottomContainer div.progressBar > div > span {
   text-align: center;
@@ -628,13 +631,13 @@ a {
 }
 #QubePlaylist .bottomContainer div.time span {
   font-size: 12px;
-  color: #acb7c1;
+  color: #767676;
 }
 #QubePlaylist .bottomContainer .volume{
   margin-right:5px
 }
 #QubePlaylist .bottomContainer .volume .volumeBar div.volumeLevel, #QubePlaylist .bottomContainer .progressBar div.progressLevel {
-  background-color: #778490;
+  background-color: #767676;
   display: block;
   float: left;
 }
@@ -667,7 +670,7 @@ a {
 #QubePlaylist .bottomContainer .volume .volumeBar span {
   width: 0px;
   margin-left: 0!important;
-  background-color: #E5E5E5;
+  background-color: #767676;
   border-radius: 50%;
   height: 0;
   top: -0.1em;
@@ -678,7 +681,7 @@ a {
 #QubePlaylist .bottomContainer .replay-all-icon,
 #QubePlaylist .bottomContainer .replay-one-icon,
 #QubePlaylist .bottomContainer .shuffle-icon {
-  color:#acb7c1;
+  color: #767676;
   width:30px;
   cursor: pointer;
 }
@@ -749,7 +752,7 @@ a {
   overflow: hidden;
 }
 #QubePlaylist .mainView .view.main .playlistDetail .duration {
-  color: #627b8c;
+  color: #767676;
 }
 #QubePlaylist .mainView .view.main .playlistDetail .edit {
   height: 20px;
@@ -776,13 +779,13 @@ a {
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist li {
   padding: 12px 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgb(36, 36, 36);
   font-size: 13px;
   color: #ffffff;
   padding-left: 15px;
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
-  background-color:#181F24;
+  background-color: #1d1d1d;
   cursor:pointer;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
@@ -808,8 +811,15 @@ a {
   font-size: 12px;
 }
 .ytVidHover .addVideo:hover {
-  color:#e5e5e5;
+  color:#fff;
 }
+.video.addingToPlaylist .ytVidHover .addVideo {
+  border: 1px solid #fff;
+}
+.video.addingToPlaylist .ytVidHover .addVideo {
+  color: #fff;
+}
+
 .video-views {
   font-size: 13px;
   color: rgb(190, 190, 190);
@@ -836,10 +846,10 @@ a {
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist .icon-container .sf-menu-sub .playlist-menu {
   padding: 7px 30px;
-  border-bottom: 1px solid #4f5f71;
+  border-bottom: 1px solid #242424;
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist .icon-container .sf-menu-sub .playlist-menu:hover {
-  background-color:#4f5f71;
+  background-color: #404040;
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist li.moreOptionOpen .icon-container .optionContainer {
   visibility: visible;
@@ -847,8 +857,8 @@ a {
 .playPlaylist {
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border: 1px solid #7d94a4;
-  color: #7d94a4;
+  border: 1px solid #767676;
+  color: #767676;
   padding: 2px 10px;
   border-radius: 4px;
   top:-5px;
@@ -949,7 +959,7 @@ a {
   padding: 20px;
 }
 .listControl .lcDescription {
-  color: #627b8c;
+  color: #767676;
 }
 .listControl input {
   background-color: transparent;
@@ -1314,7 +1324,7 @@ a {
   padding: 7px 10px;
   margin: 0;
   cursor: pointer;
-  border-bottom: 1px solid #4f5f71;
+  border-bottom: 1px solid #242424;
 }
 
 .playlist-menu li:last-child {
@@ -1327,13 +1337,13 @@ a {
 }
 
 .playlist-menu li:hover {
-  background-color: #4f5f71;
+  background-color: #404040;
 }
 
 .sf-menu-sub {
   display: block;
   position: absolute;
-  background-color: #3e4a58;
+  background-color: #2f2f2f;
   z-index: 9;
   box-shadow: rgb(17, 17, 17) 0px 0px 5px 0.5px;
 }
