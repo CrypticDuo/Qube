@@ -74,11 +74,13 @@ var database = {
             }
             console.log("RESULT : " + user);
             if (!user.length) {
+                var id = new ObjectId();
                 User.update({
                     oauthID: userID,
                 }, {
                     "$push": {
                         playlist: {
+                            _id: id,
                             name: pname,
                             videos: []
                         }
@@ -94,7 +96,10 @@ var database = {
                     } else {
                         console.log("adding new playlist ...");
                         callback({
-		                    status: "Success"
+		                    status: "Success",
+                        data: {
+                          newId: id,
+                        }
 		                });
 		                return;
                     }

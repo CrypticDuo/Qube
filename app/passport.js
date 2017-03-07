@@ -71,15 +71,15 @@ var Passport = function(app) {
     app.get('/auth/github/share/:playlist_id', function(req,res,next) {
       passport.authenticate(
         'github',
-         {callbackURL: '/auth/github/share_callback/' + req.params.playlist_id }
+         {callbackURL: '/auth/github/callback/share/' + req.params.playlist_id }
       )(req,res,next);
     });
 
-    app.get('/auth/github/share_callback/:playlist_id', function(req,res,next) {
+    app.get('/auth/github/callback/share/:playlist_id', function(req,res,next) {
       passport.authenticate(
         'github',
          {
-           callbackURL:'/auth/github/share_callback/' + req.params.playlist_id,
+           callbackURL:'/auth/github/callback/share/' + req.params.playlist_id,
            failureRedirect:'/'
          }
        ) (req,res,next);

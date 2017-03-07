@@ -692,6 +692,7 @@ app.service("QubeService", function($http, $q) {
                     }
                 } else {
                     scope.playlists.push({
+                        _id: res.data.newId,
                         name: pname,
                         data: [],
                         duration: "00:00"
