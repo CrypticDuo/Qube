@@ -597,8 +597,10 @@ app.service("QubeService", function($http, $q) {
         var evt = data.shift();
         //puts the data contentDetails inside target
         if (!evt) {
-            scope.loadFirstPlaylist(target[0]);
-            scope.$apply();
+            if(target.length > 0) {
+              scope.loadFirstPlaylist(target[0]);
+              scope.$apply();
+            }
             return;
         }
         var promises = [];

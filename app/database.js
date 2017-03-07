@@ -1,15 +1,50 @@
-var User = require('./user.js');
+'use strict';
+
+var User = require('../model/user');
+var defaultPlaylist = require('../config/defaultPlaylist');
 
 var database = {
-    createPlaylist: function(userID, pname, callback) {
-    if(!pname){
-        callback({
-            status: "Fail",
-            msg: "Playlist name cannot be empty"
+    authenticate: function(profile, done) {
+        console.log(profile.displayName + " has logged in.");
+        User.findOne({
+            oauthID: profile.id
+        }, function(err, user) {
+            if (err) {
+                console.log(err);
+            }
+            if (!err && user != null) {
+                done(null, user);
+            } else {
+                var user = new User({
+                    oauthID: profile.id,
+                    facebookID: profile._json.id,
+                    name: profile.displayName,
+                    created: Date.now(),
+                    lastLogin: Date.now(),
+                    loginCount: 0,
+                    playlist: defaultPlaylist
+                });
+                user.save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("saving user ...");
+                        done(null, user);
+                    };
+                });
+            };
         });
-        return;
-    }
-		User.find({
+    },
+
+    createPlaylist: function(userID, pname, callback) {
+        if(!pname){
+            callback({
+                status: "Fail",
+                msg: "Playlist name cannot be empty"
+            });
+            return;
+        }
+    		User.find({
             oauthID: userID,
             "playlist.name": pname
         }, function(err, user) {
@@ -267,7 +302,6 @@ var database = {
 
     updateLoginData: function(userID, callback) {
         var id = "";
-        console.log('update');
         User.findOne({
             oauthID: userID
         }, function(err, user) {

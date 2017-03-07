@@ -56,7 +56,7 @@
                     <div class="player noselect" style="height:inherit; width:inherit;">
                         <div id="player"></div>
                         <div class="overlay">
-                            <div><i class="icon-moustache"></i>
+                            <div><i class="icon-mustache"></i>
                             </div>
                         </div>
                         <div class="musicVisualizer">
@@ -71,7 +71,6 @@
                     </div>
 
                     <ul class="userVideolist scrollbar sortable">
-                        <!-- <div><i class="icon-moustache"></i></div> -->
                         <li ng-repeat="video in currentPlaylist.data" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" onclick="removeCloseIcon(this)" id="{{ video.id }}">
                             <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>
@@ -88,7 +87,11 @@
                 <div ng-show="layout == 'main'" class="view main">
                     <div class="listDisplay">
                         <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
-                            <ul class="userPlaylist scrollbar sortable">
+                          <div class="placeholder" ng-show="playlists.length == 0">
+                            <i class="icon icon-playlist"></i>
+                            <p>You don't have any playlists. Add one using 'Add Playlist'!</p>
+                          </div>
+                            <ul class="userPlaylist scrollbar sortable" ng-show="playlists.length > 0">
                                 <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="previewPlaylist(playlist)" id="{{ playlist.name }}">
                                     <div class="playlistDetail">
                                         <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
@@ -120,25 +123,27 @@
                                 <i class="icon icon-magnifier"></i>
                                 <p>Search Youtube videos using the search bar!</p>
                               </div>
-                              <div class="video" ng-repeat="video in ytSearchResult">
-                                  <div class="video-image tooltip-right" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video">
-                                      <img class="video-image" src="{{ video.thumbnail }}">
-                                  </div>
-                                  <span class="video-duration">{{ video.contentDetails.duration }}</span>
-                                  <div class="video-detail">
-                                      <div class="overflowEllipsis">
-                                          <span class="video-title">{{ video.snippet.title }}</span>
-                                      </div>
-                                      <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
-                                      <div class="ytVidHover">
-                                          <div class="addVideo playPlaylist clickable" onclick="onAddVideoToPlaylist(this)" ng-click="checkPlaylistExists()">Add To Playlist</div>
-                                          <div class="playlist-names playlist-menu">
-                                              <ul class="sf-menu-sub" style="display:none;">
-                                                  <li class="playlist-menu" ng-repeat="playlist in playlists" ng-click="addVideo(video, playlist.name)"><a href="#">{{playlist.name}}</a></li>
-                                              </ul>
-                                          </div>
-                                      </div>
-                                  </div>
+                              <div class="videoContainer">
+                                  <div class="video" ng-repeat="video in ytSearchResult">
+                                    <div class="video-image tooltip-right noselect" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video">
+                                        <img class="video-image" src="{{ video.thumbnail }}">
+                                    </div>
+                                    <span class="video-duration">{{ video.contentDetails.duration }}</span>
+                                    <div class="video-detail">
+                                        <div class="overflowEllipsis">
+                                            <span class="video-title">{{ video.snippet.title }}</span>
+                                        </div>
+                                        <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
+                                        <div class="ytVidHover noselect">
+                                            <div class="addVideo playPlaylist clickable" ng-click="checkPlaylistExists()">Add To Playlist</div>
+                                            <div class="playlist-names playlist-menu">
+                                                <ul class="sf-menu-sub" style="display:none;">
+                                                    <li class="playlist-menu" ng-repeat="playlist in playlists" ng-click="addVideo(video, playlist.name)"><a href="#">{{playlist.name}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                               </div>
                               <div class="video" ng-show="ytSearchResult.length > 0" style="text-align:center">
                                   <div class="loading">
@@ -153,7 +158,7 @@
 
 
                         <!-- END OF LIST DISPLAY -->
-                        <div class="listControl scrollbar">
+                        <div class="listControl scrollbar noselect">
                             <div class="lcNavigatable lcSearch" ng-click="listDisplay = 'youtube'" style="cursor:pointer;">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
