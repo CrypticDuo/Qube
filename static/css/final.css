@@ -640,18 +640,19 @@ a {
 }
 #QubePlaylist #addPlaylistModal {
   width: auto;
-  background-color:#181F24;
+  background-color: #131313;
   width: 550px;
+  border: 1px solid #212121;
 }
 #QubePlaylist #addPlaylistModal .popupHeader {
   border-radius: 2px 2px 0 0;
-  background-color: #181F24;
+  background-color: #131313;
   color: #fff;
   border-bottom: 1px solid transparent;
   font-weight:400;
 }
 #QubePlaylist #addPlaylistModal .popupHeader .modal_close {
-  background-color:#181F24;
+  background-color: #131313;
   color:#fff;
   cursor:default;
 }
