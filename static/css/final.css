@@ -311,7 +311,7 @@ a {
   font-size: 20px;
 }
 #QubePlaylist .sideMenu ul li a {} #QubePlaylist .mainView {
-  width: 55%;
+  width: 50%;
   height: 100%;
   display: inline-block;
 }
@@ -353,7 +353,7 @@ a {
   text-transform: uppercase;
 }
 #QubePlaylist .playView {
-  width: 45%;
+  width: 50%;
   height: 100%;
   background-color: #101010;
   float: left;
@@ -816,11 +816,11 @@ a {
   top: -28px;
 }
 .listDisplay {
-  width: calc(100% - 320px);
+  width: calc(100% - 100px);
   float: left;
 }
 .listControl {
-  width: 320px;
+  width: 100px;
   overflow: auto;
   display: inline-block;
 }
