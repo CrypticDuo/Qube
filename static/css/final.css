@@ -468,6 +468,7 @@ a {
   bottom: 0;
   padding: 0 15px;
   z-index: 100;
+  border-top: 1px solid #2e2e2e;
 }
 #QubePlaylist .bottomContainer div {
   position: relative;
@@ -823,6 +824,7 @@ a {
   width: 100px;
   overflow: auto;
   display: inline-block;
+  background-color: #242424;
 }
 .listControl li {
   padding: 20px;
@@ -831,22 +833,7 @@ a {
   width: 100%;
 }
 .lcHeader {
-  font-size: 24px;
-}
-.lcPlaylist {
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control2.jpg") 100% 100%;
-}
-.lcSearch {
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control1.jpg") 100% 100%;
-}
-.lcPlaylistAdd {
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control3.jpg") 100% 100%;
-}
-.lcShare{
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control4.jpg") 100% 100%;
-}
-.lcContact{
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control5.jpg") 100% 100%;
+  font-size: 14px;
 }
 .lcShare .lcHeader {
   color: #f47f7f;
@@ -864,8 +851,8 @@ a {
   color: silver;
 }
 .listControl .lcSelectionIndicator {
-  width: 4px;
-  min-height: 170px;
+  width: 3px;
+  min-height: 100px;
   float: right;
   visibility: hidden;
 }
@@ -882,11 +869,14 @@ a {
   visibility: visible;
 }
 .listControl .lcContentContainer {
-  height: 130px;
+  height: 60px;
   padding: 20px;
 }
 .listControl .lcDescription {
   color: #767676;
+}
+.lcContentContainer{
+  text-align: center;
 }
 .listControl input {
   background-color: transparent;

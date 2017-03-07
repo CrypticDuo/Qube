@@ -153,48 +153,24 @@
                             <div class="lcNavigatable lcSearch" ng-click="listDisplay = 'youtube'" style="cursor:pointer;">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
-                                <span class="font-bold lcHeader">Find</span>
-                                <span class="lcDescription">Search the youtube video you like</span>
-                                <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
+                                <i class="icon icon-magnifier" style="zoom:3;"></i>
+                                <span class="lcHeader">Search</span>
                               </div>
                             </div>
                             <div class="lcNavigatable lcPlaylist selected" ng-click="listDisplay = 'playlist'" style="cursor:pointer;">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
-                                <span class="font-bold lcHeader">My Playlists</span>
-                                <span class="lcDescription">Control your playlists</span>
-                              </div>
-                            </div>
-                            <div class="lcNavigatable lcPlaylistAdd" ng-click="listDisplay = 'playlist'" style="cursor:default;">
-                              <div class="lcContentContainer">
-                                <span class="font-bold lcHeader">Add Playlist</span>
-                                <span class="lcDescription">Add a new playlist</span>
-                                <input type="text" ng-keypress="$event.keyCode == 13 && addPlaylist()" ng-model="addPlaylistInput" placeholder="Playlist name">
-                                <a id="addPlaylist" ng-click="addPlaylist()">
-                                    <i class="icon-plus"></i>
-                                </a>
+                                <i class="icon icon-playlist" style="zoom:3;"></i>
+                                <span class="font-bold lcHeader">Playlists</span>
                               </div>
                             </div>
                             <div class="lcShare" style="cursor:pointer;" ng-class="{lcNavigatable : currentPlayingVideo.id }" ng-click="relatedSearch()">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
+                                <i class="icon icon-earphones" style="zoom:3;"></i>
                                 <span class="font-bold lcHeader">Discover</span>
-                                <span class="lcDescription">Add related videos to your playlist</span>
                               </div>
                             </div>
-                            <div class="lcContact" style="cursor:default;">
-                              <div class="lcContentContainer">
-                                <span class="font-bold lcHeader">QUBE</span>
-                                <span class="lcDescription">Find the peace in your heart</span>
-                                <span class="contacts">
-                                    <br/>
-                                    <div><!-- Qube is a playlist application full of pure awesomeness. --></div>
-                                    <br/>
-                                    <span style="float:right; color:#CDCDCD">- Developed by Insoo, Paul, Sumit</span>
-                                    <br/>
-                                </span>
-                              </div>
-                          </div>
                         </div>
                         <!-- END OF LIST CONTROL -->
                     </div>
