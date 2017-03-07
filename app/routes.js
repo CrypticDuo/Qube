@@ -36,16 +36,21 @@ var Routes = function (app, router) {
     app.get('/share/:playlist_id', function(req, res) {
         if (req.isAuthenticated()) {
             share.handleShare(
+                res,
                 req.session.passport.user,
                 req.params.playlist_id
             );
         } else {
-            // TODO: can we redirect to /login, then render login.ejs
-            //       while maintaining playlist_id?
-            res.render('login.ejs', {
-              'playlist_id': req.params.playlist_id
-            });
+            res.redirect('/login?share='+req.params.playlist_id);
         }
+    });
+
+    app.get('/login', function(req, res) {
+        var playlist_id = req.query.share;
+
+        res.render('login.ejs', {
+          'playlist_id': playlist_id
+        });
     });
 
     // middleware to use for all requests

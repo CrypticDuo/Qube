@@ -50,7 +50,7 @@ var Passport = function(app) {
      },
      function(req, res) {
         if (req.isAuthenticated()) {
-            share.handleShare(req.session.passport.user, req.params.playlist_id);
+            share.handleShare(res, req.session.passport.user, req.params.playlist_id);
         } else {
             res.redirect('/');
         }
@@ -86,7 +86,7 @@ var Passport = function(app) {
      },
      function(req, res) {
         if (req.isAuthenticated()) {
-            share.handleShare(req.session.passport.user, req.params.playlist_id);
+            share.handleShare(res, req.session.passport.user, req.params.playlist_id);
         } else {
             res.redirect('/');
         }
