@@ -250,11 +250,11 @@ a {
   position: absolute;
 }
 #QubePlaylist .view.main .playlistColumn {
-  background-color: #101010;
+  background-color: #1b1b1b;
   overflow: auto;
 }
 #QubePlaylist .view.main .searchResultColumn {
-  background-color: #101010;
+  background-color: #1b1b1b;
   border-left: 1px solid #242424;
   border-right: 1px solid #242424;
   overflow: auto;
@@ -311,7 +311,7 @@ a {
   font-size: 20px;
 }
 #QubePlaylist .sideMenu ul li a {} #QubePlaylist .mainView {
-  width: 55%;
+  width: 50%;
   height: 100%;
   display: inline-block;
 }
@@ -353,7 +353,7 @@ a {
   text-transform: uppercase;
 }
 #QubePlaylist .playView {
-  width: 45%;
+  width: 50%;
   height: 100%;
   background-color: #101010;
   float: left;
@@ -468,6 +468,7 @@ a {
   bottom: 0;
   padding: 0 15px;
   z-index: 100;
+  border-top: 1px solid #2e2e2e;
 }
 #QubePlaylist .bottomContainer div {
   position: relative;
@@ -713,7 +714,7 @@ a {
   padding-left: 15px;
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
-  background-color: #1d1d1d;
+  background-color: #2d2d2d;
   cursor:pointer;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
@@ -801,8 +802,8 @@ a {
   display: none;
 }
 .playPlaylist.active {
-  color: #fff;
-  border-color: #fff;
+  color: #f47f7f;
+  border-color: #f47f7f;
 }
 .playPlaylist.active > span {
   display: inline;
@@ -817,13 +818,14 @@ a {
   top: -28px;
 }
 .listDisplay {
-  width: calc(100% - 320px);
+  width: calc(100% - 100px);
   float: left;
 }
 .listControl {
-  width: 320px;
+  width: 100px;
   overflow: auto;
   display: inline-block;
+  background-color: #242424;
 }
 .listControl li {
   padding: 20px;
@@ -832,49 +834,35 @@ a {
   width: 100%;
 }
 .lcHeader {
-  font-size: 24px;
-}
-.lcPlaylist {
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control2.jpg") 100% 100%;
-}
-.lcSearch {
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control1.jpg") 100% 100%;
-}
-.lcPlaylistAdd {
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control3.jpg") 100% 100%;
-}
-.lcShare{
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control4.jpg") 100% 100%;
-}
-.lcContact{
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/static/images/control5.jpg") 100% 100%;
+  font-size: 14px;
+  padding-top: 5px;
 }
 .lcShare .lcHeader {
-  color: #f47f7f;
+  /*color: #f47f7f;*/
 }
 .lcPlaylist .lcHeader {
-  color: #fad733;
+  /*color: #f47f7f;*/
 }
 .lcPlaylistAdd .lcHeader {
   color: #1ab667;
 }
 .lcSearch .lcHeader {
-  color: #4cb6cb;
+  /*color: #f47f7f;*/
 }
 .lcContact .lcHeader {
   color: silver;
 }
 .listControl .lcSelectionIndicator {
-  width: 4px;
-  min-height: 170px;
+  width: 3px;
+  min-height: 100px;
   float: right;
   visibility: hidden;
 }
 .listControl .lcPlaylist .lcSelectionIndicator {
-  background-color: #fad733;
+  background-color: #f47f7f;
 }
 .listControl .lcSearch .lcSelectionIndicator {
-  background-color: #4cb6cb;
+  background-color: #f47f7f;
 }
 .listControl .lcShare .lcSelectionIndicator {
   background-color: #f47f7f;
@@ -883,11 +871,17 @@ a {
   visibility: visible;
 }
 .listControl .lcContentContainer {
-  height: 130px;
+  height: 60px;
   padding: 20px;
 }
 .listControl .lcDescription {
   color: #767676;
+}
+.lcContentContainer{
+  text-align: center;
+}
+.lcContentContainer .icon {
+  zoom: 1.7;
 }
 .listControl input {
   background-color: transparent;
