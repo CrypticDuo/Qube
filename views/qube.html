@@ -78,21 +78,21 @@
                 <div ng-show="layout == 'main'" class="view main">
                     <div class="listDisplay">
                         <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
-                          <div class="placeholder" ng-show="playlists.length == 0">
-                            <i class="icon icon-playlist"></i>
-                            <p>You don't have any playlists. Add one using 'Add Playlist'!</p>
-                          </div>
-                            <div class="addPlaylist">
-                              <div class="playlistDetail">
-                                <div class="playlistThumbnail"><i class="icon icon-plus"></i></div>
-                                <div class="title">
-                                  <div class="edit">
-                                    <span class="text">Add a Playlist</span>
-                                    <input type="text" class="edit-input" placeholder="Add a Playlist">
-                                  </div>
+                          <div class="addPlaylist">
+                            <div class="playlistDetail">
+                              <div class="playlistThumbnail"><i class="icon icon-plus"></i></div>
+                              <div class="title">
+                                <div class="edit">
+                                  <span class="text">Add a Playlist</span>
+                                  <input type="text" class="edit-input" placeholder="Add a Playlist">
                                 </div>
                               </div>
                             </div>
+                          </div>
+                          <div class="placeholder" ng-show="playlists.length == 0">
+                            <i class="icon icon-playlist"></i>
+                            <p>You don't have any playlists. Add one using 'Add a Playlist' above!</p>
+                          </div>
                             <ul class="userPlaylist scrollbar sortable" ng-show="playlists.length > 0">
                                 <li class="playlist" ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="previewPlaylist(playlist)" id="{{ playlist.name }}">
                                     <div class="playlistDetail">
