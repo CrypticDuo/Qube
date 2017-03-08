@@ -354,28 +354,23 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                 params: parameters
             })
             .success(function(data) {
-                for (var a = 0; a < 3; a++) {
-                    // check if result is already inside currentPlaylist
-                    var count = 0;
-                    for (var i = 0; i < $scope.currentPlaylist.data.length; i++) {
-                        if (data.items[a].id.videoId == $scope.currentPlaylist.data[i].id) {
-                            count++;
-                        }
-                    }
-                    for (var i = 0; i < list.length; i++) {
-                        if (data.items[a].id.videoId == list[i].id.videoId) {
-                            count++;
-                        }
-                    }
-                    //dne in currentPlaylist
-                    if (count == 0) {
-                        list.push(data.items[a]);
-                        $scope.generateRelatedVideos(data.items[a].id.videoId, list, number-1);
-                        return;
+                // check if result is already inside currentPlaylist
+                var count = 0;
+                for (var i = 0; i < $scope.currentPlaylist.data.length; i++) {
+                    if (data.items[0].id.videoId == $scope.currentPlaylist.data[i].id) {
+                        count++;
                     }
                 }
-                // all of related videos are already included
-                $scope.generateRelatedVideos(null, list, -1);
+                for (var i = 0; i < list.length; i++) {
+                    if (data.items[0].id.videoId == list[i].id.videoId) {
+                        count++;
+                    }
+                }
+                //dne in currentPlaylist
+                if (count == 0) {
+                    list.push(data.items[0]);
+                }
+                $scope.generateRelatedVideos(data.items[0].id.videoId, list, number-1);
             })
             .error(function() {
                 alertify.error('Something went wrong with discover feature.');
