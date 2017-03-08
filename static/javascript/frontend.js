@@ -564,7 +564,7 @@ $(document).on('click', function(e) {
 
           promise.then(function(result) {
             inputEl.val('');
-            inputEl.parent().removeClass('editing');
+            inputEl.parents('.addPlaylist').removeClass('editing');
             textEl.show();
             inputEl.hide();
           });
@@ -583,7 +583,7 @@ $(document).on('click', function(e) {
                 }
             }
 
-            el.find('.edit').addClass('editing');
+            el.addClass('editing');
             el.find('.text').hide();
             el.find('input').show();
             el.find('input').focus().val(el.find('input').val());
@@ -592,7 +592,7 @@ $(document).on('click', function(e) {
             var el = $(this);
             var inputEl = el.parents('.addPlaylist').find('input');
             var textEl = el.parents('.addPlaylist').find('.text');
-            if(el.parents('.addPlaylist').find('.edit').hasClass('editing')
+            if(el.parents('.addPlaylist').hasClass('editing')
               && inputEl.val().length > 0) {
                 addPlaylist(inputEl, textEl);
             }
@@ -614,13 +614,18 @@ $(document).on('click', function(e) {
     function hideEditingPlaylist(inputEl) {
         var textEl = inputEl.parent().find('.text');
         var isEditingAddPlaylist = inputEl.parents('.addPlaylist').length === 1;
-        textEl.parent().removeClass('editing');
+        if(isEditingAddPlaylist) {
+            textEl.parents('.addPlaylist').removeClass('editing');
+        } else {
+            textEl.parent().removeClass('editing');
+        }
+
         inputEl.hide();
         textEl.show();
         if(!isEditingAddPlaylist) {
-          inputEl.val(textEl.text());
+            inputEl.val(textEl.text());
         } else {
-          inputEl.val('');
+            inputEl.val('');
         }
     }
 

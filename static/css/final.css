@@ -764,6 +764,12 @@ a {
 #QubePlaylist .view.main .playlistColumn .addPlaylist .icon {
   zoom: 2.0;
   text-align: center;
+  color: grey;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist:hover .icon,
+#QubePlaylist .view.main .playlistColumn .addPlaylist.editing .icon {
+  color: #fff;
 }
 
 #QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
@@ -907,7 +913,12 @@ a {
 
 .listControl > div {
   color: grey;
+  cursor: pointer;
 }
+.listControl > div:hover {
+  color: #fff;
+}
+
 .listControl > div.selected {
   color: #fff;
 }
