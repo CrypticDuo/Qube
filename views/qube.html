@@ -91,7 +91,7 @@
                           </div>
                           <div class="placeholder" ng-show="playlists.length == 0">
                             <i class="icon icon-playlist"></i>
-                            <p>You don't have any playlists. Add one using 'Add Playlist'!</p>
+                            <p>You don't have any playlists. Add one using 'Add a Playlist' above!</p>
                           </div>
                             <ul class="userPlaylist scrollbar sortable" ng-show="playlists.length > 0">
                                 <li class="playlist" ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="previewPlaylist(playlist)" id="{{ playlist.name }}">
