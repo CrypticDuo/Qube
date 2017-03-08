@@ -846,6 +846,9 @@ a {
   padding: 7px 30px;
   border-bottom: 1px solid #4f5f71;
 }
+#QubePlaylist .view.main .playlistColumn .userPlaylist .icon-container .sf-menu-sub .playlist-menu:last-child {
+  border: none;
+}
 #QubePlaylist .view.main .playlistColumn .userPlaylist .icon-container .sf-menu-sub .playlist-menu:hover {
   background-color:#4f5f71;
 }
