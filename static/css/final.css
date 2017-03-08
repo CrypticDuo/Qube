@@ -801,8 +801,8 @@ a {
   display: none;
 }
 .playPlaylist.active {
-  color: #fff;
-  border-color: #fff;
+  color: #f47f7f;
+  border-color: #f47f7f;
 }
 .playPlaylist.active > span {
   display: inline;
@@ -837,16 +837,16 @@ a {
   padding-top: 5px;
 }
 .lcShare .lcHeader {
-  color: #f47f7f;
+  /*color: #f47f7f;*/
 }
 .lcPlaylist .lcHeader {
-  color: #fad733;
+  /*color: #f47f7f;*/
 }
 .lcPlaylistAdd .lcHeader {
   color: #1ab667;
 }
 .lcSearch .lcHeader {
-  color: #4cb6cb;
+  /*color: #f47f7f;*/
 }
 .lcContact .lcHeader {
   color: silver;
@@ -858,10 +858,10 @@ a {
   visibility: hidden;
 }
 .listControl .lcPlaylist .lcSelectionIndicator {
-  background-color: #fad733;
+  background-color: #f47f7f;
 }
 .listControl .lcSearch .lcSelectionIndicator {
-  background-color: #4cb6cb;
+  background-color: #f47f7f;
 }
 .listControl .lcShare .lcSelectionIndicator {
   background-color: #f47f7f;
