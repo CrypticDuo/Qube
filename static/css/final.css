@@ -714,6 +714,7 @@ a {
   overflow: hidden;
   white-space: nowrap;
 }
+
 #QubePlaylist .view.main .playlistColumn .userPlaylist li {
   padding: 12px 10px;
   border-bottom: 1px solid rgb(36, 36, 36);
@@ -721,6 +722,46 @@ a {
   color: #ffffff;
   padding-left: 15px;
 }
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist {
+  height: 43px;
+  color: grey;
+}
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist:hover {
+  color: #fff;
+}
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist .playlistThumbnail {
+  width: 67px;
+  text-align: center;
+  top: 8px;
+}
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist .title {
+  position: relative;
+  top: 11px;
+}
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist .edit .text {
+  color: grey;
+}
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist:hover .edit .text {
+  color: #fff;
+}
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist .edit-input {
+  min-width: 250px;
+}
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist .playlistThumbnail {
+  z-index: 999;
+}
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li.addPlaylist .icon {
+  zoom: 2.0;
+  text-align: center;
+}
+
 #QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
   background-color: #2d2d2d;
   cursor:pointer;

@@ -100,9 +100,8 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         });
     }
 
-    $scope.addPlaylist = function() {
-        QubeService.addPlaylist($scope, $scope.addPlaylistInput);
-        $scope.addPlaylistInput = '';
+    $scope.addPlaylist = function(pname) {
+        return QubeService.addPlaylist($scope, pname);
     }
 
     $scope.changePlaylist = function(playlist) {
@@ -155,10 +154,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if (e.stopPropagation) e.stopPropagation();
     }
 
-    $scope.editPlaylistName = function(e) {
-      var value = $(e.target).val();
-      var playlistIndex = $(e.target).parents('li').index();
-
+    $scope.editPlaylistName = function(value, playlistIndex) {
       if (value.replace(/\s/g, "").length === 0) {
           alertify.error('Playlist name can\'t be empty');
           return;
@@ -179,10 +175,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
               videos: videolist
           });
       }
-      datalist[playlistIndex].name = value;
+      datalist[playlistIndex-1].name = value;
       return QubeService.updatePlaylist($scope, datalist, 'Updated playlist name.').then(function(result) {
           if(result === true) {
-            $scope.playlists[playlistIndex].name = value;
+            $scope.playlists[playlistIndex-1].name = value;
           }
 
           return result;
@@ -682,6 +678,8 @@ app.service("QubeService", function($http, $q) {
             alertify.error('Playlist name can\'t be empty');
             return;
         }
+        var deferred = Q.defer();
+
         $http.post("/api/playlists/" + pname)
             .success(function(res) {
                 if (res.status.toLowerCase() === "fail") {
@@ -690,6 +688,7 @@ app.service("QubeService", function($http, $q) {
                     } else{
                         console.log(res.msg);
                     }
+                    deferred.reject(null);
                 } else {
                     scope.playlists.push({
                         _id: res.data.newId,
@@ -698,11 +697,14 @@ app.service("QubeService", function($http, $q) {
                         duration: "00:00"
                     });
                     alertify.success('Added playlist.');
+                    deferred.resolve(true);
                 }
             })
             .error(function(err) {
                 alertify.error('Failed to add playlist.');
+                deferred.reject(null);
             });
+        return deferred.promise;
     };
 
     function removePlaylist(scope, pname) {
