@@ -1278,3 +1278,56 @@ a {
   z-index: 9;
   box-shadow: rgb(17, 17, 17) 0px 0px 5px 0.5px;
 }
+
+.videoSearch {
+  padding: 5px;
+  border-bottom: 1px solid #262626;
+}
+
+.lcSearch input#videoSearchInput{
+  width: calc(100% - 45px);
+  height: 40px;
+  background: #2f2f2f;
+  border: none;
+  font-size: 10pt;
+  color: #262626;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color:white;
+  -webkit-transition: all .55s ease;
+  -moz-transition: all .55s ease;
+  -ms-transition: all .55s ease;
+  -o-transition: all .55s ease;
+  transition: all .55s ease;
+}
+
+.lcSearch input#videoSearchInput::-webkit-input-placeholder {
+   color: #767676;
+}
+.lcSearch input#videoSearchInput:-moz-placeholder { /* Firefox 18- */
+   color: #767676;
+}
+.lcSearch input#videoSearchInput::-moz-placeholder {  /* Firefox 19+ */
+   color: #767676;
+}
+.lcSearch input#videoSearchInput:-ms-input-placeholder {
+   color: #767676;
+}
+
+.lcSearch .inputIcon{
+  position: absolute;
+  margin-left: 18px;
+  margin-top: 13px;
+  z-index: 1;
+  color: #767676;
+}
+
+/* ANIMATION EFFECTS */
+.lcSearch input#videoSearchInput:focus, .lcSearch input#videoSearchInput:active{
+  outline:none;
+  background: #ffffff;
+  color:black;
+}
+

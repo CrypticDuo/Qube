@@ -111,8 +111,9 @@
                           </div>
                           <!-- END OF PLAYLIST COLUMN -->
                           <div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
-                              <div class="lcSearch video">
-                                <input ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
+                              <div class="videoSearch lcSearch">
+                                <span class="inputIcon"><i class="icon icon-magnifier"></i></span>
+                                <input id="videoSearchInput" ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
                               </div>
                               <div class="placeholder" ng-show="ytSearchFirstView">
                                 <i class="icon icon-magnifier"></i>
