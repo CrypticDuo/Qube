@@ -714,13 +714,64 @@ a {
   overflow: hidden;
   white-space: nowrap;
 }
-#QubePlaylist .view.main .playlistColumn .userPlaylist li {
+
+#QubePlaylist .view.main .playlistColumn .userPlaylist li,
+#QubePlaylist .view.main .playlistColumn div.addPlaylist {
   padding: 12px 10px;
   border-bottom: 1px solid rgb(36, 36, 36);
   font-size: 13px;
   color: #ffffff;
   padding-left: 15px;
 }
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist {
+  height: 43px;
+  color: grey;
+  cursor: pointer;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist:hover {
+  color: #fff;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist .playlistThumbnail {
+  width: 67px;
+  text-align: center;
+  top: 8px;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist .title {
+  position: relative;
+  top: 11px;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist .edit .text {
+  color: grey;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist:hover .edit .text {
+  color: #fff;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist .playlistDetail .edit > input.edit-input {
+  min-width: 250px;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist .playlistThumbnail {
+  z-index: 999;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist .icon {
+  zoom: 2.0;
+  text-align: center;
+  color: grey;
+}
+
+#QubePlaylist .view.main .playlistColumn .addPlaylist:hover .icon,
+#QubePlaylist .view.main .playlistColumn .addPlaylist.editing .icon {
+  color: #fff;
+}
+
 #QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
   background-color: #2d2d2d;
   cursor:pointer;
@@ -862,7 +913,12 @@ a {
 
 .listControl > div {
   color: grey;
+  cursor: pointer;
 }
+.listControl > div:hover {
+  color: #fff;
+}
+
 .listControl > div.selected {
   color: #fff;
 }

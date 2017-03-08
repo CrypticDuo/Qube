@@ -82,8 +82,19 @@
                             <i class="icon icon-playlist"></i>
                             <p>You don't have any playlists. Add one using 'Add Playlist'!</p>
                           </div>
+                            <div class="addPlaylist">
+                              <div class="playlistDetail">
+                                <div class="playlistThumbnail"><i class="icon icon-plus"></i></div>
+                                <div class="title">
+                                  <div class="edit">
+                                    <span class="text">Add a Playlist</span>
+                                    <input type="text" class="edit-input" placeholder="Add a Playlist">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <ul class="userPlaylist scrollbar sortable" ng-show="playlists.length > 0">
-                                <li ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="previewPlaylist(playlist)" id="{{ playlist.name }}">
+                                <li class="playlist" ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="previewPlaylist(playlist)" id="{{ playlist.name }}">
                                     <div class="playlistDetail">
                                         <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                         <div class="title">
@@ -155,21 +166,21 @@
 
                         <!-- END OF LIST DISPLAY -->
                         <div class="listControl scrollbar noselect">
-                            <div class="lcNavigatable lcSearch" ng-click="listDisplay = 'youtube'" style="cursor:pointer;">
+                            <div class="lcNavigatable lcSearch" ng-click="listDisplay = 'youtube'">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
                                 <i class="icon icon-magnifier"></i>
                                 <span class="lcHeader">Search</span>
                               </div>
                             </div>
-                            <div class="lcNavigatable lcPlaylist selected" ng-click="listDisplay = 'playlist'" style="cursor:pointer;">
+                            <div class="lcNavigatable lcPlaylist selected" ng-click="listDisplay = 'playlist'">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
                                 <i class="icon icon-playlist"></i>
                                 <span class="font-bold lcHeader">Playlists</span>
                               </div>
                             </div>
-                            <div class="lcShare" style="cursor:pointer;" ng-class="{lcNavigatable : currentPlayingVideo.id }" ng-click="relatedSearch()">
+                            <div class="lcShare" ng-class="{lcNavigatable : currentPlayingVideo.id }" ng-click="relatedSearch()">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
                                 <i class="icon icon-earphones"></i>
