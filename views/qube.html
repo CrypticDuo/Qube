@@ -218,17 +218,16 @@
                     <div class="replay-all-icon" ng-class="{ hide: replay === 'one'}">
                         <div ng-click="replay = 'one'" class=" tooltip-top" data-tooltip="Repeat playlist">
                             <span class="icon-container"><i class="icon-refresh"></i></span>
-                            <span style="position: absolute;top: 7px;right: 8px;font-size: 9px;background: rgb(36, 36, 36);">A</span>
                         </div>
                     </div>
-                    <div class="replay-one-icon tooltip-top" ng-class="{ hide: replay === 'all'}" data-tooltip="Repeat video">
+                    <div class="replay-one-icon tooltip-top" ng-class="{ hide: replay === 'all', active: replay === 'one'}" data-tooltip="Repeat video">
                         <div ng-click="replay = 'all'" >
                             <span class="icon-container"><i class="icon-refresh" ></i></span>
                             <span style="position: absolute;top: 7px;right: 8px;font-size: 9px;background: rgb(36, 36, 36);">1</span>
                         </div>
                     </div>
-                    <div class="shuffle-icon tooltip-top" data-tooltip="Shuffle">
-                        <span class="icon-container"><i class="icon-shuffle" ng-click="shuffleToggle()" ng-class="{ active: shuffleState }"></i></span>
+                    <div class="shuffle-icon tooltip-top" data-tooltip="Shuffle" ng-class="{ active: shuffleState }">
+                        <span class="icon-container"><i class="icon-shuffle" ng-click="shuffleToggle()"></i></span>
                     </div>
                     <div class="full-screen-icon tooltip-top" data-tooltip="Fullscreen">
                         <span class="icon-container"><i class="icon-size-fullscreen"></i></span>
