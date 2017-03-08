@@ -262,7 +262,7 @@ a {
 #QubePlaylist .view.main .listDisplay .placeholder {
   text-align: center;
   vertical-align: middle;
-  margin-top: 45%;
+  margin-top: 30%;
   position: relative;
   color: #c5c5c5;
   font-size: 18px;
@@ -1386,4 +1386,3 @@ a {
   background: #ffffff;
   color:black;
 }
-
