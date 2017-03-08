@@ -545,7 +545,8 @@ a {
   height: 60px;
   bottom: 0;
   position: absolute;
-  background-color: rgb(64, 64, 64) !important;
+  background-color: rgb(90, 90, 90) !important;
+  border-radius: 3px;
 }
 #QubePlaylist .bottomContainer div.progressBar > div > span {
   text-align: center;
