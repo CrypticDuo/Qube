@@ -353,16 +353,17 @@ $(document).ready(function() {
 // SORTING VIDEOLIST
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
-    var $el = $('ul.userVideolist.sortable');
-    $('ul.userVideolist.sortable').sortable({
-        stop: function(event, ui) {
-            var scope = angular.element($el).scope();
-            scope.$apply(function() {
-                scope.updateVideoList($el.sortable('toArray'));
-            });
+        var $el = $('ul.userVideolist.sortable');
+        $('ul.userVideolist.sortable').sortable({
+            stop: function(event, ui) {
+                var scope = angular.element($el).scope();
+                scope.$apply(function() {
+                    scope.updateVideoList($el.sortable('toArray'));
+                });
 
-        }
-    }).disableSelection();}());
+            }
+        }).disableSelection();
+    }());
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -370,7 +371,7 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
     var $el = $('ul.userPlaylist.sortable');
-    $('ul.userPlaylist.sortable').sortable({
+    $el.sortable({
         stop: function(event, ui) {
             var scope = angular.element($el).scope();
             scope.$apply(function() {
@@ -658,7 +659,6 @@ $(document).on('click', function(e) {
             }
         });
         $(document).on('click', function(e) {
-            console.log($(e.target));
             if($(e.target).hasClass('editPlaylist')
               || $(e.target).hasClass('edit-input')
               || $(e.target).parents('.addPlaylist').length === 1
