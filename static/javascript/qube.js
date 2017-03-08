@@ -1,4 +1,7 @@
 var app = angular.module("QubeApp", []);
+
+const HOST_URL = location.protocol + '//' + location.host;
+
 function convertYoutubeDuration(before) {
     var string = before,
         array = string.match(/(\d+)(?=[MHS])/ig) || [];
@@ -54,6 +57,7 @@ function addDuration(x,y){
 app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
+        $scope.hostUrl = HOST_URL;
         $scope.layout = 'main';
         $scope.listDisplay = 'playlist';
         $scope.currentPlayingVideo = null;
@@ -139,6 +143,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         //prevent outer div's event
         $scope.preventOuterDivEvent();
         QubeService.removePlaylist($scope, playlist.name);
+    }
+
+    $scope.copyShareLink = function(playlist) {
+      alertify.success('Share link has been copied to your clipboard.');
     }
 
     $scope.preventOuterDivEvent = function (){
@@ -569,9 +577,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 });
 
 app.service("QubeService", function($http, $q) {
-
-    var hostURL = "http://" + window.location.host;
-
     function createRequest(videoIDlist) {
 	    var deferred = Q.defer();
 
@@ -585,7 +590,7 @@ app.service("QubeService", function($http, $q) {
           .success(function(contentDetailsData) {
               deferred.resolve(contentDetailsData);
           })
-          .error(function() {
+          .error(function(error) {
               deferred.reject(null);
               alertify.error('Failed to load contents from youtube.');
           });
@@ -635,7 +640,7 @@ app.service("QubeService", function($http, $q) {
               }
           }
 
-          target.push({name : evt.name, data : contentDetailsData, duration : "00:00"});
+          target.push({_id: evt._id, name : evt.name, data : contentDetailsData, duration : "00:00"});
           for(var i=0; i<target[target.length-1].data.length; i++){
               target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
               target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
@@ -658,7 +663,7 @@ app.service("QubeService", function($http, $q) {
     }
 
     function listAllPlaylist(scope) {
-        $http.get(hostURL + "/api/playlists")
+        $http.get(HOST_URL + "/api/playlists")
             .success(function(res) {
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
@@ -687,6 +692,7 @@ app.service("QubeService", function($http, $q) {
                     }
                 } else {
                     scope.playlists.push({
+                        _id: res.data.newId,
                         name: pname,
                         data: [],
                         duration: "00:00"

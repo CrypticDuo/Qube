@@ -1,0 +1,78 @@
+.login {
+  background: url(/static/landing/img/banner-bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: calc(100% - 70px);
+}
+.login .container {
+  height: 100%;
+}
+.login .intro-social-buttons {
+    height: 475px;
+    width: 450px;
+    margin: 0 auto;
+    border-radius: 10px;
+    background: rgba(21, 24, 27, 0.85);
+    padding: 20px 60px 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.login ul.intro-social-buttons > li {
+    width:100%;
+}
+.login .title {
+    margin-bottom: 20px;
+}
+.login .title h1 {
+    letter-spacing: 5px;
+    font-size: 50px;
+    font-weight: 400;
+}
+.login .intro-message {
+    min-height:600px;
+}
+
+.seperator:after, .seperator:before {
+    position: absolute;
+    width: 40%;
+    height: 1px;
+    top: 24px;
+    background-color: #fff;
+    content: '';
+    right: 0;
+}
+.seperator:before {
+    left: 0;
+}
+.seperator {
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    margin: 0 auto;
+    color: #fff;
+}
+
+@media(max-width:767px) {
+    .login ul.intro-social-buttons > li {
+        display: block;
+        margin: 20px auto;
+        padding: 0;
+    }
+    .login ul.intro-social-buttons > li.title {
+        margin-bottom: 50px;
+    }
+}
+
+.login-page footer {
+  height: 50px;
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+}

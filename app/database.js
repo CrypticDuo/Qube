@@ -1,5 +1,7 @@
 'use strict';
 
+var ObjectId = require('mongoose').Types.ObjectId;
+var Q = require('q');
 var User = require('../model/user');
 var defaultPlaylist = require('../config/defaultPlaylist');
 
@@ -36,6 +38,20 @@ var database = {
         });
     },
 
+    getUserById: function(id) {
+      var deferred = Q.defer();
+
+      User.findById(id, function(err, user) {
+          if (err) {
+              deferred.reject(null);
+          } else if (!err && user) {
+              deferred.resolve(user);
+          }
+      });
+
+      return deferred.promise;
+    },
+
     createPlaylist: function(userID, pname, callback) {
         if(!pname){
             callback({
@@ -58,11 +74,13 @@ var database = {
             }
             console.log("RESULT : " + user);
             if (!user.length) {
+                var id = new ObjectId();
                 User.update({
                     oauthID: userID,
                 }, {
                     "$push": {
                         playlist: {
+                            _id: id,
                             name: pname,
                             videos: []
                         }
@@ -78,7 +96,10 @@ var database = {
                     } else {
                         console.log("adding new playlist ...");
                         callback({
-		                    status: "Success"
+		                    status: "Success",
+                        data: {
+                          newId: id,
+                        }
 		                });
 		                return;
                     }
@@ -94,26 +115,57 @@ var database = {
             }
         });
     },
-    listAllPlaylists: function(userID, callback) {
+    listAllPlaylists: function(userID) {
+        var deferred = Q.defer();
+
         User.find({
             oauthID: userID
         }, function(err, user) {
             if (err) {
                 console.log("ERROR : " + err);
-                callback({
+                deferred.resolve({
                     status: "Fail",
                     msg: "User not found"
                 });
-                return;
             }
             if(!err && user != null){
-                callback({
+                deferred.resolve({
                     status: "Success",
                     data: user[0].playlist
                 });
-                return;
             }
+
+            deferred.resolve({
+                status: "Fail",
+                msg: "User not found"
+            });
         });
+
+        return deferred.promise;
+    },
+    getPlaylistById: function(playlistID) {
+        var deferred = Q.defer();
+
+        User.findOne({
+            "playlist._id" : ObjectId(playlistID)
+        },{
+            playlist: {
+                "$elemMatch": {
+                    _id : ObjectId(playlistID)
+                }
+            }
+        }, function(err, playlist) {
+          if(err) {
+            deferred.reject(err);
+          } else if(!err && playlist) {
+            deferred.resolve(playlist);
+          } else {
+            // playlist id does not exist
+            deferred.reject(null);
+          }
+        });
+
+        return deferred.promise;
     },
     listAllVideos: function(userID, pname, callback) {
         User.find({
@@ -225,7 +277,9 @@ var database = {
                 }
         });
     },
-    updatePlaylist: function(userID, list, callback){
+    updatePlaylist: function(userID, list){
+        var deferred = Q.defer();
+
         User.update({
             oauthID: userID
         }, {
@@ -235,19 +289,21 @@ var database = {
         }, function(err, user){
             if(err) {
                 console.log("ERROR : " + err);
-                callback({
+                deferred.resolve({
                     status: "Fail",
                     msg: "User not found"
                 });
                 return;
             }
             if(!err && user != null){
-                callback({
+                deferred.resolve({
                     status: "Success"
                 });
                 return;
             }
         });
+
+        return deferred.promise;
     },
     removeVideoFromPlaylist: function(userID, pname, vid, callback) {
         User.update({

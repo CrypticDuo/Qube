@@ -777,6 +777,9 @@ a {
   padding: 7px 30px;
   border-bottom: 1px solid #242424;
 }
+#QubePlaylist .view.main .playlistColumn .userPlaylist .icon-container .sf-menu-sub .playlist-menu:last-child {
+  border: none;
+}
 #QubePlaylist .view.main .playlistColumn .userPlaylist .icon-container .sf-menu-sub .playlist-menu:hover {
   background-color: #404040;
 }

@@ -11,6 +11,9 @@ var isPaused=true;
 var duration=0;
 var previewPlayerState = -1;
 
+// SHARE LINK
+new Clipboard('.copyShareLink');
+
 Pace.on("done", function(){
     setTimeout(function(){
         $('div.loading-page').fadeOut(1000);
@@ -549,6 +552,7 @@ $(document).on('click', function(e) {
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // EDIT PLAYLIST NAME FUNCTIONALITY

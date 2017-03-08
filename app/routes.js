@@ -3,6 +3,7 @@
 var db = require('./database');
 var User = require('../model/user');
 var request = require('request');
+var share = require('./share');
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -31,6 +32,27 @@ var Routes = function (app, router) {
         console.log("logging out...");
         res.redirect('/');
     });
+
+    app.get('/share/:playlist_id', function(req, res) {
+        if (req.isAuthenticated()) {
+            share.handleShare(
+                res,
+                req.session.passport.user,
+                req.params.playlist_id
+            );
+        } else {
+            res.redirect('/login?share='+req.params.playlist_id);
+        }
+    });
+
+    app.get('/login', function(req, res) {
+        var playlist_id = req.query.share;
+
+        res.render('login.ejs', {
+          'playlist_id': playlist_id
+        });
+    });
+
     // middleware to use for all requests
     router.use(function(req, res, next) {
         // do logging
@@ -56,7 +78,7 @@ var Routes = function (app, router) {
                 console.log(result);
               }
             });
-            db.listAllPlaylists(req.user.oauthID, function(result) {
+            db.listAllPlaylists(req.user.oauthID).then(function(result) {
                 res.json(result);
             });
         });
@@ -83,7 +105,7 @@ var Routes = function (app, router) {
         //update playlist
         .put(ensureAuthenticated, function(req, res){
             var temp = JSON.parse(req.params.playlist_name);
-            db.updatePlaylist(req.user.oauthID, temp, function(result){
+            db.updatePlaylist(req.user.oauthID, temp).then(function(result){
                 res.json(result);
             });
         });
