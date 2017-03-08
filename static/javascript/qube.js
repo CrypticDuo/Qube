@@ -175,10 +175,10 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
               videos: videolist
           });
       }
-      datalist[playlistIndex-1].name = value;
+      datalist[playlistIndex].name = value;
       return QubeService.updatePlaylist($scope, datalist, 'Updated playlist name.').then(function(result) {
           if(result === true) {
-            $scope.playlists[playlistIndex-1].name = value;
+            $scope.playlists[playlistIndex].name = value;
           }
 
           return result;
