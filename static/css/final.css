@@ -250,11 +250,11 @@ a {
   position: absolute;
 }
 #QubePlaylist .view.main .playlistColumn {
-  background-color: #101010;
+  background-color: #1b1b1b;
   overflow: auto;
 }
 #QubePlaylist .view.main .searchResultColumn {
-  background-color: #101010;
+  background-color: #1b1b1b;
   border-left: 1px solid #242424;
   border-right: 1px solid #242424;
   overflow: auto;
@@ -713,7 +713,7 @@ a {
   padding-left: 15px;
 }
 #QubePlaylist .view.main .playlistColumn .userPlaylist li:hover, #QubePlaylist .view.main .playlistColumn .userPlaylist li.active {
-  background-color: #1d1d1d;
+  background-color: #2d2d2d;
   cursor:pointer;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
@@ -834,6 +834,7 @@ a {
 }
 .lcHeader {
   font-size: 14px;
+  padding-top: 5px;
 }
 .lcShare .lcHeader {
   color: #f47f7f;
@@ -877,6 +878,9 @@ a {
 }
 .lcContentContainer{
   text-align: center;
+}
+.lcContentContainer .icon {
+  zoom: 1.7;
 }
 .listControl input {
   background-color: transparent;

@@ -42,7 +42,7 @@
         <div ng-controller="QubeCont">
             <!-- END OF sideMenu -->
             <div class="topHeader">
-                <div class="logo"><a class="home"><i class="icon icon-earphones"></i></a>
+                <div class="logo"><a class="home"></a>
                 </div>
                 <div style="position: absolute;right: 21px;top: 21px;color: #dadada;"><a href="/logout">logout</a></div>
                 <span><span class="lcNavigatable playingPlaylistName" ng-click="previewAndViewPlaylist(playingPlaylist)" style="cursor:pointer;">
@@ -67,7 +67,7 @@
                             <span class="title">{{video.snippet.title}}</span>
                             <span class="duration">{{video.contentDetails.duration}}</span>
                             <span class="close tooltip-left" data-tooltip="Delete"><i class="icon icon-close" ng-click="removeVideo(video.id)"></i></span>
-                            <span class="close tooltip-left" data-tooltip="Search related"><i class="icon icon-magnifier" ng-click="relatedSearch(video.id)"></i></span>
+                            <span class="close tooltip-left" data-tooltip="Search related"><i class="icon icon-earphones" ng-click="relatedSearch(video.id)"></i></span>
                             <span class="close tooltip-left" data-tooltip="Auto generate"><i class="icon icon-social-youtube" ng-click="discoverPlaylist(video.id)"></i></span>
                         </li>
                     </ul>
@@ -153,22 +153,22 @@
                             <div class="lcNavigatable lcSearch" ng-click="listDisplay = 'youtube'" style="cursor:pointer;">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
-                                <i class="icon icon-magnifier" style="zoom:3;"></i>
+                                <i class="icon icon-magnifier"></i>
                                 <span class="lcHeader">Search</span>
                               </div>
                             </div>
                             <div class="lcNavigatable lcPlaylist selected" ng-click="listDisplay = 'playlist'" style="cursor:pointer;">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
-                                <i class="icon icon-playlist" style="zoom:3;"></i>
+                                <i class="icon icon-playlist"></i>
                                 <span class="font-bold lcHeader">Playlists</span>
                               </div>
                             </div>
                             <div class="lcShare" style="cursor:pointer;" ng-class="{lcNavigatable : currentPlayingVideo.id }" ng-click="relatedSearch()">
                               <div class="lcSelectionIndicator"></div>
                               <div class="lcContentContainer">
-                                <i class="icon icon-earphones" style="zoom:3;"></i>
-                                <span class="font-bold lcHeader">Discover</span>
+                                <i class="icon icon-earphones"></i>
+                                <span class="font-bold lcHeader">Related</span>
                               </div>
                             </div>
                         </div>
