@@ -680,4 +680,29 @@ $(document).on('click', function(e) {
       });
     }());
 ////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// NEW FEATURE INFO FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+    (function(){
+        $(document).on('click', '.new-feature .close', function(e) {
+            $('.new-feature').remove();
+        });
+
+        // TODO: make this more dynamic
+        $(document).on('click', '.new-feature .left', function(e) {
+            $('.new-feature .right').show();
+            $('.new-feature .left').hide();
+            $('.new-feature .autogen').hide();
+            $('.new-feature .share').show();
+        });
+        $(document).on('click', '.new-feature .right', function(e) {
+            $('.new-feature .right').hide();
+            $('.new-feature .left').show();
+            $('.new-feature .autogen').show();
+            $('.new-feature .share').hide();
+        });
+    }());
+////////////////////////////////////////////////////////////////////////////////
 });
