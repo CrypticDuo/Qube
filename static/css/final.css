@@ -409,7 +409,7 @@ a {
 #QubePlaylist .videolist .player {
   position:relative;
   border-top: 5px solid #0d1215;
-  z-index:1;
+  z-index:2;
 }
 #QubePlaylist .videolist .player.fullscreen {
   position:absolute;
@@ -732,7 +732,7 @@ a {
 }
 
 #QubePlaylist .view.main .playlistColumn .addPlaylist .playlistThumbnail {
-  z-index: 999;
+  z-index: 1;
 }
 
 #QubePlaylist .view.main .playlistColumn .addPlaylist .icon {
