@@ -281,25 +281,26 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: calc(100% - 15px);
+  width: calc(100% - 75px);
   display: block;
 }
 #QubePlaylist .video-duration {
   float: left;
   position: absolute;
-  right: calc(100% - 108px);
+  right: calc(100% - 96px);
   padding: 1px 3px;
-  bottom: 17px;
+  bottom: 13px;
   font-size: 12px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.41);
 }
 #QubePlaylist .view.main .video-image img {
-  height: 75px;
+  height: 47px;
+  top: -4px;
   position: relative;
-  width: 100px;
+  right: -4px;
 }
 #QubePlaylist .view.main .video-detail {
-  margin-left: 115px;
+  margin-left: 100px;
   font-weight: 400;
 }
 #QubePlaylist .view.main .video {
@@ -781,7 +782,8 @@ a {
   background: 0;
 }
 .ytVidHover {
-  margin-top: 16px;
+  margin-top: -5px;
+  float: right;
 }
 .ytVidHover * {
   margin-right: 12px;
@@ -1302,6 +1304,7 @@ a {
   list-style-type: none;
   padding: 0;
   width: 150px;
+  right: 5px;
 }
 
 .playlist-menu li {
