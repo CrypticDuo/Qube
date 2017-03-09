@@ -24,6 +24,10 @@ var defaultPlaylist = [
                             ]
                         },
                         {
+                            "name" : "Study Piano",
+                            "videos" : ["CkH7eu1SFFU", "DHBa2ANs0fo", "wM20fE_FVQw", "kcihcYEOeic", "e2lSmznKgYU", "uB4W6oYO2-4", "3hfUndRs_Lw", "31FPc4VEhns", "bAR-7YatJxY", "34WaHFqw6vI", "Q49yNiQwIso", "FTrb55TZ0Nk", "LvOoQ0Ff2nA", "VfC4eQAUkkA", "Q-0KRZXG8Yw", "4r_DvtPXgOY", "lZH0MUSCsj0", "iLH-u80xgkI", "LWah1KSUZ-M", "XCpNWJf4DGU", "k016V2MiXpk", "zROWtpIQFS0", "rGaT7Ub6Neo", "w_WoJNWjUBk", "H9SsY9dDeo4", "bbU31JLtlug", "scgKP0rNTW0", "CudDTzXk8Lc", "kJcfwHxKkuk", "1mFAQGDRMGw"]
+                        },
+                        {
                             "name" : "Pop Picks",
                             "videos" : [
                                 "FM7MFYoylVs",
@@ -43,6 +47,10 @@ var defaultPlaylist = [
                                 "J5qWnG5RQTk"
 
                             ]
+                        },
+                        {
+                            "name" : "Rhythm & Blues",
+                            "videos" : ["VtcP0PFifpE", "1lQDPOfMUIA", "YgvVk22Ejpc", "9nJkGH80suo", "m5FDlbfnSVU", "ErUKBfLLk_k", "iOpJywrdCuQ", "qp1Pq2Fuw30", "pQeMS7yHDhk", "jmWYzG_ZxGs", "mRU8lnSTpFw", "i_pDozIPaPE", "WeANVMbkxxY", "-P8XCX57vEc", "ZlYNqPDZMKU", "kHo0pn8C7F0", "6rnIPEx7slE", "Sn2CjQTkLr8", "xw2d9mo7jYE", "nAZchTw--f4", "hZ67E2R77Uw", "5K_sDzmhedI", "_Jn1gnSYE4Q", "nZRg2Pn_y00", "CEph_2Qx-7Q", "Q6PJeu4oUFk", "KXGqHYNTNHU", "wdODuw5SZnE", "Tw8BJAOZSsw", "UbpSV3gBRfk"]
                         },
                         {
                             "name" : "Weekly Buzz",
@@ -66,14 +74,6 @@ var defaultPlaylist = [
                         {
                             "name" : "Sunday Morning",
                             "videos" : ["IMGVNFf5x78", "K08a2DrSX4Y", "Iv8-qTt7xaM", "Rfhksohebv8", "_Jkny_2rM_M", "dsMb94jPUsU", "RSgePGwRoM0", "ePsYlF9n58A", "CQuaeupNr0Q", "Njq4E0q-mgY", "G_ypVIJEK0M", "xEp8KinY7SY", "H3f3Mpq2NfQ", "TxzCGjyKx20", "B75FBqUn2T4", "LPJcdZQJ2vA", "sJ4KgureY_w", "UifuuynvrlY", "GkO7dWn2hXI", "FH7QbP_Ki1Q"]
-                        },
-                        {
-                            "name" : "Autumn Sunse",
-                            "videos" : ["P3v7HyX02Zk", "yLZx4HK27-s", "Sz2FT775LdQ", "z5XFCATDGh8", "8iVvDJrAQi4", "jz1uDD0Uiu8", "bvg8lN3WCnQ", "AvKnsJRarOk", "O6jVao3su48", "aTCob37s_EI", "9vkRkiSl3KE", "PGkqUs8YJkU", "DGAi4Boix40", "lx2M3wEG1R4", "dakNPUIzuNw", "aHwFQgLdfjg", "qRMrHXhzqWo", "CIC2zjPNRRI", "0pYjG42YEkM", "H15GXisIsvY", "XE8ZXLOjKrM", "FVrw0cPYXlA", "tPduAkdbx6c", "kUXkgzgt-GI", "t-Bl_ZbAN0M", "c5-C5ZFwSi8", "esm50jku2Ow", "ENz5rHynSpQ", "Z5enbMfSywU", "LPJcdZQJ2vA", "NBl8dwbDJfA", "H6peX4xngxM", "GcIQS4QIijE", "etfzPOYhxiQ", "RdlBRBSL_v8", "TIxy7PLVJsg"]
-                        },
-                        {
-                            "name" : "Snowfall",
-                            "videos" : ["hUsOQA4n_MA", "LMcNdW9SYyQ", "UaN5O7pym6A", "4HVjldqWx4w", "A-xndU0pU7c", "s5rjuUrNrZA", "HFadyxYwvEY", "nW480ygxJvA", "AKp2cBQbG5g", "mjFmMOTFrro", "50KBdsVOtPE", "THx9SIdh2rE", "4KrIiXn43Ms", "91_-2OTlncM", "zcIMVLEGa7I", "8nfOAUqepKY", "cRtv2K7dwzw", "jPsn9k9nLnI", "Atg46YvRF9c", "dw7taQEL_2Y", "IGnpaAqw0g0", "sCm8yihF8Pk", "EYK1ingIZBM", "c2mDqfMYCBo", "2a_db0d4nss", "ci_qqD7Ho2Y", "VzfSD1ULfd0", "PlN1XABgrS4", "4Z1u4Z1MKH8", "Ij_vcZyvWfo", "iZN306t604g", "UQpuyVD1-0k", "3klCVv9McV0", "FuQeP_JXlQo"]
                         }
                      ];
 
