@@ -600,6 +600,7 @@ app.service("QubeService", function($http, $q) {
         if (!evt) {
             if(target.length > 0) {
               scope.loadFirstPlaylist(target[0]);
+              $('div.loading-page').fadeOut(1000);
               scope.$apply();
             }
             return;
