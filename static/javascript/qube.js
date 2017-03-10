@@ -172,7 +172,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
               videolist.push($scope.playlists[i].data[j].id);
           }
           datalist.push({
-              _id: $scope.playlists[i]._id,
               name: $scope.playlists[i].name,
               videos: videolist
           });
@@ -199,7 +198,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                         videolist.push($scope.playlists[j].data[k].id);
                     }
                     datalist.push({
-                        _id: $scope.playlists[j]._id,
                         name: $scope.playlists[j].name,
                         videos: videolist
                     });
