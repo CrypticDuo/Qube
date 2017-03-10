@@ -128,7 +128,6 @@ var Routes = function (app, router) {
                 });
                 return formattedPlaylists;
             }).then(function(formattedPlaylists) {
-                console.log(formattedPlaylists);
                 return db.updatePlaylist(req.user.oauthID, formattedPlaylists).then(function(result){
                     res.json(result);
                 });
