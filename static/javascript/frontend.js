@@ -369,7 +369,10 @@ $(document).ready(function() {
         stop: function(event, ui) {
             var scope = angular.element($el).scope();
             scope.$apply(function() {
-                scope.updatePlaylist($el.sortable('toArray'));
+                var names = $('ul.userPlaylist > li .edit .text')
+                  .toArray()
+                  .map(function(el) { return $(el).text().trim(); });
+                scope.updatePlaylist(names);
             });
 
         }

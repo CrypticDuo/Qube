@@ -172,6 +172,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
               videolist.push($scope.playlists[i].data[j].id);
           }
           datalist.push({
+              _id: $scope.playlists[i]._id,
               name: $scope.playlists[i].name,
               videos: videolist
           });
@@ -198,10 +199,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                         videolist.push($scope.playlists[j].data[k].id);
                     }
                     datalist.push({
+                        _id: $scope.playlists[j]._id,
                         name: $scope.playlists[j].name,
                         videos: videolist
                     });
                     newlist.push($scope.playlists[j]);
+                    break;
                 }
             }
         }
@@ -598,7 +601,7 @@ app.service("QubeService", function($http, $q) {
     function doneLoadingPlaylist(scope) {
         setInterval(function() {
           $('div.loading-page').fadeOut(1000);
-        }, 200);
+        }, 300);
     }
 
     function getPlaylistDetails(scope, playlists) {
