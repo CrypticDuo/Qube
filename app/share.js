@@ -36,9 +36,9 @@ module.exports = {
                       });
               });
         }).then(function() {
-          // TODO: maybe we should 'choose' this playlist, or somehow let
-          //        the user know this was the shared playlist
-          res.redirect('/');
+            // TODO: maybe we should 'choose' this playlist, or somehow let
+            //        the user know this was the shared playlist
+            res.redirect('/');
         })
         .done();
     },
