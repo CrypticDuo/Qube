@@ -94,7 +94,7 @@ function setSize(width, height, animate){
         $('.player').animate({
             'width' : width,
             'height' : height
-        },500);
+        },200);
     }
     else{
         $('.player').css('width', width);
