@@ -686,22 +686,50 @@ $(document).on('click', function(e) {
 // NEW FEATURE INFO FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
-        $(document).on('click', '.new-feature .close', function(e) {
-            $('.new-feature').remove();
-        });
-
-        // TODO: make this more dynamic
-        $(document).on('click', '.new-feature .left', function(e) {
+        function showShare() {
             $('.new-feature .right').show();
             $('.new-feature .left').hide();
             $('.new-feature .autogen').hide();
             $('.new-feature .share').show();
-        });
-        $(document).on('click', '.new-feature .right', function(e) {
+        }
+
+        function showAutoGen() {
             $('.new-feature .right').hide();
             $('.new-feature .left').show();
             $('.new-feature .autogen').show();
             $('.new-feature .share').hide();
+        }
+
+        $(document).on('click', '.new-feature .close', function(e) {
+            var width = $('body').width();
+            var height = $(document).height() - $('.bottomContainer').height();
+            $('.new-feature').animate({
+              top: height,
+              left: '100%',
+              width: 0,
+              height: 0
+            }, 300, 'linear', function() {
+                $('.new-feature').hide();
+            });
+
+        });
+
+        $(document).on('click', '.lcFeatures', function(e) {
+          showShare();
+          $('.new-feature').css('top', 0);
+          $('.new-feature').css('left', 0);
+          $('.new-feature').css('width', '100%');
+          $('.new-feature').css('height', '100%');
+          $('.new-feature').show();
+
+        });
+
+        // TODO: make this more dynamic
+        $(document).on('click', '.new-feature .left', function(e) {
+            showShare();
+        });
+        $(document).on('click', '.new-feature .right', function(e) {
+            showAutoGen();
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////

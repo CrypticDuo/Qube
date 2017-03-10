@@ -16,7 +16,7 @@
     <link type="text/css" rel="stylesheet" href="/static/css/final.css"/>
 </head>
 
-<body>
+<body ng-controller="QubeCont">
 <div class="loading-page">
     <div class="body">
     <span>
@@ -38,7 +38,7 @@
     </div>
     <h1>LOADING ...</h1>
 </div>
-<div class="new-feature">
+<div class="new-feature" ng-class="{show: showFeatureModal}">
     <span class="close"><i class="icon-close"></i></span>
     <span class="left"><i class="icon-arrow-left"></i></span>
     <span class="right"><i class="icon-arrow-right"></i></span>
@@ -62,7 +62,7 @@
     </div>
 </div>
     <div id="QubePlaylist">
-        <div ng-controller="QubeCont">
+        <div>
             <!-- END OF sideMenu -->
             <div class="topHeader">
                 <div class="logo"><a class="home"></a>
@@ -208,6 +208,12 @@
                               <div class="lcContentContainer">
                                 <i class="icon icon-earphones"></i>
                                 <span class="font-bold lcHeader">Related</span>
+                              </div>
+                            </div>
+                            <div class="lcFeatures">
+                              <div class="lcContentContainer">
+                                <i class="icon icon-fire"></i>
+                                <span class="font-bold lcHeader">New Features</span>
                               </div>
                             </div>
                         </div>

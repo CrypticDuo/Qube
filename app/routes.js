@@ -61,6 +61,7 @@ var Routes = function (app, router) {
     });
 
     /*
+        GET     /featureModal
         GET     /playlists
         GET     /playlists/:playlist_name
         POST    /playlists/:playlist_name
@@ -70,14 +71,17 @@ var Routes = function (app, router) {
         DELETE  /playlists/:playlist_name/videos/:videoID
     */
 
+    router.route('/featureModal')
+        .get(ensureAuthenticated, function(req, res) {
+            db.seenFeatureModalVersion(req.user.oauthID).then(function(result) {
+                res.json(result);
+            });
+        });
+
     router.route('/playlists')
         //get all playlist
         .get(ensureAuthenticated, function(req, res) {
-            db.updateLoginData(req.user.oauthID, function(result) {
-              if(result.status !== 'Success') {
-                console.log(result);
-              }
-            });
+            db.updateLoginData(req.user.oauthID);
             db.listAllPlaylists(req.user.oauthID).then(function(result) {
                 res.json(result);
             });

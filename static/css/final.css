@@ -108,17 +108,21 @@ a {
 }
 
 .new-feature {
+  display: none;
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 998;
   background: rgba(0, 0, 0, 0.58);
 }
+.new-feature.show {
+  display:inline;
+}
 .new-feature .right, .new-feature .left {
   top: calc(50% - 30px);
-    position: absolute;
-    display: block;
-    font-size: 40px;
+  position: absolute;
+  display: block;
+  font-size: 40px;
 }
 .new-feature .left {
   left: calc(50% - 320px);
@@ -182,7 +186,7 @@ a {
 
 .title h3 {
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 25px;
   border-bottom: 2px solid;
   padding: 7px 20px;
@@ -861,6 +865,7 @@ a {
   float: left;
 }
 .listControl {
+  position:relative;
   width: 80px;
   overflow: auto;
   display: inline-block;
@@ -916,6 +921,10 @@ a {
 }
 .listControl .lcDescription {
   color: #767676;
+}
+.listControl .lcFeatures {
+  position: absolute;
+  bottom: 0;
 }
 .lcContentContainer{
   text-align: center;
