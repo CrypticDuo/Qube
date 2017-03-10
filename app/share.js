@@ -43,12 +43,19 @@ module.exports = {
         .done();
     },
 
-    getSetOfPlaylistNames: function(playlists) {
-        return new Set(playlists.map(v => v.name));
+    getDictOfPlaylistNames: function(playlists) {
+        var dictOfPlaylistNames = {};
+        var playlistNames = playlists.map(function(v) {return v.name});
+
+        for(var i = 0; i < playlistNames.length; i++) {
+            dictOfPlaylistNames[playlistNames[i]] = 1;
+        }
+
+        return dictOfPlaylistNames;
     },
 
     getUniqueSharePlaylistName: function(playlists, sharePlaylistName) {
-        var setOfPlaylistNames = this.getSetOfPlaylistNames(playlists);
+        var dictOfPlaylistNames = this.getDictOfPlaylistNames(playlists);
         var tempSharePlaylistName = '';
         var index = 0;
         do {
@@ -58,7 +65,7 @@ module.exports = {
             tempSharePlaylistName += ' - ' + index;
           }
           index++;
-        } while(setOfPlaylistNames.has(tempSharePlaylistName));
+        } while(dictOfPlaylistNames[tempSharePlaylistName]);
 
         return tempSharePlaylistName;
     }
