@@ -700,7 +700,7 @@ $(document).on('click', function(e) {
             $('.new-feature .share').hide();
         }
 
-        $(document).on('click', '.new-feature .close', function(e) {
+        function closeNewFeatureModal() {
             var width = $('body').width();
             var height = $(document).height() - $('.bottomContainer').height();
             $('.new-feature').animate({
@@ -711,16 +711,25 @@ $(document).on('click', function(e) {
             }, 300, 'linear', function() {
                 $('.new-feature').hide();
             });
+        }
 
+        $(window).on('keyup', function(e) {
+            if(e.keyCode === 27 && $('.new-feature').css('display') !== 'none') {
+              closeNewFeatureModal();
+            }
+        })
+
+        $(document).on('click', '.new-feature .close', function(e) {
+            closeNewFeatureModal();
         });
 
         $(document).on('click', '.lcFeatures', function(e) {
-          showShare();
-          $('.new-feature').css('top', 0);
-          $('.new-feature').css('left', 0);
-          $('.new-feature').css('width', '100%');
-          $('.new-feature').css('height', '100%');
-          $('.new-feature').show();
+            showShare();
+            $('.new-feature').css('top', 0);
+            $('.new-feature').css('left', 0);
+            $('.new-feature').css('width', '100%');
+            $('.new-feature').css('height', '100%');
+            $('.new-feature').show();
 
         });
 
