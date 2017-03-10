@@ -108,9 +108,30 @@ var Routes = function (app, router) {
         })
         //update playlist
         .put(ensureAuthenticated, function(req, res){
-            var temp = JSON.parse(req.params.playlist_name);
-            db.updatePlaylist(req.user.oauthID, temp).then(function(result){
-                res.json(result);
+            var playlistData = JSON.parse(req.params.playlist_name);
+            var formattedPlaylists = playlistData.map(function(data) {
+                return {
+                    name: data.name,
+                    videos: data.videos
+                }
+            });
+
+            db.listAllPlaylists(req.user.oauthID).then(function(result) {
+                var playlists = result.data;
+                formattedPlaylists.map(function(formattedPlaylist) {
+                    for (var i = 0; i < playlists.length; i++) {
+                        if(formattedPlaylist.name === playlists[i].name) {
+                            formattedPlaylist['_id'] = playlists[i]._id.toString();
+                            break;
+                        }
+                    }
+                });
+                return formattedPlaylists;
+            }).then(function(formattedPlaylists) {
+                console.log(formattedPlaylists);
+                return db.updatePlaylist(req.user.oauthID, formattedPlaylists).then(function(result){
+                    res.json(result);
+                });
             });
         });
 
