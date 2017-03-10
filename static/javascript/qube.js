@@ -595,11 +595,21 @@ app.service("QubeService", function($http, $q) {
       return deferred.promise;
     }
 
+    function doneLoadingPlaylist(scope) {
+        setInterval(function() {
+          $('div.loading-page').fadeOut(1000);
+        }, 200);
+    }
+
     function getPlaylistDetails(scope, playlists) {
         var promises = [];
 
         for(var i = 0; i < playlists.length; i++) {
             promises.push(getVideoDetails(scope, playlists[i]));
+        }
+
+        if(promises.length == 0) {
+          doneLoadingPlaylist();
         }
 
         return Q.allSettled(promises).then(function(result) {
@@ -612,11 +622,9 @@ app.service("QubeService", function($http, $q) {
                   playlists.push(value);
                 }
             }
+            doneLoadingPlaylist();
             scope.playlists = playlists;
             scope.loadFirstPlaylist(playlists[0]);
-            setInterval(function() {
-              $('div.loading-page').fadeOut(1000);
-            }, 200);
             scope.$apply();
         });
     }
