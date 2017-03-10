@@ -353,16 +353,17 @@ $(document).ready(function() {
 // SORTING VIDEOLIST
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
-    var $el = $('ul.userVideolist.sortable');
-    $('ul.userVideolist.sortable').sortable({
-        stop: function(event, ui) {
-            var scope = angular.element($el).scope();
-            scope.$apply(function() {
-                scope.updateVideoList($el.sortable('toArray'));
-            });
+        var $el = $('ul.userVideolist.sortable');
+        $('ul.userVideolist.sortable').sortable({
+            stop: function(event, ui) {
+                var scope = angular.element($el).scope();
+                scope.$apply(function() {
+                    scope.updateVideoList($el.sortable('toArray'));
+                });
 
-        }
-    }).disableSelection();}());
+            }
+        }).disableSelection();
+    }());
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -370,7 +371,7 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
     var $el = $('ul.userPlaylist.sortable');
-    $('ul.userPlaylist.sortable').sortable({
+    $el.sortable({
         stop: function(event, ui) {
             var scope = angular.element($el).scope();
             scope.$apply(function() {
@@ -550,35 +551,104 @@ $(document).on('click', function(e) {
     }());
 ////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+// ADD PLAYLIST NAME FUNCTIONALITY
+////////////////////////////////////////////////////////////////////////////////
+    function addPlaylist(inputEl, textEl) {
+      var scope = angular.element(inputEl).scope();
+      scope.$apply(function() {
+          var value = inputEl.val();
+          var promise = scope.addPlaylist(value);
+
+          if(!promise) return;
+
+          promise.then(function(result) {
+            inputEl.val('');
+            inputEl.parents('.addPlaylist').removeClass('editing');
+            textEl.show();
+            inputEl.hide();
+          });
+      });
+    }
+    (function(){
+        $(document).on('click', '.addPlaylist', function(e){
+            var el = $(this);
+            var elements = $('.playlistDetail .edit input.edit-input');
+            for(var i = 0; i < elements.length; i++) {
+                if($(elements[i]).css('display') !== 'none') {
+                    if(i === 0) {
+                      break;
+                    }
+                    hideEditingPlaylist($(elements[i]));
+                }
+            }
+
+            el.addClass('editing');
+            el.find('.text').hide();
+            el.find('input').show();
+            el.find('input').focus().val(el.find('input').val());
+        });
+        $(document).on('click', '.addPlaylist .icon-plus', function(e){
+            var el = $(this);
+            var inputEl = el.parents('.addPlaylist').find('input');
+            var textEl = el.parents('.addPlaylist').find('.text');
+            if(el.parents('.addPlaylist').hasClass('editing')
+              && inputEl.val().length > 0) {
+                addPlaylist(inputEl, textEl);
+            }
+        });
+        $(document).on('keypress', '.addPlaylist .playlistDetail .edit input.edit-input', function(e){
+            if(e.keyCode == 13) {
+              var el = $(this);
+              var textEl = el.parent().find('.text');
+              addPlaylist(el, textEl);
+            }
+        });
+
+    }());
+////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 // EDIT PLAYLIST NAME FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
-    function hideEditingPlaylist(inputEl, textEl) {
-        textEl.parent().removeClass('editing');
+    function hideEditingPlaylist(inputEl) {
+        var textEl = inputEl.parent().find('.text');
+        var isEditingAddPlaylist = inputEl.parents('.addPlaylist').length === 1;
+        if(isEditingAddPlaylist) {
+            textEl.parents('.addPlaylist').removeClass('editing');
+        } else {
+            textEl.parent().removeClass('editing');
+        }
+
         inputEl.hide();
         textEl.show();
-        inputEl.val(textEl.text());
+        if(!isEditingAddPlaylist) {
+            inputEl.val(textEl.text());
+        } else {
+            inputEl.val('');
+        }
     }
 
     (function(){
         $(document).on('click', '.editPlaylist', function(e){
-            $(e.target).parents('.userPlaylist li').find('.edit').addClass('editing');
-
             var el = $(this).parents('.userPlaylist li');
 
+            el.find('.edit').addClass('editing');
             el.find('.text').hide();
             el.find('input').width(el.find('.text').css('width'));
             el.find('input').show();
             el.find('input').focus().val(el.find('input').val());
         });
-        $(document).on('keypress', '.playlistDetail .edit input.edit-input', function(e){
+        $(document).on('keypress', '.playlist .playlistDetail .edit input.edit-input', function(e){
             if(e.keyCode == 13) {
               var el = $(this);
               var scope = angular.element(el).scope();
               var textEl = el.parent().find('.text');
               scope.$apply(function() {
-                  var promise = scope.editPlaylistName(e);
+                  var value = $(e.target).val();
+                  var playlistIndex = $(e.target).parents('li').index();
+
+                  var promise = scope.editPlaylistName(value, playlistIndex);
 
                   if(!promise) return;
 
@@ -595,15 +665,15 @@ $(document).on('click', function(e) {
         });
         $(document).on('click', function(e) {
             if($(e.target).hasClass('editPlaylist')
-              || $(e.target).hasClass('edit-input')) {
+              || $(e.target).hasClass('edit-input')
+              || $(e.target).parents('.addPlaylist').length === 1
+              || $(e.target).hasClass('addPlaylist')) {
                 return;
             }
             var elements = $('.playlistDetail .edit input.edit-input');
-
             for(var i = 0; i < elements.length; i++) {
               if($(elements[i]).css('display') !== 'none') {
-                var textEl = $(elements[i]).parent().find('.text');
-                hideEditingPlaylist($(elements[i]), textEl);
+                hideEditingPlaylist($(elements[i]));
                 break;
               }
             }
