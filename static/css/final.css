@@ -143,12 +143,12 @@ a {
 }
 .new-feature .inner {
   width: 500px;
-  height: 330px;
+  height: 350px;
   background: #2b2b2b;
   color: black;
   margin: 0 auto;
   position: absolute;
-  top: calc(50% - 165px);
+  top: calc(50% - 175px);
   left: calc(50% - 250px);
   color: white;
   overflow: hidden;
