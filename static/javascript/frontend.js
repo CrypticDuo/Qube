@@ -708,7 +708,7 @@ $(document).on('click', function(e) {
               left: '100%',
               width: 0,
               height: 0
-            }, 300, 'linear', function() {
+            }, 250, 'linear', function() {
                 $('.new-feature').hide();
             });
         }
