@@ -629,6 +629,16 @@ $(document).on('click', function(e) {
         }
     }
 
+    function resetEditingInput() {
+        var elements = $('.playlistDetail .edit input.edit-input');
+        for(var i = 0; i < elements.length; i++) {
+          if($(elements[i]).css('display') !== 'none') {
+            hideEditingPlaylist($(elements[i]));
+            break;
+          }
+        }
+    }
+
     (function(){
         $(document).on('click', '.editPlaylist', function(e){
             var el = $(this).parents('.userPlaylist li');
@@ -663,6 +673,11 @@ $(document).on('click', function(e) {
               });
             }
         });
+        $(window).on('keyup', function(e) {
+            if(e.keyCode === 27 && $('.editing').length > 0) {
+                resetEditingInput();
+            }
+        });
         $(document).on('click', function(e) {
             if($(e.target).hasClass('editPlaylist')
               || $(e.target).hasClass('edit-input')
@@ -670,13 +685,7 @@ $(document).on('click', function(e) {
               || $(e.target).hasClass('addPlaylist')) {
                 return;
             }
-            var elements = $('.playlistDetail .edit input.edit-input');
-            for(var i = 0; i < elements.length; i++) {
-              if($(elements[i]).css('display') !== 'none') {
-                hideEditingPlaylist($(elements[i]));
-                break;
-              }
-            }
+            resetEditingInput();
       });
     }());
 ////////////////////////////////////////////////////////////////////////////////
@@ -685,34 +694,34 @@ $(document).on('click', function(e) {
 ////////////////////////////////////////////////////////////////////////////////
 // NEW FEATURE INFO FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
+    function showShare() {
+        $('.new-feature .right').show();
+        $('.new-feature .left').hide();
+        $('.new-feature .autogen').hide();
+        $('.new-feature .share').show();
+    }
+
+    function showAutoGen() {
+        $('.new-feature .right').hide();
+        $('.new-feature .left').show();
+        $('.new-feature .autogen').show();
+        $('.new-feature .share').hide();
+    }
+
+    function closeNewFeatureModal() {
+        var width = $('body').width();
+        var height = $(document).height() - $('.bottomContainer').height();
+        $('.new-feature').animate({
+          top: height,
+          left: '100%',
+          width: 0,
+          height: 0
+        }, 250, 'linear', function() {
+            $('.new-feature').hide();
+        });
+    }
+
     (function(){
-        function showShare() {
-            $('.new-feature .right').show();
-            $('.new-feature .left').hide();
-            $('.new-feature .autogen').hide();
-            $('.new-feature .share').show();
-        }
-
-        function showAutoGen() {
-            $('.new-feature .right').hide();
-            $('.new-feature .left').show();
-            $('.new-feature .autogen').show();
-            $('.new-feature .share').hide();
-        }
-
-        function closeNewFeatureModal() {
-            var width = $('body').width();
-            var height = $(document).height() - $('.bottomContainer').height();
-            $('.new-feature').animate({
-              top: height,
-              left: '100%',
-              width: 0,
-              height: 0
-            }, 250, 'linear', function() {
-                $('.new-feature').hide();
-            });
-        }
-
         $(window).on('keyup', function(e) {
             if(e.keyCode === 27 && $('.new-feature').css('display') !== 'none') {
               closeNewFeatureModal();
