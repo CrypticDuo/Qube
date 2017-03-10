@@ -8,6 +8,7 @@ var User = mongoose.model('User', {
     created: Date,
     lastLogin: Date,
     loginCount: Number,
+    seenFeatureModalVersion: String,
     playlist: [
     	{
     		name: String,

@@ -98,117 +98,6 @@ a {
   background-color: #555;
 }
 
-
-@-webkit-keyframes movingbar1{
-  0%{height:32%;}
-  25%{height:80%;}
-  50%{height:56%;}
-  75%{height:100%;}
-  100%{height:84%;}
-}
-@-moz-keyframes movingbar1{
-  0%{height:32%;}
-  25%{height:80%;}
-  50%{height:56%;}
-  75%{height:100%;}
-  100%{height:84%;}
-}
-@keyframes movingbar1{
-  0%{height:32%;}
-  25%{height:80%;}
-  50%{height:56%;}
-  75%{height:100%;}
-  100%{height:84%;}
-}
-
-@-webkit-keyframes movingbar2{
-  0%{height:20%;}
-  25%{height:58%;}
-  50%{height:90%;}
-  75%{height:74%;}
-  100%{height:53%;}
-}
-@-moz-keyframes movingbar2{
-  0%{height:20%;}
-  25%{height:58%;}
-  50%{height:90%;}
-  75%{height:74%;}
-  100%{height:53%;}
-}
-@keyframes movingbar2{
-  0%{height:20%;}
-  25%{height:58%;}
-  50%{height:90%;}
-  75%{height:74%;}
-  100%{height:53%;}
-}
-
-@-webkit-keyframes movingbar3{
-  0%{height:34%;}
-  25%{height:69%;}
-  50%{height:100%;}
-  75%{height:82%;}
-  100%{height:41%;}
-}
-@-moz-keyframes movingbar3{
-  0%{height:34%;}
-  25%{height:69%;}
-  50%{height:100%;}
-  75%{height:82%;}
-  100%{height:41%;}
-}
-@keyframes movingbar3{
-  0%{height:34%;}
-  25%{height:69%;}
-  50%{height:100%;}
-  75%{height:82%;}
-  100%{height:41%;}
-}
-
-@-webkit-keyframes movingbar4{
-  0%{height:80%;}
-  25%{height:49%;}
-  50%{height:59%;}
-  75%{height:82%;}
-  100%{height:65%;}
-}
-@-moz-keyframes movingbar4{
-  0%{height:80%;}
-  25%{height:49%;}
-  50%{height:59%;}
-  75%{height:82%;}
-  100%{height:65%;}
-}
-@keyframes movingbar4{
-  0%{height:80%;}
-  25%{height:49%;}
-  50%{height:59%;}
-  75%{height:82%;}
-  100%{height:65%;}
-}
-
-@-webkit-keyframes movingbar5{
-  0%{height:50%;}
-  25%{height:30%;}
-  50%{height:90%;}
-  75%{height:50%;}
-  100%{height:65%;}
-}
-@-moz-keyframes movingbar5{
-  0%{height:50%;}
-  25%{height:30%;}
-  50%{height:90%;}
-  75%{height:50%;}
-  100%{height:65%;}
-}
-@keyframes movingbar5{
-  0%{height:50%;}
-  25%{height:30%;}
-  50%{height:90%;}
-  75%{height:50%;}
-  100%{height:65%;}
-}
-
 .loading-page{
   position: absolute;
   top:0;
@@ -217,6 +106,92 @@ a {
   right:0;
   z-index:1999; /* as pace has 2000 */
 }
+
+.new-feature {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.58);
+}
+.new-feature.show {
+  display:inline;
+}
+.new-feature .right, .new-feature .left {
+  top: calc(50% - 30px);
+  position: absolute;
+  display: block;
+  font-size: 40px;
+}
+.new-feature .left {
+  left: calc(50% - 320px);
+  display: none;
+}
+.new-feature .right {
+  right: calc(50% - 320px);
+}
+.new-feature .left > i, .new-feature .right > i {
+  font-weight: 600;
+  cursor: pointer;
+}
+.new-feature i {
+  color: #ccc;
+}
+.new-feature i:hover {
+  color: #fff;
+}
+.new-feature .inner {
+  width: 500px;
+  height: 350px;
+  background: #2b2b2b;
+  color: black;
+  margin: 0 auto;
+  position: absolute;
+  top: calc(50% - 175px);
+  left: calc(50% - 250px);
+  color: white;
+  overflow: hidden;
+}
+.new-feature .inner .demo-image {
+  height: 200px;
+  overflow: hidden;
+}
+.new-feature .inner img {
+  width: 550px;
+  position: relative;
+  left: -50px;
+}
+.new-feature .inner .description {
+  padding: 15px;
+}
+.new-feature .inner .description p {
+  font-size: 15px;
+}
+.new-feature .close {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  cursor: pointer;
+}
+.new-feature .close > i {
+  font-size: 40px;
+}
+.new-feature .share, .new-feature .autogen {
+  box-shadow: rgb(17, 17, 17) 0px 0px 5px 0.5px;
+}
+.new-feature .autogen {
+  display: none;
+}
+
+.title h3 {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 25px;
+  border-bottom: 2px solid;
+  padding: 7px 20px;
+}
+
 
 .ui-autocomplete {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -426,6 +401,9 @@ a {
 #QubePlaylist .videolist .userVideolist span.close:hover {
   color:#fff;
 }
+#QubePlaylist .videolist .userVideolist li.active span.close:hover {
+  color:#f47f7f;
+}
 #QubePlaylist .videolist .userVideolist a {
   margin-right: 10px;
   color: #767676;
@@ -436,7 +414,7 @@ a {
 #QubePlaylist .videolist .player {
   position:relative;
   border-top: 5px solid #0d1215;
-  z-index:1;
+  z-index:2;
 }
 #QubePlaylist .videolist .player.fullscreen {
   position:absolute;
@@ -760,7 +738,7 @@ a {
 }
 
 #QubePlaylist .view.main .playlistColumn .addPlaylist .playlistThumbnail {
-  z-index: 999;
+  z-index: 1;
 }
 
 #QubePlaylist .view.main .playlistColumn .addPlaylist .icon {
@@ -890,6 +868,7 @@ a {
   float: left;
 }
 .listControl {
+  position:relative;
   width: 80px;
   overflow: auto;
   display: inline-block;
@@ -945,6 +924,10 @@ a {
 }
 .listControl .lcDescription {
   color: #767676;
+}
+.listControl .lcFeatures {
+  position: absolute;
+  bottom: 0;
 }
 .lcContentContainer{
   text-align: center;

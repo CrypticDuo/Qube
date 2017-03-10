@@ -16,7 +16,7 @@
     <link type="text/css" rel="stylesheet" href="/static/css/final.css"/>
 </head>
 
-<body>
+<body ng-controller="QubeCont">
 <div class="loading-page">
     <div class="body">
     <span>
@@ -38,8 +38,31 @@
     </div>
     <h1>LOADING ...</h1>
 </div>
+<div class="new-feature" ng-class="{show: showFeatureModal}">
+    <span class="close"><i class="icon-close"></i></span>
+    <span class="left"><i class="icon-arrow-left"></i></span>
+    <span class="right"><i class="icon-arrow-right"></i></span>
+    <div class="inner share">
+        <div class="title">
+            <h3>Share Your Playlists</h3>
+        </div>
+        <div class="demo-image"><img src="/static/images/share_demo.png"/></div>
+        <div class="description">
+          <p>Does your friend like your taste in music? Now you can share your favourite playlists with your friends! Click the 'Copy Share Link' next to your desired playlist and send it to them.</p>
+        </div>
+    </div>
+    <div class="inner autogen">
+        <div class="title">
+            <h3>Auto-generate Your Playlist</h3>
+        </div>
+        <div class="demo-image"><img src="/static/images/autogen_demo.png"/></div>
+        <div class="description">
+          <p>Stop spending time searching for your favourite songs! Automatically generate the suggested top picks for your playlist with a single click.</p>
+        </div>
+    </div>
+</div>
     <div id="QubePlaylist">
-        <div ng-controller="QubeCont">
+        <div>
             <!-- END OF sideMenu -->
             <div class="topHeader">
                 <div class="logo"><a class="home"></a>
@@ -185,6 +208,12 @@
                               <div class="lcContentContainer">
                                 <i class="icon icon-earphones"></i>
                                 <span class="font-bold lcHeader">Related</span>
+                              </div>
+                            </div>
+                            <div class="lcFeatures">
+                              <div class="lcContentContainer">
+                                <i class="icon icon-star"></i>
+                                <span class="font-bold lcHeader">New Features</span>
                               </div>
                             </div>
                         </div>

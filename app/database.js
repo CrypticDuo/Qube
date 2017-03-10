@@ -2,8 +2,10 @@
 
 var ObjectId = require('mongoose').Types.ObjectId;
 var Q = require('q');
+
 var User = require('../model/user');
 var defaultPlaylist = require('../config/defaultPlaylist');
+var config = require('../config/config');
 
 var database = {
     authenticate: function(profile, done) {
@@ -24,6 +26,7 @@ var database = {
                     created: Date.now(),
                     lastLogin: Date.now(),
                     loginCount: 0,
+                    seenFeatureModalVersion: '',
                     playlist: defaultPlaylist
                 });
                 user.save(function(err) {
@@ -50,6 +53,27 @@ var database = {
       });
 
       return deferred.promise;
+    },
+
+    getUserByOAuthId: function(oauthID) {
+        var deferred = Q.defer();
+
+        User.findOne({
+            oauthID: oauthID
+        }, function(err, user) {
+            if (err) {
+                console.log("ERROR: " + err);
+                deferred.reject({
+                    status: "Fail",
+                    msg: "User not found"
+                });
+                return;
+            } else {
+                deferred.resolve(user);
+            }
+        });
+
+        return deferred.promise;
     },
 
     createPlaylist: function(userID, pname, callback) {
@@ -106,7 +130,6 @@ var database = {
                 });
 
             } else {
-                console.log("imback");
 				callback({
                     status: "Fail",
                     msg: "Error: Playlist already exists."
@@ -186,7 +209,6 @@ var database = {
                 return;
             }
             if(!err && playlist){
-                console.log(playlist);
                 callback({
                     status: "Success",
                     data: playlist[0].videos
@@ -356,22 +378,27 @@ var database = {
         });
     },
 
-    updateLoginData: function(userID, callback) {
-        var id = "";
-        User.findOne({
-            oauthID: userID
-        }, function(err, user) {
-            if (err) {
-                console.log("ERROR: " + err);
-                callback({
-                    status: "Fail",
-                    msg: "User not found"
-                });
-                return;
-            } else {
-                id = user._id;
-            }
+    updateLoginData: function(userID) {
+        var self = this;
+        return this.getUserByOAuthId(userID).then(function(user) {
+            return user._id;
+        })
+        .catch(function(err) {
+            throw new Error(err);
+        })
+        .then(function(id) {
+            return self.incrementLoginCount(userID);
+        })
+        .catch(function(err) {
+            throw new Error(err);
+        })
+        .fail(function(err) {
+            console.log(err);
         });
+    },
+
+    incrementLoginCount: function (userID) {
+        var deferred = Q.defer();
 
         User.update({
             oauthID: userID
@@ -383,22 +410,71 @@ var database = {
         }, function(err, result) {
             if (err) {
                 console.log("ERROR : " + err);
-                callback({
+                deferred.reject({
                     status: "Fail",
                     msg: "User not found"
                 });
             } else if (!err && result && result !== 0) {
-                callback({
-                    status: "Success",
-                    ID: id
+                deferred.resolve({
+                    status: "Success"
                 });
             } else {
-                callback({
+                deferred.reject({
                     status: "Fail",
                     msg: "Failed to update login data"
                 });
             }
         });
+
+        return deferred.promise;
+    },
+
+    seenFeatureModalVersion: function(userID) {
+        var self = this;
+        return this.getUserByOAuthId(userID).then(function(user) {
+            if(user.seenFeatureModalVersion === config.version) {
+                return {
+                    status: "Success",
+                    showFeatureModal: false
+                };
+            }
+
+            return self.updateSeenFeatureModalVersion(userID).then(function(res) {
+                return res;
+            });
+        });
+    },
+
+    updateSeenFeatureModalVersion: function(userID) {
+        var deferred = Q.defer();
+
+        User.update({
+            oauthID: userID
+        }, {
+            '$set' : {
+                'seenFeatureModalVersion': config.version
+            }
+        }, function(err, result) {
+            if (err) {
+                console.log("ERROR : " + err);
+                deferred.resolve({
+                    status: "Fail",
+                    msg: "Failed to update seenFeatureModalVersion"
+                });
+            } else if (!err && result && result !== 0) {
+                deferred.resolve({
+                    status: "Success",
+                    showFeatureModal: true
+                });
+            } else {
+                deferred.resolve({
+                    status: "Fail",
+                    msg: "Failed to update seenFeatureModalVersion"
+                });
+            }
+        });
+
+        return deferred.promise;
     }
 };
 

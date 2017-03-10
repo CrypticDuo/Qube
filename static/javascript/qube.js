@@ -58,6 +58,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
         $scope.hostUrl = HOST_URL;
+        $scope.showFeatureModal = QubeService.getSeenFeatureModal($scope);
         $scope.layout = 'main';
         $scope.listDisplay = 'playlist';
         $scope.currentPlayingVideo = null;
@@ -848,6 +849,17 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function getSeenFeatureModal(scope) {
+        $http.get("/api/featureModal/")
+            .success(function(res){
+                if (res.status.toLowerCase() === "fail") {
+                    console.log(res.msg);
+                } else {
+                    scope.showFeatureModal = res.showFeatureModal;
+                }
+            });
+    }
+
     //Returns the public API
     return ({
         listAllPlaylist: listAllPlaylist,
@@ -857,7 +869,8 @@ app.service("QubeService", function($http, $q) {
         addVideoToPlaylist: addVideoToPlaylist,
         removeVideoFromPlaylist: removeVideoFromPlaylist,
         updateVideoList : updateVideoList,
-        searchAutoComplete: searchAutoComplete
+        searchAutoComplete: searchAutoComplete,
+        getSeenFeatureModal: getSeenFeatureModal
     });
 });
 
