@@ -3,6 +3,13 @@
 
 <head>
     <meta charset="utf-8">
+    <meta property="og:image" content="http://qubevideos.com/static/images/demo_picture2.png" />
+    <meta property="og:description" content="Shared playlist" />
+    <% if (playlist_id) { %>
+    <meta property="og:title" content="Qube - Share" />
+    <% } else %>
+    <meta property="og:title" content="Qube - Login" />
+    <% } %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
