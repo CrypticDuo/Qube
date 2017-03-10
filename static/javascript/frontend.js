@@ -174,13 +174,13 @@ function pauseTimer(){
 
 $(document).ready(function() {
 
-    $('.lcSearch input').autocomplete({appendTo: "body"});
+    $('.lcSearch input').autocomplete({source: [], appendTo: "body"});
     $('.lcSearch input').autocomplete('enable');
 
     alertify.set('notifier','position', 'top-right');
     alertify.set('notifier','delay', 3);
 
-    $('.lcSearch input').on('keyup', function(e) {
+    $('.lcSearch input').on('keypress', function(e) {
         var self = this;
         if(e.which !== 13){
             onSearchChange($(self),$(self).val());
@@ -188,7 +188,7 @@ $(document).ready(function() {
         else if(e.which === 13){
             $('.lcSearch input').autocomplete( "destroy" );
             setTimeout(function(){
-                $('.lcSearch input').autocomplete({appendTo: "body"});
+                $('.lcSearch input').autocomplete({source: [], appendTo: "body"});
                 $('.lcSearch input').autocomplete('enable');
             },1000);
         }
