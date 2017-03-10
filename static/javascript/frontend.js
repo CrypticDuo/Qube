@@ -14,12 +14,6 @@ var previewPlayerState = -1;
 // SHARE LINK
 new Clipboard('.copyShareLink');
 
-Pace.on("done", function(){
-    setTimeout(function(){
-        $('div.loading-page').fadeOut(1000);
-    },200);
-});
-
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '100%',

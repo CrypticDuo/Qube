@@ -594,23 +594,40 @@ app.service("QubeService", function($http, $q) {
       return deferred.promise;
     }
 
-    function getVideoDetails(target, data, scope) {
-        var evt = data.shift();
-        //puts the data contentDetails inside target
-        if (!evt) {
-            if(target.length > 0) {
-              scope.loadFirstPlaylist(target[0]);
-              scope.$apply();
-            }
-            return;
+    function getPlaylistDetails(scope, playlists) {
+        var promises = [];
+
+        for(var i = 0; i < playlists.length; i++) {
+            promises.push(getVideoDetails(scope, playlists[i]));
         }
+
+        return Q.allSettled(promises).then(function(result) {
+            var playlists = [];
+
+            for (var i = 0; i < result.length; i++) {
+                var value = result[i]['value'];
+
+                if(result[i]['state'] === 'fulfilled' && value) {
+                  playlists.push(value);
+                }
+            }
+            scope.playlists = playlists;
+            scope.loadFirstPlaylist(playlists[0]);
+            setInterval(function() {
+              $('div.loading-page').fadeOut(1000);
+            }, 200);
+            scope.$apply();
+        });
+    }
+
+    function getVideoDetails(scope, playlist) {
         var promises = [];
         var videoIDlist = [];
         var videoIDString = '';
 
         var count = 1;
-        for (var i = 0; i < evt.videos.length; i++) {
-            videoIDString = videoIDString + evt.videos[i] + ",";
+        for (var i = 0; i < playlist.videos.length; i++) {
+            videoIDString = videoIDString + playlist.videos[i] + ",";
             if(count % 45 === 0) {
               videoIDlist.push(videoIDString);
               videoIDString = '';
@@ -625,7 +642,7 @@ app.service("QubeService", function($http, $q) {
           promises.push(createRequest(videoIDlist[i]));
         }
 
-        Q.allSettled(promises).then(function(result) {
+        return Q.allSettled(promises).then(function(result) {
           var contentDetailsData = [];
 
           for (var i = 0; i < result.length; i++) {
@@ -636,12 +653,18 @@ app.service("QubeService", function($http, $q) {
               }
           }
 
-          target.push({_id: evt._id, name : evt.name, data : contentDetailsData, duration : "00:00"});
-          for(var i=0; i<target[target.length-1].data.length; i++){
-              target[target.length-1].data[i].contentDetails.duration = convertYoutubeDuration(target[target.length-1].data[i].contentDetails.duration);
-              target[target.length-1].duration = addDuration(target[target.length-1].duration, target[target.length-1].data[i].contentDetails.duration);
+          var playlistData = {
+              _id: playlist._id,
+              name : playlist.name,
+              data : contentDetailsData,
+              duration : "00:00"
+          };
+          for(var i = 0; i < playlistData.data.length; i++){
+              playlistData.data[i].contentDetails.duration = convertYoutubeDuration(playlistData.data[i].contentDetails.duration);
+              playlistData.duration = addDuration(playlistData.duration, playlistData.data[i].contentDetails.duration);
           }
-          getVideoDetails(target, data, scope);
+
+          return playlistData;
         });
     }
 
@@ -665,7 +688,7 @@ app.service("QubeService", function($http, $q) {
                     console.log(res.msg);
                 } else {
                     scope.playlists = [];
-                    getVideoDetails(scope.playlists, res.data, scope);
+                    getPlaylistDetails(scope, res.data);
                 }
             })
             .error(function(err) {
