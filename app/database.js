@@ -76,25 +76,6 @@ var database = {
         return deferred.promise;
     },
 
-    getPlaylistOwnerName: function(playlistId) {
-        var deferred = Q.defer();
-
-        User.findOne({
-            "playlist._id" : playlistId
-        }, function(err, user) {
-            if(err) {
-              deferred.reject(err);
-            } else if(!err && user) {
-              deferred.resolve(user.name);
-            } else {
-              // playlist id does not exist
-              deferred.reject(null);
-            }
-        });
-
-        return deferred.promise;
-    },
-
     createPlaylist: function(userID, pname, callback) {
         if(!pname){
             callback({

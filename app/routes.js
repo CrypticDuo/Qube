@@ -41,21 +41,15 @@ var Routes = function (app, router) {
                 req.params.playlist_id
             );
         } else {
-            db.getPlaylistOwnerName(req.params.playlist_id).then(function(username) {
-                req.session.sharedBy = username;
-                res.redirect('/login?share='+req.params.playlist_id);
-            })
+            res.redirect('/login?share='+req.params.playlist_id);
         }
     });
 
     app.get('/login', function(req, res) {
-        var sharedBy = req.session.sharedBy;
-        req.session.sharedBy = null;
         var playlist_id = req.query.share;
 
         res.render('login.ejs', {
-          'playlist_id': playlist_id,
-          'shared_by': sharedBy
+          'playlist_id': playlist_id
         });
     });
 
