@@ -480,16 +480,13 @@ a {
 }
 #QubePlaylist .bottomContainer .progressBar {
   position: relative;
-  height: 50px;
+  bottom: 19px;
+  height: 12px;
   display: inline-block;
   width: calc(100% - 473px);
   background: 0;
-  background-color: #2f2f2f;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  border-radius: 0px;
+  background-color: #383838;
+  border-radius: 15px;
   border: 0;
   margin: 0 15px;
   font: inherit;
@@ -522,16 +519,29 @@ a {
 }
 #QubePlaylist .bottomContainer .progressBar > div.progressLevel {
   width: 0;
-  height: 50px;
+  height: 12px;
   bottom: 0;
   position: absolute;
   background-color: rgb(90, 90, 90) !important;
-  border-radius: 3px;
+  border-radius: 15px 3px 3px 15px;
 }
 #QubePlaylist .bottomContainer div.progressBar > div > span {
   text-align: center;
   width: 100%;
 }
+
+#QubePlaylist .bottomContainer .progressBar:hover > span.ui-slider-handle {
+  top: -2px;
+  border: 1px solid #d3d3d3 !important;
+  font-weight: normal;
+  width: 14px !important;
+  height: 14px !important;
+  color: #555555;
+  cursor: pointer;
+  border-radius: 10px !important;
+  margin-left: -7px;
+}
+
 #QubePlaylist .bottomContainer div.time {
   position: relative;
   margin: 0 auto;
@@ -578,13 +588,20 @@ a {
 }
 #QubePlaylist .bottomContainer .volume .volumeBar span {
   width: 0px;
-  margin-left: 0!important;
+  margin-left: 0;
   background-color: #767676;
   border-radius: 50%;
   height: 0;
   top: -0.1em;
   border: 0;
   outline: 0;
+}
+#QubePlaylist .bottomContainer .volume .volumeBar:hover > span.ui-slider-handle {
+    width: 12px !important;
+    background: #e6eaed !important;
+    height: 12px !important;
+    margin-left: -6px !important;
+    cursor: pointer;
 }
 #QubePlaylist .bottomContainer .full-screen-icon,
 #QubePlaylist .bottomContainer .replay-all-icon,
