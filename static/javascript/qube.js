@@ -74,7 +74,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.replay = 'all';
         $scope.shuffleState = false;
         $scope.shuffleList = [];
+        $scope.trendingPlaylists = [];
         QubeService.listAllPlaylist($scope);
+        QubeService.getTrending($scope);
         addInfiniteScroll();
     }
 
@@ -111,7 +113,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
           alertify.error('There are no videos in this playlist.');
           return;
         }
-
 
         if($scope.playingPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
@@ -716,6 +717,19 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
+    function getTrending(scope) {
+        $http.get(HOST_URL + "/api/getTrending")
+            .success(function(res) {
+                if (res.length) {
+                    // todo: format res to look equal to $scope.playlists format
+                    scope.trendingPlaylists = res;
+                }
+            })
+            .error(function(err) {
+                alertify.error('Failed to fetch trending playlists.');
+            });
+    };
+
     function addPlaylist(scope, pname) {
         if (pname.replace(/\s/g, "").length === 0) {
             alertify.error('Playlist name can\'t be empty');
@@ -883,6 +897,7 @@ app.service("QubeService", function($http, $q) {
     //Returns the public API
     return ({
         listAllPlaylist: listAllPlaylist,
+        getTrending: getTrending,
         addPlaylist: addPlaylist,
         removePlaylist: removePlaylist,
         updatePlaylist: updatePlaylist,
