@@ -187,7 +187,7 @@ a {
 .title h3 {
   text-transform: uppercase;
   font-weight: 500;
-  font-size: 25px;
+  font-size: 18px;
   border-bottom: 2px solid;
   padding: 7px 20px;
 }
@@ -195,7 +195,7 @@ a {
 
 .ui-autocomplete {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size:14;
+  font-size:12px;
   font-weight:400;
   background: #2f2f2f;
   border: 0!important;
@@ -257,6 +257,7 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: calc(100% - 75px);
+  font-size: 12px;
   display: block;
 }
 #QubePlaylist .video-duration {
@@ -264,13 +265,13 @@ a {
   position: absolute;
   right: calc(100% - 96px);
   padding: 1px 3px;
-  bottom: 13px;
+  bottom: 11px;
   font-size: 12px;
   background-color: rgba(0, 0, 0, 0.41);
 }
 #QubePlaylist .view.main .video-image img {
   height: 47px;
-  top: -4px;
+  top: -6px;
   position: relative;
   right: -4px;
 }
@@ -293,7 +294,7 @@ a {
 }
 #QubePlaylist .topHeader {
   background-color: #242424;
-  height: 60px;
+  height: 50px;
 }
 #QubePlaylist .topHeader > div.logo {
   display: block;
@@ -312,11 +313,11 @@ a {
   width: 50%;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-size: 17px;
+  font-size: 14px;
   color: #E5E5E5;
   margin-left: 70px;
   text-align: center;
-  line-height: 60px;
+  line-height: 50px;
   display: block;
   margin: 0 auto;
 }
@@ -370,7 +371,7 @@ a {
   width: 80%;
   display: inline-block;
   overflow: hidden;
-  font-size: 14px;
+  font-size: 13px;
   white-space: nowrap;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
@@ -381,7 +382,7 @@ a {
   top: 2px;
   float: right;
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
   text-align: right;
   margin-left: 10px;
   color: #767676;
@@ -442,7 +443,7 @@ a {
 #QubePlaylist .bottomContainer {
   position: fixed;
   width: 100%;
-  height: 60px;
+  height: 50px;
   background-color: #242424;
   bottom: 0;
   padding: 0 15px;
@@ -468,7 +469,7 @@ a {
   vertical-align: middle;
   text-align: center;
   width: 40px;
-  height: 60px;
+  height: 50px;
 }
 #QubePlaylist .bottomContainer .controllers-container .controllers li {
   color: #e6eaed;
@@ -479,7 +480,7 @@ a {
 }
 #QubePlaylist .bottomContainer .progressBar {
   position: relative;
-  height: 60px;
+  height: 50px;
   display: inline-block;
   width: calc(100% - 473px);
   background: 0;
@@ -498,11 +499,11 @@ a {
   background-color: transparent;
   position: absolute;
   width: 100%;
-  line-height: 60px;
+  line-height: 50px;
 }
 #QubePlaylist .bottomContainer div.progressBar > div > span {
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
 }
 #QubePlaylist .bottomContainer .progressBar > span {
   width: 0px;
@@ -521,7 +522,7 @@ a {
 }
 #QubePlaylist .bottomContainer .progressBar > div.progressLevel {
   width: 0;
-  height: 60px;
+  height: 50px;
   bottom: 0;
   position: absolute;
   background-color: rgb(90, 90, 90) !important;
@@ -596,13 +597,7 @@ a {
 
 #QubePlaylist .bottomContainer .icon-container {
   position: relative;
-  top: -23px;
-}
-#QubePlaylist .bottomContainer .shuffle-icon .icon-container {
-  top: -23px;
-}
-#QubePlaylist .bottomContainer .full-screen-icon .icon-container {
-  top: -25px;
+  top: -18px;
 }
 
 #QubePlaylist .bottomContainer .replay-all-icon span, #QubePlaylist .bottomContainer .replay-one-icon span {
@@ -618,7 +613,6 @@ a {
   color: #f47f7f;
 }
 #QubePlaylist .bottomContainer .full-screen-icon{
-  top:2px;
   font-size:13px;
 }
 #QubePlaylist .bottomContainer .full-screen-icon.active {
@@ -663,7 +657,7 @@ a {
   display: block;
   padding: 1px;
   padding-left: 80px;
-  font-size: 14px;
+  font-size: 13px;
   width: calc(100% - 110px);
   text-overflow: ellipsis;
   overflow: hidden;
@@ -697,9 +691,9 @@ a {
 
 #QubePlaylist .view.main .playlistColumn .userPlaylist li,
 #QubePlaylist .view.main .playlistColumn div.addPlaylist {
-  padding: 12px 10px;
+  padding: 10px 10px;
   border-bottom: 1px solid rgb(36, 36, 36);
-  font-size: 13px;
+  font-size: 12px;
   color: #ffffff;
   padding-left: 15px;
 }
@@ -717,12 +711,12 @@ a {
 #QubePlaylist .view.main .playlistColumn .addPlaylist .playlistThumbnail {
   width: 67px;
   text-align: center;
-  top: 8px;
+  top: 10px;
 }
 
 #QubePlaylist .view.main .playlistColumn .addPlaylist .title {
   position: relative;
-  top: 11px;
+  top: 12px;
 }
 
 #QubePlaylist .view.main .playlistColumn .addPlaylist .edit .text {
@@ -790,7 +784,7 @@ a {
 }
 
 .video-views {
-  font-size: 13px;
+  font-size: 12px;
   color: rgb(190, 190, 190);
 }
 .playlistThumbnail {
@@ -801,7 +795,7 @@ a {
 }
 .userPlaylist .icon-container {
   position: relative;
-  top: -28px;
+  top: -26px;
 }
 .userPlaylist li .icon-container .optionContainer {
   visibility: hidden;
@@ -883,7 +877,7 @@ a {
 .lcHeader {
   text-transform: uppercase;
   font-weight:600;
-  font-size: 12px;
+  font-size: 11px;
   padding-top: 5px;
 }
 .lcPlaylistAdd .lcHeader {
@@ -1291,7 +1285,7 @@ a {
 }
 
 .playlist-menu li {
-  font-size: 13px;
+  font-size: 12px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
