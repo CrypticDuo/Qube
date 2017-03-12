@@ -560,6 +560,9 @@ a {
   display: block;
   float: left;
 }
+#QubePlaylist .bottomContainer .volume .volumeBar:hover .volumeLevel, #QubePlaylist .bottomContainer .progressBar:hover div.progressLevel {
+  background-color: #f47f7f!important;
+}
 #QubePlaylist .bottomContainer .volume-icon > i {
   cursor: pointer;
 }
