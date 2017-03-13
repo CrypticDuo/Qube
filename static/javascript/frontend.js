@@ -285,7 +285,8 @@ $(document).ready(function() {
         if(!isPaused){
             duration=(player.getCurrentTime())/(getMaxVideoTime())*100;
             $('.bottomContainer > div.time > span.timeStart').text(convertSecondsToTime(player.getCurrentTime()+1));
-            $(".progressBar > div.progressLevel").css('width', duration+'%');
+            $('.progressBar > div.progressLevel').css('width', duration+'%');
+            $('.progressBar > span.ui-slider-handle').css('left', duration+'%');
         }
     },250);
 

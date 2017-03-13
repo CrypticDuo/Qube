@@ -98,7 +98,7 @@ var database = {
             }
             console.log("RESULT : " + user);
             if (!user.length) {
-                var id = new ObjectId();
+                var id = ObjectId();
                 User.update({
                     oauthID: userID,
                 }, {
@@ -168,13 +168,21 @@ var database = {
     },
     getPlaylistById: function(playlistID) {
         var deferred = Q.defer();
+        var playlistId = null;
+
+        try {
+          playlistId = ObjectId(playlistID);
+        } catch (e) {
+          deferred.reject(e);
+          return deferred.promise;
+        }
 
         User.findOne({
-            "playlist._id" : ObjectId(playlistID)
+            "playlist._id" : playlistId
         },{
             playlist: {
                 "$elemMatch": {
-                    _id : ObjectId(playlistID)
+                    _id : playlistId
                 }
             }
         }, function(err, playlist) {
