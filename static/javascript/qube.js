@@ -628,7 +628,7 @@ app.service("QubeService", function($http, $q) {
             }
             doneLoadingPlaylist();
             scope.playlists = playlists;
-            scope.loadFirstPlaylist(playlists[0]);
+            // scope.loadFirstPlaylist(playlists[0]);
             scope.$apply();
         });
     }
@@ -714,6 +714,13 @@ app.service("QubeService", function($http, $q) {
             .success(function(res) {
                 if (res.length) {
                     // todo: format res to look equal to $scope.playlists format
+                    res.forEach(function(playlist) {
+                        playlist.duration = "00:00";
+                        for(var i = 0; i < playlist.data.length; i++){
+                          playlist.data[i].contentDetails.duration = convertYoutubeDuration(playlist.data[i].contentDetails.duration);
+                          playlist.duration = addDuration(playlist.duration, playlist.data[i].contentDetails.duration);
+                        }
+                    });
                     scope.trendingPlaylists = res;
                 }
             })
