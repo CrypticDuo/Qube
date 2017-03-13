@@ -14,7 +14,8 @@ var youTube = new YouTube();
 youTube.setKey(Oauth.trending.youtubeServerKey);
 
 var trendingPlaylists = [];
-var numberOfTrendingPlaylists = 1; // dev environment should use MAX 2.
+var formattedPlaylist = [];
+var numberOfTrendingPlaylists = 20; // dev environment should use MAX 2.
 
 function getPlaylistVideos(playlists) {
     Promise.map(playlists, function(playlist) {
@@ -39,13 +40,22 @@ function getPlaylistVideos(playlists) {
                 tracks
             })
         }
+        formattedPlaylist = formatted;
         return formatted;
     }).then(function(fp) {
         return Promise.map(fp, function(p) {
             return getYoutubeIds(p.tracks);
         })
     }).then(function(youtubeFP) {
-        trendingPlaylists = youtubeFP;
+        youtubeFP.forEach(function(youtubePlaylist, index) {
+            console.log(youtubePlaylist.length);
+            if(youtubePlaylist.length >= 10) {
+                trendingPlaylists.push({
+                    name: formattedPlaylist[index].name,
+                    data: youtubePlaylist
+                })
+            }
+        });
         console.log("Fetched " + numberOfTrendingPlaylists + " Trending Playlists")
     })
 }
@@ -100,12 +110,8 @@ function youtubeSearch(query) {
               else {
                 if (detailResult.items.length &&
                     Number(detailResult.items[0].statistics.viewCount) > 10000) {
-                    resolve({
-                        title,
-                        id: result.items[0].id.videoId,
-                        thumbnail: result.items[0].snippet.thumbnails.default.url,
-                        duration: detailResult.items[0].contentDetails.duration
-                    });
+                    result.items[0].contentDetails = detailResult.items[0].contentDetails;
+                    resolve(result.items[0]);
                     return;
                 }
                 resolve(null);
