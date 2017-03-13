@@ -3,7 +3,7 @@
 
 <head>
     <title>Qube</title>
-    <meta property="og:image" content="http://qubevideos.com/static/images/demo_picture.png" />
+    <meta property="og:image" content="http://qubevideos.com/static/images/demo_picture2.png" />
     <link rel="icon" href="/static/logo.ico?v=2" type="image/x-icon"/>
     <link rel="shortcut icon" href="/static/logo.ico?v=2" type="image/x-icon"/>
     <link type="text/css" rel="stylesheet" href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700'/>
@@ -117,7 +117,11 @@
                             <p>You don't have any playlists. Add one using 'Add a Playlist' above!</p>
                           </div>
                             <ul class="userPlaylist scrollbar sortable" ng-show="playlists.length > 0">
-                                <li class="playlist" ng-repeat="playlist in playlists | searchFor:searchString" ng-class="{active: currentPlaylist.name == playlist.name}" ng-click="previewPlaylist(playlist)" id="{{ playlist.name }}">
+                                <li class="playlist"
+                                    ng-repeat="playlist in playlists | searchFor:searchString"
+                                    ng-class="{active: currentPlaylist.name == playlist.name}"
+                                    ng-click="previewPlaylist(playlist)"
+                                    id="{{ playlist.name }}">
                                     <div class="playlistDetail">
                                         <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                         <div class="title">
@@ -231,7 +235,7 @@
                 <!-- END OF mainView -->
                 <div class="bottomContainer noselect">
                     <div class="controllers-container">
-                        <ul class="controllers" style="font-size:15px;">
+                        <ul class="controllers" style="font-size:0px;">
                             <li ng-click="prevVideo()"><i class="icon-control-rewind i-lg"></i>
                             </li>
                             <li ng-click="togglePlayVideo()"><i class="icon-control-play i-2x"></i>
@@ -241,9 +245,6 @@
                         </ul>
                     </div>
                     <div class="progressBar">
-                        <div style="z-index:9999; cursor:default;">
-                            <span>{{ currentVideoTitle }}</span>
-                        </div>
                         <div class="progressLevel"></div>
                     </div>
                     <div class="time">

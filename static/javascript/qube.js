@@ -172,6 +172,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
               videolist.push($scope.playlists[i].data[j].id);
           }
           datalist.push({
+              _id: $scope.playlists[i]._id,
               name: $scope.playlists[i].name,
               videos: videolist
           });
@@ -198,10 +199,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
                         videolist.push($scope.playlists[j].data[k].id);
                     }
                     datalist.push({
+                        _id: $scope.playlists[j]._id,
                         name: $scope.playlists[j].name,
                         videos: videolist
                     });
                     newlist.push($scope.playlists[j]);
+                    break;
                 }
             }
         }
@@ -595,11 +598,21 @@ app.service("QubeService", function($http, $q) {
       return deferred.promise;
     }
 
+    function doneLoadingPlaylist(scope) {
+        setInterval(function() {
+          $('div.loading-page').fadeOut(1000);
+        }, 300);
+    }
+
     function getPlaylistDetails(scope, playlists) {
         var promises = [];
 
         for(var i = 0; i < playlists.length; i++) {
             promises.push(getVideoDetails(scope, playlists[i]));
+        }
+
+        if(promises.length == 0) {
+          doneLoadingPlaylist();
         }
 
         return Q.allSettled(promises).then(function(result) {
@@ -612,11 +625,9 @@ app.service("QubeService", function($http, $q) {
                   playlists.push(value);
                 }
             }
+            doneLoadingPlaylist();
             scope.playlists = playlists;
             scope.loadFirstPlaylist(playlists[0]);
-            setInterval(function() {
-              $('div.loading-page').fadeOut(1000);
-            }, 200);
             scope.$apply();
         });
     }
@@ -772,6 +783,7 @@ app.service("QubeService", function($http, $q) {
                 } else {
                     deferred.resolve(true);
                     alertify.success(successMessage);
+                    scope.$apply();
                 }
             })
             .error(function(err){

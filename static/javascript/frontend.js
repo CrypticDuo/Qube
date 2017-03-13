@@ -174,13 +174,13 @@ function pauseTimer(){
 
 $(document).ready(function() {
 
-    $('.lcSearch input').autocomplete({appendTo: "body"});
+    $('.lcSearch input').autocomplete({source: [], appendTo: "body"});
     $('.lcSearch input').autocomplete('enable');
 
     alertify.set('notifier','position', 'top-right');
     alertify.set('notifier','delay', 3);
 
-    $('.lcSearch input').on('keyup', function(e) {
+    $('.lcSearch input').on('keypress', function(e) {
         var self = this;
         if(e.which !== 13){
             onSearchChange($(self),$(self).val());
@@ -188,7 +188,7 @@ $(document).ready(function() {
         else if(e.which === 13){
             $('.lcSearch input').autocomplete( "destroy" );
             setTimeout(function(){
-                $('.lcSearch input').autocomplete({appendTo: "body"});
+                $('.lcSearch input').autocomplete({source: [], appendTo: "body"});
                 $('.lcSearch input').autocomplete('enable');
             },1000);
         }
@@ -285,7 +285,8 @@ $(document).ready(function() {
         if(!isPaused){
             duration=(player.getCurrentTime())/(getMaxVideoTime())*100;
             $('.bottomContainer > div.time > span.timeStart').text(convertSecondsToTime(player.getCurrentTime()+1));
-            $(".progressBar > div.progressLevel").css('width', duration+'%');
+            $('.progressBar > div.progressLevel').css('width', duration+'%');
+            $('.progressBar > span.ui-slider-handle').css('left', duration+'%');
         }
     },250);
 
@@ -369,7 +370,10 @@ $(document).ready(function() {
         stop: function(event, ui) {
             var scope = angular.element($el).scope();
             scope.$apply(function() {
-                scope.updatePlaylist($el.sortable('toArray'));
+                var names = $('ul.userPlaylist > li .edit .text')
+                  .toArray()
+                  .map(function(el) { return $(el).text().trim(); });
+                scope.updatePlaylist(names);
             });
 
         }
