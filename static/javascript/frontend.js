@@ -409,7 +409,7 @@ $(document).ready(function() {
                 if(!$('#QubePlaylist .videolist .player').hasClass('fullscreen')){
                     $('.bottomContainer .full-screen-icon').addClass('active');
                     $('#QubePlaylist .videolist .player').addClass('fullscreen');
-                    setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-120, true);
+                    setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-100, true);
                 }
                 else{
                     width = $('.playView').width();
