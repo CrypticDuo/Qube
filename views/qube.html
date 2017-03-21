@@ -159,7 +159,7 @@
                               </div>
                               <div class="videoContainer">
                                   <div class="video" ng-repeat="video in ytSearchResult">
-                                    <div class="video-image tooltip-right noselect" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title, video.id)" data-tooltip="Preview video">
+                                    <div class="video-image noselect" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title, video.id)">
                                         <img class="video-image" src="{{ video.thumbnail }}">
                                     </div>
                                     <span class="video-duration">{{ video.contentDetails.duration }}</span>
