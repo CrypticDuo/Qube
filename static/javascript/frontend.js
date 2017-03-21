@@ -425,7 +425,7 @@ $(document).ready(function() {
                 player.playVideo();
             }
         });
-        $('#preview_overlay').on('click', function(){
+        $('#previewOverlay').on('click', function(){
             $('#previewOverlay').hide();
             $('#addPlaylistModal').hide();
             playerPreview.stopVideo();
