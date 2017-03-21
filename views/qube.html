@@ -159,13 +159,13 @@
                               </div>
                               <div class="videoContainer">
                                   <div class="video" ng-repeat="video in ytSearchResult">
-                                    <div class="video-image tooltip-right noselect" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title)" onclick="onPreviewClick(this)" data-tooltip="Preview video">
+                                    <div class="video-image tooltip-right noselect" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title, video.id)" data-tooltip="Preview video">
                                         <img class="video-image" src="{{ video.thumbnail }}">
                                     </div>
                                     <span class="video-duration">{{ video.contentDetails.duration }}</span>
                                     <div class="video-detail">
                                         <div class="overflowEllipsis">
-                                            <span class="video-title">{{ video.snippet.title }}</span>
+                                            <span class="video-title"ng-click="onPreviewClick(video.snippet.title, video.id)">{{ video.snippet.title }}</span>
                                         </div>
                                         <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
                                         <div class="ytVidHover noselect">
@@ -279,8 +279,7 @@
                     </div>
                 </div>
 
-
-                <a id="videoPreview" href="#addPlaylistModal"></a>
+                <div id="previewOverlay" style="display:none;"></div>
                 <div id="addPlaylistModal" class="popupContainer" style="display:none;">
                     <header class="popupHeader">
                         <span class="header_title">{{ previewTitle }}</span>
@@ -319,7 +318,6 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-<script type="text/javascript" src="/static/framework/login-popup/js/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="/static/framework/alertify/alertify.min.js"></script>
 <script type="text/javascript" src="/bower_components/clipboard/dist/clipboard.min.js"></script>

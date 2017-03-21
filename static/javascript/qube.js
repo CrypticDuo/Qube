@@ -563,8 +563,16 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         player.setVolume(volume);
     }
 
-    $scope.onPreviewClick = function(title){
+    $scope.onPreviewClick = function(title, video_id) {
+        $('#previewOverlay').show();
+        $('#addPlaylistModal').show();
         $scope.previewTitle = title;
+
+        playerPreview.loadVideoById(video_id);
+
+        previewPlayerState = player.getPlayerState();
+        player.pauseVideo();
+        playerPreview.playVideo();
     }
 
     $scope.checkPlaylistExists = function(){
