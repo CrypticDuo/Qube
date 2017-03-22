@@ -69,6 +69,14 @@ h6 {
   font-size: 23px;
 }
 
+.logo {
+  width: 36px;
+  float: left;
+  top: 8px;
+  margin-right: 5px;
+  position: relative;
+}
+
 .intro-message {
   position: relative;
   padding-top: 14%;
