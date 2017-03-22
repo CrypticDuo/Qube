@@ -424,6 +424,7 @@ $(document).ready(function() {
             if(previewPlayerState === 1){
                 player.playVideo();
             }
+            playerPreview.loadVideoById('');
         });
         $('#previewOverlay').on('click', function(){
             $('#previewOverlay').hide();
@@ -432,6 +433,7 @@ $(document).ready(function() {
             if(previewPlayerState === 1){
                 player.playVideo();
             }
+            playerPreview.loadVideoById('');
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////

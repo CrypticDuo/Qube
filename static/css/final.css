@@ -251,6 +251,7 @@ a {
 }
 #QubePlaylist .view.main .video-image {
   float: left;
+  cursor: pointer;
 }
 #QubePlaylist .view.main .video-title {
   display: block;
