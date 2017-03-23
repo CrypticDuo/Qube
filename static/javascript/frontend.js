@@ -327,6 +327,7 @@ $(document).ready(function() {
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
         $('.userVideolist > div').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
+        $('.userPlaylist').css('min-height', $(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.addPlaylist').outerHeight()) + 'px');
     });
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -535,8 +536,11 @@ $(document).on('click', function(e) {
               $(elements[openedOptionIndex]).hide();
               $(elements[openedOptionIndex]).parents('.userPlaylist li').removeClass('moreOptionOpen');
           }
-          // if it's the last 2 playlists, show it above
-          if($(this).parents('.userPlaylist li').index() >= elements.length - 2) {
+
+          // if dropdown goes further below the max height, show it above
+          if($(this).parents('.userPlaylist li').index() >= elements.length - 1
+            && ((elements.length + 1) * $('.addPlaylist').outerHeight() + dropdown.outerHeight() >
+              $('.listDisplay').outerHeight())) {
             dropdown.css('top', '-95px');
           }
 
