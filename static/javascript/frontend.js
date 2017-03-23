@@ -539,7 +539,7 @@ $(document).on('click', function(e) {
 
           // if dropdown goes further below the max height, show it above
           if($(this).parents('.userPlaylist li').index() >= elements.length - 1
-            && ((elements.length + 1) * $('.addPlaylist').outerHeight() + dropdown.outerHeight() >
+            && ((elements.length + 1) * $('.addPlaylist').outerHeight() + (dropdown.outerHeight()/2) >
               $('.listDisplay').outerHeight())) {
             dropdown.css('top', '-95px');
           }
