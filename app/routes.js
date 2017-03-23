@@ -4,6 +4,7 @@ var db = require('./database');
 var User = require('../model/user');
 var request = require('request');
 var share = require('./share');
+var trending = require('./trending');
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -13,6 +14,8 @@ function ensureAuthenticated(req, res, next) {
 }
 
 var Routes = function (app, router) {
+    trending.fetchTrending();
+
     app.get('/', function(req, res) {
         if (req.isAuthenticated()) { // if logged in
             User.findById(req.session.passport.user, function(err, user) {
@@ -86,6 +89,12 @@ var Routes = function (app, router) {
             });
         });
 
+    router.route('/getTrending')
+        //get all playlist
+        .get(ensureAuthenticated, function(req, res) {
+            res.json(trending.getTrending());
+        });
+
     router.route('/playlists')
         //get all playlist
         .get(ensureAuthenticated, function(req, res) {
@@ -116,8 +125,14 @@ var Routes = function (app, router) {
         })
         //update playlist
         .put(ensureAuthenticated, function(req, res){
-            var temp = JSON.parse(req.params.playlist_name);
-            db.updatePlaylist(req.user.oauthID, temp).then(function(result){
+            var playlistData = JSON.parse(req.params.playlist_name);
+            var formattedPlaylist = playlistData.map(function(data) {
+                return {
+                    name: data.name,
+                    videos: data.videos
+                }
+            });
+            db.updatePlaylist(req.user.oauthID, formattedPlaylist).then(function(result){
                 res.json(result);
             });
         });
