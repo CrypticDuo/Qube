@@ -97,9 +97,15 @@ var Routes = function (app, router) {
             });
         })
         .put(ensureAuthenticated, function(req, res) {
-            trending.fetchTrending().then(function(result) {
-                res.json(result);
-            });
+            if(req.params.secretKey === oauth.qubeVideosKey) {
+              trending.fetchTrending().then(function(result) {
+                  res.json(result);
+              });
+            } else {
+              res.json({
+                status: 'denied'
+              });
+            }
         });
 
     router.route('/playlists')
