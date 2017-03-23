@@ -14,8 +14,6 @@ function ensureAuthenticated(req, res, next) {
 }
 
 var Routes = function (app, router) {
-    trending.fetchTrending();
-
     app.get('/', function(req, res) {
         if (req.isAuthenticated()) { // if logged in
             User.findById(req.session.passport.user, function(err, user) {
@@ -26,7 +24,7 @@ var Routes = function (app, router) {
                 };
             });
         } else {
-            res.render('index.html');
+            res.render('index.ejs');
         }
     });
 
@@ -56,6 +54,14 @@ var Routes = function (app, router) {
         });
     });
 
+    app.get('/privacy', function(req, res) {
+        res.render('privacy.ejs');
+    });
+
+    app.get('/terms', function(req, res) {
+        res.render('terms.ejs');
+    });
+
     // middleware to use for all requests
     router.use(function(req, res, next) {
         // do logging
@@ -81,10 +87,17 @@ var Routes = function (app, router) {
             });
         });
 
-    router.route('/getTrending')
+    router.route('/trending')
         //get all playlist
         .get(ensureAuthenticated, function(req, res) {
-            res.json(trending.getTrending());
+            trending.getTrending().then(function(data) {
+                return res.json(JSON.parse(data['data']));
+            });
+        })
+        .put(ensureAuthenticated, function(req, res) {
+            trending.fetchTrending().then(function(result) {
+                res.json(result);
+            });
         });
 
     router.route('/playlists')

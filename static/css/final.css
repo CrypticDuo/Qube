@@ -251,14 +251,16 @@ a {
 }
 #QubePlaylist .view.main .video-image {
   float: left;
+  cursor: pointer;
 }
 #QubePlaylist .view.main .video-title {
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: calc(100% - 75px);
   font-size: 12px;
-  display: block;
+  cursor: pointer;
 }
 #QubePlaylist .video-duration {
   float: left;
@@ -641,11 +643,24 @@ a {
 #QubePlaylist .bottomContainer .shuffle-icon > i, #QubePlaylist .bottomContainer .full-screen-icon > i{
   cursor:pointer;
 }
+#previewOverlay {
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
 #QubePlaylist #addPlaylistModal {
   width: auto;
   background-color: #131313;
   width: 550px;
+  height: 310px;
   border: 1px solid #212121;
+  z-index: 101;
+  position: absolute;
+  top: calc(50% - 225px);
+  left: calc(50% - 225px);
 }
 #QubePlaylist #addPlaylistModal .popupHeader {
   border-radius: 2px 2px 0 0;
@@ -812,6 +827,9 @@ a {
   float: left;
   position: absolute;
   top: 2px;
+}
+.userPlaylist {
+  overflow-y: visible;
 }
 .userPlaylist .icon-container {
   position: relative;

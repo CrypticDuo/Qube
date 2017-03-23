@@ -24,6 +24,13 @@ function onYouTubeIframeAPIReady() {
         'onStateChange': onPlayerStateChange
       }
     });
+
+    playerPreview = new YT.Player('playerPreview', {
+        height: '310',
+        width: '100%',
+        playerVars: { controls:1, playsinline:1, rel:0, showinfo:0, modestbranding:0, iv_load_policy:3, fs:0, enablejsapi: 1, disablekb:1 },
+      events: {}
+    });
   }
 
 function onPlayerReady(event) {
@@ -118,21 +125,6 @@ function onSearchChange(el, query){
     }
 }
 
-function onPreviewClick(self){
-    $('#videoPreview').click();
-
-    var params = { allowScriptAccess: "always" };
-    var atts = { id: "myytplayerpreview" ,
-            'showinfo': 0,
-            'controls': 1,
-            'modestbranding': 1,
-            wmode: 'transparent'};
-    swfobject.embedSWF("http://www.youtube.com/v/"+$(self).attr('id')+"?enablejsapi=1&playerapiid=playerPreview&version=3&showinfo=0&autoplay=1&autohide=1&controls=1", "playerPreview", "550", "310", "8", null, null, params, atts);
-
-    previewPlayerState = player.getPlayerState();
-    player.pauseVideo();
-}
-
 function convertSecondsToTime(s) {
     var tHours = parseInt(s/3600);
     var tMinutes = parseInt((s%3600)/60);
@@ -192,11 +184,6 @@ $(document).ready(function() {
                 $('.lcSearch input').autocomplete('enable');
             },1000);
         }
-    });
-    $("#videoPreview").leanModal({
-        top: 50,
-        overlay: 0.6,
-        closeButton: ".modal_close i"
     });
 
     setSize(310, 550, false); // HACK
@@ -340,7 +327,7 @@ $(document).ready(function() {
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
         $('.userVideolist > div').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
-        $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.yourPlaylists').outerHeight()));
+        $('.userPlaylist').css('min-height', $(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.addPlaylist').outerHeight()) + 'px');
     });
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -409,7 +396,7 @@ $(document).ready(function() {
                 if(!$('#QubePlaylist .videolist .player').hasClass('fullscreen')){
                     $('.bottomContainer .full-screen-icon').addClass('active');
                     $('#QubePlaylist .videolist .player').addClass('fullscreen');
-                    setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-120, true);
+                    setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-100, true);
                 }
                 else{
                     width = $('.playView').width();
@@ -428,18 +415,25 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 // PREVIEW FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
+
     (function(){
         $('.modal_close i').on('click', function(){
-            $('.addPlaylistModalBody').html("<div id='playerPreview'></div>");
+            $('#previewOverlay').hide();
+            $('#addPlaylistModal').hide();
+            playerPreview.stopVideo();
             if(previewPlayerState === 1){
                 player.playVideo();
             }
+            playerPreview.loadVideoById('');
         });
-        $('#lean_overlay').on('click', function(){
-            $('.addPlaylistModalBody').html("<div id='playerPreview'></div>");
+        $('#previewOverlay').on('click', function(){
+            $('#previewOverlay').hide();
+            $('#addPlaylistModal').hide();
+            playerPreview.stopVideo();
             if(previewPlayerState === 1){
                 player.playVideo();
             }
+            playerPreview.loadVideoById('');
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
@@ -542,6 +536,14 @@ $(document).on('click', function(e) {
               $(elements[openedOptionIndex]).hide();
               $(elements[openedOptionIndex]).parents('.userPlaylist li').removeClass('moreOptionOpen');
           }
+
+          // if dropdown goes further below the max height, show it above
+          if($(this).parents('.userPlaylist li').index() >= elements.length - 1
+            && ((elements.length + 1) * $('.addPlaylist').outerHeight() + (dropdown.outerHeight()/2) >
+              $('.listDisplay').outerHeight())) {
+            dropdown.css('top', '-95px');
+          }
+
           if($(e.target).parents('.userPlaylist li').index() !== openedOptionIndex) {
             dropdown.toggle();
           }

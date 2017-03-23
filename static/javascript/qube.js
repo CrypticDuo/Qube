@@ -564,8 +564,16 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         player.setVolume(volume);
     }
 
-    $scope.onPreviewClick = function(title){
+    $scope.onPreviewClick = function(title, video_id) {
+        $('#previewOverlay').show();
+        $('#addPlaylistModal').show();
         $scope.previewTitle = title;
+
+        playerPreview.loadVideoById(video_id);
+
+        previewPlayerState = player.getPlayerState();
+        player.pauseVideo();
+        playerPreview.playVideo();
     }
 
     $scope.checkPlaylistExists = function(){
@@ -713,7 +721,6 @@ app.service("QubeService", function($http, $q) {
         $http.get(HOST_URL + "/api/getTrending")
             .success(function(res) {
                 if (res.length) {
-                    // todo: format res to look equal to $scope.playlists format
                     res.forEach(function(playlist) {
                         playlist.duration = "00:00";
                         for(var i = 0; i < playlist.data.length; i++){

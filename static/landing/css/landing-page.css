@@ -69,6 +69,14 @@ h6 {
   font-size: 23px;
 }
 
+.logo {
+  width: 36px;
+  float: left;
+  top: 8px;
+  margin-right: 5px;
+  position: relative;
+}
+
 .intro-message {
   position: relative;
   padding-top: 14%;
@@ -309,6 +317,22 @@ h6 {
 footer {
     padding: 35px 0;
     background-color: #f8f8f8;
+}
+
+footer .footer-list {
+  float: left;
+  list-style-type: none;
+  margin: 15px 0 0 10px;
+  padding: 0;
+}
+
+footer .footer-list li {
+  display: inline;
+  margin-right: 10px;
+}
+
+footer .footer-list li a:hover {
+  color: #337ab7;
 }
 
 p.copyright {
