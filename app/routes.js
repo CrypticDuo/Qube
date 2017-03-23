@@ -23,7 +23,7 @@ var Routes = function (app, router) {
                 };
             });
         } else {
-            res.render('index.html');
+            res.render('index.ejs');
         }
     });
 
@@ -51,6 +51,14 @@ var Routes = function (app, router) {
         res.render('login.ejs', {
           'playlist_id': playlist_id
         });
+    });
+
+    app.get('/privacy', function(req, res) {
+        res.render('privacy.ejs');
+    });
+
+    app.get('/terms', function(req, res) {
+        res.render('terms.ejs');
     });
 
     // middleware to use for all requests
