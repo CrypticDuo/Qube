@@ -74,7 +74,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.replay = 'all';
         $scope.shuffleState = false;
         $scope.shuffleList = [];
+        $scope.trendingPlaylists = [];
         QubeService.listAllPlaylist($scope);
+        QubeService.getTrending($scope);
         addInfiniteScroll();
     }
 
@@ -111,7 +113,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
           alertify.error('There are no videos in this playlist.');
           return;
         }
-
 
         if($scope.playingPlaylist.name !== playlist.name){
             $scope.currentPlaylist = playlist;
@@ -635,7 +636,7 @@ app.service("QubeService", function($http, $q) {
             }
             doneLoadingPlaylist();
             scope.playlists = playlists;
-            scope.loadFirstPlaylist(playlists[0]);
+            // scope.loadFirstPlaylist(playlists[0]);
             scope.$apply();
         });
     }
@@ -713,6 +714,26 @@ app.service("QubeService", function($http, $q) {
             })
             .error(function(err) {
                 alertify.error('Failed to list playlists.');
+            });
+    };
+
+    function getTrending(scope) {
+        $http.get(HOST_URL + "/api/getTrending")
+            .success(function(res) {
+                if (res.length) {
+                    // todo: format res to look equal to $scope.playlists format
+                    res.forEach(function(playlist) {
+                        playlist.duration = "00:00";
+                        for(var i = 0; i < playlist.data.length; i++){
+                          playlist.data[i].contentDetails.duration = convertYoutubeDuration(playlist.data[i].contentDetails.duration);
+                          playlist.duration = addDuration(playlist.duration, playlist.data[i].contentDetails.duration);
+                        }
+                    });
+                    scope.trendingPlaylists = res;
+                }
+            })
+            .error(function(err) {
+                alertify.error('Failed to fetch trending playlists.');
             });
     };
 
@@ -883,6 +904,7 @@ app.service("QubeService", function($http, $q) {
     //Returns the public API
     return ({
         listAllPlaylist: listAllPlaylist,
+        getTrending: getTrending,
         addPlaylist: addPlaylist,
         removePlaylist: removePlaylist,
         updatePlaylist: updatePlaylist,
