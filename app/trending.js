@@ -4,6 +4,8 @@ var Promise = require("bluebird");
 var Oauth = require("../oauth")
 var SpotifyWebApi = Promise.promisifyAll(require('spotify-web-api-node'));
 var YouTube = Promise.promisifyAll(require('youtube-node'));
+var trendingDB = require('./trendingDatabase');
+var config = require('../config/config');
 
 var spotifyApi = new SpotifyWebApi({
   clientId : Oauth.trending.spotifyId,
@@ -13,12 +15,8 @@ var spotifyApi = new SpotifyWebApi({
 var youTube = new YouTube();
 youTube.setKey(Oauth.trending.youtubeServerKey);
 
-var trendingPlaylists = [];
-var formattedPlaylist = [];
-var numberOfTrendingPlaylists = 20; // dev environment should use MAX 2.
-
 function getPlaylistVideos(playlists) {
-    Promise.map(playlists, function(playlist) {
+    return Promise.map(playlists, function(playlist) {
         return spotifyApi.getPlaylistTracks(playlist.owner.id, playlist.id, { 'fields' : 'items' });
     }).then(function(results) {
         var formatted = [];
@@ -40,28 +38,29 @@ function getPlaylistVideos(playlists) {
                 tracks
             })
         }
-        formattedPlaylist = formatted;
-        return formatted;
-    }).then(function(fp) {
-        return Promise.map(fp, function(p) {
+        return Promise.map(formatted, function(p) {
             return getYoutubeIds(p.tracks);
-        })
-    }).then(function(youtubeFP) {
-        youtubeFP.forEach(function(youtubePlaylist, index) {
-            console.log(youtubePlaylist.length);
-            if(youtubePlaylist.length >= 10) {
-                trendingPlaylists.push({
-                    name: formattedPlaylist[index].name,
-                    data: youtubePlaylist
-                })
-            }
+        }).then(function(youtubeFP) {
+            var trendingPlaylists = [];
+
+            youtubeFP.forEach(function(youtubePlaylist, index) {
+                if(youtubePlaylist.length >= 10) {
+                    trendingPlaylists.push({
+                        name: formatted[index].name,
+                        data: youtubePlaylist
+                    })
+                }
+            });
+            // TODO: Log internally
+            console.log("Fetched " + config.numberOfTrendingPlaylists + " Trending Playlists");
+
+            return trendingPlaylists;
         });
-        console.log("Fetched " + numberOfTrendingPlaylists + " Trending Playlists")
-    })
+    });
 }
 
 function getYoutubeIds(tracks) {
-    return Promise.map(tracks, function(track) {
+    return Promise.each(tracks, function(track) {
         var query = track.title + " " + track.artist;
         return youtubeSearch(query);
     })
@@ -104,19 +103,19 @@ function youtubeSearch(query) {
             }
             youTube.getById(result.items[0].id.videoId, function(detailError, detailResult) {
               if (detailError) {
-                reject(error);
-                return;
-            }
-              else {
-                if (detailResult.items.length &&
-                    Number(detailResult.items[0].statistics.viewCount) > 10000) {
-                    result.items[0].contentDetails = detailResult.items[0].contentDetails;
-                    resolve(result.items[0]);
-                    return;
-                }
-                resolve(null);
-                return;
+                  reject(detailError);
+                  return;
               }
+              else {
+                  if (detailResult.items.length &&
+                      Number(detailResult.items[0].statistics.viewCount) > 10000) {
+                      result.items[0].contentDetails = detailResult.items[0].contentDetails;
+                      resolve(result.items[0]);
+                      return;
+                  }
+                  resolve(null);
+                  return;
+                }
             });
         });
     });
@@ -133,14 +132,19 @@ module.exports = {
         })
         .then(function() {
             //  Retrieve featured playlists
-            return spotifyApi.getFeaturedPlaylists({limit : numberOfTrendingPlaylists, offset: 0})
+            return spotifyApi.getFeaturedPlaylists({limit : config.numberOfTrendingPlaylists, offset: 0})
         })
         .then(function(data) {
             return getPlaylistVideos(data.body.playlists.items);
+        })
+        .then(function(data) {
+            return trendingDB.saveTrendingPlaylists(data);
+        }).catch(function(e) {
+            console.log(e);
         });
     },
 
     getTrending: function() {
-        return trendingPlaylists;
+        return trendingDB.getTrendingPlaylists();
     }
 };
