@@ -718,7 +718,7 @@ app.service("QubeService", function($http, $q) {
     };
 
     function getTrending(scope) {
-        $http.get(HOST_URL + "/api/getTrending")
+        $http.get(HOST_URL + "/api/trending")
             .success(function(res) {
                 if (res.length) {
                     res.forEach(function(playlist) {
