@@ -15,7 +15,7 @@ youTube.setKey(Oauth.trending.youtubeServerKey);
 
 var trendingPlaylists = [];
 var formattedPlaylist = [];
-var numberOfTrendingPlaylists = 20; // dev environment should use MAX 2.
+var numberOfTrendingPlaylists = 15; // dev environment should use MAX 2.
 
 function getPlaylistVideos(playlists) {
     Promise.map(playlists, function(playlist) {
@@ -64,7 +64,7 @@ function getYoutubeIds(tracks) {
     return Promise.map(tracks, function(track) {
         var query = track.title + " " + track.artist;
         return youtubeSearch(query);
-    })
+    }, {concurrency: 2})
     .then(function(youtubeTracks) {
         var tracks = youtubeTracks.filter(function(track) {
             if(track) {

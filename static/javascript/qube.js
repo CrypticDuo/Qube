@@ -277,7 +277,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if (videoId) {
           $scope.preventOuterDivEvent();
         }
-        videoId = videoId || $scope.currentPlayingVideo.id;
+        videoId = videoId || $scope.currentPlayingVideo.id.videoId || $scope.currentPlayingVideo.id;
         $scope.listDisplay = 'youtube';
         var parameters = {
             key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI',

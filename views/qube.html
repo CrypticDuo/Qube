@@ -100,6 +100,40 @@
             <div class="mainView">
                 <div ng-show="layout == 'main'" class="view main">
                     <div class="listDisplay">
+                      <div class="playlistColumn" ng-show="listDisplay == 'trending'">
+                        <div class="placeholder" ng-show="trendingPlaylists.length == 0">
+                          <i class="icon icon-playlist"></i>
+                          <p>There are currently no trending playlists.</p>
+                        </div>
+                        <ul class="userPlaylist scrollbar sortable" ng-show="trendingPlaylists.length > 0">
+                            <li class="playlist"
+                                ng-repeat="playlist in trendingPlaylists"
+                                ng-class="{active: currentPlaylist.name == playlist.name}"
+                                ng-click="previewPlaylist(playlist)"
+                                id="{{ playlist.name }}">
+                                <div class="playlistDetail">
+                                    <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+                                    <div class="title">
+                                      <div class="edit">
+                                        <span class="text">{{playlist.name}}</span>
+                                        <input type="text" class="edit-input" value="{{playlist.name}}">
+                                      </div>
+                                    </div>
+                                    <div class="duration">{{playlist.data.length}} videos - {{playlist.duration}}</div>
+                                    <div class="icon-container">
+                                      <div class="optionContainer float-right">
+                                        <i class="morePlaylistOptions icon icon-options-vertical"></i>
+                                        <ul class="dropdown sf-menu-sub" style="display: none;">
+                                          <li class="playlist-menu" >Add to My Playlist</li>
+                                        </ul>
+                                    </div>
+                                      <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist == playingPlaylist}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
+                                      <div class="float-right tooltip-left speaker" ng-class="{hide: playlist != playingPlaylist}"><i class="icon icon-volume-2"></i></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                      </div>
                         <div class="playlistColumn" ng-show="listDisplay == 'playlist'">
                           <div class="addPlaylist">
                             <div class="playlistDetail">
@@ -140,8 +174,8 @@
                                               <li class="copyShareLink playlist-menu" ng-click="copyShareLink(playlist)" data-clipboard-text="{{ hostUrl }}/share/{{ playlist._id }}">Copy Share Link</li>
                                             </ul>
                                         </div>
-                                          <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist.name == playingPlaylist.name}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
-                                          <div class="float-right tooltip-left speaker" ng-class="{hide: playlist.name != playingPlaylist.name}"><i class="icon icon-volume-2"></i></div>
+                                          <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist == playingPlaylist}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
+                                          <div class="float-right tooltip-left speaker" ng-class="{hide: playlist != playingPlaylist}"><i class="icon icon-volume-2"></i></div>
                                         </div>
                                     </div>
                                 </li>
@@ -212,6 +246,13 @@
                               <div class="lcContentContainer">
                                 <i class="icon icon-earphones"></i>
                                 <span class="font-bold lcHeader">Related</span>
+                              </div>
+                            </div>
+                            <div class="lcNavigatable" ng-click="listDisplay = 'trending'">
+                              <div class="lcSelectionIndicator"></div>
+                              <div class="lcContentContainer">
+                                <i class="icon icon-fire"></i>
+                                <span class="font-bold lcHeader">Trending</span>
                               </div>
                             </div>
                             <div class="lcFeatures">
