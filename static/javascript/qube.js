@@ -721,7 +721,6 @@ app.service("QubeService", function($http, $q) {
         $http.get(HOST_URL + "/api/getTrending")
             .success(function(res) {
                 if (res.length) {
-                    // todo: format res to look equal to $scope.playlists format
                     res.forEach(function(playlist) {
                         playlist.duration = "00:00";
                         for(var i = 0; i < playlist.data.length; i++){

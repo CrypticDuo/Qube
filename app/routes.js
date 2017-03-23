@@ -14,6 +14,8 @@ function ensureAuthenticated(req, res, next) {
 }
 
 var Routes = function (app, router) {
+    trending.fetchTrending();
+
     app.get('/', function(req, res) {
         if (req.isAuthenticated()) { // if logged in
             User.findById(req.session.passport.user, function(err, user) {
