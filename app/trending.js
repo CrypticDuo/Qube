@@ -60,7 +60,7 @@ function getPlaylistVideos(playlists) {
 }
 
 function getYoutubeIds(tracks) {
-    return Promise.each(tracks, function(track) {
+    return Promise.map(tracks, function(track) {
         var query = track.title + " " + track.artist;
         return youtubeSearch(query);
     }, {concurrency: 2})
