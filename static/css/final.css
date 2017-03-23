@@ -828,6 +828,9 @@ a {
   position: absolute;
   top: 2px;
 }
+.userPlaylist {
+  overflow-y: visible;
+}
 .userPlaylist .icon-container {
   position: relative;
   top: -26px;

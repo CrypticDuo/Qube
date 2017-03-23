@@ -327,7 +327,6 @@ $(document).ready(function() {
         $('.searchResultColumn').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
         $('.userVideolist').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
         $('.userVideolist > div').height($(window).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight() + $('.player').outerHeight()));
-        $('.userPlaylist').height($(this).height() - ($('.topHeader').outerHeight() + $('.bottomContainer').outerHeight()));
     });
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -536,6 +535,11 @@ $(document).on('click', function(e) {
               $(elements[openedOptionIndex]).hide();
               $(elements[openedOptionIndex]).parents('.userPlaylist li').removeClass('moreOptionOpen');
           }
+          // if it's the last 2 playlists, show it above
+          if($(this).parents('.userPlaylist li').index() >= elements.length - 2) {
+            dropdown.css('top', '-95px');
+          }
+
           if($(e.target).parents('.userPlaylist li').index() !== openedOptionIndex) {
             dropdown.toggle();
           }
