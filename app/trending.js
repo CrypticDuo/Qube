@@ -35,8 +35,8 @@ function getPlaylistVideos(playlists) {
             }
 
             formatted.push({
-                name: playlists[i].name,
-                tracks
+                'name': playlists[i].name,
+                'tracks': tracks
             });
         }
         return Promise.map(formatted, function(p) {
