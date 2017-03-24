@@ -5,6 +5,7 @@ var User = require('../model/user');
 var request = require('request');
 var share = require('./share');
 var trending = require('./trending');
+var oauth = require('../oauth');
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -99,7 +100,7 @@ var Routes = function (app, router) {
                 });
             });
         })
-        .put(ensureAuthenticated, function(req, res) {
+        .put(function(req, res) {
             if(req.params.secretKey === oauth.qubeVideosKey) {
               trending.fetchTrending().then(function(result) {
                   res.json(result);
