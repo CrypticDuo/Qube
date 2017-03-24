@@ -387,22 +387,36 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
 // FULLSCREEN FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
+    function fullscreenOn() {
+        $('.bottomContainer .full-screen-icon').addClass('active');
+        $('#QubePlaylist .videolist .player').addClass('fullscreen');
+        setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-100, true);
+    }
+
+    function fullscreenOff(width, height) {
+        $('.bottomContainer .full-screen-icon').removeClass('active');
+        $('#QubePlaylist .videolist .player').removeClass('fullscreen');
+        setSize(width, height, true);
+    }
     (function(){
         var width = $('.playView').width();
 
+        $(window).on('keyup', function(e) {
+            if (e.which === 27 && $('#QubePlaylist .videolist .player').hasClass('fullscreen')) {
+                width = $('.playView').width();
+                fullscreenOff(width, height);
+            }
+        });
+
         var height = '310';
-        $('.full-screen-icon i').on('click', function(){
-            if($('.overlay').hasClass('fade-out')){
-                if(!$('#QubePlaylist .videolist .player').hasClass('fullscreen')){
-                    $('.bottomContainer .full-screen-icon').addClass('active');
-                    $('#QubePlaylist .videolist .player').addClass('fullscreen');
-                    setSize($('#QubePlaylist').width(), $('#QubePlaylist').height()-100, true);
+        $('.full-screen-icon i').on('click', function() {
+            if ($('.overlay').hasClass('fade-out')) {
+                if (!$('#QubePlaylist .videolist .player').hasClass('fullscreen')) {
+                    fullscreenOn();
                 }
-                else{
+                else {
                     width = $('.playView').width();
-                    $('.bottomContainer .full-screen-icon').removeClass('active');
-                    $('#QubePlaylist .videolist .player').removeClass('fullscreen');
-                    setSize(width, height, true);
+                    fullscreenOff(width, height);
                 }
             } else {
                 // ensure change happened
