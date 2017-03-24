@@ -851,7 +851,7 @@ app.service("QubeService", function($http, $q) {
                 } else {
                     deferred.resolve(true);
                     if(successMessage) alertify.success(successMessage);
-                    // scope.$apply();
+                    scope.$apply();
                 }
             })
             .error(function(err){

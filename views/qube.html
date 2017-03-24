@@ -112,38 +112,38 @@
             <div class="mainView">
                 <div ng-show="layout == 'main'" class="view main">
                     <div class="listDisplay">
-                      <div class="playlistColumn" ng-show="listDisplay == 'trending'">
-                        <div class="placeholder" ng-show="trendingPlaylists.length == 0">
-                          <i class="icon icon-playlist"></i>
-                          <p>There are currently no trending playlists.</p>
+                        <div class="trendingPlaylists playlistColumn scrollbar" ng-show="listDisplay == 'trending'">
+                          <div class="placeholder" ng-show="trendingPlaylists.length == 0">
+                            <i class="icon icon-playlist"></i>
+                            <p>There are currently no trending playlists.</p>
+                          </div>
+                          <ul class="userPlaylist sortable" ng-show="trendingPlaylists.length > 0">
+                              <li class="playlist"
+                                  ng-repeat="playlist in trendingPlaylists"
+                                  ng-class="{active: currentPlaylist._id == playlist._id}"
+                                  ng-click="previewPlaylist(playlist)"
+                                  id="{{ playlist.name }}">
+                                  <div class="playlistDetail">
+                                      <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+                                      <div class="title">
+                                          <span class="text">{{playlist.name}}</span>
+                                      </div>
+                                      <div class="duration">{{playlist.data.length}} videos - {{playlist.duration}}</div>
+                                      <div class="icon-container">
+                                        <div class="optionContainer float-right">
+                                          <i class="morePlaylistOptions icon icon-options-vertical"></i>
+                                          <ul class="dropdown sf-menu-sub" style="display: none;">
+                                            <li class="playlist-menu" ng-click="addToMyPlaylist(playlist)">Add to My Playlist</li>
+                                          </ul>
+                                      </div>
+                                        <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist == playingPlaylist}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
+                                        <div class="float-right tooltip-left speaker" ng-class="{hide: playlist != playingPlaylist}"><i class="icon icon-volume-2"></i></div>
+                                      </div>
+                                  </div>
+                              </li>
+                          </ul>
                         </div>
-                        <ul class="userPlaylist scrollbar sortable" ng-show="trendingPlaylists.length > 0">
-                            <li class="playlist"
-                                ng-repeat="playlist in trendingPlaylists"
-                                ng-class="{active: currentPlaylist._id == playlist._id}"
-                                ng-click="previewPlaylist(playlist)"
-                                id="{{ playlist.name }}">
-                                <div class="playlistDetail">
-                                    <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
-                                    <div class="title">
-                                        <span class="text">{{playlist.name}}</span>
-                                    </div>
-                                    <div class="duration">{{playlist.data.length}} videos - {{playlist.duration}}</div>
-                                    <div class="icon-container">
-                                      <div class="optionContainer float-right">
-                                        <i class="morePlaylistOptions icon icon-options-vertical"></i>
-                                        <ul class="dropdown sf-menu-sub" style="display: none;">
-                                          <li class="playlist-menu" ng-click="addToMyPlaylist(playlist)">Add to My Playlist</li>
-                                        </ul>
-                                    </div>
-                                      <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist == playingPlaylist}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
-                                      <div class="float-right tooltip-left speaker" ng-class="{hide: playlist != playingPlaylist}"><i class="icon icon-volume-2"></i></div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                      </div>
-                        <div class="playlistColumn scrollbar" ng-show="listDisplay == 'playlist'">
+                        <div class="userPlaylists playlistColumn scrollbar" ng-show="listDisplay == 'playlist'">
                           <div class="addPlaylist">
                             <div class="playlistDetail">
                               <div class="playlistThumbnail"><i class="icon icon-plus"></i></div>
@@ -208,7 +208,9 @@
                                     <span class="video-duration">{{ video.contentDetails.duration }}</span>
                                     <div class="video-detail">
                                         <div class="overflowEllipsis">
-                                            <span class="video-title"ng-click="onPreviewClick(video.snippet.title, video.id)">{{ video.snippet.title }}</span>
+                                            <span class="video-title">
+                                              <span ng-click="onPreviewClick(video.snippet.title, video.id)">{{ video.snippet.title }}</span>
+                                            </span>
                                         </div>
                                         <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
                                         <div class="ytVidHover noselect">

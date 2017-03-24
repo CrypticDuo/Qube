@@ -524,29 +524,36 @@ $(document).on('click', function(e) {
 ////////////////////////////////////////////////////////////////////////////////
 // PLAYLIST MORE OPTIONS FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
-    (function(){
-        $(document).on('click', '.playlistDetail .morePlaylistOptions', function(e){
-          $(e.target).parents('.userPlaylist li').addClass('moreOptionOpen');
-          var elements = $('.playlistDetail .dropdown');
-          var dropdown = $(e.target).parent().find('.dropdown');
+    function handleMorePlaylistOptions(self, e, elements) {
+        $(e.target).parents('.userPlaylist li').addClass('moreOptionOpen');
+        var dropdown = $(e.target).parent().find('.dropdown');
+        var openedOptionIndex = getOpenedOptionIndex(elements);
 
-          var openedOptionIndex = getOpenedOptionIndex(elements);
+        if(openedOptionIndex !== -1) {
+            $(elements[openedOptionIndex]).hide();
+            $(elements[openedOptionIndex]).parents('.userPlaylist li').removeClass('moreOptionOpen');
+        }
 
-          if(openedOptionIndex !== -1) {
-              $(elements[openedOptionIndex]).hide();
-              $(elements[openedOptionIndex]).parents('.userPlaylist li').removeClass('moreOptionOpen');
-          }
-
-          // if dropdown goes further below the max height, show it above
-          if($(this).parents('.userPlaylist li').index() >= elements.length - 1
-            && ((elements.length + 1) * $('.addPlaylist').outerHeight() + (dropdown.outerHeight()/2) >
-              $('.listDisplay').outerHeight())) {
+        // if dropdown goes further below the max height, show it above
+        if($(self).parents('.userPlaylist li').index() >= elements.length - 1
+          && ((elements.length + 1) * $('.addPlaylist').outerHeight() + (dropdown.outerHeight()/2) >
+            $('.listDisplay').outerHeight())) {
             dropdown.css('top', '-95px');
-          }
+        }
 
-          if($(e.target).parents('.userPlaylist li').index() !== openedOptionIndex) {
+        if($(e.target).parents('.userPlaylist li').index() !== openedOptionIndex) {
             dropdown.toggle();
-          }
+        }
+    }
+
+    (function(){
+        $(document).on('click', '.userPlaylists .playlistDetail .morePlaylistOptions', function(e){
+            var elements = $('.userPlaylists .playlistDetail .dropdown');
+            handleMorePlaylistOptions(this, e, elements);
+        });
+        $(document).on('click', '.trendingPlaylists .playlistDetail .morePlaylistOptions', function(e){
+            var elements = $('.trendingPlaylists .playlistDetail .dropdown');
+            handleMorePlaylistOptions(this, e, elements);
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////
