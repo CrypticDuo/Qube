@@ -87,7 +87,7 @@
                     <ul class="userVideolist scrollbar sortable">
                         <li id="{{ video.id }}"
                             ng-repeat="video in currentPlaylist.data"
-                            ng-class="{active: (currentPlaylist.name+video.id) == (playingPlaylist.name+currentPlayingVideo.id)}"
+                            ng-class="{active: (currentPlaylist._id+video.id) == (playingPlaylist._id+currentPlayingVideo.id)}"
                             ng-click="togglePlayVideo(video)">
                             <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>

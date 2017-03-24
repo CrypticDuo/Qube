@@ -126,7 +126,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
           return;
         }
 
-        if($scope.playingPlaylist.name !== playlist.name){
+        if($scope.playingPlaylist._id !== playlist._id){
             $scope.currentPlaylist = playlist;
             $scope.playingPlaylist = playlist;
             $scope.shuffleList = [];
