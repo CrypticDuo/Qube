@@ -391,17 +391,12 @@ var database = {
         return this.getUserByOAuthId(userID).then(function(user) {
             return user._id;
         })
-        .catch(function(err) {
-            throw new Error(err);
-        })
         .then(function(id) {
-            return self.incrementLoginCount(userID);
-        })
-        .catch(function(err) {
-            throw new Error(err);
-        })
-        .fail(function(err) {
-            console.log(err);
+            if(id) {
+              return self.incrementLoginCount(userID);
+            }
+
+            return null;
         });
     },
 

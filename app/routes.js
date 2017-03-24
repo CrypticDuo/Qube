@@ -109,9 +109,10 @@ var Routes = function (app, router) {
     router.route('/playlists')
         //get all playlist
         .get(ensureAuthenticated, function(req, res) {
-            db.updateLoginData(req.user.oauthID);
-            db.listAllPlaylists(req.user.oauthID).then(function(result) {
-                res.json(result);
+            db.updateLoginData(req.user.oauthID).then(function(_) {
+              return db.listAllPlaylists(req.user.oauthID).then(function(result) {
+                  res.json(result);
+              });
             });
         });
 
