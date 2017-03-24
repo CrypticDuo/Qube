@@ -474,9 +474,18 @@ $(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////
     (function(){
         $(document).on('click', '.lcNavigatable', function(){
-          if($(this).hasClass('lcPlaylistAdd') || $(this).hasClass('playingPlaylistName')) {
+          if($(this).hasClass('playingPlaylistName')) {
             $('.listControl').find('.selected').removeClass('selected');
-            $('.lcPlaylist').addClass('selected');
+            var scope = angular.element($(this)).scope();
+            scope.$apply(function() {
+                var type = scope.playingPlaylist.type;
+                //TODO: remve !type check once trending playlist updates in backend
+                if(type === 'trending' || !type) {
+                    $('.lcTrending').addClass('selected');
+                } else if(type === 'playlist') {
+                    $('.lcPlaylist').addClass('selected');
+                }
+            });
           } else {
             $('.listControl').find('.selected').removeClass('selected');
             $(this).addClass('selected');

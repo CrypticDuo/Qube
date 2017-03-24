@@ -142,7 +142,12 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
     }
 
     $scope.previewAndViewPlaylist = function(playlist) {
-        $scope.listDisplay = 'playlist';
+        // TODO: remove once trending playlist updates in backend
+        if(!playlist.type) {
+            $scope.listDisplay = 'trending';
+        } else {
+            $scope.listDisplay = playlist.type;
+        }
         $scope.previewPlaylist(playlist);
     }
 
@@ -715,6 +720,7 @@ app.service("QubeService", function($http, $q) {
 
           var playlistData = {
               _id: playlist._id,
+              type: 'playlist',
               name : playlist.name,
               data : contentDetailsData,
               duration : "00:00"
@@ -795,6 +801,7 @@ app.service("QubeService", function($http, $q) {
                 } else {
                     scope.playlists.push({
                         _id: res.data.newId,
+                        type: 'playlist',
                         name: pname,
                         data: [],
                         duration: "00:00"

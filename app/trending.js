@@ -48,6 +48,7 @@ function getPlaylistVideos(playlists) {
                 if(youtubePlaylist.length >= 10) {
                     trendingPlaylists.push({
                         _id: new ObjectId(),
+                        type: 'trending',
                         name: formatted[index].name,
                         data: youtubePlaylist
                     })
