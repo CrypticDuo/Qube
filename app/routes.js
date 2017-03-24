@@ -94,7 +94,7 @@ var Routes = function (app, router) {
                 return res.json(JSON.parse(data['data']));
             });
         })
-        .put(ensureAuthenticated, function(req, res) {
+        .put(function(req, res) {
             if(req.params.secretKey === oauth.qubeVideosKey) {
               trending.fetchTrending().then(function(result) {
                   res.json(result);
