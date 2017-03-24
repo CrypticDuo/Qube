@@ -705,17 +705,20 @@ $(document).on('click', function(e) {
         }, 250, 'linear', function() {
             $('.new-feature').hide();
         });
+        $('.new-feature .left i').addClass('off');
     }
 
     (function(){
         $(window).on('keyup', function(e) {
             if(e.keyCode === 27 && $('.new-feature').css('display') !== 'none') {
               closeNewFeatureModal();
+              feature_index = 0;
             }
         })
 
         $(document).on('click', '.new-feature .close', function(e) {
             closeNewFeatureModal();
+            feature_index = 0;
         });
 
         $(document).on('click', '.lcFeatures', function(e) {
