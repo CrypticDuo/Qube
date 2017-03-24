@@ -33,7 +33,6 @@ var database = {
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log("saving user ...");
                         done(null, user);
                     };
                 });
@@ -96,7 +95,6 @@ var database = {
                 });
                 return;
             }
-            console.log("RESULT : " + user);
             if (!user.length) {
                 var id = ObjectId();
                 User.update({
@@ -118,7 +116,6 @@ var database = {
                         });
                         return;
                     } else {
-                        console.log("adding new playlist ...");
                         callback({
 		                    status: "Success",
                         data: {
@@ -243,7 +240,6 @@ var database = {
                 });
                 return;
             }
-            console.log("RESULT : " + user);
             if (!user.length) {
                 User.update({
                         oauthID: userID,
@@ -270,7 +266,6 @@ var database = {
             	});
 
             } else {
-                console.log("imback");
                 callback({
                     status: "Fail",
                     msg: "Error: Video already exists."
