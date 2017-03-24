@@ -92,12 +92,22 @@ var Routes = function (app, router) {
         .get(ensureAuthenticated, function(req, res) {
             trending.getTrending().then(function(data) {
                 return res.json(JSON.parse(data['data']));
+            }).catch(function(err) {
+                console.log(err + ': Error while getting trending playlist data');
+                return res.json({
+                    status: 'failed'
+                });
             });
         })
         .put(ensureAuthenticated, function(req, res) {
             if(req.params.secretKey === oauth.qubeVideosKey) {
               trending.fetchTrending().then(function(result) {
                   res.json(result);
+              }).catch(function(err) {
+                  console.log(err + ': Error while fetching trending playlist data');
+                  return res.json({
+                      status: 'failed'
+                  });
               });
             } else {
               res.json({
