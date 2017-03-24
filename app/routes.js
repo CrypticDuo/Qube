@@ -4,6 +4,7 @@ var db = require('./database');
 var User = require('../model/user');
 var request = require('request');
 var share = require('./share');
+var trending = require('./trending');
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -86,12 +87,32 @@ var Routes = function (app, router) {
             });
         });
 
+    router.route('/trending')
+        //get all playlist
+        .get(ensureAuthenticated, function(req, res) {
+            trending.getTrending().then(function(data) {
+                return res.json(JSON.parse(data['data']));
+            });
+        })
+        .put(ensureAuthenticated, function(req, res) {
+            if(req.params.secretKey === oauth.qubeVideosKey) {
+              trending.fetchTrending().then(function(result) {
+                  res.json(result);
+              });
+            } else {
+              res.json({
+                status: 'denied'
+              });
+            }
+        });
+
     router.route('/playlists')
         //get all playlist
         .get(ensureAuthenticated, function(req, res) {
-            db.updateLoginData(req.user.oauthID);
-            db.listAllPlaylists(req.user.oauthID).then(function(result) {
-                res.json(result);
+            db.updateLoginData(req.user.oauthID).then(function(_) {
+              return db.listAllPlaylists(req.user.oauthID).then(function(result) {
+                  res.json(result);
+              });
             });
         });
 
@@ -116,8 +137,14 @@ var Routes = function (app, router) {
         })
         //update playlist
         .put(ensureAuthenticated, function(req, res){
-            var temp = JSON.parse(req.params.playlist_name);
-            db.updatePlaylist(req.user.oauthID, temp).then(function(result){
+            var playlistData = JSON.parse(req.params.playlist_name);
+            var formattedPlaylist = playlistData.map(function(data) {
+                return {
+                    name: data.name,
+                    videos: data.videos
+                }
+            });
+            db.updatePlaylist(req.user.oauthID, formattedPlaylist).then(function(result){
                 res.json(result);
             });
         });

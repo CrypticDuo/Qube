@@ -391,17 +391,12 @@ var database = {
         return this.getUserByOAuthId(userID).then(function(user) {
             return user._id;
         })
-        .catch(function(err) {
-            throw new Error(err);
-        })
         .then(function(id) {
-            return self.incrementLoginCount(userID);
-        })
-        .catch(function(err) {
-            throw new Error(err);
-        })
-        .fail(function(err) {
-            console.log(err);
+            if(id) {
+              return self.incrementLoginCount(userID);
+            }
+
+            return null;
         });
     },
 
@@ -443,17 +438,20 @@ var database = {
             if(user.seenFeatureModalVersion === config.version) {
                 return {
                     status: "Success",
-                    showFeatureModal: false
+                    showFeatureModal: false,
+                    featuresToShow: []
                 };
             }
-
-            return self.updateSeenFeatureModalVersion(userID).then(function(res) {
+            return self.updateSeenFeatureModalVersion(
+                user.seenFeatureModalVersion,
+                userID
+            ).then(function(res) {
                 return res;
             });
         });
     },
 
-    updateSeenFeatureModalVersion: function(userID) {
+    updateSeenFeatureModalVersion: function(seenFeatureModalVersion, userID) {
         var deferred = Q.defer();
 
         User.update({
@@ -470,9 +468,19 @@ var database = {
                     msg: "Failed to update seenFeatureModalVersion"
                 });
             } else if (!err && result && result !== 0) {
+                var newFeatures = [];
+
+                if(seenFeatureModalVersion !== '') {
+                    newFeatures = config.getNewFeatures(seenFeatureModalVersion);
+
+                } else {
+                    newFeatures = config.getNewFeatures('');
+                }
+
                 deferred.resolve({
                     status: "Success",
-                    showFeatureModal: true
+                    showFeatureModal: true,
+                    featuresToShow: newFeatures
                 });
             } else {
                 deferred.resolve({

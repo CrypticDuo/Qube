@@ -40,9 +40,18 @@
 </div>
 <div class="new-feature" ng-class="{show: showFeatureModal}">
     <span class="close"><i class="icon-close"></i></span>
-    <span class="left"><i class="icon-arrow-left"></i></span>
+    <span class="left"><i class="icon-arrow-left off"></i></span>
     <span class="right"><i class="icon-arrow-right"></i></span>
-    <div class="inner share">
+    <div class="feature inner trending">
+        <div class="title">
+            <h3>Trending Playlists</h3>
+        </div>
+        <div class="demo-image"><img src="/static/images/trending_demo.png"/></div>
+        <div class="description">
+          <p>Trending displays a set of new playlists daily, each playlist a mix of favourite songs from our top users and Spotify’s top picks. Love the playlist? No problem, copy it to your playlist library and keep listening tomorrow.</p>
+        </div>
+    </div>
+    <div class="feature inner share">
         <div class="title">
             <h3>Share Your Playlists</h3>
         </div>
@@ -51,7 +60,7 @@
           <p>Does your friend like your taste in music? Now you can share your favourite playlists with your friends! Click the 'Copy Share Link' next to your desired playlist and send it to them.</p>
         </div>
     </div>
-    <div class="inner autogen">
+    <div class="feature inner autogen">
         <div class="title">
             <h3>Auto-generate Your Playlist</h3>
         </div>
@@ -85,7 +94,10 @@
                     </div>
 
                     <ul class="userVideolist scrollbar sortable">
-                        <li ng-repeat="video in currentPlaylist.data" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" onclick="removeCloseIcon(this)" id="{{ video.id }}">
+                        <li id="{{ video.id }}"
+                            ng-repeat="video in currentPlaylist.data"
+                            ng-class="{active: (currentPlaylist._id+video.id) == (playingPlaylist._id+currentPlayingVideo.id)}"
+                            ng-click="togglePlayVideo(video)">
                             <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>
                             <span class="duration">{{video.contentDetails.duration}}</span>
@@ -100,6 +112,37 @@
             <div class="mainView">
                 <div ng-show="layout == 'main'" class="view main">
                     <div class="listDisplay">
+                      <div class="playlistColumn" ng-show="listDisplay == 'trending'">
+                        <div class="placeholder" ng-show="trendingPlaylists.length == 0">
+                          <i class="icon icon-playlist"></i>
+                          <p>There are currently no trending playlists.</p>
+                        </div>
+                        <ul class="userPlaylist scrollbar sortable" ng-show="trendingPlaylists.length > 0">
+                            <li class="playlist"
+                                ng-repeat="playlist in trendingPlaylists"
+                                ng-class="{active: currentPlaylist._id == playlist._id}"
+                                ng-click="previewPlaylist(playlist)"
+                                id="{{ playlist.name }}">
+                                <div class="playlistDetail">
+                                    <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+                                    <div class="title">
+                                        <span class="text">{{playlist.name}}</span>
+                                    </div>
+                                    <div class="duration">{{playlist.data.length}} videos - {{playlist.duration}}</div>
+                                    <div class="icon-container">
+                                      <div class="optionContainer float-right">
+                                        <i class="morePlaylistOptions icon icon-options-vertical"></i>
+                                        <ul class="dropdown sf-menu-sub" style="display: none;">
+                                          <li class="playlist-menu" ng-click="addToMyPlaylist(playlist)">Add to My Playlist</li>
+                                        </ul>
+                                    </div>
+                                      <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist == playingPlaylist}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
+                                      <div class="float-right tooltip-left speaker" ng-class="{hide: playlist != playingPlaylist}"><i class="icon icon-volume-2"></i></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                      </div>
                         <div class="playlistColumn scrollbar" ng-show="listDisplay == 'playlist'">
                           <div class="addPlaylist">
                             <div class="playlistDetail">
@@ -119,7 +162,7 @@
                             <ul class="userPlaylist sortable" ng-show="playlists.length > 0">
                                 <li class="playlist"
                                     ng-repeat="playlist in playlists | searchFor:searchString"
-                                    ng-class="{active: currentPlaylist.name == playlist.name}"
+                                    ng-class="{active: currentPlaylist._id == playlist._id}"
                                     ng-click="previewPlaylist(playlist)"
                                     id="{{ playlist.name }}">
                                     <div class="playlistDetail">
@@ -140,8 +183,8 @@
                                               <li class="copyShareLink playlist-menu" ng-click="copyShareLink(playlist)" data-clipboard-text="{{ hostUrl }}/share/{{ playlist._id }}">Copy Share Link</li>
                                             </ul>
                                         </div>
-                                          <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist.name == playingPlaylist.name}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
-                                          <div class="float-right tooltip-left speaker" ng-class="{hide: playlist.name != playingPlaylist.name}"><i class="icon icon-volume-2"></i></div>
+                                          <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist == playingPlaylist}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
+                                          <div class="float-right tooltip-left speaker" ng-class="{hide: playlist != playingPlaylist}"><i class="icon icon-volume-2"></i></div>
                                         </div>
                                     </div>
                                 </li>
@@ -212,6 +255,13 @@
                               <div class="lcContentContainer">
                                 <i class="icon icon-earphones"></i>
                                 <span class="font-bold lcHeader">Related</span>
+                              </div>
+                            </div>
+                            <div class="lcNavigatable" ng-click="listDisplay = 'trending'">
+                              <div class="lcSelectionIndicator"></div>
+                              <div class="lcContentContainer">
+                                <i class="icon icon-fire"></i>
+                                <span class="font-bold lcHeader">Trending</span>
                               </div>
                             </div>
                             <div class="lcFeatures">

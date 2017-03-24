@@ -694,20 +694,6 @@ $(document).on('click', function(e) {
 ////////////////////////////////////////////////////////////////////////////////
 // NEW FEATURE INFO FUNCTIONALITY
 ////////////////////////////////////////////////////////////////////////////////
-    function showShare() {
-        $('.new-feature .right').show();
-        $('.new-feature .left').hide();
-        $('.new-feature .autogen').hide();
-        $('.new-feature .share').show();
-    }
-
-    function showAutoGen() {
-        $('.new-feature .right').hide();
-        $('.new-feature .left').show();
-        $('.new-feature .autogen').show();
-        $('.new-feature .share').hide();
-    }
-
     function closeNewFeatureModal() {
         var width = $('body').width();
         var height = $(document).height() - $('.bottomContainer').height();
@@ -719,35 +705,66 @@ $(document).on('click', function(e) {
         }, 250, 'linear', function() {
             $('.new-feature').hide();
         });
+        $('.new-feature .left i').addClass('off');
     }
 
     (function(){
         $(window).on('keyup', function(e) {
             if(e.keyCode === 27 && $('.new-feature').css('display') !== 'none') {
               closeNewFeatureModal();
+              feature_index = 0;
             }
         })
 
         $(document).on('click', '.new-feature .close', function(e) {
             closeNewFeatureModal();
+            feature_index = 0;
         });
 
         $(document).on('click', '.lcFeatures', function(e) {
-            showShare();
+            var features = $('.new-feature .feature');
+            for(var i = 0; i < features.length; i++) {
+              $(features[i]).hide();
+              $(features[i]).addClass('show');
+            }
+            $(features[0]).show();
+            $('.new-feature .right i').removeClass('off');
             $('.new-feature').css('top', 0);
             $('.new-feature').css('left', 0);
             $('.new-feature').css('width', '100%');
             $('.new-feature').css('height', '100%');
             $('.new-feature').show();
-
         });
 
-        // TODO: make this more dynamic
+        var feature_index = 0;
         $(document).on('click', '.new-feature .left', function(e) {
-            showShare();
+            var features = $('.new-feature .feature.show');
+            if(feature_index === features.length-1 && features.length !== 1) {
+              $('.new-feature .right i').removeClass('off');
+            }
+            if(feature_index-1 === 0) {
+              $('.new-feature .left i').addClass('off');
+            }
+
+            if(feature_index-1 >= 0) {
+              feature_index--;
+              $(features[feature_index+1]).hide();
+              $(features[feature_index]).show();
+            }
         });
         $(document).on('click', '.new-feature .right', function(e) {
-            showAutoGen();
+            var features = $('.new-feature .feature.show');
+            if(feature_index === 0 && features.length !== 1) {
+              $('.new-feature .left i').removeClass('off');
+            }
+            if(feature_index+1 === features.length-1) {
+              $('.new-feature .right i').addClass('off');
+            }
+            if(feature_index+1 < features.length) {
+              feature_index++;
+              $(features[feature_index-1]).hide();
+              $(features[feature_index]).show();
+            }
         });
     }());
 ////////////////////////////////////////////////////////////////////////////////

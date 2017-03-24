@@ -58,7 +58,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
         $scope.hostUrl = HOST_URL;
-        $scope.showFeatureModal = QubeService.getSeenFeatureModal($scope);
         $scope.layout = 'main';
         $scope.listDisplay = 'playlist';
         $scope.currentPlayingVideo = null;
@@ -74,7 +73,11 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.replay = 'all';
         $scope.shuffleState = false;
         $scope.shuffleList = [];
-        QubeService.listAllPlaylist($scope);
+        $scope.trendingPlaylists = [];
+        $scope.showFeatureModal = QubeService.getSeenFeatureModal($scope).then(function() {
+            QubeService.listAllPlaylist($scope);
+        });
+        QubeService.getTrending($scope);
         addInfiniteScroll();
     }
 
@@ -95,6 +98,18 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         document.title = '♫ ' + $scope.currentVideoTitle;
     }
 
+    function getPlaylistData(playlist) {
+        var videolist = [];
+        for(var j = 0; j < playlist.data.length; j++){
+            videolist.push(playlist.data[j].id);
+        }
+        return {
+            _id: playlist._id,
+            name: playlist.name,
+            videos: videolist
+        };
+    }
+
     $scope.onSearch = function(query, callback) {
         QubeService.searchAutoComplete($scope, query, function(data){
             callback(data);
@@ -112,8 +127,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
           return;
         }
 
-
-        if($scope.playingPlaylist.name !== playlist.name){
+        if($scope.playingPlaylist._id !== playlist._id){
             $scope.currentPlaylist = playlist;
             $scope.playingPlaylist = playlist;
             $scope.shuffleList = [];
@@ -167,15 +181,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
             alertify.error('\'' + value + '\' playlist name already exists.');
             return false;
           }
-          var videolist = [];
-          for(var j = 0; j < $scope.playlists[i].data.length; j++){
-              videolist.push($scope.playlists[i].data[j].id);
-          }
-          datalist.push({
-              _id: $scope.playlists[i]._id,
-              name: $scope.playlists[i].name,
-              videos: videolist
-          });
+          datalist.push(getPlaylistData($scope.playlists[i]));
       }
       datalist[playlistIndex].name = value;
       return QubeService.updatePlaylist($scope, datalist, 'Updated playlist name.').then(function(result) {
@@ -185,6 +191,40 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
           return result;
       });
+    }
+
+    $scope.addToMyPlaylist = function(playlist) {
+      var newPlaylistName = playlist.name;
+      var index = 0;
+
+      var setOfPlaylistNames = new Set($scope.playlists.map(v => v.name));
+
+      do {
+        if (index > 0) {
+          newPlaylistName += ' - ' + index;
+        }
+        index++;
+      } while(setOfPlaylistNames.has(newPlaylistName));
+
+      QubeService.addPlaylist($scope, newPlaylistName, false)
+          .then(function(_) {
+              var datalist = [];
+              for(var i = 0; i < $scope.playlists.length; i++){
+                  if($scope.playlists[i].name === newPlaylistName) {
+                      $scope.playlists[i].data = playlist.data;
+                  }
+
+                  datalist.push(getPlaylistData($scope.playlists[i]));
+              }
+
+              return QubeService.updatePlaylist(
+                  $scope,
+                  datalist,
+                  'Added \'' + playlist.name + '\'To Your Playlists'
+              ).then(function(result) {
+                  return result;
+              });
+          });
     }
 
     $scope.updatePlaylist = function(list) {
@@ -276,7 +316,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         if (videoId) {
           $scope.preventOuterDivEvent();
         }
-        videoId = videoId || $scope.currentPlayingVideo.id;
+        videoId = videoId || $scope.currentPlayingVideo.id.videoId || $scope.currentPlayingVideo.id;
         $scope.listDisplay = 'youtube';
         var parameters = {
             key: 'AIzaSyBPpFA_UqCYS5zVtMh6JsO-aC_AaO3aWhI',
@@ -716,12 +756,32 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function addPlaylist(scope, pname) {
-        if (pname.replace(/\s/g, "").length === 0) {
-            alertify.error('Playlist name can\'t be empty');
-            return;
-        }
+    function getTrending(scope) {
+        $http.get(HOST_URL + "/api/trending")
+            .success(function(res) {
+                if (res.length) {
+                    res.forEach(function(playlist) {
+                        playlist.duration = "00:00";
+                        for(var i = 0; i < playlist.data.length; i++){
+                          playlist.data[i].contentDetails.duration = convertYoutubeDuration(playlist.data[i].contentDetails.duration);
+                          playlist.duration = addDuration(playlist.duration, playlist.data[i].contentDetails.duration);
+                        }
+                    });
+                    scope.trendingPlaylists = res;
+                }
+            })
+            .error(function(err) {
+                alertify.error('Failed to fetch trending playlists.');
+            });
+    };
+
+    function addPlaylist(scope, pname, showAlert = true) {
         var deferred = Q.defer();
+        if (pname.replace(/\s/g, "").length === 0) {
+            if(showAlert) alertify.error('Playlist name can\'t be empty');
+            deferred.reject(false);
+            return deferred.promise;
+        }
 
         $http.post("/api/playlists/" + pname)
             .success(function(res) {
@@ -739,12 +799,12 @@ app.service("QubeService", function($http, $q) {
                         data: [],
                         duration: "00:00"
                     });
-                    alertify.success('Added playlist.');
+                    if(showAlert) alertify.success('Added playlist.');
                     deferred.resolve(true);
                 }
             })
             .error(function(err) {
-                alertify.error('Failed to add playlist.');
+                if(showAlert) alertify.error('Failed to add playlist.');
                 deferred.reject(null);
             });
         return deferred.promise;
@@ -779,7 +839,7 @@ app.service("QubeService", function($http, $q) {
             });
     };
 
-    function updatePlaylist(scope, list, successMessage){
+    function updatePlaylist(scope, list, successMessage = null){
         var deferred = Q.defer();
 
         var newList = JSON.stringify(list);
@@ -790,8 +850,8 @@ app.service("QubeService", function($http, $q) {
                     console.log(res.msg);
                 } else {
                     deferred.resolve(true);
-                    alertify.success(successMessage);
-                    scope.$apply();
+                    if(successMessage) alertify.success(successMessage);
+                    // scope.$apply();
                 }
             })
             .error(function(err){
@@ -803,34 +863,38 @@ app.service("QubeService", function($http, $q) {
     };
 
     function addVideoToPlaylist(scope, pname, video, showAlert = true) {
-        if(pname){
-            $http.post("/api/playlists/" + pname + "/videos/" + video.id)
-                .success(function(res) {
-                    if (res.status.toLowerCase() === "fail") {
-                        if(res.msg.indexOf('Error:') === 0){
-                            alertify.error(res.msg);
-                        } else{
-                            console.log(res.msg);
-                        }
-                    } else {
-                        for(var i = 0; i<scope.playlists.length; i++){
-                            if(scope.playlists[i].name === pname){
-                                video.snippet.thumbnails = {medium: { uri: '' }};
-                                video.snippet.thumbnails.medium.url = video.thumbnail;
-                                scope.playlists[i].data.push(video);
-                                scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
-                                break;
-                            }
-                        }
-                        if(showAlert) alertify.success('Added ' + video.snippet.title);
+        var deferred = Q.defer();
+
+        $http.post("/api/playlists/" + pname + "/videos/" + video.id)
+            .success(function(res) {
+                if (res.status.toLowerCase() === "fail") {
+                    if(res.msg.indexOf('Error:') === 0){
+                        alertify.error(res.msg);
+                    } else{
+                        console.log(res.msg);
                     }
-                })
-                .error(function(err) {
-                    if(showAlert) alertify.error('Failed to add video.');
-                });
-        } else {
-            if(showAlert) alertify.error('Please choose a playlist first.');
-        }
+                    deferred.reject(false);
+                } else {
+                    for(var i = 0; i<scope.playlists.length; i++){
+                        if(scope.playlists[i].name === pname){
+                            video.snippet.thumbnails = {medium: { uri: '' }};
+                            video.snippet.thumbnails.medium.url = video.thumbnail;
+                            scope.playlists[i].data.push(video);
+                            scope.playlists[i].duration = addDuration(scope.playlists[i].duration, video.contentDetails.duration);
+                            break;
+                        }
+                    }
+                    if(showAlert) alertify.success('Added ' + video.snippet.title);
+
+                    deferred.resolve(true);
+                }
+            })
+            .error(function(err) {
+                if(showAlert) alertify.error('Failed to add video.');
+                deferred.reject(false);
+            });
+
+        return deferred.promise;
     };
 
     function removeVideoFromPlaylist(scope, pname, videoId){
@@ -870,19 +934,33 @@ app.service("QubeService", function($http, $q) {
     };
 
     function getSeenFeatureModal(scope) {
+        var deferred = Q.defer();
+
         $http.get("/api/featureModal/")
             .success(function(res){
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
+                    deferred.reject(null);
                 } else {
                     scope.showFeatureModal = res.showFeatureModal;
+                    for(var i = 0; i < res.featuresToShow.length; i++) {
+                      $('.'+res.featuresToShow[i]).addClass('show');
+                    }
+                    $('.'+res.featuresToShow[0]).show();
+                    if(res.featuresToShow.length === 1) {
+                        $('.new-feature .right i').addClass('off');
+                    }
+                    deferred.resolve(true);
                 }
             });
+
+        return deferred.promise;
     }
 
     //Returns the public API
     return ({
         listAllPlaylist: listAllPlaylist,
+        getTrending: getTrending,
         addPlaylist: addPlaylist,
         removePlaylist: removePlaylist,
         updatePlaylist: updatePlaylist,
