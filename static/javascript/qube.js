@@ -675,7 +675,7 @@ app.service("QubeService", function($http, $q) {
             }
             doneLoadingPlaylist();
             scope.playlists = playlists;
-            // scope.loadFirstPlaylist(playlists[0]);
+            scope.loadFirstPlaylist(playlists[0]);
             scope.$apply();
         });
     }
