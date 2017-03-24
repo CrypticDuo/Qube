@@ -58,7 +58,6 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
 
     function init() {
         $scope.hostUrl = HOST_URL;
-        $scope.showFeatureModal = QubeService.getSeenFeatureModal($scope);
         $scope.layout = 'main';
         $scope.listDisplay = 'playlist';
         $scope.currentPlayingVideo = null;
@@ -75,7 +74,9 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
         $scope.shuffleState = false;
         $scope.shuffleList = [];
         $scope.trendingPlaylists = [];
-        QubeService.listAllPlaylist($scope);
+        $scope.showFeatureModal = QubeService.getSeenFeatureModal($scope).then(function() {
+            QubeService.listAllPlaylist($scope);
+        });
         QubeService.getTrending($scope);
         addInfiniteScroll();
     }
@@ -933,14 +934,27 @@ app.service("QubeService", function($http, $q) {
     };
 
     function getSeenFeatureModal(scope) {
+        var deferred = Q.defer();
+
         $http.get("/api/featureModal/")
             .success(function(res){
                 if (res.status.toLowerCase() === "fail") {
                     console.log(res.msg);
+                    deferred.reject(null);
                 } else {
                     scope.showFeatureModal = res.showFeatureModal;
+                    for(var i = 0; i < res.featuresToShow.length; i++) {
+                      $('.'+res.featuresToShow[i]).addClass('show');
+                    }
+                    $('.'+res.featuresToShow[0]).show();
+                    if(res.featuresToShow.length === 1) {
+                        $('.new-feature .right i').addClass('off');
+                    }
+                    deferred.resolve(true);
                 }
             });
+
+        return deferred.promise;
     }
 
     //Returns the public API

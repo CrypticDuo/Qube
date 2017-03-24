@@ -118,6 +118,9 @@ a {
 .new-feature.show {
   display:inline;
 }
+.new-feature .feature {
+  display:none;
+}
 .new-feature .right, .new-feature .left {
   top: calc(50% - 30px);
   position: absolute;
@@ -126,10 +129,15 @@ a {
 }
 .new-feature .left {
   left: calc(50% - 320px);
-  display: none;
 }
 .new-feature .right {
   right: calc(50% - 320px);
+}
+.new-feature .off {
+  color: #333;
+}
+.new-feature i.off:hover {
+  color: #333;
 }
 .new-feature .left > i, .new-feature .right > i {
   font-weight: 600;
