@@ -1,5 +1,6 @@
 'use strict'
 
+var ObjectId = require('mongoose').Types.ObjectId;
 var Promise = require("bluebird");
 var Oauth = require("../oauth")
 var SpotifyWebApi = Promise.promisifyAll(require('spotify-web-api-node'));
@@ -46,6 +47,7 @@ function getPlaylistVideos(playlists) {
             youtubeFP.forEach(function(youtubePlaylist, index) {
                 if(youtubePlaylist.length >= 10) {
                     trendingPlaylists.push({
+                        _id: new ObjectId(),
                         name: formatted[index].name,
                         data: youtubePlaylist
                     })
@@ -110,6 +112,7 @@ function youtubeSearch(query) {
                   if (detailResult.items.length &&
                       Number(detailResult.items[0].statistics.viewCount) > 10000) {
                       result.items[0].contentDetails = detailResult.items[0].contentDetails;
+                      result.items[0].id = result.items[0].id.videoId;
                       resolve(result.items[0]);
                       return;
                   }

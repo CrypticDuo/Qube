@@ -85,7 +85,10 @@
                     </div>
 
                     <ul class="userVideolist scrollbar sortable">
-                        <li ng-repeat="video in currentPlaylist.data" ng-class="{active: video.id == currentPlayingVideo.id}" ng-click="togglePlayVideo(video)" onclick="removeCloseIcon(this)" id="{{ video.id }}">
+                        <li id="{{ video.id }}"
+                            ng-repeat="video in currentPlaylist.data"
+                            ng-class="{active: (currentPlaylist.name+video.id) == (playingPlaylist.name+currentPlayingVideo.id)}"
+                            ng-click="togglePlayVideo(video)">
                             <a><i class="icon-music-tone-alt"></i></a>
                             <span class="title">{{video.snippet.title}}</span>
                             <span class="duration">{{video.contentDetails.duration}}</span>
@@ -108,23 +111,20 @@
                         <ul class="userPlaylist scrollbar sortable" ng-show="trendingPlaylists.length > 0">
                             <li class="playlist"
                                 ng-repeat="playlist in trendingPlaylists"
-                                ng-class="{active: currentPlaylist.name == playlist.name}"
+                                ng-class="{active: currentPlaylist._id == playlist._id}"
                                 ng-click="previewPlaylist(playlist)"
                                 id="{{ playlist.name }}">
                                 <div class="playlistDetail">
                                     <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                     <div class="title">
-                                      <div class="edit">
                                         <span class="text">{{playlist.name}}</span>
-                                        <input type="text" class="edit-input" value="{{playlist.name}}">
-                                      </div>
                                     </div>
                                     <div class="duration">{{playlist.data.length}} videos - {{playlist.duration}}</div>
                                     <div class="icon-container">
                                       <div class="optionContainer float-right">
                                         <i class="morePlaylistOptions icon icon-options-vertical"></i>
                                         <ul class="dropdown sf-menu-sub" style="display: none;">
-                                          <li class="playlist-menu" >Add to My Playlist</li>
+                                          <li class="playlist-menu" ng-click="addToMyPlaylist(playlist)">Add to My Playlist</li>
                                         </ul>
                                     </div>
                                       <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist == playingPlaylist}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
@@ -153,7 +153,7 @@
                             <ul class="userPlaylist sortable" ng-show="playlists.length > 0">
                                 <li class="playlist"
                                     ng-repeat="playlist in playlists | searchFor:searchString"
-                                    ng-class="{active: currentPlaylist.name == playlist.name}"
+                                    ng-class="{active: currentPlaylist._id == playlist._id}"
                                     ng-click="previewPlaylist(playlist)"
                                     id="{{ playlist.name }}">
                                     <div class="playlistDetail">
