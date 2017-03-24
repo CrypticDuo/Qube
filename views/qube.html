@@ -117,7 +117,7 @@
                             <i class="icon icon-playlist"></i>
                             <p>There are currently no trending playlists.</p>
                           </div>
-                          <ul class="userPlaylist sortable" ng-show="trendingPlaylists.length > 0">
+                          <ul class="userPlaylist noselect" ng-show="trendingPlaylists.length > 0">
                               <li class="playlist"
                                   ng-repeat="playlist in trendingPlaylists"
                                   ng-class="{active: currentPlaylist._id == playlist._id}"
