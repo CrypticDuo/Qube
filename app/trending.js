@@ -37,7 +37,7 @@ function getPlaylistVideos(playlists) {
             formatted.push({
                 name: playlists[i].name,
                 tracks
-            })
+            });
         }
         return Promise.map(formatted, function(p) {
             return getYoutubeIds(p.tracks);
