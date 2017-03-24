@@ -5,6 +5,7 @@ var User = require('../model/user');
 var request = require('request');
 var share = require('./share');
 var trending = require('./trending');
+var oauth = require('../oauth');
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -92,12 +93,22 @@ var Routes = function (app, router) {
         .get(ensureAuthenticated, function(req, res) {
             trending.getTrending().then(function(data) {
                 return res.json(JSON.parse(data['data']));
+            }).catch(function(err) {
+                console.log(err + ': Error while getting trending playlist data');
+                return res.json({
+                    status: 'failed'
+                });
             });
         })
         .put(function(req, res) {
             if(req.params.secretKey === oauth.qubeVideosKey) {
               trending.fetchTrending().then(function(result) {
                   res.json(result);
+              }).catch(function(err) {
+                  console.log(err + ': Error while fetching trending playlist data');
+                  return res.json({
+                      status: 'failed'
+                  });
               });
             } else {
               res.json({

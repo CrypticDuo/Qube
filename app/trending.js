@@ -126,7 +126,7 @@ function youtubeSearch(query) {
 
 module.exports = {
     fetchTrending: function() {
-        spotifyApi.clientCredentialsGrant()
+        return spotifyApi.clientCredentialsGrant()
         .then(function(data) {
             spotifyApi.setAccessToken(data.body['access_token']);
             return true;
