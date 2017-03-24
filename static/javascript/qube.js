@@ -210,16 +210,7 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
               var datalist = [];
               for(var i = 0; i < $scope.playlists.length; i++){
                   if($scope.playlists[i].name === newPlaylistName) {
-                      var tempPlaylist = $.extend(true, {}, playlist);
-                      for(var j = 0; j < playlist.data.length; j++) {
-                          $scope.playlists[i].duration = addDuration(
-                              $scope.playlists[i].duration,
-                              playlist.data[j].contentDetails.duration
-                          );
-                          tempPlaylist.data[j].id = playlist.data[j].id.videoId;
-                      }
-
-                      $scope.playlists[i].data = tempPlaylist.data;
+                      $scope.playlists[i].data = playlist.data;
                   }
 
                   datalist.push(getPlaylistData($scope.playlists[i]));
