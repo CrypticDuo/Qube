@@ -139,7 +139,7 @@
                                   ng-repeat="playlist in trendingPlaylists"
                                   ng-class="{active: currentPlaylist._id == playlist._id}"
                                   ng-click="previewPlaylist(playlist)"
-                                  id="{{ playlist.name }}">
+                                  id="{{ playlist._id }}">
                                   <div class="playlistDetail">
                                       <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                       <div class="title">
@@ -181,7 +181,7 @@
                                     ng-repeat="playlist in playlists | searchFor:searchString"
                                     ng-class="{active: currentPlaylist._id == playlist._id}"
                                     ng-click="previewPlaylist(playlist)"
-                                    id="{{ playlist.name }}">
+                                    id="{{ playlist._id }}">
                                     <div class="playlistDetail">
                                         <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
                                         <div class="title">

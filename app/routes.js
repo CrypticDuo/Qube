@@ -149,13 +149,7 @@ var Routes = function (app, router) {
         //update playlist
         .put(ensureAuthenticated, function(req, res){
             var playlistData = JSON.parse(req.params.playlist_name);
-            var formattedPlaylist = playlistData.map(function(data) {
-                return {
-                    name: data.name,
-                    videos: data.videos
-                }
-            });
-            db.updatePlaylist(req.user.oauthID, formattedPlaylist).then(function(result){
+            db.updatePlaylist(req.user.oauthID, playlistData).then(function(result){
                 res.json(result);
             });
         });

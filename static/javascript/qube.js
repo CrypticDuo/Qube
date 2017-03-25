@@ -212,11 +212,13 @@ app.controller('QubeCont', function($scope, $http, QubeService) {
       } while(setOfPlaylistNames.has(newPlaylistName));
 
       QubeService.addPlaylist($scope, newPlaylistName, false)
-          .then(function(_) {
+          .then(function(addedPlaylist) {
               var datalist = [];
               for(var i = 0; i < $scope.playlists.length; i++){
-                  if($scope.playlists[i].name === newPlaylistName) {
-                      $scope.playlists[i].data = playlist.data;
+                  if($scope.playlists[i]._id === addedPlaylist._id) {
+                      // deep copy
+                      $scope.playlists[i].data = JSON.parse(JSON.stringify(playlist.data));
+                      $scope.updatePlaylistDuration($scope.playlists[i]);
                   }
 
                   datalist.push(getPlaylistData($scope.playlists[i]));
@@ -799,15 +801,16 @@ app.service("QubeService", function($http, $q) {
                     }
                     deferred.reject(null);
                 } else {
-                    scope.playlists.push({
+                    var addedPlaylist = {
                         _id: res.data.newId,
                         type: 'playlist',
                         name: pname,
                         data: [],
                         duration: "00:00"
-                    });
+                    };
+                    scope.playlists.push(addedPlaylist);
                     if(showAlert) alertify.success('Added playlist.');
-                    deferred.resolve(true);
+                    deferred.resolve(addedPlaylist);
                 }
             })
             .error(function(err) {
@@ -858,7 +861,6 @@ app.service("QubeService", function($http, $q) {
                 } else {
                     deferred.resolve(true);
                     if(successMessage) alertify.success(successMessage);
-                    scope.$apply();
                 }
             })
             .error(function(err){
