@@ -25,6 +25,14 @@ h6 {
     font-size: 14px;
 }
 
+.topnav > h1 {
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-top: 1px;
+  margin: 0;
+}
+
 .lead {
     font-size: 18px;
     font-weight: 400;
