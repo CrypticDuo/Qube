@@ -26,9 +26,9 @@ h6 {
 }
 
 .topnav > h1 {
-  font-size: 18px;
+  font-size: 17px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   padding-top: 1px;
   margin: 0;
 }
