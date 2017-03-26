@@ -561,7 +561,7 @@ $(document).on('click', function(e) {
         if($(self).parents('.userPlaylist li').index() >= elements.length - 1
           && ((elements.length + 1) * $('.addPlaylist').outerHeight() + (dropdown.outerHeight()/2) >
             $('.listDisplay').outerHeight())) {
-            dropdown.css('top', '-95px');
+            dropdown.css('top', '-' + dropdown.children().length * 32 + 'px');
         }
 
         if($(e.target).parents('.userPlaylist li').index() !== openedOptionIndex) {
