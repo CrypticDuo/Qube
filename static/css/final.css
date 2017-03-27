@@ -367,6 +367,11 @@ a {
   color: #767676;
   background-color: #101010;
 }
+
+#QubePlaylist .videolist .userVideolist li:hover {
+  background-color: #1d1d1d;
+}
+
 #QubePlaylist .videolist .userVideolist li.active, #QubePlaylist .videolist .userVideolist li.active a, #QubePlaylist .videolist .userVideolist li.active span.title, #QubePlaylist .videolist .userVideolist li.active span.duration {
   background-color: #1d1d1d;
   color: #f47f7f;
