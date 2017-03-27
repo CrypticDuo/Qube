@@ -257,6 +257,10 @@ a {
 #QubePlaylist .view.main .listDisplay .placeholder > p {
   margin-top: 20px;
 }
+#QubePlaylist .view.main .video:hover {
+    background-color: #2b2b2b;
+}
+
 #QubePlaylist .view.main .video-image {
   float: left;
   cursor: pointer;
