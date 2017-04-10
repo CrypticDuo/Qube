@@ -1,0 +1,43 @@
+
+<div class="videoSearch lcSearch" ng-show="listDisplay == 'youtube'">
+  <span class="inputIcon"><i class="icon icon-magnifier"></i></span>
+  <input id="videoSearchInput" ng-model="addVideoInput" ng-keypress="queryYoutube($event)" placeholder="Search for youtube videos"></input>
+</div>
+<div class="searchResultColumn scrollbar" ng-show="listDisplay == 'youtube'">
+    <div class="placeholder" ng-show="ytSearchFirstView">
+      <i class="icon icon-magnifier"></i>
+      <p>Search Youtube videos using the search bar!</p>
+    </div>
+    <div class="videoContainer">
+        <div class="video" ng-repeat="video in ytSearchResult">
+          <div class="video-image noselect" id="{{video.id}}" ng-click="onPreviewClick(video.snippet.title, video.id)">
+              <img class="video-image" src="{{ video.thumbnail }}">
+          </div>
+          <span class="video-duration">{{ video.contentDetails.duration }}</span>
+          <div class="video-detail">
+              <div class="overflowEllipsis">
+                  <span class="video-title">
+                    <span ng-click="onPreviewClick(video.snippet.title, video.id)">{{ video.snippet.title }}</span>
+                  </span>
+              </div>
+              <span class="video-views">{{video.snippet.date}} - {{ video.views }} views</span>
+              <div class="ytVidHover noselect">
+                  <div class="addVideo playPlaylist clickable" ng-click="checkPlaylistExists()">Add</div>
+                  <div class="playlist-names playlist-menu">
+                      <ul class="sf-menu-sub" style="display:none;">
+                          <li class="playlist-menu" ng-repeat="playlist in playlists" ng-click="addVideo(video, playlist.name)"><a href="#">{{playlist.name}}</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="video" ng-show="ytSearchResult.length > 0" style="text-align:center">
+        <div class="loading">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+    </div>
+</div>

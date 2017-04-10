@@ -17,6 +17,7 @@ app.set("view options", {
 
 app.use("/static", express.static(__dirname + "/static"));
 app.use("/bower_components", express.static(__dirname + "/bower_components"));
+app.use("/template", express.static(__dirname + "/views/app"));
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');

@@ -1,0 +1,40 @@
+<div class="videolist">
+    <div class="player noselect" style="height:inherit; width:inherit;">
+        <div id="player"></div>
+        <div class="overlay">
+          <div style="width: 720px;position: relative;margin: 0 auto;text-align: center;">
+            <div style="
+              width: 720px;
+              margin: 0 auto;
+              position: relative;
+            ">
+            <span>
+              <img src="/static/qube_new_white.png" div="" style="
+              width: 55px;
+              position: relative;
+            "/></span>
+            <span style="
+              display: block;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              font-size: 18px;
+          ">Qube Videos</span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <ul class="userVideolist scrollbar sortable">
+        <li id="{{ video.id }}"
+            ng-repeat="video in currentPlaylist.data"
+            ng-class="{active: (currentPlaylist._id+video.id) == (playingPlaylist._id+currentPlayingVideo.id)}"
+            ng-click="togglePlayVideo(video)">
+            <a><i class="icon-music-tone-alt"></i></a>
+            <span class="title">{{video.snippet.title}}</span>
+            <span class="duration">{{video.contentDetails.duration}}</span>
+            <span class="close tooltip-left" data-tooltip="Delete"><i class="icon icon-close" ng-click="removeVideo(video.id)"></i></span>
+            <span class="close tooltip-left" data-tooltip="Search related"><i class="icon icon-earphones" ng-click="relatedSearch(video.id)"></i></span>
+            <span class="close tooltip-left" data-tooltip="Auto generate"><i class="icon icon-social-youtube" ng-click="discoverPlaylist(video.id)"></i></span>
+        </li>
+    </ul>
+</div>
