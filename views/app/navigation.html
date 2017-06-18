@@ -1,0 +1,36 @@
+<div class="listControl scrollbar noselect">
+    <div class="lcNavigatable lcSearch" ng-click="listDisplay = 'youtube'">
+      <div class="lcSelectionIndicator"></div>
+      <div class="lcContentContainer">
+        <i class="icon icon-magnifier"></i>
+        <span class="lcHeader">Search</span>
+      </div>
+    </div>
+    <div class="lcNavigatable lcPlaylist selected" ng-click="listDisplay = 'playlist'">
+      <div class="lcSelectionIndicator"></div>
+      <div class="lcContentContainer">
+        <i class="icon icon-playlist"></i>
+        <span class="font-bold lcHeader">Playlists</span>
+      </div>
+    </div>
+    <div class="lcShare" ng-class="{lcNavigatable : currentPlayingVideo.id }" ng-click="relatedSearch()">
+      <div class="lcSelectionIndicator"></div>
+      <div class="lcContentContainer">
+        <i class="icon icon-earphones"></i>
+        <span class="font-bold lcHeader">Related</span>
+      </div>
+    </div>
+    <div class="lcNavigatable lcTrending" ng-click="listDisplay = 'trending'">
+      <div class="lcSelectionIndicator"></div>
+      <div class="lcContentContainer">
+        <i class="icon icon-fire"></i>
+        <span class="font-bold lcHeader">Trending</span>
+      </div>
+    </div>
+    <div class="lcFeatures">
+      <div class="lcContentContainer">
+        <i class="icon icon-star"></i>
+        <span class="font-bold lcHeader">New Features</span>
+      </div>
+    </div>
+</div>

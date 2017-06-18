@@ -172,7 +172,7 @@ $(document).ready(function() {
     alertify.set('notifier','position', 'top-right');
     alertify.set('notifier','delay', 3);
 
-    $('.lcSearch input').on('keypress', function(e) {
+    $(document).on('keypress', '.lcSearch input', function(e) {
         var self = this;
         if(e.which !== 13){
             onSearchChange($(self),$(self).val());

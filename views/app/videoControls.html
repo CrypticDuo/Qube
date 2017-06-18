@@ -1,0 +1,50 @@
+<div class="controllers-container">
+    <ul class="controllers" style="font-size:0px;">
+        <li ng-click="prevVideo()"><i class="icon-control-rewind i-lg"></i>
+        </li>
+        <li ng-click="togglePlayVideo()"><i class="icon-control-play i-2x"></i>
+        </li>
+        <li ng-click="nextVideo()"><i class="icon-control-forward i-lg"></i>
+        </li>
+    </ul>
+</div>
+<div class="progressBar">
+    <div class="progressLevel"></div>
+</div>
+<div class="time">
+    <span class="timeStart">
+        00:00
+    </span>
+</div>
+<div class="time">
+    <span class="timeDuration">
+        {{ currentPlayingVideoDuration }}
+    </span>
+</div>
+<div class="volume-icon">
+    <i class="icon-volume-2"></i>
+</div>
+<div class="volume">
+    <div class="volumeBar-container">
+        <div class="volumeBar">
+            <div class="volumeLevel"></div>
+        </div>
+    </div>
+</div>
+<div class="replay-all-icon" ng-class="{ hide: replay === 'one'}">
+    <div ng-click="replay = 'one'" class=" tooltip-top" data-tooltip="Repeat playlist">
+        <span class="icon-container"><i class="icon-refresh" style="font-weight: bold;"></i></span>
+    </div>
+</div>
+<div class="replay-one-icon tooltip-top" ng-class="{ hide: replay === 'all', active: replay === 'one'}" data-tooltip="Repeat video">
+    <div ng-click="replay = 'all'" >
+        <span class="icon-container"><i class="icon-refresh" style="font-weight: bold;"></i></span>
+        <span style="position: absolute;top: 7px;right: 8px;font-size: 9px;background: rgb(36, 36, 36);">1</span>
+    </div>
+</div>
+<div class="shuffle-icon tooltip-top" data-tooltip="Shuffle" ng-class="{ active: shuffleState }">
+    <span class="icon-container"><i class="icon-shuffle" ng-click="shuffleToggle()" style="font-weight: bold;"></i></span>
+</div>
+<div class="full-screen-icon tooltip-top" data-tooltip="Fullscreen">
+    <span class="icon-container"><i class="icon-size-fullscreen" style="font-weight: bold;"></i></span>
+</div>

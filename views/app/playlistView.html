@@ -1,0 +1,47 @@
+<div class="userPlaylists playlistColumn scrollbar" ng-show="listDisplay == 'playlist'">
+  <div class="addPlaylist">
+    <div class="playlistDetail">
+      <div class="playlistThumbnail"><i class="icon icon-plus"></i></div>
+      <div class="title">
+        <div class="edit">
+          <span class="text">New Playlist</span>
+          <input type="text" class="edit-input" placeholder="New Playlist">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="placeholder" ng-show="playlists.length == 0">
+    <i class="icon icon-playlist"></i>
+    <p>You don't have any playlists. Add one using 'Add a Playlist' above!</p>
+  </div>
+    <ul class="userPlaylist sortable" ng-show="playlists.length > 0">
+        <li class="playlist"
+            ng-repeat="playlist in playlists | searchFor:searchString"
+            ng-class="{active: currentPlaylist._id == playlist._id}"
+            ng-click="previewPlaylist(playlist)"
+            id="{{ playlist._id }}">
+            <div class="playlistDetail">
+                <img class="playlistThumbnail" ng-src="{{ playlist.data[0].snippet.thumbnails.medium.url }}">
+                <div class="title">
+                  <div class="edit">
+                    <span class="text">{{playlist.name}}</span>
+                    <input type="text" class="edit-input" value="{{playlist.name}}">
+                  </div>
+                </div>
+                <div class="duration">{{playlist.data.length}} videos - {{playlist.duration}}</div>
+                <div class="icon-container">
+                  <div class="optionContainer float-right">
+                    <i class="morePlaylistOptions icon icon-options-vertical"></i>
+                    <ul class="dropdown sf-menu-sub" style="display: none;">
+                      <li class="editPlaylist playlist-menu" >Edit Playlist</li>
+                      <li class="playlist-menu" ng-click="removePlaylist(playlist)">Delete Playlist</li>
+                      <li class="copyShareLink playlist-menu" ng-click="copyShareLink(playlist)" data-clipboard-text="{{ hostUrl }}/share/{{ playlist._id }}">Copy Share Link</li>
+                    </ul>
+                </div>
+                  <div class="float-right tooltip-left playPlaylist" ng-class="{active : playlist == playingPlaylist}" ng-click="changePlaylist(playlist)">Play<span>ing</span></div>
+                  <div class="float-right tooltip-left speaker" ng-class="{hide: playlist != playingPlaylist}"><i class="icon icon-volume-2"></i></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+  </div>
